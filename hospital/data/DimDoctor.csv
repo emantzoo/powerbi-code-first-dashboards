@@ -1,0 +1,51 @@
+doctor_id,doctor_name,specialty,department_id,years_experience
+DR001,Dr. Thomas Mitchell,Emergency Medicine,D01,8
+DR002,Dr. Susan Fischer,Cardiology,D02,9
+DR003,Dr. Maria Evans,Orthopedic Surgery,D03,26
+DR004,Dr. Michael Ivanov,Neurology,D04,25
+DR005,Dr. Thomas Quinn,Pediatrics,D05,23
+DR006,Dr. Peter Rodriguez,Oncology,D06,4
+DR007,Dr. Susan Patel,General Surgery,D07,8
+DR008,Dr. Laura Xu,Internal Medicine,D08,21
+DR009,Dr. Mark Garcia,Emergency Medicine,D01,27
+DR010,Dr. Simon Zhang,Cardiology,D02,13
+DR011,Dr. George Mitchell,Orthopedic Surgery,D03,29
+DR012,Dr. Karen Garcia,Neurology,D04,6
+DR013,Dr. Daniel Vasquez,Pediatrics,D05,7
+DR014,Dr. Elena Singh,Oncology,D06,12
+DR015,Dr. Michael Wang,General Surgery,D07,18
+DR016,Dr. Karen Yamamoto,Internal Medicine,D08,4
+DR017,Dr. Rachel Kim,Emergency Medicine,D01,14
+DR018,Dr. Sarah Ivanov,Cardiology,D02,19
+DR019,Dr. James Nakamura,Orthopedic Surgery,D03,8
+DR020,Dr. Jennifer Rodriguez,Neurology,D04,4
+DR021,Dr. Daniel Quinn,Pediatrics,D05,30
+DR022,Dr. Robert Taylor,Oncology,D06,16
+DR023,Dr. Sarah Laurent,General Surgery,D07,6
+DR024,Dr. Robert Wang,Internal Medicine,D08,7
+DR025,Dr. Diana Zhang,Emergency Medicine,D01,16
+DR026,Dr. Susan Fischer,Cardiology,D02,18
+DR027,Dr. Karen Fischer,Orthopedic Surgery,D03,3
+DR028,Dr. Emily Anderson,Neurology,D04,7
+DR029,Dr. Rachel Vasquez,Pediatrics,D05,28
+DR030,Dr. Laura Chen,Oncology,D06,15
+DR031,Dr. Chris Chen,General Surgery,D07,6
+DR032,Dr. Lisa Taylor,Internal Medicine,D08,2
+DR033,Dr. Thomas Kim,Emergency Medicine,D01,6
+DR034,Dr. Andrew Mitchell,Cardiology,D02,8
+DR035,Dr. Simon Zhang,Orthopedic Surgery,D03,3
+DR036,Dr. Chris Garcia,Neurology,D04,16
+DR037,Dr. John Rodriguez,Pediatrics,D05,14
+DR038,Dr. George Yamamoto,Oncology,D06,6
+DR039,Dr. Jennifer Wang,General Surgery,D07,17
+DR040,Dr. Olga Baker,Internal Medicine,D08,6
+DR041,Dr. Diana Wang,Emergency Medicine,D01,21
+DR042,Dr. Paul Xu,Cardiology,D02,6
+DR043,Dr. Susan Nakamura,Orthopedic Surgery,D03,5
+DR044,Dr. Emily Dimitriou,Neurology,D04,6
+DR045,Dr. Lisa Fischer,Pediatrics,D05,7
+DR046,Dr. Laura Evans,Oncology,D06,8
+DR047,Dr. Simon Rodriguez,General Surgery,D07,12
+DR048,Dr. Paul Patel,Internal Medicine,D08,27
+DR049,Dr. Maria Ivanov,Emergency Medicine,D01,5
+DR050,Dr. Elena Laurent,Cardiology,D02,7

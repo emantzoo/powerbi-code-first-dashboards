@@ -1,0 +1,9 @@
+store_id,store_name,channel,region
+S01,Main Website,Online,Global
+S02,Mobile App,Online,Global
+S03,London Flagship,Retail,Europe
+S04,Manchester Store,Retail,Europe
+S05,New York Store,Retail,North America
+S06,LA Pop-Up,Retail,North America
+S07,Sydney Store,Retail,Asia-Pacific
+S08,Marketplace,Online,Global

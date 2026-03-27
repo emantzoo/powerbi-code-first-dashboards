@@ -1,0 +1,6 @@
+warehouse_id,warehouse_name,city,country,latitude,longitude,capacity_units
+WH01,Rotterdam Hub,Rotterdam,Netherlands,51.9225,4.4792,50000
+WH02,Chicago Central,Chicago,USA,41.8781,-87.6298,45000
+WH03,Shanghai Port,Shanghai,China,31.2304,121.4737,60000
+WH04,Sao Paulo Depot,Sao Paulo,Brazil,-23.5505,-46.6333,35000
+WH05,Dubai Logistics,Dubai,UAE,25.2048,55.2708,40000

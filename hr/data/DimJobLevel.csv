@@ -1,0 +1,6 @@
+job_level_id,level_name,salary_band_min,salary_band_max
+JL1,Junior,35000,55000
+JL2,Mid,50000,80000
+JL3,Senior,75000,110000
+JL4,Lead,100000,140000
+JL5,Director,130000,200000

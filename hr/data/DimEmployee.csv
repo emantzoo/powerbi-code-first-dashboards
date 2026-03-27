@@ -1,0 +1,201 @@
+employee_id,employee_name,hire_date,birth_date,gender,education_level,city,department_id,job_level,termination_date,exit_reason
+EMP001,Grace Cox,2021-08-27,1987-04-07,Non-Binary,Bachelor,Portland,DEP06,JL4,2022-10-16,Career Growth
+EMP002,Sophia Rivera,2023-08-13,2001-05-01,Non-Binary,Bachelor,Boston,DEP04,JL2,2024-10-20,Work-Life Balance
+EMP003,Riley Adams,2018-12-24,1980-09-16,Female,PhD,Miami,DEP02,JL3,2020-07-18,Compensation
+EMP004,Quinn Howard,2018-11-09,1990-12-24,Male,Associate,Portland,DEP05,JL3,2023-01-14,Compensation
+EMP005,Owen Davis,2021-01-18,1971-11-25,Female,Master,Denver,DEP08,JL4,2022-03-22,Relocation
+EMP006,Zoe Smith,2023-12-15,1986-04-19,Female,High School,Atlanta,DEP05,JL1,2024-12-17,Work-Life Balance
+EMP007,Morgan Murphy,2022-01-06,1973-02-09,Female,Master,Chicago,DEP04,JL3,2024-02-01,Laid Off
+EMP008,Isla Smith,2019-01-12,1996-08-12,Male,Bachelor,New York,DEP02,JL5,2023-09-25,Personal Reasons
+EMP009,Quinn Lee,2020-09-09,1993-11-15,Male,Bachelor,San Francisco,DEP05,JL2,2023-05-16,Laid Off
+EMP010,Isla Torres,2019-09-03,1996-01-28,Male,Bachelor,Miami,DEP01,JL3,2022-12-23,Personal Reasons
+EMP011,Max Adams,2019-02-27,1967-10-14,Male,Bachelor,New York,DEP07,JL3,2021-03-13,Career Growth
+EMP012,Riley Cook,2019-08-02,1997-02-22,Male,PhD,Denver,DEP01,JL5,2022-12-09,Management
+EMP013,Riley Cooper,2023-06-24,1976-04-27,Male,PhD,Seattle,DEP02,JL2,2024-04-27,Career Growth
+EMP014,Luke Phillips,2023-05-13,1968-07-17,Female,Bachelor,San Francisco,DEP08,JL2,2024-03-18,Personal Reasons
+EMP015,Owen Johnson,2022-01-12,1997-04-27,Female,PhD,San Francisco,DEP01,JL2,2024-02-05,Better Opportunity
+EMP016,Riley Phillips,2019-06-08,1980-03-21,Male,Bachelor,Miami,DEP04,JL5,2020-04-06,Personal Reasons
+EMP017,Layla Wilson,2018-01-21,1993-08-24,Male,Associate,Denver,DEP05,JL5,2024-02-08,Personal Reasons
+EMP018,Casey Brown,2018-06-07,1980-10-09,Female,PhD,Denver,DEP06,JL4,2020-11-17,Compensation
+EMP019,Grace Green,2018-10-21,1985-12-16,Male,Bachelor,Miami,DEP03,JL3,2022-11-29,Relocation
+EMP020,Mason Parker,2024-03-30,1990-07-23,Non-Binary,Bachelor,Portland,DEP02,JL1,2024-12-13,Career Growth
+EMP021,Logan Scott,2020-05-23,1982-06-26,Female,Bachelor,Seattle,DEP03,JL3,2021-10-08,Relocation
+EMP022,Alex Turner,2019-01-21,1967-10-22,Female,Bachelor,Portland,DEP03,JL3,2021-03-03,Work-Life Balance
+EMP023,Grace Bailey,2022-06-27,1994-11-15,Female,Master,Denver,DEP04,JL3,2024-06-30,Relocation
+EMP024,Ella Morgan,2024-03-20,1975-10-25,Female,Bachelor,Miami,DEP03,JL1,2024-12-01,Career Growth
+EMP025,Aria Young,2018-11-10,1972-06-12,Male,Master,Chicago,DEP01,JL4,2020-08-01,Relocation
+EMP026,Harper Wright,2023-07-12,1983-06-12,Male,Master,Atlanta,DEP01,JL2,2024-12-12,Career Growth
+EMP027,Quinn Gray,2023-09-19,1974-04-07,Non-Binary,PhD,San Francisco,DEP04,JL2,2024-04-04,Laid Off
+EMP028,Maya Collins,2022-01-08,1969-08-09,Female,Master,Phoenix,DEP01,JL2,2022-09-23,Management
+EMP029,Aria Phillips,2024-06-18,1992-03-27,Male,Bachelor,San Francisco,DEP01,JL1,2024-12-21,Career Growth
+EMP030,Layla Murphy,2022-02-08,1972-12-22,Male,Bachelor,Denver,DEP04,JL2,2023-04-15,Compensation
+EMP031,Maya Campbell,2019-01-29,1974-03-04,Female,Bachelor,Atlanta,DEP04,JL4,2020-11-17,Career Growth
+EMP032,Sam Moore,2021-07-12,1985-01-02,Female,Master,Los Angeles,DEP02,JL2,2023-06-03,Better Opportunity
+EMP033,Avery Parker,2020-07-23,1967-12-25,Female,Bachelor,Chicago,DEP08,JL3,2022-11-27,Management
+EMP034,Emma Johnson,2023-06-05,1975-03-06,Non-Binary,PhD,Atlanta,DEP08,JL1,2023-12-20,Better Opportunity
+EMP035,Theo Bell,2023-04-01,1969-02-27,Male,PhD,Atlanta,DEP01,JL2,2024-12-11,Compensation
+EMP036,Avery Collins,2020-01-21,1992-03-18,Non-Binary,Bachelor,New York,DEP08,JL4,2024-10-13,Career Growth
+EMP037,Alex Cox,2021-01-08,1971-04-14,Female,PhD,Atlanta,DEP01,JL3,2023-06-03,Work-Life Balance
+EMP038,Zoe Baker,2020-02-03,1996-12-01,Female,Associate,Seattle,DEP07,JL4,2024-07-12,Personal Reasons
+EMP039,Layla Evans,2021-10-23,1980-04-21,Female,Associate,Los Angeles,DEP07,JL3,2024-11-02,Management
+EMP040,Lily Evans,2019-04-25,1965-10-01,Female,Bachelor,Portland,DEP06,JL3,2022-03-01,Compensation
+EMP041,Sam Morris,2023-07-23,1996-12-11,Male,Bachelor,New York,DEP01,JL1,2024-10-12,Management
+EMP042,Ruby Rivera,2018-06-02,1983-07-14,Female,Master,Chicago,DEP01,JL3,2020-08-18,Relocation
+EMP043,Casey Smith,2021-05-21,1971-12-05,Male,Master,Seattle,DEP01,JL4,2024-11-11,Compensation
+EMP044,Nora Bell,2019-08-20,1964-04-24,Male,Bachelor,Phoenix,DEP03,JL5,2024-09-28,Better Opportunity
+EMP045,Ella Clark,2018-06-15,1989-04-10,Male,Bachelor,Denver,DEP07,JL3,2020-01-13,Career Growth
+EMP046,Jordan Phillips,2018-04-23,1978-07-11,Female,Bachelor,San Francisco,DEP02,JL5,2022-01-20,Career Growth
+EMP047,Morgan Howard,2018-03-21,1965-09-16,Female,Bachelor,Seattle,DEP08,JL3,2022-07-23,Personal Reasons
+EMP048,Sam Morris,2024-03-26,1992-10-08,Male,Master,San Francisco,DEP01,JL1,2024-11-23,Better Opportunity
+EMP049,Ben Collins,2018-03-24,1982-07-17,Male,PhD,Portland,DEP01,JL5,2018-10-29,Management
+EMP050,Sam Adams,2022-06-30,1967-10-01,Male,Master,New York,DEP02,JL2,2024-11-27,Personal Reasons
+EMP051,Max Cox,2019-01-17,1967-05-07,Female,Bachelor,Chicago,DEP08,JL4,2021-01-25,Management
+EMP052,Zoe Morris,2022-02-22,1978-10-02,Male,Master,Portland,DEP06,JL1,2023-01-04,Personal Reasons
+EMP053,Harper Morris,2023-08-21,1974-03-26,Male,Bachelor,New York,DEP01,JL2,2024-06-04,Work-Life Balance
+EMP054,Grace Cooper,2020-03-07,1983-07-01,Female,Bachelor,New York,DEP05,JL3,2024-05-11,Laid Off
+EMP055,Grace Hall,2019-10-18,1967-05-01,Male,PhD,Phoenix,DEP04,JL3,2024-06-06,Work-Life Balance
+EMP056,Avery Murphy,2018-02-08,1963-10-08,Male,Associate,Seattle,DEP02,JL3,,
+EMP057,Max Morgan,2023-08-02,1981-05-23,Non-Binary,Associate,New York,DEP03,JL1,,
+EMP058,Layla Morgan,2018-02-01,1995-06-15,Male,PhD,Seattle,DEP02,JL4,,
+EMP059,Taylor Cox,2023-09-20,1974-06-04,Male,Bachelor,Chicago,DEP04,JL1,,
+EMP060,Aria Adams,2023-12-02,1988-10-03,Male,Master,Seattle,DEP04,JL2,,
+EMP061,Quinn Ward,2018-05-29,1972-06-12,Female,Bachelor,Los Angeles,DEP01,JL5,,
+EMP062,Casey Collins,2022-03-13,1973-04-26,Male,Master,New York,DEP01,JL3,,
+EMP063,Taylor Davis,2018-01-05,1994-03-18,Female,Bachelor,Denver,DEP04,JL5,,
+EMP064,Mia Murphy,2019-11-28,1991-05-24,Non-Binary,Bachelor,Chicago,DEP04,JL4,,
+EMP065,Noah Murphy,2023-03-27,1977-09-24,Male,Master,Chicago,DEP05,JL2,,
+EMP066,Ben Bailey,2021-09-15,1982-06-05,Non-Binary,Bachelor,Los Angeles,DEP07,JL3,,
+EMP067,Theo Phillips,2024-01-03,1969-09-06,Female,Master,Miami,DEP07,JL1,,
+EMP068,Owen Campbell,2020-08-04,1981-08-06,Female,Master,San Francisco,DEP03,JL3,,
+EMP069,Sam Howard,2021-03-22,1966-07-08,Female,Master,Atlanta,DEP06,JL3,,
+EMP070,Mason Green,2020-01-04,1990-01-27,Female,Bachelor,Denver,DEP01,JL4,,
+EMP071,Lily Morris,2019-11-04,1974-10-26,Male,PhD,Boston,DEP03,JL3,,
+EMP072,Jack Cook,2023-05-01,1983-05-17,Female,Associate,Denver,DEP01,JL2,,
+EMP073,James Young,2019-02-12,1965-07-28,Male,Bachelor,Chicago,DEP06,JL3,,
+EMP074,Ruby Evans,2024-02-08,1997-07-01,Female,Associate,Boston,DEP01,JL1,,
+EMP075,Chloe Campbell,2022-04-27,1967-03-20,Female,Bachelor,Los Angeles,DEP07,JL3,,
+EMP076,Ella Rivera,2018-10-20,1980-07-03,Male,Bachelor,San Francisco,DEP05,JL5,,
+EMP077,Noah Davis,2021-08-23,1993-04-01,Female,Master,Atlanta,DEP08,JL3,,
+EMP078,Ella Bell,2024-01-12,1984-08-15,Male,Master,Seattle,DEP03,JL1,,
+EMP079,Avery Edwards,2020-07-03,1991-03-05,Male,Master,Atlanta,DEP01,JL3,,
+EMP080,Ruby Campbell,2022-07-23,1991-09-21,Male,Bachelor,Miami,DEP01,JL3,,
+EMP081,Sophia Hill,2021-05-14,1996-01-06,Female,Associate,Chicago,DEP01,JL3,,
+EMP082,Mia Green,2018-01-02,1978-06-28,Female,High School,Austin,DEP07,JL4,,
+EMP083,Emma Hill,2022-06-27,1980-04-21,Male,Bachelor,Chicago,DEP07,JL2,,
+EMP084,Sophia Cox,2020-11-04,1988-11-13,Male,PhD,Los Angeles,DEP04,JL4,,
+EMP085,Quinn Turner,2023-03-15,1983-10-03,Male,Master,New York,DEP04,JL3,,
+EMP086,Nora Brown,2022-03-12,1975-05-14,Female,High School,Los Angeles,DEP02,JL2,,
+EMP087,Max Johnson,2024-01-28,2002-12-16,Male,Associate,Chicago,DEP08,JL2,,
+EMP088,Morgan Phillips,2018-07-06,1986-04-16,Male,PhD,Atlanta,DEP03,JL3,,
+EMP089,Casey Parker,2018-05-15,1989-02-28,Female,Master,Portland,DEP03,JL4,,
+EMP090,Max Cooper,2018-04-01,1991-04-21,Female,Bachelor,Boston,DEP04,JL3,,
+EMP091,Maya Hill,2024-07-15,1996-01-03,Male,Master,Phoenix,DEP07,JL1,,
+EMP092,Mia Howard,2021-03-04,1978-09-15,Male,PhD,Seattle,DEP02,JL3,,
+EMP093,Leo Gray,2018-01-05,1992-10-07,Female,Associate,Los Angeles,DEP03,JL4,,
+EMP094,Lily Gray,2024-07-17,1985-06-14,Male,Master,Atlanta,DEP08,JL2,,
+EMP095,Mia Brown,2022-11-20,1977-10-01,Male,Bachelor,Denver,DEP04,JL2,,
+EMP096,Leo Scott,2018-02-13,1978-12-04,Female,Bachelor,Chicago,DEP07,JL3,,
+EMP097,Emma Johnson,2019-05-10,1990-02-28,Male,Master,Seattle,DEP08,JL4,,
+EMP098,Ethan Edwards,2024-04-10,1995-03-23,Male,Master,Boston,DEP01,JL2,,
+EMP099,Logan Howard,2024-03-14,1972-02-26,Female,Master,Los Angeles,DEP07,JL1,,
+EMP100,Olivia King,2021-02-02,1981-01-15,Female,Associate,Miami,DEP02,JL4,,
+EMP101,Owen Cox,2019-06-03,1968-12-25,Male,Bachelor,Los Angeles,DEP03,JL4,,
+EMP102,Alex Torres,2024-07-27,1971-01-18,Male,Master,Seattle,DEP05,JL2,,
+EMP103,Harper Baker,2018-08-15,1987-12-25,Male,PhD,San Francisco,DEP03,JL4,,
+EMP104,Zoe Parker,2022-08-10,1986-04-06,Female,Master,Portland,DEP01,JL1,,
+EMP105,Zoe Ward,2021-08-18,1981-09-14,Male,Bachelor,Los Angeles,DEP04,JL3,,
+EMP106,Mia Rivera,2023-11-17,1999-06-10,Male,High School,Chicago,DEP01,JL2,,
+EMP107,Quinn Bailey,2021-08-05,1968-05-07,Male,Associate,Miami,DEP07,JL4,,
+EMP108,James King,2024-02-01,1990-01-27,Male,Bachelor,Denver,DEP02,JL2,,
+EMP109,Maya Edwards,2021-08-28,1994-09-09,Male,Bachelor,Chicago,DEP04,JL3,,
+EMP110,Aria Moore,2019-08-19,1990-07-20,Male,Associate,Miami,DEP04,JL4,,
+EMP111,Emma Green,2021-07-27,1999-10-03,Male,Bachelor,Chicago,DEP08,JL2,,
+EMP112,Aria Reed,2024-04-11,2000-01-03,Male,PhD,Atlanta,DEP06,JL1,,
+EMP113,Emma Phillips,2020-08-06,1965-05-26,Male,Bachelor,Los Angeles,DEP01,JL3,,
+EMP114,Avery Clark,2022-02-11,1996-11-15,Male,PhD,New York,DEP03,JL1,,
+EMP115,Quinn Campbell,2023-03-14,1979-06-19,Female,PhD,Chicago,DEP04,JL2,,
+EMP116,Owen Wright,2018-09-11,1970-02-24,Female,Bachelor,Seattle,DEP05,JL3,,
+EMP117,Owen King,2020-12-10,1988-09-15,Female,Bachelor,Boston,DEP03,JL4,,
+EMP118,Isla Stewart,2021-04-21,1978-05-17,Female,Bachelor,Chicago,DEP01,JL3,,
+EMP119,Mia Clark,2021-07-23,1984-01-12,Male,Associate,San Francisco,DEP01,JL4,,
+EMP120,Ella Gray,2023-06-15,1977-12-16,Female,Bachelor,San Francisco,DEP04,JL3,,
+EMP121,Ben Turner,2019-02-28,1966-12-25,Male,Associate,San Francisco,DEP03,JL3,,
+EMP122,Henry King,2019-12-17,1995-09-06,Male,Bachelor,Denver,DEP04,JL5,,
+EMP123,Jack Johnson,2020-04-20,1988-06-01,Female,PhD,Phoenix,DEP01,JL4,,
+EMP124,Sam Bailey,2024-05-15,1981-06-05,Female,Master,New York,DEP07,JL1,,
+EMP125,Ethan Baker,2020-02-13,1988-09-03,Male,Bachelor,New York,DEP03,JL3,,
+EMP126,Mia Murphy,2022-03-01,1968-12-27,Female,Bachelor,Atlanta,DEP04,JL3,,
+EMP127,Henry Young,2018-12-23,1987-11-24,Female,Associate,Portland,DEP03,JL5,,
+EMP128,Taylor Phillips,2021-12-06,1974-09-24,Male,Master,Seattle,DEP04,JL3,,
+EMP129,Jack Morgan,2020-08-20,1972-02-06,Female,Bachelor,Austin,DEP04,JL4,,
+EMP130,Lily Evans,2020-06-15,1996-09-13,Female,Bachelor,Phoenix,DEP01,JL4,,
+EMP131,Noah Scott,2020-09-26,1995-03-10,Male,Master,Boston,DEP06,JL3,,
+EMP132,Taylor Rivera,2022-04-06,1970-12-04,Female,PhD,Boston,DEP01,JL3,,
+EMP133,Grace Gray,2018-09-04,1989-12-08,Female,Bachelor,Atlanta,DEP01,JL4,,
+EMP134,Mia Davis,2023-06-24,1983-09-07,Male,Master,Seattle,DEP02,JL3,,
+EMP135,Emma Richardson,2022-06-09,1986-06-08,Female,Master,Miami,DEP06,JL3,,
+EMP136,Maya Cooper,2023-06-15,1979-03-21,Non-Binary,Bachelor,New York,DEP06,JL2,,
+EMP137,Lily Rivera,2019-06-15,1986-02-07,Female,Bachelor,Atlanta,DEP01,JL3,,
+EMP138,Grace Phillips,2021-06-26,1972-06-18,Male,Bachelor,Miami,DEP01,JL4,,
+EMP139,Ben Collins,2024-06-24,1969-11-16,Female,PhD,Portland,DEP03,JL1,,
+EMP140,Lily Bailey,2020-09-12,1980-05-15,Male,Bachelor,Austin,DEP03,JL3,,
+EMP141,Taylor Campbell,2023-12-08,1978-04-27,Female,Bachelor,Portland,DEP07,JL1,,
+EMP142,Ben Brown,2020-04-24,1981-12-12,Female,Associate,Chicago,DEP02,JL3,,
+EMP143,Henry Murphy,2019-01-12,1968-06-02,Male,Associate,Atlanta,DEP02,JL3,,
+EMP144,Luke Clark,2019-06-15,1974-01-03,Male,Master,Atlanta,DEP04,JL4,,
+EMP145,Alex Evans,2024-03-21,1986-08-08,Male,Bachelor,Denver,DEP04,JL1,,
+EMP146,Layla Parker,2020-04-15,1981-06-24,Male,Master,Seattle,DEP08,JL3,,
+EMP147,Mia Rivera,2018-06-20,1989-06-11,Male,Bachelor,Atlanta,DEP04,JL5,,
+EMP148,Ella Lee,2019-11-02,1969-12-18,Female,High School,Chicago,DEP01,JL3,,
+EMP149,Leo King,2024-05-16,1994-12-15,Female,Master,San Francisco,DEP04,JL1,,
+EMP150,Sam Moore,2019-01-26,1967-04-27,Female,High School,Denver,DEP03,JL4,,
+EMP151,Harper Reed,2021-08-19,1972-07-14,Male,Bachelor,Denver,DEP01,JL4,,
+EMP152,Max Richardson,2020-02-09,1997-08-13,Male,Bachelor,Chicago,DEP04,JL4,,
+EMP153,Ruby Lee,2024-07-18,1990-06-09,Male,Master,Phoenix,DEP07,JL1,,
+EMP154,Chloe Hall,2021-10-10,1974-07-27,Non-Binary,Bachelor,Chicago,DEP08,JL4,,
+EMP155,Nora Murphy,2024-07-10,1995-06-24,Male,Bachelor,Seattle,DEP02,JL1,,
+EMP156,Lily Baker,2023-08-16,1986-05-09,Male,Master,Denver,DEP02,JL1,,
+EMP157,Ethan Parker,2018-02-06,1967-01-05,Female,Bachelor,Denver,DEP06,JL4,,
+EMP158,Lily Reed,2020-02-18,1971-05-01,Male,Bachelor,Phoenix,DEP04,JL3,,
+EMP159,Theo Evans,2019-03-24,1970-01-11,Female,Master,San Francisco,DEP03,JL4,,
+EMP160,Liam Hall,2020-12-12,1994-03-17,Female,PhD,Miami,DEP08,JL4,,
+EMP161,Theo Lee,2018-01-03,1966-03-08,Female,Master,Portland,DEP06,JL3,,
+EMP162,Jack Morgan,2022-02-13,1979-09-06,Male,Bachelor,New York,DEP02,JL2,,
+EMP163,Ella Brown,2021-01-23,1974-06-25,Female,Bachelor,Boston,DEP01,JL4,,
+EMP164,Mason Collins,2023-06-28,1974-03-19,Male,PhD,Chicago,DEP05,JL3,,
+EMP165,Olivia Lee,2018-06-21,1972-05-22,Female,High School,Miami,DEP07,JL5,,
+EMP166,Owen Howard,2022-02-11,1970-05-28,Female,Associate,Miami,DEP05,JL2,,
+EMP167,Maya Lee,2018-03-28,1964-04-03,Male,Bachelor,New York,DEP04,JL4,,
+EMP168,Noah Wilson,2020-12-20,1973-02-17,Male,Bachelor,Austin,DEP02,JL4,,
+EMP169,Owen Collins,2018-12-22,1971-10-11,Male,Bachelor,Boston,DEP05,JL3,,
+EMP170,Luke Collins,2024-05-16,1992-07-18,Male,Bachelor,Austin,DEP01,JL2,,
+EMP171,Sophia Green,2018-10-28,1972-10-01,Female,Associate,Austin,DEP03,JL4,,
+EMP172,Jordan Torres,2020-07-27,1971-06-04,Female,Master,Boston,DEP01,JL4,,
+EMP173,Ben Campbell,2018-08-04,1985-01-02,Female,Bachelor,Los Angeles,DEP01,JL3,,
+EMP174,Liam Lee,2018-06-13,1972-08-04,Male,Bachelor,Portland,DEP03,JL3,,
+EMP175,Ethan Clark,2021-05-21,1969-10-10,Male,Associate,Phoenix,DEP05,JL3,,
+EMP176,Riley Evans,2019-03-29,1979-09-19,Female,Bachelor,Chicago,DEP05,JL3,,
+EMP177,Alex Young,2018-10-30,1963-06-23,Female,Bachelor,New York,DEP02,JL3,,
+EMP178,Luke Rivera,2018-06-30,1972-11-15,Female,Master,Portland,DEP05,JL3,,
+EMP179,Liam Morgan,2022-12-04,1983-11-18,Female,Associate,Los Angeles,DEP06,JL3,,
+EMP180,Alex Smith,2022-11-13,1989-01-20,Male,Master,New York,DEP04,JL3,,
+EMP181,Jordan Howard,2024-07-23,1987-11-08,Female,High School,Atlanta,DEP03,JL1,,
+EMP182,Morgan Phillips,2023-11-22,1977-06-23,Female,Bachelor,Denver,DEP02,JL2,,
+EMP183,Quinn Moore,2018-10-17,1977-09-05,Male,Bachelor,Los Angeles,DEP03,JL5,,
+EMP184,Leo Cox,2022-06-21,1992-06-21,Male,High School,Phoenix,DEP07,JL2,,
+EMP185,Layla Davis,2021-04-17,1989-02-07,Male,Master,Miami,DEP01,JL4,,
+EMP186,Morgan Morgan,2023-08-20,1984-06-15,Female,Master,Portland,DEP03,JL2,,
+EMP187,Alex Ward,2024-07-03,1978-03-21,Female,Bachelor,Denver,DEP04,JL1,,
+EMP188,Harper Green,2018-01-01,1994-11-23,Female,Master,Atlanta,DEP08,JL4,,
+EMP189,Theo Cox,2022-09-13,2000-04-15,Female,PhD,Denver,DEP08,JL2,,
+EMP190,Luke Reed,2020-04-12,1967-01-16,Male,Master,Chicago,DEP07,JL4,,
+EMP191,Chloe Gray,2018-09-11,1967-01-08,Male,Master,Atlanta,DEP03,JL4,,
+EMP192,Harper Reed,2019-07-18,1974-03-04,Male,Bachelor,Los Angeles,DEP04,JL5,,
+EMP193,Lily Wright,2018-12-27,1978-05-24,Male,PhD,Chicago,DEP01,JL3,,
+EMP194,Layla Adams,2022-10-15,1978-07-10,Female,Master,Austin,DEP03,JL3,,
+EMP195,Ethan Lee,2019-01-24,1987-04-22,Female,Bachelor,Chicago,DEP01,JL5,,
+EMP196,Emma Adams,2024-07-19,1990-03-11,Female,Bachelor,Miami,DEP07,JL1,,
+EMP197,Leo Morris,2023-12-05,1979-06-25,Male,Bachelor,Chicago,DEP01,JL1,,
+EMP198,Theo Edwards,2023-02-14,1972-02-23,Male,Bachelor,San Francisco,DEP07,JL2,,
+EMP199,Aria Lee,2020-12-09,1977-12-06,Female,Master,Portland,DEP03,JL4,,
+EMP200,Ben Baker,2019-12-07,1992-02-15,Female,Master,San Francisco,DEP01,JL3,,

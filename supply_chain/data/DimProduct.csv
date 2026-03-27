@@ -1,0 +1,101 @@
+product_id,product_name,category,subcategory,unit_weight_kg,is_perishable
+SKU0001,Steel Sheets Grade-A,Raw Materials,Steel Sheets,4.7,Yes
+SKU0002,Steel Sheets Grade-B,Raw Materials,Steel Sheets,48.6,No
+SKU0003,Steel Sheets Grade-C,Raw Materials,Steel Sheets,24.2,Yes
+SKU0004,Steel Sheets Grade-D,Raw Materials,Steel Sheets,12.2,No
+SKU0005,Steel Sheets Grade-E,Raw Materials,Steel Sheets,26.6,No
+SKU0006,Aluminum Rods Grade-A,Raw Materials,Aluminum Rods,14.3,No
+SKU0007,Aluminum Rods Grade-B,Raw Materials,Aluminum Rods,43.1,No
+SKU0008,Aluminum Rods Grade-C,Raw Materials,Aluminum Rods,2.2,No
+SKU0009,Aluminum Rods Grade-D,Raw Materials,Aluminum Rods,5.5,No
+SKU0010,Aluminum Rods Grade-E,Raw Materials,Aluminum Rods,38.4,No
+SKU0011,Copper Wire Grade-A,Raw Materials,Copper Wire,2.7,No
+SKU0012,Copper Wire Grade-B,Raw Materials,Copper Wire,38.8,No
+SKU0013,Copper Wire Grade-C,Raw Materials,Copper Wire,0.6,No
+SKU0014,Copper Wire Grade-D,Raw Materials,Copper Wire,31.0,No
+SKU0015,Copper Wire Grade-E,Raw Materials,Copper Wire,41.0,No
+SKU0016,Plastic Pellets Grade-A,Raw Materials,Plastic Pellets,44.9,No
+SKU0017,Plastic Pellets Grade-B,Raw Materials,Plastic Pellets,49.3,No
+SKU0018,Plastic Pellets Grade-C,Raw Materials,Plastic Pellets,24.9,No
+SKU0019,Plastic Pellets Grade-D,Raw Materials,Plastic Pellets,17.7,No
+SKU0020,Plastic Pellets Grade-E,Raw Materials,Plastic Pellets,43.4,Yes
+SKU0021,Rubber Sheets Grade-A,Raw Materials,Rubber Sheets,19.9,No
+SKU0022,Rubber Sheets Grade-B,Raw Materials,Rubber Sheets,32.2,No
+SKU0023,Rubber Sheets Grade-C,Raw Materials,Rubber Sheets,1.1,No
+SKU0024,Rubber Sheets Grade-D,Raw Materials,Rubber Sheets,40.4,No
+SKU0025,Rubber Sheets Grade-E,Raw Materials,Rubber Sheets,21.5,Yes
+SKU0026,Circuit Boards Grade-A,Components,Circuit Boards,28.0,No
+SKU0027,Circuit Boards Grade-B,Components,Circuit Boards,39.0,No
+SKU0028,Circuit Boards Grade-C,Components,Circuit Boards,20.2,No
+SKU0029,Circuit Boards Grade-D,Components,Circuit Boards,45.4,No
+SKU0030,Circuit Boards Grade-E,Components,Circuit Boards,32.5,No
+SKU0031,Bearings Grade-A,Components,Bearings,36.4,No
+SKU0032,Bearings Grade-B,Components,Bearings,39.0,No
+SKU0033,Bearings Grade-C,Components,Bearings,17.6,No
+SKU0034,Bearings Grade-D,Components,Bearings,1.1,No
+SKU0035,Bearings Grade-E,Components,Bearings,18.0,No
+SKU0036,Fasteners Grade-A,Components,Fasteners,15.2,No
+SKU0037,Fasteners Grade-B,Components,Fasteners,46.0,No
+SKU0038,Fasteners Grade-C,Components,Fasteners,12.7,No
+SKU0039,Fasteners Grade-D,Components,Fasteners,12.1,No
+SKU0040,Fasteners Grade-E,Components,Fasteners,45.5,No
+SKU0041,Gaskets Grade-A,Components,Gaskets,38.9,No
+SKU0042,Gaskets Grade-B,Components,Gaskets,21.5,No
+SKU0043,Gaskets Grade-C,Components,Gaskets,46.1,No
+SKU0044,Gaskets Grade-D,Components,Gaskets,35.4,No
+SKU0045,Gaskets Grade-E,Components,Gaskets,3.7,No
+SKU0046,Sensors Grade-A,Components,Sensors,16.2,No
+SKU0047,Sensors Grade-B,Components,Sensors,42.3,No
+SKU0048,Sensors Grade-C,Components,Sensors,31.8,No
+SKU0049,Sensors Grade-D,Components,Sensors,30.8,No
+SKU0050,Sensors Grade-E,Components,Sensors,40.4,No
+SKU0051,Microchips Grade-A,Electronics,Microchips,31.9,No
+SKU0052,Microchips Grade-B,Electronics,Microchips,13.4,No
+SKU0053,Microchips Grade-C,Electronics,Microchips,19.3,No
+SKU0054,Microchips Grade-D,Electronics,Microchips,17.3,No
+SKU0055,Microchips Grade-E,Electronics,Microchips,10.1,No
+SKU0056,Capacitors Grade-A,Electronics,Capacitors,13.1,No
+SKU0057,Capacitors Grade-B,Electronics,Capacitors,33.7,No
+SKU0058,Capacitors Grade-C,Electronics,Capacitors,42.4,No
+SKU0059,Capacitors Grade-D,Electronics,Capacitors,10.2,No
+SKU0060,Capacitors Grade-E,Electronics,Capacitors,38.6,No
+SKU0061,Resistors Grade-A,Electronics,Resistors,41.6,No
+SKU0062,Resistors Grade-B,Electronics,Resistors,27.0,No
+SKU0063,Resistors Grade-C,Electronics,Resistors,18.7,No
+SKU0064,Resistors Grade-D,Electronics,Resistors,10.2,No
+SKU0065,Resistors Grade-E,Electronics,Resistors,9.5,No
+SKU0066,LED Modules Grade-A,Electronics,LED Modules,16.3,No
+SKU0067,LED Modules Grade-B,Electronics,LED Modules,3.7,No
+SKU0068,LED Modules Grade-C,Electronics,LED Modules,9.7,No
+SKU0069,LED Modules Grade-D,Electronics,LED Modules,45.9,No
+SKU0070,LED Modules Grade-E,Electronics,LED Modules,30.7,No
+SKU0071,Connectors Grade-A,Electronics,Connectors,2.0,No
+SKU0072,Connectors Grade-B,Electronics,Connectors,13.8,No
+SKU0073,Connectors Grade-C,Electronics,Connectors,36.2,No
+SKU0074,Connectors Grade-D,Electronics,Connectors,46.7,No
+SKU0075,Connectors Grade-E,Electronics,Connectors,20.0,No
+SKU0076,Cardboard Boxes Grade-A,Packaging,Cardboard Boxes,35.9,No
+SKU0077,Cardboard Boxes Grade-B,Packaging,Cardboard Boxes,40.8,No
+SKU0078,Cardboard Boxes Grade-C,Packaging,Cardboard Boxes,1.6,No
+SKU0079,Cardboard Boxes Grade-D,Packaging,Cardboard Boxes,41.4,No
+SKU0080,Cardboard Boxes Grade-E,Packaging,Cardboard Boxes,24.0,No
+SKU0081,Bubble Wrap Grade-A,Packaging,Bubble Wrap,14.1,No
+SKU0082,Bubble Wrap Grade-B,Packaging,Bubble Wrap,29.7,No
+SKU0083,Bubble Wrap Grade-C,Packaging,Bubble Wrap,3.3,No
+SKU0084,Bubble Wrap Grade-D,Packaging,Bubble Wrap,8.4,No
+SKU0085,Bubble Wrap Grade-E,Packaging,Bubble Wrap,26.7,No
+SKU0086,Pallets Grade-A,Packaging,Pallets,29.2,No
+SKU0087,Pallets Grade-B,Packaging,Pallets,11.3,No
+SKU0088,Pallets Grade-C,Packaging,Pallets,37.3,No
+SKU0089,Pallets Grade-D,Packaging,Pallets,38.3,No
+SKU0090,Pallets Grade-E,Packaging,Pallets,17.8,No
+SKU0091,Shrink Film Grade-A,Packaging,Shrink Film,29.8,No
+SKU0092,Shrink Film Grade-B,Packaging,Shrink Film,49.0,No
+SKU0093,Shrink Film Grade-C,Packaging,Shrink Film,14.6,No
+SKU0094,Shrink Film Grade-D,Packaging,Shrink Film,31.3,No
+SKU0095,Shrink Film Grade-E,Packaging,Shrink Film,16.0,No
+SKU0096,Labels Grade-A,Packaging,Labels,46.2,No
+SKU0097,Labels Grade-B,Packaging,Labels,23.3,No
+SKU0098,Labels Grade-C,Packaging,Labels,43.0,No
+SKU0099,Labels Grade-D,Packaging,Labels,9.2,No
+SKU0100,Labels Grade-E,Packaging,Labels,14.3,No

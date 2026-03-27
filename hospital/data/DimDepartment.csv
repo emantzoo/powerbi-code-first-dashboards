@@ -1,0 +1,9 @@
+department_id,department_name,floor,bed_capacity
+D01,Emergency,1,40
+D02,Cardiology,3,30
+D03,Orthopedics,4,25
+D04,Neurology,5,20
+D05,Pediatrics,2,35
+D06,Oncology,6,22
+D07,General Surgery,3,28
+D08,Internal Medicine,2,32

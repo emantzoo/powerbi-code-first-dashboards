@@ -1,0 +1,11 @@
+supplier_id,supplier_name,country,city,latitude,longitude,lead_time_days,reliability_rating
+SUP01,EuroComponents GmbH,Germany,Munich,48.1351,11.582,14,4.5
+SUP02,Pacific Manufacturing,China,Shenzhen,22.5431,114.0579,35,3.8
+SUP03,AmeriSteel Corp,USA,Pittsburgh,40.4406,-79.9959,7,4.2
+SUP04,Nordic Materials,Sweden,Gothenburg,57.7089,11.9746,12,4.7
+SUP05,IndoTech Solutions,India,Mumbai,19.076,72.8777,28,3.5
+SUP06,LatAm Plastics,Mexico,Monterrey,25.6866,-100.3161,10,3.9
+SUP07,UK Precision Ltd,UK,Birmingham,52.4862,-1.8904,9,4.3
+SUP08,Tokyo Electronics,Japan,Tokyo,35.6762,139.6503,21,4.8
+SUP09,Aussie Raw Materials,Australia,Melbourne,-37.8136,144.9631,30,4.0
+SUP10,TurkParts AS,Turkey,Istanbul,41.0082,28.9784,16,3.6

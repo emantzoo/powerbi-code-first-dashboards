@@ -1,0 +1,151 @@
+product_id,product_name,category,subcategory,brand,cost_price
+P0001,TechPro Smartphones A,Electronics,Smartphones,TechPro,190.4
+P0002,NovaByte Smartphones B,Electronics,Smartphones,NovaByte,475.6
+P0003,PixelEdge Smartphones C,Electronics,Smartphones,PixelEdge,367.34
+P0004,SoundWave Smartphones D,Electronics,Smartphones,SoundWave,301.34
+P0005,VoltLine Smartphones E,Electronics,Smartphones,VoltLine,82.23
+P0006,TechPro Smartphones F,Electronics,Smartphones,TechPro,82.22
+P0007,TechPro Laptops A,Electronics,Laptops,TechPro,33.75
+P0008,NovaByte Laptops B,Electronics,Laptops,NovaByte,433.76
+P0009,PixelEdge Laptops C,Electronics,Laptops,PixelEdge,302.55
+P0010,SoundWave Laptops D,Electronics,Laptops,SoundWave,355.5
+P0011,VoltLine Laptops E,Electronics,Laptops,VoltLine,15.19
+P0012,TechPro Laptops F,Electronics,Laptops,TechPro,485.11
+P0013,TechPro Tablets A,Electronics,Tablets,TechPro,417.06
+P0014,NovaByte Tablets B,Electronics,Tablets,NovaByte,110.11
+P0015,PixelEdge Tablets C,Electronics,Tablets,PixelEdge,95.0
+P0016,SoundWave Tablets D,Electronics,Tablets,SoundWave,95.79
+P0017,VoltLine Tablets E,Electronics,Tablets,VoltLine,155.6
+P0018,TechPro Tablets F,Electronics,Tablets,TechPro,264.75
+P0019,TechPro Headphones A,Electronics,Headphones,TechPro,218.81
+P0020,NovaByte Headphones B,Electronics,Headphones,NovaByte,149.16
+P0021,PixelEdge Headphones C,Electronics,Headphones,PixelEdge,307.87
+P0022,SoundWave Headphones D,Electronics,Headphones,SoundWave,74.05
+P0023,VoltLine Headphones E,Electronics,Headphones,VoltLine,149.61
+P0024,TechPro Headphones F,Electronics,Headphones,TechPro,186.35
+P0025,TechPro Cameras A,Electronics,Cameras,TechPro,230.75
+P0026,NovaByte Cameras B,Electronics,Cameras,NovaByte,393.66
+P0027,PixelEdge Cameras C,Electronics,Cameras,PixelEdge,103.84
+P0028,SoundWave Cameras D,Electronics,Cameras,SoundWave,259.55
+P0029,VoltLine Cameras E,Electronics,Cameras,VoltLine,298.25
+P0030,TechPro Cameras F,Electronics,Cameras,TechPro,27.99
+P0031,UrbanThread Men's Shirts A,Clothing,Men's Shirts,UrbanThread,92.31
+P0032,PrimeFit Men's Shirts B,Clothing,Men's Shirts,PrimeFit,28.07
+P0033,LuxWear Men's Shirts C,Clothing,Men's Shirts,LuxWear,12.56
+P0034,StreetVibe Men's Shirts D,Clothing,Men's Shirts,StreetVibe,142.49
+P0035,ClassicCo Men's Shirts E,Clothing,Men's Shirts,ClassicCo,144.95
+P0036,UrbanThread Men's Shirts F,Clothing,Men's Shirts,UrbanThread,121.83
+P0037,UrbanThread Women's Dresses A,Clothing,Women's Dresses,UrbanThread,47.78
+P0038,PrimeFit Women's Dresses B,Clothing,Women's Dresses,PrimeFit,17.36
+P0039,LuxWear Women's Dresses C,Clothing,Women's Dresses,LuxWear,103.58
+P0040,StreetVibe Women's Dresses D,Clothing,Women's Dresses,StreetVibe,67.7
+P0041,ClassicCo Women's Dresses E,Clothing,Women's Dresses,ClassicCo,20.94
+P0042,UrbanThread Women's Dresses F,Clothing,Women's Dresses,UrbanThread,75.79
+P0043,UrbanThread Jackets A,Clothing,Jackets,UrbanThread,8.06
+P0044,PrimeFit Jackets B,Clothing,Jackets,PrimeFit,136.67
+P0045,LuxWear Jackets C,Clothing,Jackets,LuxWear,41.04
+P0046,StreetVibe Jackets D,Clothing,Jackets,StreetVibe,100.39
+P0047,ClassicCo Jackets E,Clothing,Jackets,ClassicCo,48.82
+P0048,UrbanThread Jackets F,Clothing,Jackets,UrbanThread,79.45
+P0049,UrbanThread Shoes A,Clothing,Shoes,UrbanThread,83.37
+P0050,PrimeFit Shoes B,Clothing,Shoes,PrimeFit,30.17
+P0051,LuxWear Shoes C,Clothing,Shoes,LuxWear,145.53
+P0052,StreetVibe Shoes D,Clothing,Shoes,StreetVibe,116.94
+P0053,ClassicCo Shoes E,Clothing,Shoes,ClassicCo,141.11
+P0054,UrbanThread Shoes F,Clothing,Shoes,UrbanThread,134.54
+P0055,UrbanThread Accessories A,Clothing,Accessories,UrbanThread,90.89
+P0056,PrimeFit Accessories B,Clothing,Accessories,PrimeFit,138.52
+P0057,LuxWear Accessories C,Clothing,Accessories,LuxWear,16.01
+P0058,StreetVibe Accessories D,Clothing,Accessories,StreetVibe,31.81
+P0059,ClassicCo Accessories E,Clothing,Accessories,ClassicCo,9.65
+P0060,UrbanThread Accessories F,Clothing,Accessories,UrbanThread,50.82
+P0061,HomeNest Furniture A,Home & Garden,Furniture,HomeNest,60.14
+P0062,GreenSpace Furniture B,Home & Garden,Furniture,GreenSpace,42.89
+P0063,CraftHaus Furniture C,Home & Garden,Furniture,CraftHaus,124.82
+P0064,CozyLiving Furniture D,Home & Garden,Furniture,CozyLiving,55.44
+P0065,BuildRight Furniture E,Home & Garden,Furniture,BuildRight,44.3
+P0066,HomeNest Furniture F,Home & Garden,Furniture,HomeNest,82.78
+P0067,HomeNest Kitchen A,Home & Garden,Kitchen,HomeNest,23.72
+P0068,GreenSpace Kitchen B,Home & Garden,Kitchen,GreenSpace,120.92
+P0069,CraftHaus Kitchen C,Home & Garden,Kitchen,CraftHaus,13.96
+P0070,CozyLiving Kitchen D,Home & Garden,Kitchen,CozyLiving,148.07
+P0071,BuildRight Kitchen E,Home & Garden,Kitchen,BuildRight,116.52
+P0072,HomeNest Kitchen F,Home & Garden,Kitchen,HomeNest,32.21
+P0073,HomeNest Lighting A,Home & Garden,Lighting,HomeNest,3.81
+P0074,GreenSpace Lighting B,Home & Garden,Lighting,GreenSpace,122.87
+P0075,CraftHaus Lighting C,Home & Garden,Lighting,CraftHaus,106.91
+P0076,CozyLiving Lighting D,Home & Garden,Lighting,CozyLiving,110.16
+P0077,BuildRight Lighting E,Home & Garden,Lighting,BuildRight,116.38
+P0078,HomeNest Lighting F,Home & Garden,Lighting,HomeNest,13.88
+P0079,HomeNest Bedding A,Home & Garden,Bedding,HomeNest,55.69
+P0080,GreenSpace Bedding B,Home & Garden,Bedding,GreenSpace,20.03
+P0081,CraftHaus Bedding C,Home & Garden,Bedding,CraftHaus,129.88
+P0082,CozyLiving Bedding D,Home & Garden,Bedding,CozyLiving,94.62
+P0083,BuildRight Bedding E,Home & Garden,Bedding,BuildRight,51.64
+P0084,HomeNest Bedding F,Home & Garden,Bedding,HomeNest,12.34
+P0085,HomeNest Tools A,Home & Garden,Tools,HomeNest,48.71
+P0086,GreenSpace Tools B,Home & Garden,Tools,GreenSpace,50.8
+P0087,CraftHaus Tools C,Home & Garden,Tools,CraftHaus,110.25
+P0088,CozyLiving Tools D,Home & Garden,Tools,CozyLiving,96.72
+P0089,BuildRight Tools E,Home & Garden,Tools,BuildRight,133.42
+P0090,HomeNest Tools F,Home & Garden,Tools,HomeNest,72.42
+P0091,PeakRun Fitness Equipment A,Sports,Fitness Equipment,PeakRun,20.58
+P0092,IronCore Fitness Equipment B,Sports,Fitness Equipment,IronCore,107.85
+P0093,TrailBlaze Fitness Equipment C,Sports,Fitness Equipment,TrailBlaze,114.84
+P0094,FlexMove Fitness Equipment D,Sports,Fitness Equipment,FlexMove,85.51
+P0095,ActiveEdge Fitness Equipment E,Sports,Fitness Equipment,ActiveEdge,116.33
+P0096,PeakRun Fitness Equipment F,Sports,Fitness Equipment,PeakRun,75.59
+P0097,PeakRun Outdoor Gear A,Sports,Outdoor Gear,PeakRun,79.84
+P0098,IronCore Outdoor Gear B,Sports,Outdoor Gear,IronCore,65.85
+P0099,TrailBlaze Outdoor Gear C,Sports,Outdoor Gear,TrailBlaze,6.74
+P0100,FlexMove Outdoor Gear D,Sports,Outdoor Gear,FlexMove,18.86
+P0101,ActiveEdge Outdoor Gear E,Sports,Outdoor Gear,ActiveEdge,7.62
+P0102,PeakRun Outdoor Gear F,Sports,Outdoor Gear,PeakRun,96.55
+P0103,PeakRun Sportswear A,Sports,Sportswear,PeakRun,49.21
+P0104,IronCore Sportswear B,Sports,Sportswear,IronCore,77.76
+P0105,TrailBlaze Sportswear C,Sports,Sportswear,TrailBlaze,136.41
+P0106,FlexMove Sportswear D,Sports,Sportswear,FlexMove,39.65
+P0107,ActiveEdge Sportswear E,Sports,Sportswear,ActiveEdge,63.33
+P0108,PeakRun Sportswear F,Sports,Sportswear,PeakRun,114.07
+P0109,PeakRun Footwear A,Sports,Footwear,PeakRun,36.63
+P0110,IronCore Footwear B,Sports,Footwear,IronCore,14.32
+P0111,TrailBlaze Footwear C,Sports,Footwear,TrailBlaze,45.59
+P0112,FlexMove Footwear D,Sports,Footwear,FlexMove,26.7
+P0113,ActiveEdge Footwear E,Sports,Footwear,ActiveEdge,139.67
+P0114,PeakRun Footwear F,Sports,Footwear,PeakRun,121.79
+P0115,PeakRun Accessories A,Sports,Accessories,PeakRun,96.11
+P0116,IronCore Accessories B,Sports,Accessories,IronCore,131.1
+P0117,TrailBlaze Accessories C,Sports,Accessories,TrailBlaze,121.14
+P0118,FlexMove Accessories D,Sports,Accessories,FlexMove,30.43
+P0119,ActiveEdge Accessories E,Sports,Accessories,ActiveEdge,134.21
+P0120,PeakRun Accessories F,Sports,Accessories,PeakRun,82.28
+P0121,PageTurn Fiction A,Books & Media,Fiction,PageTurn,121.69
+P0122,MindPress Fiction B,Books & Media,Fiction,MindPress,134.73
+P0123,EchoBooks Fiction C,Books & Media,Fiction,EchoBooks,49.75
+P0124,InkWell Fiction D,Books & Media,Fiction,InkWell,19.18
+P0125,ReadMore Fiction E,Books & Media,Fiction,ReadMore,36.51
+P0126,PageTurn Fiction F,Books & Media,Fiction,PageTurn,65.78
+P0127,PageTurn Non-Fiction A,Books & Media,Non-Fiction,PageTurn,123.25
+P0128,MindPress Non-Fiction B,Books & Media,Non-Fiction,MindPress,129.53
+P0129,EchoBooks Non-Fiction C,Books & Media,Non-Fiction,EchoBooks,4.02
+P0130,InkWell Non-Fiction D,Books & Media,Non-Fiction,InkWell,78.08
+P0131,ReadMore Non-Fiction E,Books & Media,Non-Fiction,ReadMore,64.36
+P0132,PageTurn Non-Fiction F,Books & Media,Non-Fiction,PageTurn,35.65
+P0133,PageTurn Audiobooks A,Books & Media,Audiobooks,PageTurn,20.62
+P0134,MindPress Audiobooks B,Books & Media,Audiobooks,MindPress,52.63
+P0135,EchoBooks Audiobooks C,Books & Media,Audiobooks,EchoBooks,141.61
+P0136,InkWell Audiobooks D,Books & Media,Audiobooks,InkWell,50.51
+P0137,ReadMore Audiobooks E,Books & Media,Audiobooks,ReadMore,79.26
+P0138,PageTurn Audiobooks F,Books & Media,Audiobooks,PageTurn,106.34
+P0139,PageTurn E-books A,Books & Media,E-books,PageTurn,56.45
+P0140,MindPress E-books B,Books & Media,E-books,MindPress,145.85
+P0141,EchoBooks E-books C,Books & Media,E-books,EchoBooks,144.48
+P0142,InkWell E-books D,Books & Media,E-books,InkWell,40.01
+P0143,ReadMore E-books E,Books & Media,E-books,ReadMore,76.1
+P0144,PageTurn E-books F,Books & Media,E-books,PageTurn,47.23
+P0145,PageTurn Magazines A,Books & Media,Magazines,PageTurn,44.87
+P0146,MindPress Magazines B,Books & Media,Magazines,MindPress,8.42
+P0147,EchoBooks Magazines C,Books & Media,Magazines,EchoBooks,92.61
+P0148,InkWell Magazines D,Books & Media,Magazines,InkWell,76.89
+P0149,ReadMore Magazines E,Books & Media,Magazines,ReadMore,10.57
+P0150,PageTurn Magazines F,Books & Media,Magazines,PageTurn,43.96

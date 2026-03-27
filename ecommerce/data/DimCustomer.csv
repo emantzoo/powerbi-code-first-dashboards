@@ -1,0 +1,801 @@
+customer_id,customer_name,email,segment,city,country,registration_date
+C0001,Leo Lee,customer1@example.com,B2C,New York,USA,2022-01-26
+C0002,Morgan Parker,customer2@example.com,B2C,Los Angeles,USA,2024-01-25
+C0003,Ella Baker,customer3@example.com,B2C,Amsterdam,Netherlands,2022-03-31
+C0004,Avery Scott,customer4@example.com,B2C,Birmingham,UK,2022-08-12
+C0005,Aria Campbell,customer5@example.com,B2C,Amsterdam,Netherlands,2022-07-23
+C0006,Olivia Turner,customer6@example.com,B2C,Sydney,Australia,2022-08-14
+C0007,Ben Moore,customer7@example.com,B2C,London,UK,2024-02-17
+C0008,Casey Clark,customer8@example.com,B2B,Lyon,France,2022-10-12
+C0009,Taylor Adams,customer9@example.com,B2C,Lyon,France,2022-04-15
+C0010,Harper Morris,customer10@example.com,B2C,Athens,Greece,2023-09-11
+C0011,Morgan Bell,customer11@example.com,B2C,Melbourne,Australia,2023-07-04
+C0012,Nora Campbell,customer12@example.com,B2C,Amsterdam,Netherlands,2022-10-28
+C0013,Quinn Edwards,customer13@example.com,B2C,Athens,Greece,2023-08-15
+C0014,Logan Brown,customer14@example.com,B2B,Berlin,Germany,2024-03-02
+C0015,Harper Green,customer15@example.com,B2C,New York,USA,2023-01-25
+C0016,Liam Wright,customer16@example.com,B2C,Athens,Greece,2022-06-16
+C0017,Max Parker,customer17@example.com,B2C,Munich,Germany,2023-12-20
+C0018,Riley Evans,customer18@example.com,B2C,Tokyo,Japan,2023-10-13
+C0019,Sophia Lee,customer19@example.com,B2B,Chicago,USA,2023-04-19
+C0020,Mason King,customer20@example.com,B2B,Amsterdam,Netherlands,2022-08-13
+C0021,Nora Johnson,customer21@example.com,B2B,Manchester,UK,2022-08-23
+C0022,Taylor Clark,customer22@example.com,B2B,Thessaloniki,Greece,2022-10-02
+C0023,Aria King,customer23@example.com,B2C,Stockholm,Sweden,2024-06-16
+C0024,Lily Bell,customer24@example.com,B2C,Toronto,Canada,2023-02-10
+C0025,Casey Hall,customer25@example.com,B2C,Los Angeles,USA,2022-09-29
+C0026,Leo Turner,customer26@example.com,B2C,Amsterdam,Netherlands,2022-09-27
+C0027,Liam Hall,customer27@example.com,B2B,Stockholm,Sweden,2023-02-13
+C0028,James Brown,customer28@example.com,B2C,Los Angeles,USA,2023-06-06
+C0029,Chloe Moore,customer29@example.com,B2C,New York,USA,2022-06-06
+C0030,Taylor Adams,customer30@example.com,B2C,Sydney,Australia,2023-09-03
+C0031,Harper Evans,customer31@example.com,B2B,Melbourne,Australia,2023-06-26
+C0032,Leo Davis,customer32@example.com,B2C,London,UK,2023-11-28
+C0033,Harper Stewart,customer33@example.com,B2C,Amsterdam,Netherlands,2024-02-08
+C0034,Noah Moore,customer34@example.com,B2C,New York,USA,2022-10-28
+C0035,Zoe Moore,customer35@example.com,B2C,Munich,Germany,2023-05-28
+C0036,Chloe Young,customer36@example.com,B2B,New York,USA,2024-06-10
+C0037,Quinn Wilson,customer37@example.com,B2C,Vancouver,Canada,2023-09-16
+C0038,Zoe Bell,customer38@example.com,B2C,Chicago,USA,2023-07-07
+C0039,Emma Hill,customer39@example.com,B2C,London,UK,2023-09-06
+C0040,Nora Morris,customer40@example.com,B2C,Athens,Greece,2024-06-18
+C0041,Lily Turner,customer41@example.com,B2B,Manchester,UK,2022-09-04
+C0042,James Reed,customer42@example.com,B2C,Birmingham,UK,2024-01-20
+C0043,Casey Wilson,customer43@example.com,B2C,Amsterdam,Netherlands,2024-02-24
+C0044,Harper Scott,customer44@example.com,B2B,Amsterdam,Netherlands,2022-06-19
+C0045,Max Evans,customer45@example.com,B2C,Sydney,Australia,2022-08-05
+C0046,Logan Adams,customer46@example.com,B2B,Houston,USA,2024-01-01
+C0047,Lily Scott,customer47@example.com,B2C,Athens,Greece,2023-03-25
+C0048,Taylor King,customer48@example.com,B2C,Berlin,Germany,2022-08-19
+C0049,Ella Hall,customer49@example.com,B2C,Amsterdam,Netherlands,2022-08-24
+C0050,Taylor Morgan,customer50@example.com,B2C,Manchester,UK,2022-08-23
+C0051,Mia Hall,customer51@example.com,B2C,Lyon,France,2022-03-14
+C0052,Lucas Wilson,customer52@example.com,B2C,Toronto,Canada,2022-08-08
+C0053,James Hall,customer53@example.com,B2C,Stockholm,Sweden,2023-08-14
+C0054,Morgan Davis,customer54@example.com,B2C,Sydney,Australia,2022-07-14
+C0055,Noah Green,customer55@example.com,B2B,Athens,Greece,2023-03-10
+C0056,Chloe Campbell,customer56@example.com,B2C,Manchester,UK,2023-11-21
+C0057,Emma Morris,customer57@example.com,B2B,Thessaloniki,Greece,2024-01-16
+C0058,Quinn Evans,customer58@example.com,B2C,Berlin,Germany,2022-07-16
+C0059,Harper Green,customer59@example.com,B2C,Sydney,Australia,2022-07-07
+C0060,Ben Cook,customer60@example.com,B2B,Birmingham,UK,2023-03-30
+C0061,Chloe Evans,customer61@example.com,B2B,New York,USA,2022-02-21
+C0062,Sam Hall,customer62@example.com,B2C,Birmingham,UK,2024-02-11
+C0063,Quinn Cook,customer63@example.com,B2C,Toronto,Canada,2023-05-08
+C0064,Sophia Smith,customer64@example.com,B2B,Manchester,UK,2022-06-18
+C0065,Ben Green,customer65@example.com,B2C,Munich,Germany,2024-03-13
+C0066,Aria Hill,customer66@example.com,B2C,Amsterdam,Netherlands,2023-11-09
+C0067,Jordan Turner,customer67@example.com,B2C,Paris,France,2022-08-11
+C0068,Emma Johnson,customer68@example.com,B2C,Manchester,UK,2024-02-05
+C0069,Max Cook,customer69@example.com,B2C,Toronto,Canada,2023-05-30
+C0070,Taylor Cook,customer70@example.com,B2C,Manchester,UK,2023-06-05
+C0071,Mason Cook,customer71@example.com,B2C,Tokyo,Japan,2022-03-11
+C0072,Avery Turner,customer72@example.com,B2C,New York,USA,2023-08-07
+C0073,Noah Parker,customer73@example.com,B2C,Tokyo,Japan,2022-03-25
+C0074,Max Lee,customer74@example.com,B2C,Vancouver,Canada,2022-11-20
+C0075,Harper Adams,customer75@example.com,B2C,Lyon,France,2022-09-02
+C0076,Emma Bell,customer76@example.com,B2C,Paris,France,2023-04-14
+C0077,Olivia Phillips,customer77@example.com,B2B,Birmingham,UK,2022-01-10
+C0078,Lucas Clark,customer78@example.com,B2C,New York,USA,2022-03-17
+C0079,Lily Brown,customer79@example.com,B2B,Los Angeles,USA,2022-12-24
+C0080,Riley Green,customer80@example.com,B2B,Athens,Greece,2022-10-19
+C0081,Ben Campbell,customer81@example.com,B2C,Paris,France,2023-09-19
+C0082,Max Parker,customer82@example.com,B2C,Amsterdam,Netherlands,2022-11-03
+C0083,Morgan Morgan,customer83@example.com,B2C,Los Angeles,USA,2022-09-28
+C0084,Harper Young,customer84@example.com,B2C,Amsterdam,Netherlands,2022-06-09
+C0085,Mason Campbell,customer85@example.com,B2B,Lyon,France,2022-07-28
+C0086,Harper Morgan,customer86@example.com,B2B,Vancouver,Canada,2023-05-16
+C0087,Chloe Baker,customer87@example.com,B2B,Manchester,UK,2022-04-05
+C0088,Emma Stewart,customer88@example.com,B2C,Manchester,UK,2022-01-04
+C0089,Leo Green,customer89@example.com,B2C,Munich,Germany,2022-06-15
+C0090,Alex Davis,customer90@example.com,B2C,Sydney,Australia,2023-07-29
+C0091,Jordan Reed,customer91@example.com,B2C,Los Angeles,USA,2023-07-13
+C0092,Noah Wilson,customer92@example.com,B2C,Amsterdam,Netherlands,2022-06-01
+C0093,Sam Johnson,customer93@example.com,B2B,Athens,Greece,2024-03-26
+C0094,Avery Parker,customer94@example.com,B2C,Houston,USA,2023-11-30
+C0095,Noah Phillips,customer95@example.com,B2C,Amsterdam,Netherlands,2024-06-14
+C0096,Riley Morris,customer96@example.com,B2B,Berlin,Germany,2024-06-04
+C0097,Riley Collins,customer97@example.com,B2B,Sydney,Australia,2022-01-26
+C0098,Mason Cook,customer98@example.com,B2C,Sydney,Australia,2024-04-01
+C0099,Riley Morris,customer99@example.com,B2C,Berlin,Germany,2022-10-01
+C0100,Jordan Cook,customer100@example.com,B2C,Thessaloniki,Greece,2024-06-12
+C0101,Max Green,customer101@example.com,B2C,Houston,USA,2024-04-16
+C0102,Alex Parker,customer102@example.com,B2C,Berlin,Germany,2022-08-17
+C0103,Sam Brown,customer103@example.com,B2B,Lyon,France,2022-10-13
+C0104,Chloe Scott,customer104@example.com,B2C,Munich,Germany,2022-12-26
+C0105,Alex Davis,customer105@example.com,B2B,Amsterdam,Netherlands,2022-12-06
+C0106,Ella Lee,customer106@example.com,B2C,Munich,Germany,2022-07-02
+C0107,Liam Collins,customer107@example.com,B2C,Tokyo,Japan,2023-03-21
+C0108,Mia Davis,customer108@example.com,B2C,Sydney,Australia,2023-09-13
+C0109,Harper Johnson,customer109@example.com,B2C,Stockholm,Sweden,2022-07-14
+C0110,Max Morris,customer110@example.com,B2C,London,UK,2023-06-17
+C0111,Noah Brown,customer111@example.com,B2B,Houston,USA,2023-01-08
+C0112,Emma Parker,customer112@example.com,B2B,Lyon,France,2023-10-01
+C0113,Logan Parker,customer113@example.com,B2C,Paris,France,2023-06-04
+C0114,Logan Evans,customer114@example.com,B2C,Thessaloniki,Greece,2023-12-15
+C0115,Sophia Parker,customer115@example.com,B2C,Sydney,Australia,2023-11-12
+C0116,Ella Young,customer116@example.com,B2C,Chicago,USA,2023-09-23
+C0117,Logan Clark,customer117@example.com,B2C,London,UK,2022-11-08
+C0118,Chloe King,customer118@example.com,B2C,Stockholm,Sweden,2023-09-14
+C0119,Quinn Scott,customer119@example.com,B2C,Melbourne,Australia,2023-11-23
+C0120,Taylor Young,customer120@example.com,B2C,Chicago,USA,2023-11-06
+C0121,Taylor Reed,customer121@example.com,B2B,Tokyo,Japan,2022-12-10
+C0122,Logan Hall,customer122@example.com,B2B,Berlin,Germany,2023-11-20
+C0123,Jordan Hall,customer123@example.com,B2B,Los Angeles,USA,2022-01-26
+C0124,Zoe Brown,customer124@example.com,B2C,Tokyo,Japan,2024-05-20
+C0125,Aria Edwards,customer125@example.com,B2C,Stockholm,Sweden,2022-07-19
+C0126,Casey Campbell,customer126@example.com,B2C,Thessaloniki,Greece,2022-09-07
+C0127,Noah Hall,customer127@example.com,B2C,New York,USA,2024-03-08
+C0128,Jordan Evans,customer128@example.com,B2C,Vancouver,Canada,2023-04-21
+C0129,Casey Morris,customer129@example.com,B2C,New York,USA,2023-04-13
+C0130,Ethan King,customer130@example.com,B2B,Vancouver,Canada,2023-07-27
+C0131,Nora Collins,customer131@example.com,B2B,Melbourne,Australia,2023-09-20
+C0132,Max Evans,customer132@example.com,B2C,Sydney,Australia,2024-04-30
+C0133,Sam Hill,customer133@example.com,B2C,Chicago,USA,2024-02-01
+C0134,Chloe Lee,customer134@example.com,B2C,Berlin,Germany,2024-05-10
+C0135,Chloe Hall,customer135@example.com,B2C,Vancouver,Canada,2023-05-12
+C0136,Logan Hall,customer136@example.com,B2C,Birmingham,UK,2024-01-01
+C0137,Taylor Wilson,customer137@example.com,B2C,Lyon,France,2023-07-08
+C0138,Casey Edwards,customer138@example.com,B2C,Thessaloniki,Greece,2023-12-12
+C0139,Emma Evans,customer139@example.com,B2C,Sydney,Australia,2023-02-22
+C0140,Nora Baker,customer140@example.com,B2C,Manchester,UK,2022-07-31
+C0141,Alex Cook,customer141@example.com,B2B,Stockholm,Sweden,2023-12-14
+C0142,James Smith,customer142@example.com,B2B,Stockholm,Sweden,2023-01-25
+C0143,Sophia Cook,customer143@example.com,B2B,Paris,France,2024-02-11
+C0144,Leo Collins,customer144@example.com,B2C,Sydney,Australia,2023-07-06
+C0145,James Hall,customer145@example.com,B2C,Tokyo,Japan,2022-08-14
+C0146,Sophia King,customer146@example.com,B2C,Toronto,Canada,2022-01-30
+C0147,Riley Reed,customer147@example.com,B2C,Thessaloniki,Greece,2024-01-12
+C0148,Lucas Smith,customer148@example.com,B2B,Los Angeles,USA,2023-09-30
+C0149,Mason Smith,customer149@example.com,B2C,Stockholm,Sweden,2023-08-01
+C0150,Sam Green,customer150@example.com,B2C,Sydney,Australia,2022-05-19
+C0151,Emma Clark,customer151@example.com,B2C,Munich,Germany,2023-01-24
+C0152,Lily Adams,customer152@example.com,B2C,Lyon,France,2024-02-19
+C0153,Nora Brown,customer153@example.com,B2C,Sydney,Australia,2022-09-16
+C0154,Liam Hall,customer154@example.com,B2C,Amsterdam,Netherlands,2022-02-23
+C0155,Alex Hall,customer155@example.com,B2C,Manchester,UK,2024-02-12
+C0156,Casey Hall,customer156@example.com,B2C,London,UK,2023-09-29
+C0157,Quinn Green,customer157@example.com,B2C,New York,USA,2023-08-01
+C0158,Ethan Phillips,customer158@example.com,B2B,Athens,Greece,2022-06-21
+C0159,Nora Moore,customer159@example.com,B2B,New York,USA,2024-03-07
+C0160,Alex Bell,customer160@example.com,B2C,New York,USA,2023-08-16
+C0161,Aria Clark,customer161@example.com,B2C,Thessaloniki,Greece,2023-02-11
+C0162,Aria Stewart,customer162@example.com,B2C,Berlin,Germany,2022-04-15
+C0163,Morgan Morris,customer163@example.com,B2B,Tokyo,Japan,2024-04-04
+C0164,Lucas Baker,customer164@example.com,B2C,Manchester,UK,2022-12-22
+C0165,Chloe King,customer165@example.com,B2C,Birmingham,UK,2023-06-03
+C0166,James Davis,customer166@example.com,B2C,Sydney,Australia,2024-04-22
+C0167,Lily Reed,customer167@example.com,B2C,Athens,Greece,2023-10-13
+C0168,Riley Collins,customer168@example.com,B2C,Los Angeles,USA,2023-03-22
+C0169,Ben Bell,customer169@example.com,B2C,Munich,Germany,2023-09-23
+C0170,Noah Reed,customer170@example.com,B2C,Toronto,Canada,2023-04-22
+C0171,Sam Hall,customer171@example.com,B2B,Munich,Germany,2022-11-27
+C0172,Lily Green,customer172@example.com,B2C,Birmingham,UK,2022-10-13
+C0173,Ethan Parker,customer173@example.com,B2C,Melbourne,Australia,2023-08-07
+C0174,Sam King,customer174@example.com,B2C,London,UK,2023-05-22
+C0175,Ben Lee,customer175@example.com,B2C,Houston,USA,2022-12-30
+C0176,Lily Lee,customer176@example.com,B2C,Tokyo,Japan,2023-12-20
+C0177,Taylor Hall,customer177@example.com,B2C,Vancouver,Canada,2022-07-15
+C0178,Zoe Hall,customer178@example.com,B2C,Toronto,Canada,2023-07-23
+C0179,Ben Smith,customer179@example.com,B2C,Toronto,Canada,2023-04-04
+C0180,Aria Hall,customer180@example.com,B2C,Berlin,Germany,2023-02-19
+C0181,James Evans,customer181@example.com,B2C,Stockholm,Sweden,2023-01-13
+C0182,Lucas King,customer182@example.com,B2C,Sydney,Australia,2024-02-03
+C0183,Logan Lee,customer183@example.com,B2C,Melbourne,Australia,2022-10-05
+C0184,Morgan Collins,customer184@example.com,B2C,Houston,USA,2022-11-20
+C0185,Quinn Collins,customer185@example.com,B2C,Chicago,USA,2022-07-16
+C0186,Mia Phillips,customer186@example.com,B2C,Stockholm,Sweden,2024-02-18
+C0187,Quinn Young,customer187@example.com,B2C,New York,USA,2024-05-02
+C0188,Alex Edwards,customer188@example.com,B2C,Chicago,USA,2022-11-06
+C0189,Jordan Evans,customer189@example.com,B2C,Munich,Germany,2022-02-16
+C0190,Sam Stewart,customer190@example.com,B2C,Los Angeles,USA,2023-10-16
+C0191,Logan Hill,customer191@example.com,B2C,London,UK,2023-08-11
+C0192,Jordan Lee,customer192@example.com,B2B,Lyon,France,2022-07-08
+C0193,Nora Brown,customer193@example.com,B2C,Toronto,Canada,2022-04-27
+C0194,Chloe Parker,customer194@example.com,B2C,Birmingham,UK,2023-08-14
+C0195,Ella Young,customer195@example.com,B2C,Los Angeles,USA,2024-04-10
+C0196,Lucas Stewart,customer196@example.com,B2C,Berlin,Germany,2022-05-02
+C0197,Ethan Hall,customer197@example.com,B2C,Tokyo,Japan,2024-03-20
+C0198,Max Green,customer198@example.com,B2C,Thessaloniki,Greece,2023-04-07
+C0199,Logan Turner,customer199@example.com,B2C,Stockholm,Sweden,2023-03-16
+C0200,Morgan Stewart,customer200@example.com,B2C,Tokyo,Japan,2024-01-28
+C0201,Mason Brown,customer201@example.com,B2C,Houston,USA,2022-09-28
+C0202,Taylor Moore,customer202@example.com,B2C,Chicago,USA,2023-07-20
+C0203,Ethan Hill,customer203@example.com,B2C,Melbourne,Australia,2023-12-07
+C0204,Aria Young,customer204@example.com,B2C,Berlin,Germany,2022-10-23
+C0205,Mason Hall,customer205@example.com,B2B,Melbourne,Australia,2022-03-14
+C0206,Ben Bell,customer206@example.com,B2C,Stockholm,Sweden,2023-11-09
+C0207,Avery Campbell,customer207@example.com,B2C,New York,USA,2023-07-12
+C0208,Casey Brown,customer208@example.com,B2C,Munich,Germany,2024-04-26
+C0209,Leo Reed,customer209@example.com,B2C,Paris,France,2023-09-02
+C0210,Morgan Green,customer210@example.com,B2C,Paris,France,2023-03-26
+C0211,Mia Evans,customer211@example.com,B2C,Thessaloniki,Greece,2022-10-06
+C0212,Jordan Morgan,customer212@example.com,B2C,Birmingham,UK,2023-09-05
+C0213,Harper Smith,customer213@example.com,B2C,Lyon,France,2023-09-11
+C0214,Alex Stewart,customer214@example.com,B2C,Stockholm,Sweden,2023-08-25
+C0215,Jordan Stewart,customer215@example.com,B2C,Munich,Germany,2023-08-14
+C0216,Chloe Green,customer216@example.com,B2B,Toronto,Canada,2023-06-16
+C0217,Noah Campbell,customer217@example.com,B2B,Chicago,USA,2023-08-23
+C0218,Liam Baker,customer218@example.com,B2C,Birmingham,UK,2023-04-27
+C0219,Riley King,customer219@example.com,B2C,New York,USA,2024-05-28
+C0220,Mason Adams,customer220@example.com,B2B,Toronto,Canada,2022-10-23
+C0221,Olivia Brown,customer221@example.com,B2C,Amsterdam,Netherlands,2022-02-07
+C0222,Zoe Adams,customer222@example.com,B2B,Lyon,France,2022-04-29
+C0223,Sam Evans,customer223@example.com,B2C,London,UK,2023-11-05
+C0224,Mia Wright,customer224@example.com,B2C,Manchester,UK,2022-07-12
+C0225,Olivia Stewart,customer225@example.com,B2C,Toronto,Canada,2023-10-03
+C0226,Casey Bell,customer226@example.com,B2C,Munich,Germany,2023-07-17
+C0227,Alex Campbell,customer227@example.com,B2C,Toronto,Canada,2022-05-05
+C0228,Riley Young,customer228@example.com,B2C,Berlin,Germany,2023-12-28
+C0229,Taylor Hall,customer229@example.com,B2B,Amsterdam,Netherlands,2023-02-22
+C0230,Morgan Campbell,customer230@example.com,B2B,New York,USA,2023-04-18
+C0231,Logan Scott,customer231@example.com,B2C,Toronto,Canada,2024-01-04
+C0232,James Hill,customer232@example.com,B2C,Sydney,Australia,2024-05-04
+C0233,Sophia Clark,customer233@example.com,B2B,Amsterdam,Netherlands,2022-05-29
+C0234,Lily Wilson,customer234@example.com,B2B,Vancouver,Canada,2024-02-04
+C0235,Ben Cook,customer235@example.com,B2C,Munich,Germany,2024-03-02
+C0236,Nora Smith,customer236@example.com,B2C,Vancouver,Canada,2022-10-01
+C0237,Ella Turner,customer237@example.com,B2B,Paris,France,2024-05-07
+C0238,Casey Green,customer238@example.com,B2C,Toronto,Canada,2024-06-05
+C0239,Lucas Stewart,customer239@example.com,B2C,Athens,Greece,2022-12-07
+C0240,Sam Clark,customer240@example.com,B2B,Melbourne,Australia,2022-11-26
+C0241,Sophia Hall,customer241@example.com,B2B,Berlin,Germany,2023-08-09
+C0242,Emma Collins,customer242@example.com,B2C,Sydney,Australia,2022-02-14
+C0243,Mason Morris,customer243@example.com,B2B,Thessaloniki,Greece,2023-01-31
+C0244,Jordan Wilson,customer244@example.com,B2C,Los Angeles,USA,2023-05-23
+C0245,Sam Davis,customer245@example.com,B2B,Stockholm,Sweden,2022-12-06
+C0246,Mia Bell,customer246@example.com,B2C,Melbourne,Australia,2022-04-13
+C0247,Sam Campbell,customer247@example.com,B2B,Los Angeles,USA,2023-02-24
+C0248,Ben Lee,customer248@example.com,B2C,Birmingham,UK,2023-04-26
+C0249,Taylor Cook,customer249@example.com,B2C,Thessaloniki,Greece,2023-10-28
+C0250,Emma Campbell,customer250@example.com,B2C,Amsterdam,Netherlands,2023-01-25
+C0251,Lucas Johnson,customer251@example.com,B2C,Toronto,Canada,2024-06-12
+C0252,Mason Bell,customer252@example.com,B2C,Berlin,Germany,2023-10-09
+C0253,Taylor Baker,customer253@example.com,B2B,Berlin,Germany,2024-02-04
+C0254,Riley Edwards,customer254@example.com,B2C,New York,USA,2023-03-31
+C0255,Emma Morris,customer255@example.com,B2C,London,UK,2022-02-17
+C0256,Noah Wilson,customer256@example.com,B2C,Athens,Greece,2023-01-19
+C0257,Mason Morris,customer257@example.com,B2C,Sydney,Australia,2023-08-03
+C0258,Ethan Cook,customer258@example.com,B2C,Chicago,USA,2022-03-22
+C0259,Max Turner,customer259@example.com,B2C,Berlin,Germany,2023-05-25
+C0260,Harper Green,customer260@example.com,B2C,Melbourne,Australia,2023-10-16
+C0261,Olivia Morgan,customer261@example.com,B2C,London,UK,2024-04-03
+C0262,Taylor Green,customer262@example.com,B2B,Amsterdam,Netherlands,2022-06-11
+C0263,Chloe Baker,customer263@example.com,B2C,Stockholm,Sweden,2022-11-03
+C0264,Logan Clark,customer264@example.com,B2B,Melbourne,Australia,2024-05-15
+C0265,Avery Adams,customer265@example.com,B2C,Toronto,Canada,2022-04-20
+C0266,Aria Young,customer266@example.com,B2C,Stockholm,Sweden,2022-10-30
+C0267,Alex Turner,customer267@example.com,B2B,Thessaloniki,Greece,2022-10-09
+C0268,Leo Hill,customer268@example.com,B2B,Manchester,UK,2023-09-13
+C0269,Ben Hall,customer269@example.com,B2C,Paris,France,2024-03-05
+C0270,Chloe Clark,customer270@example.com,B2C,Athens,Greece,2022-08-13
+C0271,Morgan Morgan,customer271@example.com,B2C,Los Angeles,USA,2023-10-06
+C0272,Ben Green,customer272@example.com,B2C,Manchester,UK,2022-11-13
+C0273,Casey Brown,customer273@example.com,B2B,Athens,Greece,2024-01-20
+C0274,Noah Moore,customer274@example.com,B2C,Lyon,France,2024-02-05
+C0275,Liam Scott,customer275@example.com,B2C,Amsterdam,Netherlands,2024-06-16
+C0276,Riley Lee,customer276@example.com,B2B,Munich,Germany,2024-04-30
+C0277,Logan Collins,customer277@example.com,B2B,Toronto,Canada,2024-04-05
+C0278,Taylor Wilson,customer278@example.com,B2C,New York,USA,2023-04-25
+C0279,Mason Collins,customer279@example.com,B2C,Berlin,Germany,2024-05-30
+C0280,Ben Evans,customer280@example.com,B2C,Thessaloniki,Greece,2024-05-16
+C0281,Harper Evans,customer281@example.com,B2C,Thessaloniki,Greece,2022-01-15
+C0282,Leo Parker,customer282@example.com,B2C,Athens,Greece,2023-11-20
+C0283,Chloe Wright,customer283@example.com,B2C,Thessaloniki,Greece,2024-04-22
+C0284,Alex Phillips,customer284@example.com,B2B,Berlin,Germany,2023-04-28
+C0285,Max Phillips,customer285@example.com,B2C,Amsterdam,Netherlands,2022-12-02
+C0286,Nora Green,customer286@example.com,B2B,Birmingham,UK,2023-10-13
+C0287,Noah Davis,customer287@example.com,B2C,Paris,France,2023-10-27
+C0288,James Davis,customer288@example.com,B2C,Manchester,UK,2022-11-08
+C0289,Sophia Green,customer289@example.com,B2C,Amsterdam,Netherlands,2022-05-19
+C0290,Ella Collins,customer290@example.com,B2C,Amsterdam,Netherlands,2023-03-06
+C0291,Morgan Reed,customer291@example.com,B2C,Sydney,Australia,2023-11-02
+C0292,Jordan Edwards,customer292@example.com,B2C,Sydney,Australia,2022-10-14
+C0293,Avery Cook,customer293@example.com,B2C,Melbourne,Australia,2023-04-01
+C0294,Lily Campbell,customer294@example.com,B2C,Athens,Greece,2023-07-12
+C0295,Quinn Davis,customer295@example.com,B2B,Thessaloniki,Greece,2022-10-10
+C0296,Mason Clark,customer296@example.com,B2C,Melbourne,Australia,2022-04-04
+C0297,Jordan Morris,customer297@example.com,B2C,Tokyo,Japan,2022-01-22
+C0298,Ella Clark,customer298@example.com,B2C,Los Angeles,USA,2024-03-16
+C0299,Ella Clark,customer299@example.com,B2B,Amsterdam,Netherlands,2022-08-01
+C0300,Zoe Wilson,customer300@example.com,B2C,Berlin,Germany,2022-12-03
+C0301,Harper Cook,customer301@example.com,B2B,Tokyo,Japan,2022-01-03
+C0302,Harper Morris,customer302@example.com,B2C,Los Angeles,USA,2023-07-08
+C0303,Alex Wright,customer303@example.com,B2C,London,UK,2022-05-15
+C0304,Emma Smith,customer304@example.com,B2C,Berlin,Germany,2023-08-26
+C0305,Leo Baker,customer305@example.com,B2C,Manchester,UK,2022-05-10
+C0306,Olivia Stewart,customer306@example.com,B2C,Birmingham,UK,2023-05-03
+C0307,Olivia Scott,customer307@example.com,B2C,Stockholm,Sweden,2022-04-22
+C0308,Leo Morris,customer308@example.com,B2B,Tokyo,Japan,2022-02-14
+C0309,Olivia Campbell,customer309@example.com,B2B,Vancouver,Canada,2022-11-05
+C0310,Sam Adams,customer310@example.com,B2C,Manchester,UK,2023-05-06
+C0311,Aria Bell,customer311@example.com,B2C,New York,USA,2023-05-18
+C0312,Ethan Wilson,customer312@example.com,B2C,Birmingham,UK,2022-11-26
+C0313,Chloe Turner,customer313@example.com,B2C,Munich,Germany,2023-10-02
+C0314,Ethan Scott,customer314@example.com,B2C,Lyon,France,2023-01-26
+C0315,Noah Davis,customer315@example.com,B2C,Vancouver,Canada,2023-09-12
+C0316,Chloe Campbell,customer316@example.com,B2B,New York,USA,2024-05-23
+C0317,Sam Clark,customer317@example.com,B2C,Amsterdam,Netherlands,2024-01-09
+C0318,Emma Reed,customer318@example.com,B2C,Berlin,Germany,2023-02-28
+C0319,Morgan King,customer319@example.com,B2C,Sydney,Australia,2024-01-18
+C0320,Casey Parker,customer320@example.com,B2B,Munich,Germany,2023-01-19
+C0321,Nora Brown,customer321@example.com,B2C,Birmingham,UK,2022-04-04
+C0322,Leo Wright,customer322@example.com,B2B,New York,USA,2024-02-02
+C0323,Ella Evans,customer323@example.com,B2C,Amsterdam,Netherlands,2022-03-03
+C0324,Liam Cook,customer324@example.com,B2C,New York,USA,2023-02-25
+C0325,Max Collins,customer325@example.com,B2C,Sydney,Australia,2024-06-07
+C0326,Logan Wright,customer326@example.com,B2C,Paris,France,2023-09-07
+C0327,Casey Parker,customer327@example.com,B2C,Vancouver,Canada,2022-08-06
+C0328,Sam Evans,customer328@example.com,B2C,New York,USA,2022-12-25
+C0329,Avery Morris,customer329@example.com,B2C,Munich,Germany,2023-08-11
+C0330,Nora Phillips,customer330@example.com,B2C,Amsterdam,Netherlands,2024-02-25
+C0331,Ethan Bell,customer331@example.com,B2C,Amsterdam,Netherlands,2022-01-27
+C0332,Riley Lee,customer332@example.com,B2C,Munich,Germany,2022-01-30
+C0333,Liam Smith,customer333@example.com,B2C,Paris,France,2022-12-14
+C0334,Mason Adams,customer334@example.com,B2C,Los Angeles,USA,2023-08-03
+C0335,Leo Scott,customer335@example.com,B2C,London,UK,2022-04-04
+C0336,Emma Moore,customer336@example.com,B2C,Sydney,Australia,2023-04-10
+C0337,Ella Phillips,customer337@example.com,B2C,Lyon,France,2024-03-06
+C0338,Riley Stewart,customer338@example.com,B2C,Manchester,UK,2022-06-09
+C0339,Olivia Parker,customer339@example.com,B2C,Birmingham,UK,2022-10-06
+C0340,Noah Lee,customer340@example.com,B2C,Tokyo,Japan,2023-03-29
+C0341,Liam Baker,customer341@example.com,B2C,Vancouver,Canada,2022-04-27
+C0342,Mia Parker,customer342@example.com,B2C,Stockholm,Sweden,2023-05-14
+C0343,Ethan Johnson,customer343@example.com,B2C,Berlin,Germany,2023-02-09
+C0344,Zoe Wilson,customer344@example.com,B2C,Paris,France,2022-08-05
+C0345,Morgan Smith,customer345@example.com,B2C,Paris,France,2022-12-02
+C0346,Casey Adams,customer346@example.com,B2C,Sydney,Australia,2022-06-29
+C0347,Lucas Reed,customer347@example.com,B2C,Berlin,Germany,2023-05-28
+C0348,Sophia Cook,customer348@example.com,B2C,Athens,Greece,2022-03-15
+C0349,Olivia Bell,customer349@example.com,B2C,Sydney,Australia,2022-01-20
+C0350,Noah Turner,customer350@example.com,B2C,Lyon,France,2023-08-13
+C0351,Morgan Adams,customer351@example.com,B2C,Sydney,Australia,2022-10-24
+C0352,Ben Phillips,customer352@example.com,B2C,Lyon,France,2022-06-25
+C0353,Noah Cook,customer353@example.com,B2C,Athens,Greece,2022-04-01
+C0354,Sophia Scott,customer354@example.com,B2C,Sydney,Australia,2023-08-27
+C0355,Emma Hall,customer355@example.com,B2C,Paris,France,2024-02-03
+C0356,Mia Campbell,customer356@example.com,B2C,Chicago,USA,2022-03-20
+C0357,Lily Stewart,customer357@example.com,B2C,Vancouver,Canada,2022-07-18
+C0358,Morgan Wilson,customer358@example.com,B2C,Los Angeles,USA,2022-08-30
+C0359,Casey Stewart,customer359@example.com,B2C,Chicago,USA,2023-09-09
+C0360,Zoe Campbell,customer360@example.com,B2C,Birmingham,UK,2022-07-01
+C0361,Ella Green,customer361@example.com,B2C,Stockholm,Sweden,2024-02-18
+C0362,Chloe Phillips,customer362@example.com,B2C,Stockholm,Sweden,2023-10-21
+C0363,Olivia Brown,customer363@example.com,B2C,Lyon,France,2022-06-04
+C0364,Harper Turner,customer364@example.com,B2C,Paris,France,2024-03-26
+C0365,Logan Green,customer365@example.com,B2C,Vancouver,Canada,2022-03-17
+C0366,Nora Young,customer366@example.com,B2C,Manchester,UK,2023-01-13
+C0367,Ethan Scott,customer367@example.com,B2C,Birmingham,UK,2023-09-22
+C0368,Ben Collins,customer368@example.com,B2B,Stockholm,Sweden,2023-07-22
+C0369,Ella Campbell,customer369@example.com,B2C,Melbourne,Australia,2024-04-09
+C0370,Mia Wilson,customer370@example.com,B2B,Tokyo,Japan,2023-05-03
+C0371,Ben Morgan,customer371@example.com,B2B,Melbourne,Australia,2022-04-16
+C0372,Chloe Moore,customer372@example.com,B2C,Birmingham,UK,2023-06-01
+C0373,Mia Scott,customer373@example.com,B2C,Melbourne,Australia,2023-03-26
+C0374,Max Young,customer374@example.com,B2C,Athens,Greece,2023-01-17
+C0375,Ethan Johnson,customer375@example.com,B2C,Lyon,France,2023-11-27
+C0376,Emma Davis,customer376@example.com,B2C,Lyon,France,2022-03-09
+C0377,Harper Collins,customer377@example.com,B2B,Thessaloniki,Greece,2022-10-18
+C0378,Casey King,customer378@example.com,B2C,Tokyo,Japan,2024-06-13
+C0379,Logan Campbell,customer379@example.com,B2C,Los Angeles,USA,2022-12-25
+C0380,Ethan Edwards,customer380@example.com,B2B,Thessaloniki,Greece,2022-05-13
+C0381,Sophia Campbell,customer381@example.com,B2C,Paris,France,2023-07-27
+C0382,Aria Reed,customer382@example.com,B2B,Los Angeles,USA,2023-11-18
+C0383,Chloe Parker,customer383@example.com,B2C,Vancouver,Canada,2022-04-06
+C0384,Liam Young,customer384@example.com,B2C,Athens,Greece,2022-01-19
+C0385,Zoe Hill,customer385@example.com,B2C,Houston,USA,2022-12-16
+C0386,Taylor Young,customer386@example.com,B2B,Los Angeles,USA,2022-06-08
+C0387,Zoe Evans,customer387@example.com,B2B,New York,USA,2023-06-04
+C0388,Mason King,customer388@example.com,B2B,Vancouver,Canada,2022-02-08
+C0389,Ethan Adams,customer389@example.com,B2C,Tokyo,Japan,2022-05-15
+C0390,Aria Stewart,customer390@example.com,B2C,Chicago,USA,2024-05-01
+C0391,Olivia Johnson,customer391@example.com,B2C,Chicago,USA,2024-01-09
+C0392,Ethan Young,customer392@example.com,B2C,Berlin,Germany,2023-03-31
+C0393,Lucas Hall,customer393@example.com,B2C,Melbourne,Australia,2022-08-28
+C0394,Quinn Wright,customer394@example.com,B2C,Toronto,Canada,2024-05-05
+C0395,Olivia Stewart,customer395@example.com,B2C,Stockholm,Sweden,2023-03-28
+C0396,Mia Baker,customer396@example.com,B2B,Thessaloniki,Greece,2023-05-30
+C0397,Ethan Wilson,customer397@example.com,B2B,Houston,USA,2024-03-31
+C0398,James Cook,customer398@example.com,B2C,Manchester,UK,2023-10-19
+C0399,Sam Scott,customer399@example.com,B2B,New York,USA,2023-12-30
+C0400,Zoe Moore,customer400@example.com,B2C,Paris,France,2022-03-27
+C0401,Nora Baker,customer401@example.com,B2C,Vancouver,Canada,2022-05-31
+C0402,Olivia Morgan,customer402@example.com,B2C,Berlin,Germany,2024-04-16
+C0403,Jordan Adams,customer403@example.com,B2C,London,UK,2023-03-01
+C0404,Taylor Wright,customer404@example.com,B2C,Berlin,Germany,2023-01-31
+C0405,Nora Edwards,customer405@example.com,B2C,Lyon,France,2022-04-12
+C0406,Jordan Young,customer406@example.com,B2B,Los Angeles,USA,2022-05-21
+C0407,Nora Wilson,customer407@example.com,B2C,Toronto,Canada,2023-12-14
+C0408,Ethan Smith,customer408@example.com,B2B,Toronto,Canada,2023-04-05
+C0409,Quinn Reed,customer409@example.com,B2C,London,UK,2022-09-20
+C0410,Noah Davis,customer410@example.com,B2C,Tokyo,Japan,2023-06-25
+C0411,Morgan Johnson,customer411@example.com,B2C,Berlin,Germany,2022-11-05
+C0412,Taylor Davis,customer412@example.com,B2B,Tokyo,Japan,2023-04-14
+C0413,Lucas Smith,customer413@example.com,B2C,Toronto,Canada,2023-09-04
+C0414,Aria Wilson,customer414@example.com,B2C,Stockholm,Sweden,2022-09-05
+C0415,Liam Hall,customer415@example.com,B2C,London,UK,2023-09-22
+C0416,Mason Brown,customer416@example.com,B2C,Chicago,USA,2023-11-12
+C0417,Mia Evans,customer417@example.com,B2C,Athens,Greece,2022-03-11
+C0418,Alex Adams,customer418@example.com,B2B,Vancouver,Canada,2023-07-22
+C0419,Sophia Wright,customer419@example.com,B2C,Manchester,UK,2023-10-13
+C0420,Ben Brown,customer420@example.com,B2C,London,UK,2023-01-01
+C0421,Ella Collins,customer421@example.com,B2C,New York,USA,2024-03-01
+C0422,Liam Evans,customer422@example.com,B2C,Los Angeles,USA,2022-02-15
+C0423,Zoe Parker,customer423@example.com,B2C,Chicago,USA,2024-04-30
+C0424,Riley Morris,customer424@example.com,B2C,Toronto,Canada,2023-10-09
+C0425,Logan Clark,customer425@example.com,B2C,Melbourne,Australia,2022-02-07
+C0426,Emma Bell,customer426@example.com,B2C,Houston,USA,2022-02-12
+C0427,Lucas Hill,customer427@example.com,B2C,Thessaloniki,Greece,2024-04-14
+C0428,Liam Cook,customer428@example.com,B2C,Houston,USA,2022-10-20
+C0429,Morgan Morris,customer429@example.com,B2C,Lyon,France,2022-10-07
+C0430,Olivia Morgan,customer430@example.com,B2B,Thessaloniki,Greece,2024-02-01
+C0431,James Edwards,customer431@example.com,B2C,Lyon,France,2022-07-11
+C0432,Ben Brown,customer432@example.com,B2C,Vancouver,Canada,2022-10-01
+C0433,Ethan Reed,customer433@example.com,B2C,Birmingham,UK,2023-03-17
+C0434,Morgan Brown,customer434@example.com,B2C,Paris,France,2022-11-25
+C0435,Olivia Phillips,customer435@example.com,B2C,Paris,France,2022-11-10
+C0436,Olivia Wright,customer436@example.com,B2C,Chicago,USA,2023-12-08
+C0437,Noah Lee,customer437@example.com,B2C,Athens,Greece,2023-09-22
+C0438,Mason Campbell,customer438@example.com,B2C,Manchester,UK,2022-03-18
+C0439,Leo Parker,customer439@example.com,B2C,Vancouver,Canada,2024-03-31
+C0440,Sam Phillips,customer440@example.com,B2C,London,UK,2022-05-27
+C0441,Casey Brown,customer441@example.com,B2C,Melbourne,Australia,2022-02-05
+C0442,Sophia Turner,customer442@example.com,B2C,Athens,Greece,2023-01-06
+C0443,Olivia Wright,customer443@example.com,B2C,Los Angeles,USA,2023-11-27
+C0444,Casey Scott,customer444@example.com,B2C,Birmingham,UK,2023-08-11
+C0445,Harper Hall,customer445@example.com,B2B,Lyon,France,2023-10-28
+C0446,Riley Hill,customer446@example.com,B2C,London,UK,2024-01-24
+C0447,Harper Stewart,customer447@example.com,B2C,Amsterdam,Netherlands,2022-05-01
+C0448,Ethan Young,customer448@example.com,B2C,Melbourne,Australia,2022-08-08
+C0449,Morgan Wilson,customer449@example.com,B2B,Toronto,Canada,2022-07-24
+C0450,Lily Edwards,customer450@example.com,B2C,Melbourne,Australia,2022-06-26
+C0451,Mason Cook,customer451@example.com,B2B,Birmingham,UK,2024-04-09
+C0452,Taylor Evans,customer452@example.com,B2C,Athens,Greece,2023-12-28
+C0453,Riley Edwards,customer453@example.com,B2C,Paris,France,2024-05-21
+C0454,Liam Scott,customer454@example.com,B2C,Chicago,USA,2024-03-23
+C0455,Casey Hall,customer455@example.com,B2C,Houston,USA,2024-03-22
+C0456,Lucas Turner,customer456@example.com,B2C,London,UK,2023-01-05
+C0457,Ethan Morgan,customer457@example.com,B2C,Amsterdam,Netherlands,2022-05-13
+C0458,Aria Collins,customer458@example.com,B2C,Paris,France,2023-02-12
+C0459,Noah Reed,customer459@example.com,B2C,Sydney,Australia,2024-02-27
+C0460,Chloe Brown,customer460@example.com,B2C,Los Angeles,USA,2022-11-21
+C0461,Casey Morgan,customer461@example.com,B2B,Vancouver,Canada,2022-12-19
+C0462,Ella Moore,customer462@example.com,B2C,Amsterdam,Netherlands,2023-10-18
+C0463,Mia Bell,customer463@example.com,B2B,Los Angeles,USA,2023-03-20
+C0464,Casey Young,customer464@example.com,B2C,New York,USA,2023-06-15
+C0465,Avery Wright,customer465@example.com,B2B,Lyon,France,2023-12-28
+C0466,Sam Brown,customer466@example.com,B2C,Vancouver,Canada,2022-10-18
+C0467,Casey Campbell,customer467@example.com,B2C,Amsterdam,Netherlands,2022-10-09
+C0468,Mia Campbell,customer468@example.com,B2C,Amsterdam,Netherlands,2022-04-06
+C0469,Riley Parker,customer469@example.com,B2C,Stockholm,Sweden,2022-06-07
+C0470,Nora Bell,customer470@example.com,B2C,Tokyo,Japan,2022-12-12
+C0471,Jordan Campbell,customer471@example.com,B2C,London,UK,2022-03-25
+C0472,Quinn Stewart,customer472@example.com,B2C,Munich,Germany,2023-10-29
+C0473,Alex Hill,customer473@example.com,B2B,Tokyo,Japan,2023-10-17
+C0474,Chloe Young,customer474@example.com,B2C,Amsterdam,Netherlands,2022-10-24
+C0475,Olivia Brown,customer475@example.com,B2C,Thessaloniki,Greece,2022-11-01
+C0476,Noah Hill,customer476@example.com,B2C,Chicago,USA,2023-03-27
+C0477,Casey King,customer477@example.com,B2B,Lyon,France,2023-09-14
+C0478,Sam Wright,customer478@example.com,B2B,Lyon,France,2024-01-22
+C0479,Liam Scott,customer479@example.com,B2C,Los Angeles,USA,2024-02-18
+C0480,Olivia Davis,customer480@example.com,B2C,Lyon,France,2022-09-05
+C0481,Morgan Johnson,customer481@example.com,B2C,Berlin,Germany,2022-05-25
+C0482,Ethan Baker,customer482@example.com,B2C,Thessaloniki,Greece,2024-06-03
+C0483,Emma Bell,customer483@example.com,B2C,Chicago,USA,2024-04-13
+C0484,Zoe Moore,customer484@example.com,B2C,Lyon,France,2022-07-14
+C0485,James Morgan,customer485@example.com,B2C,Vancouver,Canada,2023-04-24
+C0486,Sophia Scott,customer486@example.com,B2C,London,UK,2022-04-03
+C0487,Ella Wright,customer487@example.com,B2C,Berlin,Germany,2022-08-09
+C0488,Ethan Morgan,customer488@example.com,B2B,Paris,France,2023-05-22
+C0489,Lucas Smith,customer489@example.com,B2B,Toronto,Canada,2022-10-20
+C0490,Lily Lee,customer490@example.com,B2C,Sydney,Australia,2022-05-18
+C0491,Jordan Adams,customer491@example.com,B2C,Thessaloniki,Greece,2023-01-10
+C0492,Liam Evans,customer492@example.com,B2C,Amsterdam,Netherlands,2022-07-19
+C0493,Olivia Stewart,customer493@example.com,B2C,Thessaloniki,Greece,2023-06-01
+C0494,Ethan Davis,customer494@example.com,B2C,Tokyo,Japan,2023-11-28
+C0495,Liam Morris,customer495@example.com,B2B,New York,USA,2023-02-08
+C0496,Zoe Wilson,customer496@example.com,B2C,Amsterdam,Netherlands,2023-01-10
+C0497,Mia Johnson,customer497@example.com,B2C,Vancouver,Canada,2023-02-16
+C0498,Emma Morris,customer498@example.com,B2C,Los Angeles,USA,2024-01-01
+C0499,Ethan Morgan,customer499@example.com,B2C,Melbourne,Australia,2022-06-02
+C0500,Emma Moore,customer500@example.com,B2C,Lyon,France,2023-09-20
+C0501,Nora Young,customer501@example.com,B2C,Tokyo,Japan,2024-01-28
+C0502,Mia Evans,customer502@example.com,B2C,Vancouver,Canada,2024-04-28
+C0503,James Reed,customer503@example.com,B2C,Stockholm,Sweden,2022-11-03
+C0504,Morgan Baker,customer504@example.com,B2C,Lyon,France,2023-11-21
+C0505,James Lee,customer505@example.com,B2B,London,UK,2023-09-04
+C0506,Avery Collins,customer506@example.com,B2C,Stockholm,Sweden,2023-08-15
+C0507,Mia Campbell,customer507@example.com,B2C,Toronto,Canada,2022-06-24
+C0508,Nora Parker,customer508@example.com,B2C,Thessaloniki,Greece,2022-06-01
+C0509,Morgan Clark,customer509@example.com,B2C,Stockholm,Sweden,2023-12-19
+C0510,Casey Baker,customer510@example.com,B2C,Lyon,France,2023-03-05
+C0511,Zoe Phillips,customer511@example.com,B2B,Sydney,Australia,2023-05-29
+C0512,Casey Scott,customer512@example.com,B2C,Manchester,UK,2023-12-24
+C0513,James Scott,customer513@example.com,B2C,Lyon,France,2023-11-10
+C0514,Max Evans,customer514@example.com,B2C,Chicago,USA,2023-04-16
+C0515,Zoe Cook,customer515@example.com,B2C,Athens,Greece,2023-11-24
+C0516,James Clark,customer516@example.com,B2B,Munich,Germany,2023-09-17
+C0517,Logan Hall,customer517@example.com,B2B,Munich,Germany,2023-07-26
+C0518,Logan Edwards,customer518@example.com,B2C,Paris,France,2024-02-29
+C0519,James Wright,customer519@example.com,B2C,Toronto,Canada,2022-11-21
+C0520,Morgan Turner,customer520@example.com,B2C,Munich,Germany,2022-10-22
+C0521,Nora Wright,customer521@example.com,B2B,Thessaloniki,Greece,2023-02-09
+C0522,Jordan Young,customer522@example.com,B2B,Los Angeles,USA,2022-10-25
+C0523,Max Green,customer523@example.com,B2C,Birmingham,UK,2022-12-21
+C0524,Quinn Reed,customer524@example.com,B2C,Toronto,Canada,2022-08-08
+C0525,Harper Wilson,customer525@example.com,B2C,Amsterdam,Netherlands,2023-12-14
+C0526,Avery Johnson,customer526@example.com,B2C,Stockholm,Sweden,2022-09-03
+C0527,Chloe Hall,customer527@example.com,B2C,Vancouver,Canada,2022-08-20
+C0528,Aria Hill,customer528@example.com,B2C,Sydney,Australia,2022-12-05
+C0529,Lucas Bell,customer529@example.com,B2C,Los Angeles,USA,2022-01-06
+C0530,Chloe Clark,customer530@example.com,B2C,Toronto,Canada,2023-05-04
+C0531,Logan Campbell,customer531@example.com,B2C,Paris,France,2022-11-25
+C0532,Ella Hall,customer532@example.com,B2C,Birmingham,UK,2023-10-30
+C0533,Noah Morgan,customer533@example.com,B2B,Manchester,UK,2022-06-29
+C0534,Sophia Morris,customer534@example.com,B2C,Manchester,UK,2024-05-06
+C0535,Jordan Smith,customer535@example.com,B2C,Paris,France,2024-06-16
+C0536,Max King,customer536@example.com,B2C,Tokyo,Japan,2022-04-20
+C0537,James Morgan,customer537@example.com,B2B,Amsterdam,Netherlands,2023-06-21
+C0538,Harper Clark,customer538@example.com,B2B,Vancouver,Canada,2023-04-25
+C0539,Leo Green,customer539@example.com,B2C,Lyon,France,2022-06-16
+C0540,Leo King,customer540@example.com,B2C,Chicago,USA,2022-01-15
+C0541,Zoe Clark,customer541@example.com,B2C,Stockholm,Sweden,2023-11-22
+C0542,Noah Scott,customer542@example.com,B2C,Thessaloniki,Greece,2024-04-26
+C0543,Morgan Moore,customer543@example.com,B2B,Thessaloniki,Greece,2023-11-17
+C0544,Max Hall,customer544@example.com,B2C,Toronto,Canada,2022-11-28
+C0545,Olivia Stewart,customer545@example.com,B2C,Thessaloniki,Greece,2022-08-30
+C0546,Ella Collins,customer546@example.com,B2C,Lyon,France,2022-11-06
+C0547,Liam Edwards,customer547@example.com,B2C,Munich,Germany,2023-11-01
+C0548,Logan Moore,customer548@example.com,B2C,New York,USA,2023-04-22
+C0549,Zoe Young,customer549@example.com,B2C,Vancouver,Canada,2023-12-22
+C0550,Ethan Hall,customer550@example.com,B2C,Paris,France,2023-01-12
+C0551,Casey Green,customer551@example.com,B2C,Los Angeles,USA,2023-05-05
+C0552,Noah Edwards,customer552@example.com,B2C,Tokyo,Japan,2023-01-18
+C0553,Lucas Morris,customer553@example.com,B2C,Toronto,Canada,2024-02-15
+C0554,Avery Parker,customer554@example.com,B2C,Houston,USA,2024-02-20
+C0555,Olivia Scott,customer555@example.com,B2C,Birmingham,UK,2023-06-23
+C0556,Morgan Johnson,customer556@example.com,B2B,Birmingham,UK,2023-08-01
+C0557,Ella Evans,customer557@example.com,B2C,Vancouver,Canada,2022-07-27
+C0558,Mia Green,customer558@example.com,B2C,Lyon,France,2024-05-24
+C0559,Ella Hill,customer559@example.com,B2C,Houston,USA,2024-01-05
+C0560,Ben Johnson,customer560@example.com,B2C,Vancouver,Canada,2023-04-02
+C0561,Olivia Turner,customer561@example.com,B2C,Vancouver,Canada,2023-03-02
+C0562,Ben Young,customer562@example.com,B2C,Melbourne,Australia,2023-11-20
+C0563,Nora Smith,customer563@example.com,B2C,Thessaloniki,Greece,2022-09-18
+C0564,Jordan Baker,customer564@example.com,B2C,Stockholm,Sweden,2022-03-16
+C0565,Jordan Bell,customer565@example.com,B2B,Birmingham,UK,2023-07-09
+C0566,Logan Baker,customer566@example.com,B2C,Toronto,Canada,2022-02-02
+C0567,Chloe Collins,customer567@example.com,B2C,Los Angeles,USA,2024-02-24
+C0568,Lily Adams,customer568@example.com,B2C,Sydney,Australia,2023-01-19
+C0569,Taylor Parker,customer569@example.com,B2B,Thessaloniki,Greece,2023-01-20
+C0570,Chloe Cook,customer570@example.com,B2C,Amsterdam,Netherlands,2022-05-17
+C0571,Sophia Scott,customer571@example.com,B2C,Chicago,USA,2023-07-05
+C0572,Alex Stewart,customer572@example.com,B2C,Berlin,Germany,2024-05-04
+C0573,Mason Collins,customer573@example.com,B2C,Paris,France,2023-04-20
+C0574,Nora Hall,customer574@example.com,B2C,Amsterdam,Netherlands,2023-01-24
+C0575,Harper Clark,customer575@example.com,B2B,Athens,Greece,2022-06-08
+C0576,Ben Parker,customer576@example.com,B2C,New York,USA,2022-02-02
+C0577,Quinn Brown,customer577@example.com,B2C,London,UK,2022-09-04
+C0578,Ethan Parker,customer578@example.com,B2C,Manchester,UK,2023-04-03
+C0579,Leo Johnson,customer579@example.com,B2C,Manchester,UK,2022-09-08
+C0580,Quinn Stewart,customer580@example.com,B2B,Berlin,Germany,2023-07-07
+C0581,Mia Young,customer581@example.com,B2C,Manchester,UK,2022-05-24
+C0582,Ella Phillips,customer582@example.com,B2C,Stockholm,Sweden,2022-11-23
+C0583,Logan Morgan,customer583@example.com,B2C,Lyon,France,2022-08-31
+C0584,Noah Young,customer584@example.com,B2C,Vancouver,Canada,2022-08-15
+C0585,Lily Collins,customer585@example.com,B2B,Amsterdam,Netherlands,2023-08-29
+C0586,James Johnson,customer586@example.com,B2B,Sydney,Australia,2023-07-24
+C0587,Mia King,customer587@example.com,B2C,Thessaloniki,Greece,2024-03-15
+C0588,Logan Adams,customer588@example.com,B2C,Sydney,Australia,2022-06-02
+C0589,Avery Cook,customer589@example.com,B2C,Amsterdam,Netherlands,2023-04-30
+C0590,Olivia Bell,customer590@example.com,B2C,Los Angeles,USA,2024-04-05
+C0591,Lucas Scott,customer591@example.com,B2C,Sydney,Australia,2023-03-03
+C0592,Quinn King,customer592@example.com,B2C,Berlin,Germany,2022-09-19
+C0593,Liam Brown,customer593@example.com,B2C,Melbourne,Australia,2024-05-17
+C0594,Harper Adams,customer594@example.com,B2C,Houston,USA,2022-02-22
+C0595,Sam Brown,customer595@example.com,B2C,Tokyo,Japan,2022-02-10
+C0596,Mason Evans,customer596@example.com,B2C,Stockholm,Sweden,2024-01-12
+C0597,Max King,customer597@example.com,B2C,Houston,USA,2024-06-09
+C0598,Max Clark,customer598@example.com,B2B,London,UK,2022-08-05
+C0599,Zoe Hill,customer599@example.com,B2B,New York,USA,2024-02-04
+C0600,Quinn Adams,customer600@example.com,B2B,Tokyo,Japan,2023-12-22
+C0601,Zoe Young,customer601@example.com,B2C,Amsterdam,Netherlands,2022-11-26
+C0602,Liam Young,customer602@example.com,B2C,Amsterdam,Netherlands,2023-10-27
+C0603,Olivia Davis,customer603@example.com,B2B,Vancouver,Canada,2023-05-25
+C0604,Nora King,customer604@example.com,B2B,Toronto,Canada,2024-02-19
+C0605,Noah Johnson,customer605@example.com,B2C,Athens,Greece,2022-11-17
+C0606,Casey Smith,customer606@example.com,B2C,Berlin,Germany,2024-01-30
+C0607,Leo Baker,customer607@example.com,B2C,Stockholm,Sweden,2023-08-17
+C0608,Avery Adams,customer608@example.com,B2C,Houston,USA,2022-12-04
+C0609,Lucas Campbell,customer609@example.com,B2B,Berlin,Germany,2023-05-27
+C0610,Zoe Reed,customer610@example.com,B2C,Lyon,France,2022-09-21
+C0611,Riley Collins,customer611@example.com,B2C,Toronto,Canada,2023-04-17
+C0612,Leo Evans,customer612@example.com,B2C,Chicago,USA,2022-05-24
+C0613,Jordan Scott,customer613@example.com,B2C,Amsterdam,Netherlands,2023-10-20
+C0614,Mason Johnson,customer614@example.com,B2C,Birmingham,UK,2024-04-17
+C0615,Nora Campbell,customer615@example.com,B2C,Sydney,Australia,2022-05-21
+C0616,Quinn Scott,customer616@example.com,B2C,Los Angeles,USA,2022-01-10
+C0617,Chloe Parker,customer617@example.com,B2B,Manchester,UK,2023-09-25
+C0618,James Smith,customer618@example.com,B2C,Toronto,Canada,2023-11-07
+C0619,Alex Smith,customer619@example.com,B2C,Amsterdam,Netherlands,2023-02-26
+C0620,Logan Smith,customer620@example.com,B2C,Munich,Germany,2023-07-03
+C0621,Max Moore,customer621@example.com,B2C,Sydney,Australia,2024-04-05
+C0622,Casey Hall,customer622@example.com,B2C,New York,USA,2023-06-21
+C0623,Nora Wright,customer623@example.com,B2C,Vancouver,Canada,2022-09-16
+C0624,Liam Adams,customer624@example.com,B2C,Thessaloniki,Greece,2022-03-22
+C0625,Avery Young,customer625@example.com,B2C,Berlin,Germany,2023-12-15
+C0626,Sam Campbell,customer626@example.com,B2C,Birmingham,UK,2023-11-01
+C0627,Sophia Adams,customer627@example.com,B2C,Birmingham,UK,2023-02-20
+C0628,Alex Edwards,customer628@example.com,B2C,Manchester,UK,2023-10-15
+C0629,Noah Campbell,customer629@example.com,B2C,Toronto,Canada,2024-05-15
+C0630,Morgan Morgan,customer630@example.com,B2C,Stockholm,Sweden,2024-05-28
+C0631,Quinn Morgan,customer631@example.com,B2B,Manchester,UK,2022-08-24
+C0632,Harper Johnson,customer632@example.com,B2B,Stockholm,Sweden,2023-05-02
+C0633,Ella Parker,customer633@example.com,B2C,Munich,Germany,2023-07-11
+C0634,Quinn Turner,customer634@example.com,B2C,Lyon,France,2022-01-17
+C0635,Logan Moore,customer635@example.com,B2C,Thessaloniki,Greece,2022-03-20
+C0636,Sam Adams,customer636@example.com,B2C,Stockholm,Sweden,2024-05-04
+C0637,Sophia Stewart,customer637@example.com,B2C,Amsterdam,Netherlands,2022-12-06
+C0638,Leo Wright,customer638@example.com,B2C,Birmingham,UK,2023-05-28
+C0639,Nora Brown,customer639@example.com,B2C,Sydney,Australia,2022-08-26
+C0640,Sophia Stewart,customer640@example.com,B2C,Tokyo,Japan,2023-09-02
+C0641,Olivia Hill,customer641@example.com,B2C,Munich,Germany,2024-03-13
+C0642,Noah Moore,customer642@example.com,B2C,Amsterdam,Netherlands,2023-01-20
+C0643,Zoe Phillips,customer643@example.com,B2C,Thessaloniki,Greece,2022-03-29
+C0644,Taylor Brown,customer644@example.com,B2C,Berlin,Germany,2024-01-01
+C0645,Ben Campbell,customer645@example.com,B2C,Thessaloniki,Greece,2023-12-30
+C0646,Liam Davis,customer646@example.com,B2C,Thessaloniki,Greece,2022-11-21
+C0647,Liam Stewart,customer647@example.com,B2C,Paris,France,2023-04-01
+C0648,Riley Baker,customer648@example.com,B2C,Los Angeles,USA,2022-03-31
+C0649,Noah Davis,customer649@example.com,B2C,Amsterdam,Netherlands,2023-06-09
+C0650,Taylor Phillips,customer650@example.com,B2C,Athens,Greece,2023-07-22
+C0651,Sophia Smith,customer651@example.com,B2C,Lyon,France,2024-06-03
+C0652,Taylor Collins,customer652@example.com,B2B,Thessaloniki,Greece,2024-03-08
+C0653,Mia Moore,customer653@example.com,B2C,Berlin,Germany,2023-08-09
+C0654,Harper Young,customer654@example.com,B2C,Chicago,USA,2022-05-23
+C0655,Riley Baker,customer655@example.com,B2C,Los Angeles,USA,2022-03-06
+C0656,Ben Brown,customer656@example.com,B2C,Paris,France,2023-05-11
+C0657,Chloe Hill,customer657@example.com,B2C,Berlin,Germany,2024-01-09
+C0658,Morgan Wilson,customer658@example.com,B2C,Houston,USA,2023-04-14
+C0659,Nora Phillips,customer659@example.com,B2C,Thessaloniki,Greece,2022-12-07
+C0660,Emma Baker,customer660@example.com,B2B,Lyon,France,2023-03-27
+C0661,Logan King,customer661@example.com,B2C,Tokyo,Japan,2022-05-20
+C0662,Emma Moore,customer662@example.com,B2B,Houston,USA,2023-05-06
+C0663,Leo Edwards,customer663@example.com,B2C,Lyon,France,2022-10-26
+C0664,Avery King,customer664@example.com,B2C,Stockholm,Sweden,2024-03-11
+C0665,Morgan Bell,customer665@example.com,B2C,Thessaloniki,Greece,2023-01-09
+C0666,Riley Parker,customer666@example.com,B2C,Stockholm,Sweden,2023-07-13
+C0667,Olivia Edwards,customer667@example.com,B2C,London,UK,2024-01-15
+C0668,Aria Brown,customer668@example.com,B2B,Paris,France,2024-05-01
+C0669,James Wilson,customer669@example.com,B2C,Sydney,Australia,2023-11-21
+C0670,Mason Wilson,customer670@example.com,B2C,Berlin,Germany,2022-09-16
+C0671,Olivia Phillips,customer671@example.com,B2C,Thessaloniki,Greece,2022-03-17
+C0672,Mia Bell,customer672@example.com,B2B,Thessaloniki,Greece,2023-07-02
+C0673,Jordan Morris,customer673@example.com,B2B,Sydney,Australia,2023-07-11
+C0674,Chloe Bell,customer674@example.com,B2C,Amsterdam,Netherlands,2023-09-01
+C0675,Mason Wright,customer675@example.com,B2C,Berlin,Germany,2023-11-05
+C0676,Ella Campbell,customer676@example.com,B2C,Tokyo,Japan,2022-02-15
+C0677,Emma Morris,customer677@example.com,B2C,Thessaloniki,Greece,2024-02-10
+C0678,Harper Hall,customer678@example.com,B2C,London,UK,2022-04-11
+C0679,Ella Edwards,customer679@example.com,B2C,Vancouver,Canada,2023-07-26
+C0680,Sophia Green,customer680@example.com,B2C,Melbourne,Australia,2023-01-19
+C0681,Mia Wilson,customer681@example.com,B2C,Stockholm,Sweden,2023-12-09
+C0682,Morgan Young,customer682@example.com,B2C,London,UK,2023-05-10
+C0683,Nora Collins,customer683@example.com,B2C,Birmingham,UK,2022-04-29
+C0684,Olivia Morris,customer684@example.com,B2C,Paris,France,2022-12-18
+C0685,James Davis,customer685@example.com,B2C,Toronto,Canada,2022-12-23
+C0686,Taylor Young,customer686@example.com,B2C,Melbourne,Australia,2022-11-23
+C0687,Sam King,customer687@example.com,B2C,New York,USA,2022-01-24
+C0688,Avery Scott,customer688@example.com,B2C,Chicago,USA,2024-01-29
+C0689,Lucas Baker,customer689@example.com,B2B,Chicago,USA,2022-12-05
+C0690,Sophia Campbell,customer690@example.com,B2C,Berlin,Germany,2024-03-27
+C0691,Alex Collins,customer691@example.com,B2C,Sydney,Australia,2023-02-10
+C0692,Ella Baker,customer692@example.com,B2C,Houston,USA,2023-04-06
+C0693,Harper Stewart,customer693@example.com,B2C,Houston,USA,2022-07-30
+C0694,Morgan Morris,customer694@example.com,B2B,Birmingham,UK,2023-08-15
+C0695,Emma Clark,customer695@example.com,B2C,Chicago,USA,2023-01-10
+C0696,Sam Hill,customer696@example.com,B2C,Munich,Germany,2023-11-18
+C0697,Sophia Phillips,customer697@example.com,B2C,Lyon,France,2023-09-04
+C0698,Liam Cook,customer698@example.com,B2C,New York,USA,2022-12-23
+C0699,Mason Edwards,customer699@example.com,B2B,Chicago,USA,2024-04-13
+C0700,Taylor Parker,customer700@example.com,B2C,Tokyo,Japan,2023-08-28
+C0701,Logan Davis,customer701@example.com,B2C,New York,USA,2022-09-02
+C0702,Sophia Baker,customer702@example.com,B2C,Los Angeles,USA,2023-06-08
+C0703,Noah Moore,customer703@example.com,B2C,Stockholm,Sweden,2023-01-28
+C0704,Max Campbell,customer704@example.com,B2B,Amsterdam,Netherlands,2023-12-12
+C0705,Riley Hill,customer705@example.com,B2C,Chicago,USA,2023-07-23
+C0706,Nora Green,customer706@example.com,B2C,Chicago,USA,2022-11-19
+C0707,James Wilson,customer707@example.com,B2C,Athens,Greece,2022-01-10
+C0708,Mia Campbell,customer708@example.com,B2C,Thessaloniki,Greece,2023-07-30
+C0709,Aria Reed,customer709@example.com,B2C,Toronto,Canada,2023-03-02
+C0710,Ella Smith,customer710@example.com,B2C,Chicago,USA,2022-03-26
+C0711,Jordan Lee,customer711@example.com,B2C,Berlin,Germany,2022-10-27
+C0712,Zoe Green,customer712@example.com,B2C,Paris,France,2022-06-22
+C0713,Mia Davis,customer713@example.com,B2C,Toronto,Canada,2023-07-17
+C0714,Lucas Reed,customer714@example.com,B2B,Munich,Germany,2024-03-04
+C0715,Zoe Johnson,customer715@example.com,B2C,Amsterdam,Netherlands,2024-04-22
+C0716,Quinn Baker,customer716@example.com,B2C,Melbourne,Australia,2023-07-14
+C0717,Sam Johnson,customer717@example.com,B2C,Berlin,Germany,2022-11-01
+C0718,Nora Brown,customer718@example.com,B2C,Athens,Greece,2024-06-01
+C0719,Ben Hall,customer719@example.com,B2C,New York,USA,2024-03-05
+C0720,Liam Cook,customer720@example.com,B2C,Stockholm,Sweden,2023-12-07
+C0721,Ethan Wilson,customer721@example.com,B2C,Sydney,Australia,2022-06-19
+C0722,Jordan Turner,customer722@example.com,B2C,Houston,USA,2024-04-04
+C0723,Lucas Moore,customer723@example.com,B2C,Munich,Germany,2023-09-04
+C0724,Ella Lee,customer724@example.com,B2B,Paris,France,2022-10-24
+C0725,Nora Davis,customer725@example.com,B2C,Vancouver,Canada,2023-11-27
+C0726,Harper Cook,customer726@example.com,B2C,Sydney,Australia,2022-03-02
+C0727,Casey Edwards,customer727@example.com,B2C,Los Angeles,USA,2022-09-13
+C0728,Nora Parker,customer728@example.com,B2C,Berlin,Germany,2024-02-19
+C0729,Chloe Lee,customer729@example.com,B2C,Los Angeles,USA,2023-08-15
+C0730,Taylor Campbell,customer730@example.com,B2C,Thessaloniki,Greece,2023-04-08
+C0731,Mia Collins,customer731@example.com,B2C,Birmingham,UK,2023-02-17
+C0732,James King,customer732@example.com,B2C,Athens,Greece,2023-04-11
+C0733,Olivia Campbell,customer733@example.com,B2C,Birmingham,UK,2024-01-19
+C0734,Taylor Morris,customer734@example.com,B2C,Athens,Greece,2024-05-20
+C0735,Nora Clark,customer735@example.com,B2C,Houston,USA,2023-03-16
+C0736,Logan King,customer736@example.com,B2C,Lyon,France,2024-04-28
+C0737,Sam Hill,customer737@example.com,B2C,Los Angeles,USA,2023-08-03
+C0738,Morgan Campbell,customer738@example.com,B2C,Manchester,UK,2022-02-17
+C0739,Morgan Bell,customer739@example.com,B2B,Melbourne,Australia,2022-01-17
+C0740,Alex Baker,customer740@example.com,B2C,Melbourne,Australia,2023-04-13
+C0741,Logan Moore,customer741@example.com,B2B,Los Angeles,USA,2023-10-28
+C0742,Chloe Wright,customer742@example.com,B2C,Munich,Germany,2022-04-06
+C0743,Lily Campbell,customer743@example.com,B2C,Athens,Greece,2023-11-12
+C0744,Logan Collins,customer744@example.com,B2C,Thessaloniki,Greece,2023-10-03
+C0745,Chloe Brown,customer745@example.com,B2C,Berlin,Germany,2023-03-16
+C0746,James Brown,customer746@example.com,B2C,London,UK,2022-08-07
+C0747,Mason Green,customer747@example.com,B2C,Berlin,Germany,2023-06-16
+C0748,Morgan Cook,customer748@example.com,B2C,Lyon,France,2024-04-16
+C0749,Taylor Hall,customer749@example.com,B2C,Los Angeles,USA,2023-05-05
+C0750,Emma Wright,customer750@example.com,B2B,New York,USA,2022-04-16
+C0751,Zoe Reed,customer751@example.com,B2C,Los Angeles,USA,2023-01-27
+C0752,Mason Wilson,customer752@example.com,B2C,Los Angeles,USA,2023-10-19
+C0753,Ethan Campbell,customer753@example.com,B2C,Stockholm,Sweden,2022-01-09
+C0754,Quinn Campbell,customer754@example.com,B2C,Athens,Greece,2024-01-10
+C0755,Mason Green,customer755@example.com,B2B,Sydney,Australia,2023-09-23
+C0756,Casey Stewart,customer756@example.com,B2C,Birmingham,UK,2022-04-13
+C0757,Noah King,customer757@example.com,B2C,Thessaloniki,Greece,2022-12-26
+C0758,Chloe Brown,customer758@example.com,B2C,Berlin,Germany,2022-10-11
+C0759,Leo Phillips,customer759@example.com,B2C,Tokyo,Japan,2023-09-07
+C0760,Sam Parker,customer760@example.com,B2B,London,UK,2024-05-18
+C0761,Ethan Scott,customer761@example.com,B2C,Houston,USA,2023-06-15
+C0762,Chloe Johnson,customer762@example.com,B2C,Thessaloniki,Greece,2022-10-30
+C0763,Sophia Davis,customer763@example.com,B2C,Berlin,Germany,2023-05-22
+C0764,Mia Morgan,customer764@example.com,B2B,Tokyo,Japan,2022-03-14
+C0765,Casey Adams,customer765@example.com,B2B,Athens,Greece,2022-11-21
+C0766,Liam Evans,customer766@example.com,B2C,Stockholm,Sweden,2023-03-07
+C0767,Taylor Smith,customer767@example.com,B2C,Toronto,Canada,2024-02-28
+C0768,Quinn Johnson,customer768@example.com,B2B,London,UK,2022-09-26
+C0769,Logan Campbell,customer769@example.com,B2C,Thessaloniki,Greece,2023-06-03
+C0770,Aria Adams,customer770@example.com,B2C,Sydney,Australia,2023-03-10
+C0771,Ethan Wilson,customer771@example.com,B2C,Amsterdam,Netherlands,2023-07-05
+C0772,Mia Bell,customer772@example.com,B2C,Paris,France,2022-03-22
+C0773,Emma Adams,customer773@example.com,B2C,Los Angeles,USA,2023-07-04
+C0774,Aria Baker,customer774@example.com,B2C,Birmingham,UK,2022-11-14
+C0775,Avery Brown,customer775@example.com,B2B,Berlin,Germany,2022-03-01
+C0776,Ethan Phillips,customer776@example.com,B2C,New York,USA,2023-04-10
+C0777,Alex Edwards,customer777@example.com,B2C,Chicago,USA,2022-05-03
+C0778,James Wright,customer778@example.com,B2C,London,UK,2022-06-17
+C0779,Liam Wilson,customer779@example.com,B2C,Munich,Germany,2022-06-20
+C0780,Lily Davis,customer780@example.com,B2C,Munich,Germany,2024-01-21
+C0781,Ben Baker,customer781@example.com,B2C,London,UK,2022-12-10
+C0782,Aria Turner,customer782@example.com,B2C,Birmingham,UK,2022-09-27
+C0783,Mia Wright,customer783@example.com,B2C,Toronto,Canada,2023-04-12
+C0784,Liam Moore,customer784@example.com,B2C,Stockholm,Sweden,2022-06-20
+C0785,Mason Collins,customer785@example.com,B2C,New York,USA,2023-08-11
+C0786,Jordan Cook,customer786@example.com,B2B,Vancouver,Canada,2022-01-03
+C0787,James Wright,customer787@example.com,B2C,Berlin,Germany,2022-02-17
+C0788,Max Cook,customer788@example.com,B2C,Los Angeles,USA,2022-07-03
+C0789,Emma Hall,customer789@example.com,B2C,Sydney,Australia,2022-08-18
+C0790,Nora Brown,customer790@example.com,B2C,Lyon,France,2022-10-05
+C0791,Mason Morgan,customer791@example.com,B2C,New York,USA,2023-05-30
+C0792,Mia Johnson,customer792@example.com,B2B,Berlin,Germany,2024-04-03
+C0793,Olivia Cook,customer793@example.com,B2C,Birmingham,UK,2024-06-17
+C0794,Taylor Evans,customer794@example.com,B2C,Paris,France,2022-12-02
+C0795,Logan Turner,customer795@example.com,B2C,Athens,Greece,2022-07-25
+C0796,Olivia Wright,customer796@example.com,B2C,Tokyo,Japan,2022-09-06
+C0797,Zoe Clark,customer797@example.com,B2C,Toronto,Canada,2024-03-02
+C0798,Ben Hall,customer798@example.com,B2C,Amsterdam,Netherlands,2024-02-18
+C0799,Avery Evans,customer799@example.com,B2C,Sydney,Australia,2022-01-25
+C0800,Alex Stewart,customer800@example.com,B2C,London,UK,2022-12-10

@@ -1,0 +1,9 @@
+department_id,department_name,cost_center,manager_id
+DEP01,Engineering,CC100,EMP001
+DEP02,Product,CC200,EMP002
+DEP03,Marketing,CC300,EMP003
+DEP04,Sales,CC400,EMP004
+DEP05,Finance,CC500,EMP005
+DEP06,HR,CC600,EMP006
+DEP07,Operations,CC700,EMP007
+DEP08,Customer Support,CC800,EMP008

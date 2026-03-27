@@ -1,0 +1,51 @@
+route_id,supplier_id,supplier_name,supplier_city,supplier_country,supplier_lat,supplier_lng,warehouse_id,warehouse_name,warehouse_city,warehouse_country,warehouse_lat,warehouse_lng,total_shipments,avg_transit_days,on_time_pct,total_quantity,total_cost
+RT_SUP01_WH01,SUP01,EuroComponents GmbH,Munich,Germany,48.1351,11.582,WH01,Rotterdam Hub,Rotterdam,Netherlands,51.9225,4.4792,47,17.1,0.574,100354,10093020.66
+RT_SUP01_WH02,SUP01,EuroComponents GmbH,Munich,Germany,48.1351,11.582,WH02,Chicago Central,Chicago,USA,41.8781,-87.6298,67,16.9,0.537,173135,14834758.32
+RT_SUP01_WH03,SUP01,EuroComponents GmbH,Munich,Germany,48.1351,11.582,WH03,Shanghai Port,Shanghai,China,31.2304,121.4737,54,16.0,0.63,150951,14648382.66
+RT_SUP01_WH04,SUP01,EuroComponents GmbH,Munich,Germany,48.1351,11.582,WH04,Sao Paulo Depot,Sao Paulo,Brazil,-23.5505,-46.6333,62,15.8,0.661,133855,11213173.74
+RT_SUP01_WH05,SUP01,EuroComponents GmbH,Munich,Germany,48.1351,11.582,WH05,Dubai Logistics,Dubai,UAE,25.2048,55.2708,59,15.0,0.712,155450,14961708.44
+RT_SUP02_WH01,SUP02,Pacific Manufacturing,Shenzhen,China,22.5431,114.0579,WH01,Rotterdam Hub,Rotterdam,Netherlands,51.9225,4.4792,55,37.9,0.545,161020,16893650.09
+RT_SUP02_WH02,SUP02,Pacific Manufacturing,Shenzhen,China,22.5431,114.0579,WH02,Chicago Central,Chicago,USA,41.8781,-87.6298,56,39.8,0.482,134597,14893981.02
+RT_SUP02_WH03,SUP02,Pacific Manufacturing,Shenzhen,China,22.5431,114.0579,WH03,Shanghai Port,Shanghai,China,31.2304,121.4737,52,39.8,0.519,129890,12899965.71
+RT_SUP02_WH04,SUP02,Pacific Manufacturing,Shenzhen,China,22.5431,114.0579,WH04,Sao Paulo Depot,Sao Paulo,Brazil,-23.5505,-46.6333,61,39.1,0.492,158032,14581503.89
+RT_SUP02_WH05,SUP02,Pacific Manufacturing,Shenzhen,China,22.5431,114.0579,WH05,Dubai Logistics,Dubai,UAE,25.2048,55.2708,60,39.1,0.5,157762,15628898.27
+RT_SUP03_WH01,SUP03,AmeriSteel Corp,Pittsburgh,USA,40.4406,-79.9959,WH01,Rotterdam Hub,Rotterdam,Netherlands,51.9225,4.4792,66,9.9,0.515,159761,15101294.91
+RT_SUP03_WH02,SUP03,AmeriSteel Corp,Pittsburgh,USA,40.4406,-79.9959,WH02,Chicago Central,Chicago,USA,41.8781,-87.6298,54,9.2,0.519,143749,14396703.04
+RT_SUP03_WH03,SUP03,AmeriSteel Corp,Pittsburgh,USA,40.4406,-79.9959,WH03,Shanghai Port,Shanghai,China,31.2304,121.4737,51,9.1,0.647,110403,11037483.27
+RT_SUP03_WH04,SUP03,AmeriSteel Corp,Pittsburgh,USA,40.4406,-79.9959,WH04,Sao Paulo Depot,Sao Paulo,Brazil,-23.5505,-46.6333,54,10.6,0.444,132636,13257354.18
+RT_SUP03_WH05,SUP03,AmeriSteel Corp,Pittsburgh,USA,40.4406,-79.9959,WH05,Dubai Logistics,Dubai,UAE,25.2048,55.2708,63,10.1,0.492,174574,14782199.15
+RT_SUP04_WH01,SUP04,Nordic Materials,Gothenburg,Sweden,57.7089,11.9746,WH01,Rotterdam Hub,Rotterdam,Netherlands,51.9225,4.4792,69,14.9,0.623,190147,19970373.69
+RT_SUP04_WH02,SUP04,Nordic Materials,Gothenburg,Sweden,57.7089,11.9746,WH02,Chicago Central,Chicago,USA,41.8781,-87.6298,52,12.7,0.769,122139,14962911.58
+RT_SUP04_WH03,SUP04,Nordic Materials,Gothenburg,Sweden,57.7089,11.9746,WH03,Shanghai Port,Shanghai,China,31.2304,121.4737,77,14.1,0.571,191739,17962171.38
+RT_SUP04_WH04,SUP04,Nordic Materials,Gothenburg,Sweden,57.7089,11.9746,WH04,Sao Paulo Depot,Sao Paulo,Brazil,-23.5505,-46.6333,52,14.0,0.596,132275,14407419.97
+RT_SUP04_WH05,SUP04,Nordic Materials,Gothenburg,Sweden,57.7089,11.9746,WH05,Dubai Logistics,Dubai,UAE,25.2048,55.2708,70,14.2,0.643,173222,14111801.07
+RT_SUP05_WH01,SUP05,IndoTech Solutions,Mumbai,India,19.076,72.8777,WH01,Rotterdam Hub,Rotterdam,Netherlands,51.9225,4.4792,59,32.9,0.492,165230,18457325.04
+RT_SUP05_WH02,SUP05,IndoTech Solutions,Mumbai,India,19.076,72.8777,WH02,Chicago Central,Chicago,USA,41.8781,-87.6298,58,32.2,0.517,143519,14301128.81
+RT_SUP05_WH03,SUP05,IndoTech Solutions,Mumbai,India,19.076,72.8777,WH03,Shanghai Port,Shanghai,China,31.2304,121.4737,71,34.9,0.408,184082,18728386.27
+RT_SUP05_WH04,SUP05,IndoTech Solutions,Mumbai,India,19.076,72.8777,WH04,Sao Paulo Depot,Sao Paulo,Brazil,-23.5505,-46.6333,67,33.5,0.507,145707,14547816.63
+RT_SUP05_WH05,SUP05,IndoTech Solutions,Mumbai,India,19.076,72.8777,WH05,Dubai Logistics,Dubai,UAE,25.2048,55.2708,52,33.9,0.404,135258,13771815.39
+RT_SUP06_WH01,SUP06,LatAm Plastics,Monterrey,Mexico,25.6866,-100.3161,WH01,Rotterdam Hub,Rotterdam,Netherlands,51.9225,4.4792,56,14.0,0.536,161711,15855587.93
+RT_SUP06_WH02,SUP06,LatAm Plastics,Monterrey,Mexico,25.6866,-100.3161,WH02,Chicago Central,Chicago,USA,41.8781,-87.6298,57,15.1,0.439,143085,13257144.2
+RT_SUP06_WH03,SUP06,LatAm Plastics,Monterrey,Mexico,25.6866,-100.3161,WH03,Shanghai Port,Shanghai,China,31.2304,121.4737,57,12.4,0.719,141173,14177331.4
+RT_SUP06_WH04,SUP06,LatAm Plastics,Monterrey,Mexico,25.6866,-100.3161,WH04,Sao Paulo Depot,Sao Paulo,Brazil,-23.5505,-46.6333,60,14.6,0.45,151239,14970642.16
+RT_SUP06_WH05,SUP06,LatAm Plastics,Monterrey,Mexico,25.6866,-100.3161,WH05,Dubai Logistics,Dubai,UAE,25.2048,55.2708,59,11.8,0.678,157658,16441323.62
+RT_SUP07_WH01,SUP07,UK Precision Ltd,Birmingham,UK,52.4862,-1.8904,WH01,Rotterdam Hub,Rotterdam,Netherlands,51.9225,4.4792,57,11.4,0.544,154949,13112922.23
+RT_SUP07_WH02,SUP07,UK Precision Ltd,Birmingham,UK,52.4862,-1.8904,WH02,Chicago Central,Chicago,USA,41.8781,-87.6298,80,12.2,0.575,234585,21616211.21
+RT_SUP07_WH03,SUP07,UK Precision Ltd,Birmingham,UK,52.4862,-1.8904,WH03,Shanghai Port,Shanghai,China,31.2304,121.4737,71,12.1,0.549,176610,17338266.64
+RT_SUP07_WH04,SUP07,UK Precision Ltd,Birmingham,UK,52.4862,-1.8904,WH04,Sao Paulo Depot,Sao Paulo,Brazil,-23.5505,-46.6333,51,11.0,0.686,118029,12322340.56
+RT_SUP07_WH05,SUP07,UK Precision Ltd,Birmingham,UK,52.4862,-1.8904,WH05,Dubai Logistics,Dubai,UAE,25.2048,55.2708,56,11.4,0.571,157051,14597025.84
+RT_SUP08_WH01,SUP08,Tokyo Electronics,Tokyo,Japan,35.6762,139.6503,WH01,Rotterdam Hub,Rotterdam,Netherlands,51.9225,4.4792,65,22.4,0.708,163767,17237762.69
+RT_SUP08_WH02,SUP08,Tokyo Electronics,Tokyo,Japan,35.6762,139.6503,WH02,Chicago Central,Chicago,USA,41.8781,-87.6298,59,23.1,0.61,149347,16433881.07
+RT_SUP08_WH03,SUP08,Tokyo Electronics,Tokyo,Japan,35.6762,139.6503,WH03,Shanghai Port,Shanghai,China,31.2304,121.4737,58,21.6,0.707,138398,13956023.68
+RT_SUP08_WH04,SUP08,Tokyo Electronics,Tokyo,Japan,35.6762,139.6503,WH04,Sao Paulo Depot,Sao Paulo,Brazil,-23.5505,-46.6333,60,23.5,0.617,162179,18203433.9
+RT_SUP08_WH05,SUP08,Tokyo Electronics,Tokyo,Japan,35.6762,139.6503,WH05,Dubai Logistics,Dubai,UAE,25.2048,55.2708,52,22.0,0.692,122970,12744211.61
+RT_SUP09_WH01,SUP09,Aussie Raw Materials,Melbourne,Australia,-37.8136,144.9631,WH01,Rotterdam Hub,Rotterdam,Netherlands,51.9225,4.4792,62,34.3,0.548,133898,12834183.96
+RT_SUP09_WH02,SUP09,Aussie Raw Materials,Melbourne,Australia,-37.8136,144.9631,WH02,Chicago Central,Chicago,USA,41.8781,-87.6298,59,33.9,0.508,143655,15981764.39
+RT_SUP09_WH03,SUP09,Aussie Raw Materials,Melbourne,Australia,-37.8136,144.9631,WH03,Shanghai Port,Shanghai,China,31.2304,121.4737,63,32.7,0.651,162424,16544167.5
+RT_SUP09_WH04,SUP09,Aussie Raw Materials,Melbourne,Australia,-37.8136,144.9631,WH04,Sao Paulo Depot,Sao Paulo,Brazil,-23.5505,-46.6333,68,34.9,0.471,182540,17281497.69
+RT_SUP09_WH05,SUP09,Aussie Raw Materials,Melbourne,Australia,-37.8136,144.9631,WH05,Dubai Logistics,Dubai,UAE,25.2048,55.2708,54,34.3,0.5,146986,15623599.82
+RT_SUP10_WH01,SUP10,TurkParts AS,Istanbul,Turkey,41.0082,28.9784,WH01,Rotterdam Hub,Rotterdam,Netherlands,51.9225,4.4792,50,19.9,0.48,98757,9420456.98
+RT_SUP10_WH02,SUP10,TurkParts AS,Istanbul,Turkey,41.0082,28.9784,WH02,Chicago Central,Chicago,USA,41.8781,-87.6298,56,18.3,0.536,144128,15825662.19
+RT_SUP10_WH03,SUP10,TurkParts AS,Istanbul,Turkey,41.0082,28.9784,WH03,Shanghai Port,Shanghai,China,31.2304,121.4737,72,19.9,0.542,188786,19701891.37
+RT_SUP10_WH04,SUP10,TurkParts AS,Istanbul,Turkey,41.0082,28.9784,WH04,Sao Paulo Depot,Sao Paulo,Brazil,-23.5505,-46.6333,66,21.2,0.47,163604,16693679.84
+RT_SUP10_WH05,SUP10,TurkParts AS,Istanbul,Turkey,41.0082,28.9784,WH05,Dubai Logistics,Dubai,UAE,25.2048,55.2708,64,19.5,0.531,162761,17094773.55
