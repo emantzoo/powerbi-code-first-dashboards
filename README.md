@@ -1,35 +1,63 @@
 # Power BI Dashboards from Code — Zero Manual UI Work
 
-Build complete, multi-page Power BI dashboards entirely from code. No dragging fields, no clicking through menus — just prompts and scripts.
+Build complete, multi-page Power BI dashboards entirely from code. No dragging fields, no clicking through menus.
 
 This repo contains **4 production-ready dashboard projects** built using a code-first workflow that combines:
 
-- **MCP Server** (Power BI Modeling MCP) for data loading, relationships, and DAX measures
+- **Power BI Modeling MCP Server** for the semantic model (data loading, relationships, DAX measures)
 - **PBIR format** (Power BI Enhanced Report) for generating visual layouts as JSON files
-- **Claude Code / Claude Desktop** as the orchestration layer
+- **Python scripts** for automated visual page generation
+
+> **No AI required.** The prompt files in this repo are structured specifications — you can execute them manually in Power BI Desktop, use any MCP-compatible tool, or automate with your own scripts. Claude Desktop / Claude Code is one option, not a requirement.
 
 ## The Workflow
 
 ```
-CSV files ──> MCP Server ──> Data Model ──> Save .pbip ──> Python Script ──> Visual Pages
-              (Phase 0-1)    (relationships,   (PBIR)      (generate_pages.py)
-                              Calendar, DAX)
+                     Phase 0-1                        Phase 2
+                  (Semantic Model)                   (Report Layer)
+
+CSV files ──> Power BI Desktop ──> Save .pbip ──> Python Script ──> Open .pbip
+              - Load CSVs            (PBIR)       generate_pages.py   (done!)
+              - Relationships
+              - Calendar table
+              - DAX measures
 ```
 
-### Phase 0: Load Data (MCP)
-Open a blank Power BI Desktop. Claude connects via MCP and loads all CSVs — no manual Get Data clicks.
+### Phase 0-1: Build the Data Model
 
-### Phase 1: Build Data Model (MCP)
-Claude creates relationships, a Calendar table (DAX calculated table), and all measures in batches:
-- Core KPIs (SUM, AVERAGE, DIVIDE, DISTINCTCOUNT)
-- Time intelligence (TOTALMTD, TOTALYTD, SAMEPERIODLASTYEAR, DATESINPERIOD)
-- Measures using USERELATIONSHIP for inactive relationships
-- Conditional formatting measures (SWITCH for RAG status with hex colors)
+The prompt files (`*_Dashboard_Prompts.md`) contain all the specifications:
+- Table definitions with column names and data types
+- Relationship definitions (active/inactive, cardinality, cross-filter direction)
+- Calendar table DAX expression
+- All DAX measures organized in logical batches
 
-### Phase 2: Generate Visuals (Python/PBIR)
-After saving as `.pbip`, a Python script generates all pages and visuals as JSON files directly into the PBIR folder structure. Each `visual.json` defines one chart/card/table with its type, position, size, and data bindings.
+**How to execute Phase 0-1 — pick any method:**
+
+| Method | How |
+|--------|-----|
+| **Manual** | Open Power BI Desktop, use Get Data for CSVs, create relationships in Model View, type DAX measures in the formula bar. The prompt files tell you exactly what to create. |
+| **MCP Server** | Install the [Power BI Modeling MCP](https://marketplace.visualstudio.com/items?itemName=analysis-services.powerbi-modeling-mcp) VS Code extension. Use any MCP-compatible client to send the commands. |
+| **MCP + Claude** | Paste the prompts into Claude Desktop (Cowork tab) or Claude Code. Claude executes the MCP commands automatically. |
+| **TMDL / Tabular Editor** | Write the model definition directly in TMDL files or use Tabular Editor to script the relationships and measures. |
+| **powerbpy** | Use the Python [powerbpy](https://pypi.org/project/powerbpy/) library to load CSVs and generate the `.pbip` structure programmatically. |
+
+### Phase 2: Generate Visual Pages (Python)
+
+After saving as `.pbip`, run the Python script to generate all pages and visuals:
+
+```bash
+python scripts/generate_pages.py
+```
+
+Each script writes `visual.json` files into the PBIR folder structure. Every visual is defined as a JSON object specifying:
+- Visual type (`cardVisual`, `clusteredBarChart`, `lineChart`, `donutChart`, `tableEx`, `pivotTable`, `slicer`)
+- Position and size on the 1280x720 canvas
+- Data bindings (which table/column/measure powers the visual)
+
+**This phase is pure Python — no AI, no MCP, no external dependencies.** You can modify the scripts to change layouts, add visuals, or adapt them for your own datasets.
 
 ### Phase 3: Open and Polish
+
 Open the `.pbip` file — all pages appear with data-bound visuals. Manual polish (themes, formatting, slicer sync) takes 15-30 minutes vs 2-3 hours of building from scratch.
 
 ## The 4 Dashboards
@@ -68,7 +96,7 @@ Open the `.pbip` file — all pages appear with data-bound visuals. Manual polis
 | Relationships | 11 (4 active + 7 inactive) |
 | DAX Measures | 42 |
 | Pages | 5 (Supply Chain KPIs, Supplier Scorecard, Inventory Health, Global Logistics Map, Warehouse Comparison) |
-| Key DAX | Multi-fact model, semi-additive LASTDATE, 8x USERELATIONSHIP, DATESINPERIOD rolling window, map visuals |
+| Key DAX | Multi-fact model, semi-additive LASTDATE, 8x USERELATIONSHIP, DATESINPERIOD rolling window |
 
 ## DAX Skills Demonstrated
 
@@ -96,7 +124,7 @@ DimTable1 ──> FactTable <── DimTable2
               Calendar
 ```
 
-**Multi-Fact (Supply Chain):**
+**Multi-Fact (Supply Chain) — 3 fact tables sharing dimensions:**
 ```
 DimSupplier ──> FactOrders <── DimProduct
                     |              |
@@ -110,31 +138,46 @@ DimSupplier ──> FactOrders <── DimProduct
 ## How to Reproduce
 
 ### Prerequisites
-- Power BI Desktop (March 2026+ or with PBIR preview features enabled)
+- Power BI Desktop (with PBIR preview features enabled — see below)
+- Python 3.x (for Phase 2 visual generation)
+
+**Optional** (for automated Phase 0-1):
 - VS Code with Power BI Modeling MCP extension
-- Claude Desktop or Claude Code with MCP configured
-- Python 3.x
+- Any MCP-compatible client (Claude Desktop, Claude Code, or your own)
+
+### Enable PBIR in Power BI Desktop
+File > Options > Preview features — enable:
+- Store reports using enhanced metadata format (PBIR)
+- Power BI Project (.pbip) save option
+- Store semantic model in TMDL format
 
 ### Steps
-1. Pick a dashboard folder (e.g., `ecommerce/`)
-2. Open a blank Power BI Desktop
-3. Follow the prompts in the `*_Dashboard_Prompts.md` file — paste each phase into Claude
-4. Save as `.pbip` when prompted
-5. Close Power BI Desktop
-6. Run `python scripts/generate_pages.py` targeting your `.pbip` folder
-7. Reopen the `.pbip` — full dashboard ready
 
-### Alternative: powerbpy
-The `build_all_powerbpy.py` script uses the [powerbpy](https://pypi.org/project/powerbpy/) library to generate the PBIR structure in one step. It creates the `.pbip` projects with CSVs loaded and visuals placed. Then use the MCP prompts (Phase 1 only) to add relationships and DAX measures.
+**Option A: Fully manual**
+1. Open Power BI Desktop
+2. Load CSVs from a `data/` folder using Get Data > CSV
+3. Follow the `*_Dashboard_Prompts.md` file — create relationships, Calendar table, and DAX measures as specified
+4. Save as `.pbip` (File > Save As > Power BI Project)
+5. Close Power BI Desktop
+6. Run `python scripts/generate_pages.py` (update the path inside the script)
+7. Reopen the `.pbip` — dashboard ready
+
+**Option B: MCP-assisted**
+1. Open a blank Power BI Desktop
+2. Paste each phase from `*_Dashboard_Prompts.md` into your MCP client
+3. Save as `.pbip` when prompted
+4. Close Power BI Desktop
+5. Run `python scripts/generate_pages.py`
+6. Reopen the `.pbip` — dashboard ready
 
 ## Repo Structure
 
 ```
 powerbi-code-first-dashboards/
   ecommerce/
-    data/                          # 5 CSV files
-    scripts/generate_pages.py      # PBIR visual generator
-    ECommerce_Dashboard_Prompts.md # Step-by-step MCP prompts
+    data/                          # 5 CSV files (sample data included)
+    scripts/generate_pages.py      # PBIR visual generator (pure Python)
+    ECommerce_Dashboard_Prompts.md # Full data model specification
   hospital/
     data/                          # 5 CSV files
     scripts/generate_pages.py
@@ -154,21 +197,21 @@ powerbi-code-first-dashboards/
 ## Why Code-First?
 
 - **Reproducible** — the entire pipeline is text-based and version-controllable
-- **Fast** — 4 complete dashboards in under an hour vs days of manual work
+- **Fast** — 4 complete dashboards built in under an hour vs days of manual work
 - **Consistent** — same layout patterns, naming conventions, and measure structures
-- **Learnable** — each prompt file is a self-contained DAX tutorial
-- **Portable** — `.pbip` folders are just text files (JSON + TMDL)
+- **Learnable** — each prompt file is a self-contained DAX tutorial with all measures spelled out
+- **Portable** — `.pbip` folders are just text files (JSON + TMDL), no binary `.pbix` blobs
 
 ## Tech Stack
 
-| Component | Role |
-|-----------|------|
-| Power BI Desktop | Runtime engine |
-| Power BI Modeling MCP | Data loading, relationships, DAX measures |
-| PBIR (JSON) | Visual layout definition |
-| Python | Visual page generation scripts |
-| Claude Code | Orchestration and automation |
+| Component | Role | Required? |
+|-----------|------|-----------|
+| Power BI Desktop | Runtime engine | Yes |
+| PBIR (JSON) | Visual layout definition | Yes (enabled via preview features) |
+| Python | Visual page generation scripts | Yes (Phase 2) |
+| Power BI Modeling MCP | Automated data model creation | Optional (Phase 0-1 can be done manually) |
+| MCP client (Claude, etc.) | Orchestration layer | Optional |
 
 ---
 
-Built with [Claude Code](https://claude.ai/claude-code) and the [Power BI Modeling MCP](https://marketplace.visualstudio.com/items?itemName=analysis-services.powerbi-modeling-mcp) extension.
+*The `.pbip` format and PBIR visual definitions became production-ready in early 2026. This workflow leverages Power BI's shift toward text-based, developer-friendly project files.*
