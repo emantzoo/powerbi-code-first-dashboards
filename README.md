@@ -39,7 +39,6 @@ The prompt files (`*_Dashboard_Prompts.md`) contain all the specifications:
 | **MCP Server** | Install the [Power BI Modeling MCP](https://marketplace.visualstudio.com/items?itemName=analysis-services.powerbi-modeling-mcp) VS Code extension. Use any MCP-compatible client to send the commands. |
 | **MCP + Claude** | Paste the prompts into Claude Desktop (Cowork tab) or Claude Code. Claude executes the MCP commands automatically. |
 | **TMDL / Tabular Editor** | Write the model definition directly in TMDL files or use Tabular Editor to script the relationships and measures. |
-| **powerbpy** | Use the Python [powerbpy](https://pypi.org/project/powerbpy/) library to load CSVs and generate the `.pbip` structure programmatically. |
 
 ### Phase 2: Generate Visual Pages (Python)
 
