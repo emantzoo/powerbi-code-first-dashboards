@@ -208,39 +208,29 @@ This creates the PBIR folder structure needed for Phase 2.
 
 ## PHASE 2 — Generate Visuals (PBIR)
 
-> Paste this into Claude Code. Make sure you're in the project directory or provide the full path.
+> Run the Python script — no AI needed:
 
+1. Edit `scripts/generate_pages.py` — update the `BASE` path on line 2 to match your `.pbip` save location
+2. Close Power BI Desktop
+3. Run:
+
+```bash
+python scripts/generate_pages.py
 ```
-I have a Power BI project saved as .pbip with PBIR format at:
-C:\YOUR_SAVE_PATH\ECommerceDashboard
 
-The data model has these tables:
-- FactSales (order_id, order_date, customer_id, product_id, store_id, quantity, unit_price, discount_pct, shipping_cost)
-- FactReturns (return_id, order_id, return_date, reason_code, refund_amount)
-- DimProduct (product_id, product_name, category, subcategory, brand, cost_price)
-- DimCustomer (customer_id, customer_name, email, segment, city, country, registration_date)
-- DimStore (store_id, store_name, channel, region)
-- Calendar (Date, Year, Quarter, Month_Num, Month_Name, Year_Quarter, Year_Month, Day_of_Week, Is_Weekend)
-- _Measures (all measures listed below)
+The script generates 4 pages with 34 visuals (cards, bar charts, line charts, area charts, donut charts, tables, matrices, slicers) as PBIR `visual.json` files.
 
-Measures in _Measures:
-Total Revenue, Total Cost, Total Profit, Profit Margin, Total Orders, Total Quantity,
-Avg Order Value, Total Discount Given, Total Shipping, Total Customers,
-Total Returns, Total Refunds, Return Rate, Net Revenue, Returns by Date,
-Revenue MTD, Revenue YTD, Revenue PY, Revenue YoY Growth,
-Orders PY, Orders YoY Growth, Revenue L3M, Revenue L12M,
-Margin RAG Status, Margin RAG Color, YoY RAG Color, Return Rate RAG Color
+### Visual Layout Reference
 
-Generate PBIR visual.json files for a 4-page dashboard. Use schema version 2.7.0. Canvas is 1280x720.
+This is the layout specification that was used to generate `scripts/generate_pages.py`. Canvas is 1280x720.
 
-### Page 1 — Executive Overview
-Layout: 4 KPI cards across the top, 3 charts below, 1 slicer.
+**Page 1 — Executive Overview**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=295): Total Revenue
-- Card 2 (x=330, w=295): Total Profit
-- Card 3 (x=640, w=295): Profit Margin
-- Card 4 (x=950, w=295): Total Orders
+- Card (x=20, w=295): Total Revenue
+- Card (x=330, w=295): Total Profit
+- Card (x=640, w=295): Profit Margin
+- Card (x=950, w=295): Total Orders
 
 Row 2 (y=140, h=280):
 - Clustered bar chart (x=20, w=400): DimProduct[category] vs Total Revenue
@@ -252,14 +242,13 @@ Row 3 (y=440, h=260):
 - Slicer (x=640, w=200): Calendar[Year]
 - Clustered bar chart (x=860, w=380): DimStore[region] vs Total Orders
 
-### Page 2 — Product Performance
-Layout: category/brand analysis with drill-down potential.
+**Page 2 — Product Performance**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=235): Total Revenue
-- Card 2 (x=270, w=235): Avg Order Value
-- Card 3 (x=520, w=235): Total Quantity
-- Card 4 (x=770, w=235): Return Rate
+- Card (x=20, w=235): Total Revenue
+- Card (x=270, w=235): Avg Order Value
+- Card (x=520, w=235): Total Quantity
+- Card (x=770, w=235): Return Rate
 - Slicer (x=1020, w=230): DimProduct[category]
 
 Row 2 (y=140, h=280):
@@ -269,34 +258,29 @@ Row 2 (y=140, h=280):
 Row 3 (y=440, h=260):
 - Table (x=20, w=1230): DimProduct[category], DimProduct[subcategory], DimProduct[brand], Total Revenue, Total Profit, Profit Margin, Total Quantity, Return Rate
 
-### Page 3 — Customer & Trends
-Layout: time intelligence and customer segmentation.
+**Page 3 — Customer & Trends**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=295): Total Customers
-- Card 2 (x=330, w=295): Revenue YoY Growth
-- Card 3 (x=640, w=295): Revenue YTD
-- Card 4 (x=950, w=295): Revenue L12M
+- Card (x=20, w=295): Total Customers
+- Card (x=330, w=295): Revenue YoY Growth
+- Card (x=640, w=295): Revenue YTD
+- Card (x=950, w=295): Revenue L12M
 
 Row 2 (y=140, h=280):
-- Line chart (x=20, w=610): Calendar[Year_Month] vs Total Revenue, also add Revenue PY as second Y value
+- Line chart (x=20, w=610): Calendar[Year_Month] vs Total Revenue + Revenue PY
 - Donut chart (x=650, w=290): DimCustomer[segment] vs Total Revenue
 - Clustered bar chart (x=960, w=290): DimCustomer[country] vs Total Customers
 
 Row 3 (y=440, h=260):
-- Matrix / Pivot table (x=20, w=1230):
-  Rows: DimCustomer[country]
-  Columns: Calendar[Year]
-  Values: Total Revenue, Total Orders
+- Matrix (x=20, w=1230): Rows: DimCustomer[country], Columns: Calendar[Year], Values: Total Revenue, Total Orders
 
-### Page 4 — Returns Analysis (drill-through target)
-Layout: returns deep-dive with reason codes and trends.
+**Page 4 — Returns Analysis**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=295): Total Returns
-- Card 2 (x=330, w=295): Total Refunds
-- Card 3 (x=640, w=295): Return Rate
-- Card 4 (x=950, w=295): Net Revenue
+- Card (x=20, w=295): Total Returns
+- Card (x=330, w=295): Total Refunds
+- Card (x=640, w=295): Return Rate
+- Card (x=950, w=295): Net Revenue
 
 Row 2 (y=140, h=280):
 - Clustered bar chart (x=20, w=400): FactReturns[reason_code] vs Total Returns
@@ -305,10 +289,6 @@ Row 2 (y=140, h=280):
 
 Row 3 (y=440, h=260):
 - Table (x=20, w=1230): FactReturns[reason_code], Total Returns, Total Refunds, Return Rate
-
-Write all files directly into ECommerceDashboard.Report/definition/pages/
-Update pages.json with the 4 page folders in pageOrder.
-```
 
 ---
 

@@ -313,43 +313,29 @@ Time to Fill RAG Color = SWITCH(
 
 ## PHASE 2 — Generate Visuals (PBIR)
 
-> Paste this into Claude Code:
+> Run the Python script — no AI needed:
 
+1. Edit `scripts/generate_pages.py` — update the `BASE` path on line 2 to match your `.pbip` save location
+2. Close Power BI Desktop
+3. Run:
+
+```bash
+python scripts/generate_pages.py
 ```
-I have a Power BI project saved as .pbip with PBIR format at:
-C:\YOUR_SAVE_PATH\HRAnalyticsDashboard
 
-The data model has these tables:
-- FactEmployeeSnapshot (snapshot_date, employee_id, department_id, job_level, salary, performance_rating, engagement_score, is_active)
-- FactRecruitment (requisition_id, department_id, job_level, open_date, close_date, applications_received, offers_made, hires)
-- DimEmployee (employee_id, employee_name, hire_date, birth_date, gender, education_level, city, department_id, job_level, termination_date, exit_reason)
-- DimDepartment (department_id, department_name, cost_center, manager_id)
-- DimJobLevel (job_level_id, level_name, salary_band_min, salary_band_max)
-- Calendar (Date, Year, Quarter, Month_Num, Month_Name, Year_Quarter, Year_Month, Is_Month_Start)
-- _Measures (all measures listed below)
+The script generates 4 pages with 37 visuals (cards, bar charts, line charts, donut charts, tables, matrices, slicers) as PBIR `visual.json` files.
 
-Measures in _Measures:
-Current Headcount, Total Employees All Time, Active Employees,
-Avg Salary, Median Salary, Total Payroll, Avg Performance, Avg Engagement,
-High Performers, High Performer Pct,
-Terminations, Monthly Attrition Rate, Annualized Attrition Rate,
-Voluntary Exits, Voluntary Attrition Rate, Avg Tenure Years,
-Salary Band Midpoint, Compa Ratio, Below Band Pct, Above Band Pct, Gender Pay Gap,
-Total Requisitions, Open Requisitions, Total Hires, Total Applications,
-Avg Time to Fill, Offer Acceptance Rate, Applications per Hire,
-Headcount PY, Headcount YoY Growth, Payroll YTD, Tenure Bucket,
-Attrition RAG Color, Engagement RAG Color, Compa Ratio RAG Color, Time to Fill RAG Color
+### Visual Layout Reference
 
-Generate PBIR visual.json files for a 4-page dashboard. Use schema version 2.7.0. Canvas is 1280x720.
+This is the layout specification that was used to generate `scripts/generate_pages.py`. Canvas is 1280x720.
 
-### Page 1 — Workforce Overview
-Layout: headcount KPIs, department breakdown, trend over time.
+**Page 1 — Workforce Overview**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=235): Current Headcount
-- Card 2 (x=270, w=235): Avg Salary
-- Card 3 (x=520, w=235): Avg Engagement
-- Card 4 (x=770, w=235): Headcount YoY Growth
+- Card (x=20, w=235): Current Headcount
+- Card (x=270, w=235): Avg Salary
+- Card (x=520, w=235): Avg Engagement
+- Card (x=770, w=235): Headcount YoY Growth
 - Slicer (x=1020, w=230): Calendar[Year]
 
 Row 2 (y=140, h=280):
@@ -362,14 +348,13 @@ Row 3 (y=440, h=260):
 - Donut chart (x=440, w=380): DimEmployee[education_level] vs Current Headcount
 - Clustered bar chart (x=840, w=410): DimEmployee[city] vs Current Headcount
 
-### Page 2 — Attrition Analysis
-Layout: attrition metrics, exit reasons, department comparison.
+**Page 2 — Attrition Analysis**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=235): Terminations
-- Card 2 (x=270, w=235): Annualized Attrition Rate
-- Card 3 (x=520, w=235): Voluntary Attrition Rate
-- Card 4 (x=770, w=235): Avg Tenure Years
+- Card (x=20, w=235): Terminations
+- Card (x=270, w=235): Annualized Attrition Rate
+- Card (x=520, w=235): Voluntary Attrition Rate
+- Card (x=770, w=235): Avg Tenure Years
 - Slicer (x=1020, w=230): Calendar[Year]
 
 Row 2 (y=140, h=280):
@@ -378,19 +363,15 @@ Row 2 (y=140, h=280):
 - Donut chart (x=860, w=380): DimDepartment[department_name] vs Terminations
 
 Row 3 (y=440, h=260):
-- Matrix / Pivot table (x=20, w=1230):
-  Rows: DimDepartment[department_name]
-  Columns: Calendar[Year]
-  Values: Terminations, Annualized Attrition Rate, Avg Tenure Years
+- Matrix (x=20, w=1230): Rows: DimDepartment[department_name], Columns: Calendar[Year], Values: Terminations, Annualized Attrition Rate, Avg Tenure Years
 
-### Page 3 — Compensation & Equity
-Layout: salary analysis, pay gap, band compliance.
+**Page 3 — Compensation & Equity**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=235): Avg Salary
-- Card 2 (x=270, w=235): Compa Ratio
-- Card 3 (x=520, w=235): Gender Pay Gap
-- Card 4 (x=770, w=235): Below Band Pct
+- Card (x=20, w=235): Avg Salary
+- Card (x=270, w=235): Compa Ratio
+- Card (x=520, w=235): Gender Pay Gap
+- Card (x=770, w=235): Below Band Pct
 - Slicer (x=1020, w=230): DimDepartment[department_name]
 
 Row 2 (y=140, h=280):
@@ -401,14 +382,13 @@ Row 2 (y=140, h=280):
 Row 3 (y=440, h=260):
 - Table (x=20, w=1230): DimJobLevel[level_name], DimJobLevel[salary_band_min], DimJobLevel[salary_band_max], Avg Salary, Median Salary, Compa Ratio, Below Band Pct, Above Band Pct
 
-### Page 4 — Recruitment Funnel
-Layout: hiring pipeline, time to fill, department demand.
+**Page 4 — Recruitment Funnel**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=235): Total Requisitions
-- Card 2 (x=270, w=235): Open Requisitions
-- Card 3 (x=520, w=235): Avg Time to Fill
-- Card 4 (x=770, w=235): Offer Acceptance Rate
+- Card (x=20, w=235): Total Requisitions
+- Card (x=270, w=235): Open Requisitions
+- Card (x=520, w=235): Avg Time to Fill
+- Card (x=770, w=235): Offer Acceptance Rate
 - Slicer (x=1020, w=230): DimDepartment[department_name]
 
 Row 2 (y=140, h=280):
@@ -418,10 +398,6 @@ Row 2 (y=140, h=280):
 
 Row 3 (y=440, h=260):
 - Table (x=20, w=1230): DimDepartment[department_name], Total Requisitions, Open Requisitions, Total Applications, Total Hires, Avg Time to Fill, Offer Acceptance Rate, Applications per Hire
-
-Write all files directly into HRAnalyticsDashboard.Report/definition/pages/
-Update pages.json with the 4 page folders in pageOrder.
-```
 
 ---
 

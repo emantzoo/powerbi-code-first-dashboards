@@ -264,43 +264,29 @@ Readmission RAG Color = SWITCH(
 
 ## PHASE 2 — Generate Visuals (PBIR)
 
-> Paste this into Claude Code:
+> Run the Python script — no AI needed:
 
+1. Edit `scripts/generate_pages.py` — update the `BASE` path on line 2 to match your `.pbip` save location
+2. Close Power BI Desktop
+3. Run:
+
+```bash
+python scripts/generate_pages.py
 ```
-I have a Power BI project saved as .pbip with PBIR format at:
-C:\YOUR_SAVE_PATH\HospitalDashboard
 
-The data model has these tables:
-- FactAdmissions (admission_id, patient_id, department_id, doctor_id, admit_date, discharge_date, diagnosis_code, admission_type, total_charge)
-- FactWaitTimes (wait_id, patient_id, department_id, arrival_time, triage_time, seen_time, wait_category)
-- DimDepartment (department_id, department_name, floor, bed_capacity)
-- DimDoctor (doctor_id, doctor_name, specialty, department_id, years_experience)
-- DimPatient (patient_id, age_group, gender, insurance_type, zip_code)
-- Calendar (Date, Year, Quarter, Month_Num, Month_Name, Year_Quarter, Year_Month, Day_of_Week, Is_Weekend)
-- _Measures (all measures listed below)
+The script generates 4 pages with 33 visuals (cards, bar charts, line charts, area charts, donut charts, tables, matrices, slicers) as PBIR `visual.json` files.
 
-Measures in _Measures:
-Total Admissions, Total Charges, Avg Charge per Admission, Unique Patients,
-Emergency Admissions, Elective Admissions, Transfer Admissions, Emergency Pct,
-Avg Length of Stay, Max Length of Stay, Total Bed Days, Total Bed Capacity,
-Daily Bed Occupancy Rate, Active Admissions Today,
-Readmissions 30Day, Readmission Rate,
-Admissions MTD, Admissions YTD, Admissions PY, Admissions YoY Growth,
-Charges YTD, Charges PY, Charges YoY Growth,
-Total Wait Records, Avg Wait Minutes, Avg Triage Minutes,
-Wait Under 15min Pct, Wait Over 60min Pct,
-Occupancy RAG Color, LOS RAG Color, Wait RAG Color, Readmission RAG Color
+### Visual Layout Reference
 
-Generate PBIR visual.json files for a 4-page dashboard. Use schema version 2.7.0. Canvas is 1280x720.
+This is the layout specification that was used to generate `scripts/generate_pages.py`. Canvas is 1280x720.
 
-### Page 1 — Hospital Overview
-Layout: top KPI cards, department comparison charts, admission trends.
+**Page 1 — Hospital Overview**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=235): Total Admissions
-- Card 2 (x=270, w=235): Avg Length of Stay
-- Card 3 (x=520, w=235): Daily Bed Occupancy Rate
-- Card 4 (x=770, w=235): Readmission Rate
+- Card (x=20, w=235): Total Admissions
+- Card (x=270, w=235): Avg Length of Stay
+- Card (x=520, w=235): Daily Bed Occupancy Rate
+- Card (x=770, w=235): Readmission Rate
 - Slicer (x=1020, w=230): Calendar[Year]
 
 Row 2 (y=140, h=280):
@@ -312,14 +298,13 @@ Row 3 (y=440, h=260):
 - Area chart (x=20, w=600): Calendar[Year_Month] vs Total Charges
 - Clustered bar chart (x=640, w=610): DimDepartment[department_name] vs Avg Length of Stay
 
-### Page 2 — Department Deep-Dive
-Layout: department performance comparison with capacity analysis.
+**Page 2 — Department Deep-Dive**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=235): Total Admissions
-- Card 2 (x=270, w=235): Total Charges
-- Card 3 (x=520, w=235): Avg Charge per Admission
-- Card 4 (x=770, w=235): Emergency Pct
+- Card (x=20, w=235): Total Admissions
+- Card (x=270, w=235): Total Charges
+- Card (x=520, w=235): Avg Charge per Admission
+- Card (x=770, w=235): Emergency Pct
 - Slicer (x=1020, w=230): DimDepartment[department_name]
 
 Row 2 (y=140, h=280):
@@ -327,19 +312,15 @@ Row 2 (y=140, h=280):
 - Clustered bar chart (x=650, w=600): FactAdmissions[diagnosis_code] vs Total Admissions
 
 Row 3 (y=440, h=260):
-- Matrix / Pivot table (x=20, w=1230):
-  Rows: DimDepartment[department_name]
-  Columns: Calendar[Year]
-  Values: Total Admissions, Avg Length of Stay, Total Charges, Daily Bed Occupancy Rate
+- Matrix (x=20, w=1230): Rows: DimDepartment[department_name], Columns: Calendar[Year], Values: Total Admissions, Avg Length of Stay, Total Charges, Daily Bed Occupancy Rate
 
-### Page 3 — Wait Time Analysis
-Layout: ED wait time patterns, triage performance, time-of-day analysis.
+**Page 3 — Wait Time Analysis**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=295): Avg Wait Minutes
-- Card 2 (x=330, w=295): Avg Triage Minutes
-- Card 3 (x=640, w=295): Wait Under 15min Pct
-- Card 4 (x=950, w=295): Wait Over 60min Pct
+- Card (x=20, w=295): Avg Wait Minutes
+- Card (x=330, w=295): Avg Triage Minutes
+- Card (x=640, w=295): Wait Under 15min Pct
+- Card (x=950, w=295): Wait Over 60min Pct
 
 Row 2 (y=140, h=280):
 - Clustered bar chart (x=20, w=400): FactWaitTimes[wait_category] vs Total Wait Records
@@ -349,14 +330,13 @@ Row 2 (y=140, h=280):
 Row 3 (y=440, h=260):
 - Table (x=20, w=1230): DimDepartment[department_name], Total Wait Records, Avg Wait Minutes, Avg Triage Minutes, Wait Under 15min Pct, Wait Over 60min Pct
 
-### Page 4 — Patient Demographics (drill-through target)
-Layout: patient population analysis by demographics and insurance.
+**Page 4 — Patient Demographics**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=295): Unique Patients
-- Card 2 (x=330, w=295): Total Admissions
-- Card 3 (x=640, w=295): Admissions YoY Growth
-- Card 4 (x=950, w=295): Charges YoY Growth
+- Card (x=20, w=295): Unique Patients
+- Card (x=330, w=295): Total Admissions
+- Card (x=640, w=295): Admissions YoY Growth
+- Card (x=950, w=295): Charges YoY Growth
 
 Row 2 (y=140, h=280):
 - Clustered bar chart (x=20, w=400): DimPatient[age_group] vs Total Admissions
@@ -365,10 +345,6 @@ Row 2 (y=140, h=280):
 
 Row 3 (y=440, h=260):
 - Table (x=20, w=1230): DimPatient[age_group], DimPatient[insurance_type], Total Admissions, Avg Length of Stay, Total Charges, Avg Charge per Admission
-
-Write all files directly into HospitalDashboard.Report/definition/pages/
-Update pages.json with the 4 page folders in pageOrder.
-```
 
 ---
 

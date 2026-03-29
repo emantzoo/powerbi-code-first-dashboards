@@ -302,51 +302,34 @@ Supplier Rating Color = SWITCH(
 
 ## PHASE 2 — Generate Visuals (PBIR)
 
-> Paste this into Claude Code:
+> Run the Python script — no AI needed:
 
+1. Edit `scripts/generate_pages.py` — update the `BASE` path on line 3 to match your `.pbip` save location
+2. Close Power BI Desktop
+3. Run:
+
+```bash
+python scripts/generate_pages.py
 ```
-I have a Power BI project saved as .pbip with PBIR format at:
-C:\YOUR_SAVE_PATH\SupplyChainDashboard
 
-The data model has these tables:
-- FactOrders (order_id, order_date, supplier_id, product_id, warehouse_id, quantity_ordered, unit_cost, expected_delivery_date, actual_delivery_date)
-- FactInventorySnapshot (snapshot_date, product_id, warehouse_id, quantity_on_hand, quantity_reserved, reorder_point)
-- FactShipmentRoutes (route_id, supplier_id, supplier_name, supplier_city, supplier_country, supplier_lat, supplier_lng, warehouse_id, warehouse_name, warehouse_city, warehouse_country, warehouse_lat, warehouse_lng, total_shipments, avg_transit_days, on_time_pct, total_quantity, total_cost)
-- DimProduct (product_id, product_name, category, subcategory, unit_weight_kg, is_perishable)
-- DimSupplier (supplier_id, supplier_name, country, city, latitude, longitude, lead_time_days, reliability_rating)
-- DimWarehouse (warehouse_id, warehouse_name, city, country, latitude, longitude, capacity_units)
-- Calendar (Date, Year, Quarter, Month_Num, Month_Name, Year_Quarter, Year_Month, Week_Num, Year_Week)
-- _Measures (all measures listed below)
+The script generates 5 pages with 43 visuals (cards, bar charts, line charts, donut charts, treemaps, filled maps, tables, matrices, slicers) as PBIR `visual.json` files.
 
-Measures in _Measures:
-Total Orders, Total Order Value, Avg Order Value, Total Quantity Ordered,
-Unique Suppliers Used, Unique Products Ordered,
-On Time Deliveries, Late Deliveries, On Time Delivery Rate,
-Avg Lead Time Days, Avg Lead Time Variance, Max Delay Days, Supplier Avg Reliability,
-Latest Inventory On Hand, Latest Inventory Reserved, Available Inventory,
-Stockout Count, Total Snapshot Records, Stockout Rate,
-Below Reorder Point, Inventory Turnover, Days of Supply,
-Order Value MTD, Order Value YTD, Order Value PY, Order Value YoY Growth,
-Orders PY, On Time Rate PY, On Time Rate Change, Order Value L3M,
-Warehouse Capacity, Warehouse Utilization, Supplier Lead Time Avg,
-Route Shipment Count, Route On Time Pct, Route Avg Transit Days, Route Total Cost,
-OTD RAG Color, Stockout RAG Color, Utilization RAG Color, Lead Time RAG Color, Supplier Rating Color
+### Visual Layout Reference
 
-Generate PBIR visual.json files for a 5-page dashboard. Use schema version 2.7.0. Canvas is 1280x720.
+This is the layout specification that was used to generate `scripts/generate_pages.py`. Canvas is 1280x720.
 
-### Page 1 — Supply Chain KPIs
-Layout: top KPIs, delivery and cost trend charts, category breakdown.
+**Page 1 — Supply Chain KPIs**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=190): Total Orders
-- Card 2 (x=225, w=190): Total Order Value
-- Card 3 (x=430, w=190): On Time Delivery Rate
-- Card 4 (x=635, w=190): Stockout Rate
-- Card 5 (x=840, w=190): Warehouse Utilization
+- Card (x=20, w=190): Total Orders
+- Card (x=225, w=190): Total Order Value
+- Card (x=430, w=190): On Time Delivery Rate
+- Card (x=635, w=190): Stockout Rate
+- Card (x=840, w=190): Warehouse Utilization
 - Slicer (x=1045, w=210): Calendar[Year]
 
 Row 2 (y=140, h=280):
-- Line chart (x=20, w=410): Calendar[Year_Month] vs Total Order Value — add Order Value PY as second Y value for comparison
+- Line chart (x=20, w=410): Calendar[Year_Month] vs Total Order Value + Order Value PY
 - Clustered bar chart (x=450, w=400): DimProduct[category] vs Total Order Value
 - Donut chart (x=870, w=370): DimWarehouse[warehouse_name] vs Total Quantity Ordered
 
@@ -354,14 +337,13 @@ Row 3 (y=440, h=260):
 - Area chart (x=20, w=610): Calendar[Year_Month] vs On Time Delivery Rate
 - Clustered bar chart (x=650, w=600): DimSupplier[supplier_name] vs Avg Lead Time Days
 
-### Page 2 — Supplier Scorecard
-Layout: supplier performance comparison with reliability and delivery metrics.
+**Page 2 — Supplier Scorecard**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=235): Unique Suppliers Used
-- Card 2 (x=270, w=235): Supplier Avg Reliability
-- Card 3 (x=520, w=235): Avg Lead Time Variance
-- Card 4 (x=770, w=235): On Time Rate Change
+- Card (x=20, w=235): Unique Suppliers Used
+- Card (x=270, w=235): Supplier Avg Reliability
+- Card (x=520, w=235): Avg Lead Time Variance
+- Card (x=770, w=235): On Time Rate Change
 - Slicer (x=1020, w=230): DimSupplier[country]
 
 Row 2 (y=140, h=280):
@@ -371,14 +353,13 @@ Row 2 (y=140, h=280):
 Row 3 (y=440, h=260):
 - Table (x=20, w=1230): DimSupplier[supplier_name], DimSupplier[country], DimSupplier[lead_time_days], DimSupplier[reliability_rating], Total Orders, On Time Delivery Rate, Avg Lead Time Days, Avg Lead Time Variance, Total Order Value
 
-### Page 3 — Inventory Health
-Layout: inventory levels, stockout analysis, warehouse comparison. Semi-additive measures featured.
+**Page 3 — Inventory Health**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=235): Latest Inventory On Hand
-- Card 2 (x=270, w=235): Available Inventory
-- Card 3 (x=520, w=235): Stockout Rate
-- Card 4 (x=770, w=235): Days of Supply
+- Card (x=20, w=235): Latest Inventory On Hand
+- Card (x=270, w=235): Available Inventory
+- Card (x=520, w=235): Stockout Rate
+- Card (x=770, w=235): Days of Supply
 - Slicer (x=1020, w=230): DimProduct[category]
 
 Row 2 (y=140, h=280):
@@ -386,57 +367,30 @@ Row 2 (y=140, h=280):
 - Clustered bar chart (x=650, w=600): DimProduct[category] vs Stockout Count
 
 Row 3 (y=440, h=260):
-- Matrix / Pivot table (x=20, w=1230):
-  Rows: DimWarehouse[warehouse_name]
-  Columns: (none — flat matrix)
-  Values: DimWarehouse[capacity_units], Latest Inventory On Hand, Available Inventory, Warehouse Utilization, Stockout Count, Stockout Rate, Below Reorder Point, Inventory Turnover
+- Matrix (x=20, w=1230): Rows: DimWarehouse[warehouse_name], Values: Latest Inventory On Hand, Available Inventory, Warehouse Utilization, Stockout Count, Stockout Rate, Below Reorder Point, Inventory Turnover
 
-### Page 4 — Global Logistics Map
-Layout: MAP VISUALS showing supplier locations, warehouse locations, and shipment routes.
-
-This page uses Power BI's built-in map visuals. The data is in FactShipmentRoutes with lat/lng for both endpoints.
+**Page 4 — Global Logistics Map**
 
 Row 1 (y=10, h=60):
-- Card 1 (x=20, w=295): Route Shipment Count
-- Card 2 (x=330, w=295): Route Avg Transit Days
-- Card 3 (x=640, w=295): Route On Time Pct
-- Card 4 (x=950, w=295): Route Total Cost
+- Card (x=20, w=295): Route Shipment Count
+- Card (x=330, w=295): Route Avg Transit Days
+- Card (x=640, w=295): Route On Time Pct
+- Card (x=950, w=295): Route Total Cost
 
 Row 2 (y=80, h=350):
-- Map visual (x=20, w=740, visualType="map"):
-  Latitude: DimSupplier[latitude]
-  Longitude: DimSupplier[longitude]
-  Size: Total Orders
-  Legend/Color: DimSupplier[country]
-  Tooltip: DimSupplier[supplier_name], Total Orders, On Time Delivery Rate
-  
-- Map visual (x=780, w=470, visualType="map"):
-  Latitude: DimWarehouse[latitude]
-  Longitude: DimWarehouse[longitude]
-  Size: Warehouse Utilization
-  Legend/Color: DimWarehouse[warehouse_name]
-  Tooltip: DimWarehouse[warehouse_name], Latest Inventory On Hand, Warehouse Utilization
+- Treemap (x=20, w=420): DimSupplier[city] grouped by DimSupplier[country], sized by Total Orders
+- Filled map / choropleth (x=460, w=790): DimWarehouse[country] vs Total Orders
 
 Row 3 (y=440, h=260):
-- Table (x=20, w=1230): FactShipmentRoutes[supplier_name], FactShipmentRoutes[supplier_country], FactShipmentRoutes[warehouse_name], FactShipmentRoutes[warehouse_country], FactShipmentRoutes[total_shipments], FactShipmentRoutes[avg_transit_days], FactShipmentRoutes[on_time_pct], FactShipmentRoutes[total_cost]
+- Table (x=20, w=1230): FactShipmentRoutes[supplier_name], supplier_country, warehouse_name, warehouse_country, total_shipments, avg_transit_days, on_time_pct, total_cost
 
-IMPORTANT for map visuals: The visualType for Power BI's built-in map is "map".
-The query state roles for map visuals are:
-- Category: the location identifier (city or name)
-- Latitude: latitude column
-- Longitude: longitude column  
-- Size: measure for bubble size
-- Color saturation or Legend: column for color coding
-Use the standard PBIR visual.json structure but with these role names in queryState.
-
-### Page 5 — Warehouse Comparison (drill-through target)
-Layout: per-warehouse deep-dive with product mix and inventory detail.
+**Page 5 — Warehouse Comparison**
 
 Row 1 (y=10, h=110):
-- Card 1 (x=20, w=235): Total Orders
-- Card 2 (x=270, w=235): Total Order Value
-- Card 3 (x=520, w=235): Warehouse Utilization
-- Card 4 (x=770, w=235): Stockout Rate
+- Card (x=20, w=235): Total Orders
+- Card (x=270, w=235): Total Order Value
+- Card (x=520, w=235): Warehouse Utilization
+- Card (x=770, w=235): Stockout Rate
 - Slicer (x=1020, w=230): DimWarehouse[warehouse_name]
 
 Row 2 (y=140, h=280):
@@ -446,10 +400,6 @@ Row 2 (y=140, h=280):
 
 Row 3 (y=440, h=260):
 - Table (x=20, w=1230): DimProduct[product_name], DimProduct[category], Total Quantity Ordered, Latest Inventory On Hand, Available Inventory, Stockout Count, Below Reorder Point
-
-Write all files directly into SupplyChainDashboard.Report/definition/pages/
-Update pages.json with the 5 page folders in pageOrder.
-```
 
 ---
 

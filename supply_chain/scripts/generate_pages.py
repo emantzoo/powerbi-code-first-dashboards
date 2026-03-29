@@ -1,6 +1,6 @@
 import json, os, hashlib, shutil
 
-BASE = r"C:\Users\emant\Downloads\powerBI_recipes\Supply_Chain\SupplyChainDashboard.Report\definition\pages"
+BASE = r"C:\Users\emant\Documents\powerbi-code-first-dashboards\supply_chain\supplyChain_dashb.Report\definition\pages"
 SCHEMA_VISUAL = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json"
 SCHEMA_PAGE = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json"
 SCHEMA_PAGES = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json"
@@ -68,6 +68,18 @@ def make_map(name, x, y, w, h, cat_table, cat_col, lat_table, lat_col, lng_table
          "Y": {"projections": [column_field(lat_table, lat_col)]},
          "X": {"projections": [column_field(lng_table, lng_col)]},
          "Size": {"projections": [measure_field(size_table, size_measure)]}})
+
+def make_filled_map(name, x, y, w, h, loc_table, loc_col, val_table, val_measure):
+    return make_visual(name, x, y, w, h, "filledMap",
+        {"Category": {"projections": [column_field(loc_table, loc_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+
+def make_treemap(name, x, y, w, h, cat_table, cat_col, val_table, val_measure, group_table=None, group_col=None):
+    qs = {"Category": {"projections": [column_field(cat_table, cat_col)]},
+          "Values": {"projections": [measure_field(val_table, val_measure)]}}
+    if group_table and group_col:
+        qs["Group"] = {"projections": [column_field(group_table, group_col)]}
+    return make_visual(name, x, y, w, h, "treemap", qs)
 
 def write_visual(page_dir, visual_json):
     vdir = os.path.join(page_dir, "visuals", visual_json["name"])
@@ -148,8 +160,8 @@ p4 = [
     make_card("sc4_transit", 330, 10, 295, 60, "_Measures", "Route Avg Transit Days"),
     make_card("sc4_ontime", 640, 10, 295, 60, "_Measures", "Route On Time Pct"),
     make_card("sc4_cost", 950, 10, 295, 60, "_Measures", "Route Total Cost"),
-    make_map("sc4_supplier_map", 20, 80, 740, 350, "DimSupplier", "supplier_name", "DimSupplier", "latitude", "DimSupplier", "longitude", "_Measures", "Total Orders"),
-    make_map("sc4_wh_map", 780, 80, 470, 350, "DimWarehouse", "warehouse_name", "DimWarehouse", "latitude", "DimWarehouse", "longitude", "_Measures", "Warehouse Utilization"),
+    make_treemap("sc4_supplier_treemap", 20, 80, 420, 350, "DimSupplier", "city", "_Measures", "Total Orders", "DimSupplier", "country"),
+    make_filled_map("sc4_wh_map", 460, 80, 790, 350, "DimWarehouse", "country", "_Measures", "Total Orders"),
     make_table("sc4_table", 20, 440, 1230, 260, [
         ("FactShipmentRoutes", "supplier_name", False),
         ("FactShipmentRoutes", "supplier_country", False),
@@ -185,7 +197,7 @@ p5 = [
 ]
 
 # Remove old default page
-old_page = os.path.join(BASE, "95796b8c7a5c2720e751")
+old_page = os.path.join(BASE, "f198b33e9cfe0eb15121")
 if os.path.exists(old_page):
     shutil.rmtree(old_page)
 
