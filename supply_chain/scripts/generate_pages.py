@@ -81,6 +81,74 @@ def make_treemap(name, x, y, w, h, cat_table, cat_col, val_table, val_measure, g
         qs["Group"] = {"projections": [column_field(group_table, group_col)]}
     return make_visual(name, x, y, w, h, "treemap", qs)
 
+def make_gauge(name, x, y, w, h, val_table, val_measure, target_table=None, target_measure=None, min_table=None, min_measure=None, max_table=None, max_measure=None):
+    qs = {"Y": {"projections": [measure_field(val_table, val_measure)]}}
+    if target_table and target_measure:
+        qs["TargetValue"] = {"projections": [measure_field(target_table, target_measure)]}
+    if min_table and min_measure:
+        qs["MinValue"] = {"projections": [measure_field(min_table, min_measure)]}
+    if max_table and max_measure:
+        qs["MaxValue"] = {"projections": [measure_field(max_table, max_measure)]}
+    return make_visual(name, x, y, w, h, "gauge", qs)
+
+def make_waterfall(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
+    return make_visual(name, x, y, w, h, "waterfallChart",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+
+def make_funnel(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
+    return make_visual(name, x, y, w, h, "funnel",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+
+def make_scatter(name, x, y, w, h, detail_table, detail_col, x_table, x_measure, y_table, y_measure, size_table=None, size_measure=None):
+    qs = {"Category": {"projections": [column_field(detail_table, detail_col)]},
+          "X": {"projections": [measure_field(x_table, x_measure)]},
+          "Y": {"projections": [measure_field(y_table, y_measure)]}}
+    if size_table and size_measure:
+        qs["Size"] = {"projections": [measure_field(size_table, size_measure)]}
+    return make_visual(name, x, y, w, h, "scatterChart", qs)
+
+def make_ribbon(name, x, y, w, h, cat_table, cat_col, series_table, series_col, val_table, val_measure):
+    return make_visual(name, x, y, w, h, "ribbonChart",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Series": {"projections": [column_field(series_table, series_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+
+def make_stacked_bar(name, x, y, w, h, cat_table, cat_col, series_table, series_col, val_table, val_measure):
+    return make_visual(name, x, y, w, h, "clusteredBarChart",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Series": {"projections": [column_field(series_table, series_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+
+def make_stacked_column(name, x, y, w, h, cat_table, cat_col, series_table, series_col, val_table, val_measure):
+    return make_visual(name, x, y, w, h, "clusteredColumnChart",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Series": {"projections": [column_field(series_table, series_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+
+def make_clustered_column(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
+    return make_visual(name, x, y, w, h, "clusteredColumnChart",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+
+def make_pie(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
+    return make_visual(name, x, y, w, h, "pieChart",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+
+def make_hundred_pct_stacked_bar(name, x, y, w, h, cat_table, cat_col, series_table, series_col, val_table, val_measure):
+    return make_visual(name, x, y, w, h, "hundredPercentStackedBarChart",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Series": {"projections": [column_field(series_table, series_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+
+def make_hundred_pct_stacked_column(name, x, y, w, h, cat_table, cat_col, series_table, series_col, val_table, val_measure):
+    return make_visual(name, x, y, w, h, "hundredPercentStackedColumnChart",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Series": {"projections": [column_field(series_table, series_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+
 def write_visual(page_dir, visual_json):
     vdir = os.path.join(page_dir, "visuals", visual_json["name"])
     os.makedirs(vdir, exist_ok=True)
@@ -89,7 +157,10 @@ def write_visual(page_dir, visual_json):
 
 def write_page(page_id, display_name, visuals):
     page_dir = os.path.join(BASE, page_id)
-    os.makedirs(os.path.join(page_dir, "visuals"), exist_ok=True)
+    visuals_dir = os.path.join(page_dir, "visuals")
+    if os.path.exists(visuals_dir):
+        shutil.rmtree(visuals_dir)
+    os.makedirs(visuals_dir, exist_ok=True)
     with open(os.path.join(page_dir, "page.json"), "w", encoding="utf-8") as f:
         json.dump({"$schema": SCHEMA_PAGE, "name": page_id, "displayName": display_name,
                     "displayOption": "FitToPage", "height": 720, "width": 1280}, f, indent=2)
@@ -143,7 +214,7 @@ p3 = [
     make_card("sc3_stockout", 520, 10, 235, 110, "_Measures", "Stockout Rate"),
     make_card("sc3_dos", 770, 10, 235, 110, "_Measures", "Days of Supply"),
     make_slicer("sc3_cat", 1020, 10, 230, 110, "DimProduct", "category"),
-    make_line_chart("sc3_inv_trend", 20, 140, 610, 280, "Calendar", "Year_Month", "_Measures", "Latest Inventory On Hand"),
+    make_clustered_bar("sc3_inv_by_wh", 20, 140, 610, 280, "DimWarehouse", "warehouse_name", "_Measures", "Latest Inventory On Hand"),
     make_clustered_bar("sc3_stockout_bar", 650, 140, 600, 280, "DimProduct", "category", "_Measures", "Stockout Count"),
     make_matrix("sc3_matrix", 20, 440, 1230, 260,
         [("DimWarehouse", "warehouse_name")], [],
@@ -161,7 +232,7 @@ p4 = [
     make_card("sc4_ontime", 640, 10, 295, 60, "_Measures", "Route On Time Pct"),
     make_card("sc4_cost", 950, 10, 295, 60, "_Measures", "Route Total Cost"),
     make_treemap("sc4_supplier_treemap", 20, 80, 420, 350, "DimSupplier", "city", "_Measures", "Total Orders", "DimSupplier", "country"),
-    make_filled_map("sc4_wh_map", 460, 80, 790, 350, "DimWarehouse", "country", "_Measures", "Total Orders"),
+    make_filled_map("sc4_supplier_map", 460, 80, 790, 350, "DimSupplier", "country", "_Measures", "Total Orders"),
     make_table("sc4_table", 20, 440, 1230, 260, [
         ("FactShipmentRoutes", "supplier_name", False),
         ("FactShipmentRoutes", "supplier_country", False),
@@ -196,6 +267,60 @@ p5 = [
     ]),
 ]
 
+# ===== PAGE 6: Advanced Analytics =====
+p6_id = uid("sc_page6_advanced")
+p6 = [
+    # Gauge: OTD Rate (value vs target)
+    make_gauge("sc6_otd_gauge", 20, 10, 300, 220, "_Measures", "On Time Delivery Rate"),
+    # Gauge: Warehouse Utilization
+    make_gauge("sc6_util_gauge", 340, 10, 300, 220, "_Measures", "Warehouse Utilization"),
+    # Gauge: Stockout Rate
+    make_gauge("sc6_stockout_gauge", 660, 10, 300, 220, "_Measures", "Stockout Rate"),
+    make_slicer("sc6_year", 980, 10, 270, 100, "Calendar", "Year"),
+    # Scatter: Suppliers — Lead Time vs OTD Rate, sized by Order Value
+    make_scatter("sc6_scatter", 20, 250, 620, 300,
+        "DimSupplier", "supplier_name",
+        "_Measures", "Avg Lead Time Days",
+        "_Measures", "On Time Delivery Rate",
+        "_Measures", "Total Order Value"),
+    # Waterfall: Order Value by Category (shows cumulative contribution)
+    make_waterfall("sc6_waterfall", 660, 250, 590, 300,
+        "DimProduct", "category", "_Measures", "Total Order Value"),
+    # Funnel: Orders by Product Category (pipeline view)
+    make_funnel("sc6_funnel", 980, 120, 270, 200,
+        "DimProduct", "category", "_Measures", "Total Orders"),
+    make_slicer("sc6_wh", 980, 560, 270, 140, "DimWarehouse", "warehouse_name"),
+    # Ribbon: Category rank changes over time
+    make_ribbon("sc6_ribbon", 20, 560, 940, 140,
+        "Calendar", "Year_Month", "DimProduct", "category", "_Measures", "Total Order Value"),
+]
+
+# ===== PAGE 7: Visual Showcase =====
+p7_id = uid("sc_page7_showcase")
+p7 = [
+    # Stacked Column: Order Value by Month, stacked by Category
+    make_stacked_column("sc7_stacked_col", 20, 10, 400, 280,
+        "Calendar", "Year_Month", "DimProduct", "category", "_Measures", "Total Order Value"),
+    # Stacked Bar: Orders by Supplier, stacked by Category
+    make_stacked_bar("sc7_stacked_bar", 440, 10, 400, 280,
+        "DimSupplier", "supplier_name", "DimProduct", "category", "_Measures", "Total Orders"),
+    # Pie Chart: Order Value by Warehouse
+    make_pie("sc7_pie", 860, 10, 390, 280,
+        "DimWarehouse", "warehouse_name", "_Measures", "Total Order Value"),
+    # 100% Stacked Column: Order mix by Month
+    make_hundred_pct_stacked_column("sc7_100col", 20, 310, 400, 280,
+        "Calendar", "Year_Month", "DimProduct", "category", "_Measures", "Total Quantity Ordered"),
+    # 100% Stacked Bar: Supplier share by Category
+    make_hundred_pct_stacked_bar("sc7_100bar", 440, 310, 400, 280,
+        "DimProduct", "category", "DimSupplier", "supplier_name", "_Measures", "Total Order Value"),
+    # Clustered Column: Monthly quantity comparison
+    make_clustered_column("sc7_clust_col", 860, 310, 390, 280,
+        "Calendar", "Year_Month", "_Measures", "Total Quantity Ordered"),
+    # Slicer at bottom
+    make_slicer("sc7_year", 20, 610, 200, 90, "Calendar", "Year"),
+    make_slicer("sc7_cat", 240, 610, 200, 90, "DimProduct", "category"),
+]
+
 # Remove old default page
 old_page = os.path.join(BASE, "f198b33e9cfe0eb15121")
 if os.path.exists(old_page):
@@ -207,10 +332,12 @@ write_page(p2_id, "Supplier Scorecard", p2)
 write_page(p3_id, "Inventory Health", p3)
 write_page(p4_id, "Global Logistics Map", p4)
 write_page(p5_id, "Warehouse Comparison", p5)
+write_page(p6_id, "Advanced Analytics", p6)
+write_page(p7_id, "Visual Showcase", p7)
 
 # Update pages.json
 with open(os.path.join(BASE, "pages.json"), "w", encoding="utf-8") as f:
-    json.dump({"$schema": SCHEMA_PAGES, "pageOrder": [p1_id, p2_id, p3_id, p4_id, p5_id],
+    json.dump({"$schema": SCHEMA_PAGES, "pageOrder": [p1_id, p2_id, p3_id, p4_id, p5_id, p6_id, p7_id],
                "activePageName": p1_id}, f, indent=2)
 
 print(f"Page 1 (Supply Chain KPIs): {p1_id} - {len(p1)} visuals")
@@ -218,4 +345,6 @@ print(f"Page 2 (Supplier Scorecard): {p2_id} - {len(p2)} visuals")
 print(f"Page 3 (Inventory Health): {p3_id} - {len(p3)} visuals")
 print(f"Page 4 (Global Logistics Map): {p4_id} - {len(p4)} visuals")
 print(f"Page 5 (Warehouse Comparison): {p5_id} - {len(p5)} visuals")
+print(f"Page 6 (Advanced Analytics): {p6_id} - {len(p6)} visuals")
+print(f"Page 7 (Visual Showcase): {p7_id} - {len(p7)} visuals")
 print("Done!")

@@ -146,25 +146,33 @@ Add these measures to _Measures:
 Latest Inventory On Hand = CALCULATE(
     SUM(FactInventorySnapshot[quantity_on_hand]),
     USERELATIONSHIP(FactInventorySnapshot[snapshot_date], Calendar[Date]),
-    LASTDATE(Calendar[Date])
+    USERELATIONSHIP(FactInventorySnapshot[warehouse_id], DimWarehouse[warehouse_id]),
+    USERELATIONSHIP(FactInventorySnapshot[product_id], DimProduct[product_id]),
+    LASTDATE(FactInventorySnapshot[snapshot_date])
 )
 
 Latest Inventory Reserved = CALCULATE(
     SUM(FactInventorySnapshot[quantity_reserved]),
     USERELATIONSHIP(FactInventorySnapshot[snapshot_date], Calendar[Date]),
-    LASTDATE(Calendar[Date])
+    USERELATIONSHIP(FactInventorySnapshot[warehouse_id], DimWarehouse[warehouse_id]),
+    USERELATIONSHIP(FactInventorySnapshot[product_id], DimProduct[product_id]),
+    LASTDATE(FactInventorySnapshot[snapshot_date])
 )
 
 Available Inventory = [Latest Inventory On Hand] - [Latest Inventory Reserved]
 
 Stockout Count = CALCULATE(
     COUNTROWS(FILTER(FactInventorySnapshot, FactInventorySnapshot[quantity_on_hand] = 0)),
-    USERELATIONSHIP(FactInventorySnapshot[snapshot_date], Calendar[Date])
+    USERELATIONSHIP(FactInventorySnapshot[snapshot_date], Calendar[Date]),
+    USERELATIONSHIP(FactInventorySnapshot[warehouse_id], DimWarehouse[warehouse_id]),
+    USERELATIONSHIP(FactInventorySnapshot[product_id], DimProduct[product_id])
 )
 
 Total Snapshot Records = CALCULATE(
     COUNTROWS(FactInventorySnapshot),
-    USERELATIONSHIP(FactInventorySnapshot[snapshot_date], Calendar[Date])
+    USERELATIONSHIP(FactInventorySnapshot[snapshot_date], Calendar[Date]),
+    USERELATIONSHIP(FactInventorySnapshot[warehouse_id], DimWarehouse[warehouse_id]),
+    USERELATIONSHIP(FactInventorySnapshot[product_id], DimProduct[product_id])
 )
 
 Stockout Rate = DIVIDE([Stockout Count], [Total Snapshot Records], 0)
@@ -177,14 +185,18 @@ Below Reorder Point = CALCULATE(
             && FactInventorySnapshot[quantity_on_hand] > 0
         )
     ),
-    USERELATIONSHIP(FactInventorySnapshot[snapshot_date], Calendar[Date])
+    USERELATIONSHIP(FactInventorySnapshot[snapshot_date], Calendar[Date]),
+    USERELATIONSHIP(FactInventorySnapshot[warehouse_id], DimWarehouse[warehouse_id]),
+    USERELATIONSHIP(FactInventorySnapshot[product_id], DimProduct[product_id])
 )
 
 Inventory Turnover = DIVIDE(
     [Total Quantity Ordered],
     CALCULATE(
         AVERAGE(FactInventorySnapshot[quantity_on_hand]),
-        USERELATIONSHIP(FactInventorySnapshot[snapshot_date], Calendar[Date])
+        USERELATIONSHIP(FactInventorySnapshot[snapshot_date], Calendar[Date]),
+        USERELATIONSHIP(FactInventorySnapshot[warehouse_id], DimWarehouse[warehouse_id]),
+        USERELATIONSHIP(FactInventorySnapshot[product_id], DimProduct[product_id])
     ),
     0
 )

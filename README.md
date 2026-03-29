@@ -10,6 +10,29 @@ This repo contains **4 production-ready dashboard projects** built using a code-
 
 > **No AI required.** The prompt files in this repo are structured specifications — you can execute them manually in Power BI Desktop, use any MCP-compatible tool, or automate with your own scripts. Claude Desktop / Claude Code is one option, not a requirement.
 
+### Supply Chain Dashboard — Sample Pages
+
+![Supply Chain KPIs](images/supply_chain_kpis.png)
+*Page 1: Supply Chain KPIs — cards, line chart with YoY comparison, bar charts, donut, area chart*
+
+![Supplier Scorecard](images/supply_chain_supplier.png)
+*Page 2: Supplier Scorecard — OTD rate & order value bar charts, supplier detail table*
+
+![Global Logistics Map](images/supply_chain_logistics.png)
+*Page 4: Global Logistics Map — treemap, filled map (choropleth), detail table*
+
+![Warehouse Comparison](images/supply_chain_warehouse.png)
+*Page 5: Warehouse Comparison — bar chart, donut, inventory trend line, product detail table*
+
+![Inventory Health](images/supply_chain_inventory.png)
+*Page 3: Inventory Health — inventory by warehouse bar chart, stockout count by category, warehouse matrix*
+
+![Advanced Analytics](images/supply_chain_advanced.png)
+*Page 6: Advanced Analytics — gauges, scatter plot (lead time vs OTD), waterfall, funnel, ribbon chart*
+
+![Visual Showcase](images/supply_chain_showcase.png)
+*Page 7: Visual Showcase — stacked columns, pie chart, 100% stacked bars, clustered column*
+
 ## The Workflow
 
 ```
