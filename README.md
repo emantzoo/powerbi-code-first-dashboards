@@ -225,6 +225,67 @@ powerbi-code-first-dashboards/
 - **Learnable** — each prompt file is a self-contained DAX tutorial with all measures spelled out
 - **Portable** — `.pbip` folders are just text files (JSON + TMDL), no binary `.pbix` blobs
 
+## Reuse This for Your Own Data
+
+You can adapt this workflow for any dataset. Here's how:
+
+### 1. Prepare Your Data
+- Organize your data as CSVs with clear naming: `FactXxx` for transactional data, `DimXxx` for lookup/dimension tables
+- Include ID columns for relationships (e.g., `product_id`, `customer_id`)
+- Include at least one date column for time intelligence
+
+### 2. Write Your Prompt File
+Copy any `*_Dashboard_Prompts.md` as a template and modify:
+- **Phase 0**: List your CSV files with column names and data types
+- **Phase 1A**: Define relationships between your tables (which ID connects what)
+- **Phase 1B**: Add a Calendar table (the DAX expression is reusable as-is — just change the date range)
+- **Phase 1C-H**: Write your DAX measures. Start with simple aggregations (`SUM`, `COUNT`, `AVERAGE`), then add time intelligence (`SAMEPERIODLASTYEAR`, `TOTALYTD`), then ratios (`DIVIDE`)
+
+### 3. Adapt the Python Script
+Copy any `generate_pages.py` and modify the page definitions:
+- Change `BASE` path to point to your `.pbip` report folder
+- Define pages using the helper functions (`make_card`, `make_clustered_bar`, `make_line_chart`, `make_table`, etc.)
+- Use your own table/column/measure names in the function calls
+- All visuals are positioned on a **1280x720 canvas** — adjust `x`, `y`, `w`, `h` values to lay out your dashboard
+
+### 4. Available Visual Types
+| Function | Visual Type | Required Fields |
+|----------|------------|----------------|
+| `make_card` | KPI card | 1 measure |
+| `make_clustered_bar` | Horizontal bar chart | 1 category + 1 measure |
+| `make_clustered_column` | Vertical bar chart | 1 category + 1 measure |
+| `make_line_chart` | Line chart (supports 2 lines) | 1 category + 1-2 measures |
+| `make_area_chart` | Area chart | 1 category + 1 measure |
+| `make_donut` | Donut chart | 1 category + 1 measure |
+| `make_pie` | Pie chart | 1 category + 1 measure |
+| `make_table` | Flat table | Any mix of columns + measures |
+| `make_matrix` | Pivot table | Row fields + value measures |
+| `make_treemap` | Treemap | 1 category + 1 measure (+ optional group) |
+| `make_filled_map` | Choropleth map | 1 location column + 1 measure |
+| `make_gauge` | Gauge | 1 value measure (+ optional target/min/max) |
+| `make_waterfall` | Waterfall chart | 1 category + 1 measure |
+| `make_funnel` | Funnel chart | 1 category + 1 measure |
+| `make_scatter` | Scatter plot | 1 detail column + 2 measures (+ optional size) |
+| `make_ribbon` | Ribbon chart | 1 category + 1 series + 1 measure |
+| `make_slicer` | Filter slicer | 1 column |
+
+### 5. Quick Start Example
+```python
+# Your custom page
+p1 = [
+    make_card("revenue", 20, 10, 295, 110, "_Measures", "Total Revenue"),
+    make_card("customers", 330, 10, 295, 110, "_Measures", "Customer Count"),
+    make_line_chart("trend", 20, 140, 610, 280, "Calendar", "Year_Month", "_Measures", "Total Revenue"),
+    make_clustered_bar("by_region", 650, 140, 600, 280, "DimRegion", "region_name", "_Measures", "Total Revenue"),
+    make_table("details", 20, 440, 1230, 260, [
+        ("DimProduct", "product_name", False),    # False = column
+        ("_Measures", "Total Revenue", True),       # True = measure
+        ("_Measures", "Quantity Sold", True),
+    ]),
+]
+write_page(uid("my_page1"), "Sales Overview", p1)
+```
+
 ## Tech Stack
 
 | Component | Role | Required? |
