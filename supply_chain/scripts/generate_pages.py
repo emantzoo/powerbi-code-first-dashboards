@@ -487,8 +487,11 @@ def make_title_bar(name, x, y, w, h, text, bg_color="#1E293B"):
         z=9000)
 
 
-def make_button(name, x, y, w, h, text, page_name=None):
-    """Navigation button — for page navigation or custom actions."""
+def make_button(name, x, y, w, h, text):
+    """Navigation button — styled action button with text.
+    Page navigation must be configured manually in Power BI Desktop
+    (Format > Action > Page navigation).
+    """
     obj = {
         "icon": [
             {
@@ -518,20 +521,8 @@ def make_button(name, x, y, w, h, text, page_name=None):
             }
         ]
     }
-    vco = {}
-    if page_name:
-        vco["visualLink"] = [
-            {
-                "properties": {
-                    "show": _lit("true"),
-                    "type": _lit("'PageNavigation'"),
-                    "navigationPage": _lit(f"'{page_name}'")
-                }
-            }
-        ]
     return make_visual(name, x, y, w, h, "actionButton",
         objects=obj,
-        visual_container_objects=vco if vco else None,
         z=8000,
         how_created="InsertVisualButton")
 
@@ -627,30 +618,28 @@ def make_clustered_column_gradient(name, x, y, w, h, cat_table, cat_col, val_tab
 # ===== PAGE 1: Supply Chain KPIs =====
 p1_id = uid("sc_page1_kpis")
 p1 = [
-    make_card("sc1_orders", 20, 10, 190, 110, "_Measures", "Total Orders"),
-    make_card("sc1_value", 225, 10, 190, 110, "_Measures", "Total Order Value"),
-    make_card("sc1_otd", 430, 10, 190, 110, "_Measures", "On Time Delivery Rate"),
-    make_card("sc1_stockout", 635, 10, 190, 110, "_Measures", "Stockout Rate"),
-    make_card("sc1_util", 840, 10, 190, 110, "_Measures", "Warehouse Utilization"),
-    make_slicer("sc1_year", 1045, 10, 210, 110, "Calendar", "Year"),
-    make_line_chart("sc1_value_trend", 20, 140, 410, 280, "Calendar", "Year_Month", "_Measures", "Total Order Value", "_Measures", "Order Value PY"),
-    make_clustered_bar("sc1_cat_bar", 450, 140, 400, 280, "DimProduct", "category", "_Measures", "Total Order Value"),
-    make_donut("sc1_wh_donut", 870, 140, 370, 280, "DimWarehouse", "warehouse_name", "_Measures", "Total Quantity Ordered"),
-    make_area_chart("sc1_otd_area", 20, 440, 610, 260, "Calendar", "Year_Month", "_Measures", "On Time Delivery Rate"),
-    make_clustered_bar("sc1_lead_bar", 650, 440, 600, 260, "DimSupplier", "supplier_name", "_Measures", "Avg Lead Time Days"),
+    make_title_bar("sc1_title", 0, 0, 1280, 50, "Supply Chain Dashboard"),
+    make_card("sc1_orders", 20, 60, 300, 140, "_Measures", "Total Orders"),
+    make_card("sc1_value", 340, 60, 300, 140, "_Measures", "Total Order Value"),
+    make_card("sc1_otd", 660, 60, 300, 140, "_Measures", "On Time Delivery Rate"),
+    make_slicer("sc1_year", 980, 60, 270, 140, "Calendar", "Year"),
+    make_line_chart("sc1_value_trend", 20, 220, 610, 280, "Calendar", "Year_Month", "_Measures", "Total Order Value", "_Measures", "Order Value PY"),
+    make_donut("sc1_wh_donut", 650, 220, 600, 280, "DimWarehouse", "warehouse_name", "_Measures", "Total Quantity Ordered"),
+    make_area_chart("sc1_otd_area", 20, 520, 1230, 160, "Calendar", "Year_Month", "_Measures", "On Time Delivery Rate"),
+    make_button("sc1_btn_supplier", 1100, 670, 150, 40, "Suppliers"),
 ]
 
 # ===== PAGE 2: Supplier Scorecard =====
 p2_id = uid("sc_page2_supplier")
 p2 = [
-    make_card("sc2_suppliers", 20, 10, 235, 110, "_Measures", "Unique Suppliers Used"),
-    make_card("sc2_reliability", 270, 10, 235, 110, "_Measures", "Supplier Avg Reliability"),
-    make_card("sc2_variance", 520, 10, 235, 110, "_Measures", "Avg Lead Time Variance"),
-    make_card("sc2_otd_change", 770, 10, 235, 110, "_Measures", "On Time Rate Change"),
-    make_slicer("sc2_country", 1020, 10, 230, 110, "DimSupplier", "country"),
-    make_clustered_bar("sc2_otd_bar", 20, 140, 610, 280, "DimSupplier", "supplier_name", "_Measures", "On Time Delivery Rate"),
-    make_clustered_bar("sc2_value_bar", 650, 140, 600, 280, "DimSupplier", "supplier_name", "_Measures", "Total Order Value"),
-    make_table("sc2_table", 20, 440, 1230, 260, [
+    make_card("sc2_suppliers", 20, 10, 230, 140, "_Measures", "Unique Suppliers Used"),
+    make_card("sc2_reliability", 265, 10, 230, 140, "_Measures", "Supplier Avg Reliability"),
+    make_card("sc2_variance", 510, 10, 230, 140, "_Measures", "Avg Lead Time Variance"),
+    make_card("sc2_otd_change", 755, 10, 230, 140, "_Measures", "On Time Rate Change"),
+    make_slicer("sc2_country", 1000, 10, 250, 140, "DimSupplier", "country"),
+    make_clustered_bar_gradient("sc2_otd_bar", 20, 170, 610, 310, "DimSupplier", "supplier_name", "_Measures", "On Time Delivery Rate"),
+    make_clustered_bar("sc2_value_bar", 650, 170, 600, 310, "DimSupplier", "supplier_name", "_Measures", "Total Order Value"),
+    make_table("sc2_table", 20, 500, 1230, 160, [
         ("DimSupplier", "supplier_name", False),
         ("DimSupplier", "country", False),
         ("DimSupplier", "lead_time_days", False),
@@ -661,24 +650,28 @@ p2 = [
         ("_Measures", "Avg Lead Time Variance", True),
         ("_Measures", "Total Order Value", True),
     ]),
+    make_button("sc2_btn_back", 20, 670, 100, 40, "Back"),
+    make_button("sc2_btn_inventory", 1100, 670, 150, 40, "Inventory"),
 ]
 
 # ===== PAGE 3: Inventory Health =====
 p3_id = uid("sc_page3_inventory")
 p3 = [
-    make_card("sc3_onhand", 20, 10, 235, 110, "_Measures", "Latest Inventory On Hand"),
-    make_card("sc3_avail", 270, 10, 235, 110, "_Measures", "Available Inventory"),
-    make_card("sc3_stockout", 520, 10, 235, 110, "_Measures", "Stockout Rate"),
-    make_card("sc3_dos", 770, 10, 235, 110, "_Measures", "Days of Supply"),
-    make_slicer("sc3_cat", 1020, 10, 230, 110, "DimProduct", "category"),
-    make_clustered_bar("sc3_inv_by_wh", 20, 140, 610, 280, "DimWarehouse", "warehouse_name", "_Measures", "Latest Inventory On Hand"),
-    make_clustered_bar("sc3_stockout_bar", 650, 140, 600, 280, "DimProduct", "category", "_Measures", "Stockout Count"),
-    make_matrix("sc3_matrix", 20, 440, 1230, 260,
+    make_card("sc3_onhand", 20, 10, 230, 140, "_Measures", "Latest Inventory On Hand"),
+    make_card("sc3_avail", 265, 10, 230, 140, "_Measures", "Available Inventory"),
+    make_card("sc3_stockout", 510, 10, 230, 140, "_Measures", "Stockout Rate"),
+    make_card("sc3_dos", 755, 10, 230, 140, "_Measures", "Days of Supply"),
+    make_slicer("sc3_cat", 1000, 10, 250, 140, "DimProduct", "category"),
+    make_clustered_bar("sc3_inv_by_wh", 20, 170, 610, 310, "DimWarehouse", "warehouse_name", "_Measures", "Latest Inventory On Hand"),
+    make_clustered_column_gradient("sc3_stockout_bar", 650, 170, 600, 310, "DimProduct", "category", "_Measures", "Stockout Count"),
+    make_matrix("sc3_matrix", 20, 500, 1230, 160,
         [("DimWarehouse", "warehouse_name")], [],
         [("_Measures", "Latest Inventory On Hand"), ("_Measures", "Available Inventory"),
          ("_Measures", "Warehouse Utilization"), ("_Measures", "Stockout Count"),
          ("_Measures", "Stockout Rate"), ("_Measures", "Below Reorder Point"),
          ("_Measures", "Inventory Turnover")]),
+    make_button("sc3_btn_back", 20, 670, 100, 40, "Back"),
+    make_button("sc3_btn_map", 1100, 670, 150, 40, "Logistics"),
 ]
 
 # ===== PAGE 4: Global Logistics Map =====
@@ -690,7 +683,7 @@ p4 = [
     make_card("sc4_cost", 950, 10, 295, 60, "_Measures", "Route Total Cost"),
     make_treemap("sc4_supplier_treemap", 20, 80, 420, 350, "DimSupplier", "city", "_Measures", "Total Orders", "DimSupplier", "country"),
     make_filled_map("sc4_supplier_map", 460, 80, 790, 350, "DimSupplier", "country", "_Measures", "Total Orders"),
-    make_table("sc4_table", 20, 440, 1230, 260, [
+    make_table("sc4_table", 20, 440, 1230, 220, [
         ("FactShipmentRoutes", "supplier_name", False),
         ("FactShipmentRoutes", "supplier_country", False),
         ("FactShipmentRoutes", "warehouse_name", False),
@@ -700,20 +693,20 @@ p4 = [
         ("FactShipmentRoutes", "on_time_pct", False),
         ("FactShipmentRoutes", "total_cost", False),
     ]),
+    make_button("sc4_btn_back", 20, 670, 100, 40, "Back"),
+    make_button("sc4_btn_wh", 1100, 670, 150, 40, "Warehouses"),
 ]
 
 # ===== PAGE 5: Warehouse Comparison =====
 p5_id = uid("sc_page5_warehouse")
 p5 = [
-    make_card("sc5_orders", 20, 10, 235, 110, "_Measures", "Total Orders"),
-    make_card("sc5_value", 270, 10, 235, 110, "_Measures", "Total Order Value"),
-    make_card("sc5_util", 520, 10, 235, 110, "_Measures", "Warehouse Utilization"),
-    make_card("sc5_stockout", 770, 10, 235, 110, "_Measures", "Stockout Rate"),
-    make_slicer("sc5_wh", 1020, 10, 230, 110, "DimWarehouse", "warehouse_name"),
-    make_clustered_bar("sc5_cat_bar", 20, 140, 400, 280, "DimProduct", "category", "_Measures", "Total Quantity Ordered"),
-    make_donut("sc5_sup_donut", 440, 140, 380, 280, "DimSupplier", "supplier_name", "_Measures", "Total Orders"),
-    make_line_chart("sc5_inv_trend", 840, 140, 410, 280, "Calendar", "Year_Month", "_Measures", "Latest Inventory On Hand"),
-    make_table("sc5_table", 20, 440, 1230, 260, [
+    make_card("sc5_orders", 20, 10, 300, 140, "_Measures", "Total Orders"),
+    make_card("sc5_value", 340, 10, 300, 140, "_Measures", "Total Order Value"),
+    make_card("sc5_util", 660, 10, 300, 140, "_Measures", "Warehouse Utilization"),
+    make_slicer("sc5_wh", 980, 10, 270, 140, "DimWarehouse", "warehouse_name"),
+    make_clustered_bar("sc5_cat_bar", 20, 170, 610, 310, "DimProduct", "category", "_Measures", "Total Quantity Ordered"),
+    make_donut("sc5_sup_donut", 650, 170, 600, 310, "DimSupplier", "supplier_name", "_Measures", "Total Orders"),
+    make_table("sc5_table", 20, 500, 1230, 160, [
         ("DimProduct", "product_name", False),
         ("DimProduct", "category", False),
         ("_Measures", "Total Quantity Ordered", True),
@@ -722,6 +715,8 @@ p5 = [
         ("_Measures", "Stockout Count", True),
         ("_Measures", "Below Reorder Point", True),
     ]),
+    make_button("sc5_btn_back", 20, 670, 100, 40, "Back"),
+    make_button("sc5_btn_adv", 1100, 670, 150, 40, "Analytics"),
 ]
 
 # ===== PAGE 6: Advanced Analytics =====
@@ -746,10 +741,11 @@ p6 = [
     # Funnel: Orders by Product Category (pipeline view)
     make_funnel("sc6_funnel", 980, 120, 270, 200,
         "DimProduct", "category", "_Measures", "Total Orders"),
-    make_slicer("sc6_wh", 980, 560, 270, 140, "DimWarehouse", "warehouse_name"),
     # Ribbon: Category rank changes over time
     make_ribbon("sc6_ribbon", 20, 560, 940, 140,
         "Calendar", "Year_Month", "DimProduct", "category", "_Measures", "Total Order Value"),
+    make_button("sc6_btn_back", 20, 670, 100, 40, "Back"),
+    make_button("sc6_btn_showcase", 1100, 670, 150, 40, "Showcase"),
 ]
 
 # ===== PAGE 7: Visual Showcase =====
@@ -776,6 +772,7 @@ p7 = [
     # Slicer at bottom
     make_slicer("sc7_year", 20, 610, 200, 90, "Calendar", "Year"),
     make_slicer("sc7_cat", 240, 610, 200, 90, "DimProduct", "category"),
+    make_button("sc7_btn_back", 1100, 670, 150, 40, "Overview"),
 ]
 
 # Remove old default page

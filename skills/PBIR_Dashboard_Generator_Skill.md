@@ -260,6 +260,20 @@ def write_page(page_id, display_name, visuals):
 |----------|------------|------------|----------|
 | `make_slicer` | slicer | `(name, x, y, w, h, table, column)` | Filter control for a column |
 
+### Dashboard Elements
+
+| Function | Visual Type | Parameters | Use When |
+|----------|------------|------------|----------|
+| `make_title_bar` | textbox | `(name, x, y, w, h, text, bg_color="#1E293B")` | Full-width page header with colored background |
+| `make_button` | actionButton | `(name, x, y, w, h, text)` | Navigation button. Page navigation must be configured manually in Power BI Desktop (Format > Action > Page navigation) |
+
+### Conditional Formatting Variants
+
+| Function | Visual Type | Parameters | Use When |
+|----------|------------|------------|----------|
+| `make_clustered_bar_gradient` | clusteredBarChart | `(name, x, y, w, h, cat_table, cat_col, val_table, val_measure)` | Bar chart with min/max gradient coloring |
+| `make_clustered_column_gradient` | clusteredColumnChart | `(name, x, y, w, h, cat_table, cat_col, val_table, val_measure)` | Column chart with min/max gradient coloring |
+
 ---
 
 ## Function Implementations
@@ -410,6 +424,59 @@ def make_hundred_pct_stacked_column(name, x, y, w, h, cat_table, cat_col, series
          "Series": {"projections": [column_field(series_table, series_col)]},
          "Y": {"projections": [measure_field(val_table, val_measure)]}},
         objects=_chart_objects())
+
+# ── Dashboard Elements ─────────────────────────────────────────────
+
+def make_title_bar(name, x, y, w, h, text, bg_color="#1E293B"):
+    """Dashboard title bar — a styled text box with colored background."""
+    return make_visual(name, x, y, w, h, "textbox",
+        objects={
+            "general": [{"properties": {"paragraphs": [{"textRuns": [{"value": text,
+                "textStyle": {"fontFamily": "Segoe UI Semibold", "fontSize": "18px", "color": "#FFFFFF"}}]}]}}]
+        },
+        visual_container_objects={
+            "background": [{"properties": {"show": _lit("true"), "color": _solid(bg_color), "transparency": _lit("0D")}}],
+            "visualHeader": [{"properties": {"show": _lit("false")}}]
+        }, z=9000)
+
+def make_button(name, x, y, w, h, text):
+    """Navigation button — styled action button with text.
+    Page navigation must be configured manually in Power BI Desktop
+    (Format > Action > Page navigation).
+    """
+    obj = {
+        "icon": [{"properties": {"shapeType": _lit("'blank'")}, "selector": {"id": "default"}},
+                 {"properties": {"show": _lit("false")}}],
+        "text": [{"properties": {"show": _lit("true")}},
+                 {"properties": {"text": _lit(f"'{text}'"), "horizontalAlignment": _lit("'center'")}, "selector": {"id": "default"}}]
+    }
+    return make_visual(name, x, y, w, h, "actionButton", objects=obj, z=8000, how_created="InsertVisualButton")
+
+# ── Conditional Formatting Variants ────────────────────────────────
+
+def _gradient_fill(measure_table, measure_name):
+    """Build a conditional formatting gradient fill rule for bar/column chart data points."""
+    return {"dataPoint": [{"properties": {"fill": {"solid": {"color": {"expr": {"FillRule": {
+        "Input": {"Measure": {"Expression": {"SourceRef": {"Entity": measure_table}}, "Property": measure_name}},
+        "FillRule": {"linearGradient2": {
+            "min": {"color": {"Literal": {"Value": "'minColor'"}}},
+            "max": {"color": {"Literal": {"Value": "'maxColor'"}}},
+            "nullColoringStrategy": {"strategy": {"Literal": {"Value": "'asZero'"}}}
+        }}}}}}}}, "selector": {"data": [{"dataViewWildcard": {"matchingOption": 1}}]}}]}
+
+def make_clustered_bar_gradient(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
+    base_objects = _chart_objects(show_labels=True, label_position="'OutsideEnd'")
+    base_objects.update(_gradient_fill(val_table, val_measure))
+    return make_visual(name, x, y, w, h, "clusteredBarChart",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}}, objects=base_objects)
+
+def make_clustered_column_gradient(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
+    base_objects = _chart_objects(show_labels=True, label_position="'OutsideEnd'")
+    base_objects.update(_gradient_fill(val_table, val_measure))
+    return make_visual(name, x, y, w, h, "clusteredColumnChart",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}}, objects=base_objects)
 ```
 
 ---
