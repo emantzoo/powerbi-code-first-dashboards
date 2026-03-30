@@ -1,42 +1,38 @@
-# PBIR Dashboard Generator — Claude Skill
+# PBIR Dashboard Generator — Claude Skill (v2: Professional Formatting)
 
 ## What This Skill Does
 
-Given a Power BI data model, generate a complete `generate_pages.py` script that creates a multi-page dashboard using PBIR JSON format. The script uses a library of `make_*` helper functions to produce `visual.json` files that Power BI renders directly.
+Given a Power BI data model (tables, columns, relationships, DAX measures), generate a complete `generate_pages.py` script that creates a multi-page, **professionally formatted** dashboard using PBIR JSON format. The script uses `make_*` helper functions that produce `visual.json` files with built-in formatting — Power BI renders them as polished, presentation-ready visuals.
 
-**You are writing Python code that IS the dashboard.** No clicking, no dragging, no manual UI work.
-
----
-
-## Primary Input: `*_Dashboard_Prompts.md`
-
-The `*_Dashboard_Prompts.md` files in this repo are the primary data model specification. Each one contains:
-- **Phase 0**: Table definitions with column names, data types, and row counts
-- **Phase 1A**: Relationship definitions (which IDs connect which tables, cardinality, active/inactive)
-- **Phase 1B**: Calendar table DAX expression
-- **Phase 1C-H**: All DAX measures organized in logical batches (core KPIs, time intelligence, ratios, conditional formatting)
-- **Visual Layout Reference**: Page-by-page layout specification with exact positions and data bindings
-
-**To generate a script:** Read the prompt file, extract the table names, column names, and DAX measure names, then use the visual layout reference (if present) or the heuristics below to design the pages.
-
-**End-to-end from CSVs:** If the user provides raw CSV files instead of a prompt file:
-1. Inspect CSV headers to identify Fact vs Dim tables (Fact = transactional with IDs + dates + amounts; Dim = lookup with descriptive columns)
-2. Design a star schema with relationships (Fact foreign keys → Dim primary keys)
-3. Write a `*_Dashboard_Prompts.md` with all phases
-4. Then generate the `generate_pages.py` from it
+**You are writing Python code that IS the dashboard.** No clicking, no dragging, no manual UI work. The output should look intentional and professional on first open — not like a raw data dump that needs 30 minutes of formatting.
 
 ---
 
 ## When To Use This Skill
 
 Use this skill when the user:
-- Says "read the prompt file and generate a generate_pages.py"
-- Provides a `*_Dashboard_Prompts.md` file or points to one in the repo
-- Provides CSV files and asks for a complete dashboard
 - Provides a data model description (tables, columns, measures, relationships)
 - Asks you to "create a dashboard" or "generate pages" for a Power BI project
-- Provides TMDL files or describes their schema
+- Provides TMDL files, a `*_Dashboard_Prompts.md` file, or describes their schema
 - Asks to adapt the code-first dashboard approach to a new dataset
+
+---
+
+## Design Principles
+
+These principles guide every layout and visual choice. The goal is a dashboard that looks designed, not generated.
+
+**1. Less is more.** Fewer visuals per page, each one larger and more readable. 5-8 visuals per page, not 8-12. White space is a feature.
+
+**2. Every visual gets a title.** Use the measure name or a descriptive label. "Revenue by Month" not blank. "Top 10 Suppliers by Order Volume" not "clusteredBarChart". Titles are set via the `title` parameter in each `make_*` function.
+
+**3. Cards are hero elements.** KPI cards should be tall enough to read (h=140, not h=60). Use 3-4 cards per page, not 5-6. Each card gets an accent bar and shadow.
+
+**4. Charts need breathing room.** Two charts side by side is the max for readability. Three charts across only if they're simple (donuts, small bars). Never four.
+
+**5. Tables go at the bottom — or on their own page.** A detail table crammed under two charts looks like an afterthought. If the table is important, give it a dedicated page or half the page height.
+
+**6. Consistent visual language.** All charts on a page should use the same axis conventions (time on X for trends, categories on Y for comparisons). Don't mix horizontal and vertical bars on the same page.
 
 ---
 
@@ -55,16 +51,108 @@ SCHEMA_VISUAL = "https://developer.microsoft.com/json-schemas/fabric/item/report
 SCHEMA_PAGE = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json"
 SCHEMA_PAGES = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json"
 
-# 3. Helper functions (uid, measure_field, column_field, make_visual, all make_* functions)
-# 4. Page definitions (lists of visuals)
-# 5. Write pages and update pages.json
+# 3. Formatting helpers (_lit, _solid, _theme_color, _*_objects)
+# 4. Core helpers (uid, measure_field, column_field, make_visual, write_visual, write_page)
+# 5. Visual builder functions (all make_* functions with formatting)
+# 6. Page definitions (lists of visuals)
+# 7. Write pages and update pages.json
+```
+
+---
+
+## Formatting Helpers
+
+These utility functions build the verbose PBIR JSON property wrappers. Include them at the top of every script:
+
+```python
+def _lit(value):
+    """Wrap a value in the PBIR Literal expression format."""
+    return {"expr": {"Literal": {"Value": value}}}
+
+def _solid(hex_color):
+    """Wrap a hex color in the PBIR solid color format."""
+    return {"solid": {"color": {"expr": {"Literal": {"Value": f"'{hex_color}'"}}}}}
+
+def _theme_color(color_id, percent=0):
+    """Reference a theme data color."""
+    return {"solid": {"color": {"expr": {"ThemeDataColor": {"ColorId": color_id, "Percent": percent}}}}}
+```
+
+---
+
+## Default Formatting Objects
+
+Each visual category has a formatting function that returns the `objects` dict. These produce professional-looking visuals out of the box.
+
+```python
+def _card_objects():
+    """Card: accent bar, shadow, rounded corners, clean padding."""
+    return {
+        "layout": [
+            {"properties": {"style": _lit("'Table'"), "orientation": _lit("1D"),
+                            "rowCount": _lit("5L"), "contentOrder": _lit("'referenceLabel_callout_image'")}},
+            {"properties": {"rectangleRoundedCurve": _lit("8L"), "paddingUniform": _lit("10L"),
+                            "backgroundTransparency": _lit("0D")},
+             "selector": {"id": "default"}}
+        ],
+        "accentBar": [{"properties": {"show": _lit("true")}, "selector": {"id": "default"}}],
+        "shadowCustom": [{"properties": {"show": _lit("true")}, "selector": {"id": "default"}}],
+        "shapeCustomRectangle": [{"properties": {"tileShape": _lit("'rectangleRoundedByPixel'")}, "selector": {"id": "default"}}]
+    }
+
+def _chart_objects(show_labels=False, label_position="'OutsideEnd'"):
+    """Chart: clean axes, light gridlines, optional data labels."""
+    obj = {
+        "categoryAxis": [{"properties": {"fontSize": _lit("9L"), "showAxisTitle": _lit("false")}}],
+        "valueAxis": [{"properties": {"fontSize": _lit("9L"), "showAxisTitle": _lit("false"),
+                                       "gridlineStyle": _lit("'dashed'"), "gridlineColor": _solid("#E2E8F0")}}]
+    }
+    if show_labels:
+        obj["labels"] = [{"properties": {"show": _lit("true"), "labelPosition": _lit(label_position), "fontSize": _lit("9L")}}]
+    return obj
+
+def _line_chart_objects():
+    """Line/area chart: clean axes, thicker lines, no data labels."""
+    return {
+        "categoryAxis": [{"properties": {"fontSize": _lit("9L"), "showAxisTitle": _lit("false")}}],
+        "valueAxis": [{"properties": {"fontSize": _lit("9L"), "showAxisTitle": _lit("false"),
+                                       "gridlineStyle": _lit("'dashed'"), "gridlineColor": _solid("#E2E8F0")}}],
+        "lineStyles": [{"properties": {"strokeWidth": _lit("3L")}}]
+    }
+
+def _table_objects():
+    """Table: styled headers, alternating rows, clean grid."""
+    return {
+        "columnHeaders": [{"properties": {"bold": _lit("true"), "fontSize": _lit("10L"),
+                                           "fontColor": _solid("#FFFFFF"), "backColor": _theme_color(0)}}],
+        "values": [{"properties": {"fontSize": _lit("10L"), "backColor": _solid("#FFFFFF"),
+                                    "backColorAlternate": _solid("#F8FAFC")}}],
+        "grid": [{"properties": {"gridHorizontal": _lit("true"), "gridHorizontalColor": _solid("#E2E8F0"),
+                                  "gridVertical": _lit("false"), "rowPadding": _lit("4L")}}]
+    }
+
+def _matrix_objects():
+    """Matrix: styled headers, clean grid, alternating rows."""
+    return {
+        "columnHeaders": [{"properties": {"bold": _lit("true"), "fontSize": _lit("10L"),
+                                           "fontColor": _solid("#FFFFFF"), "backColor": _theme_color(0)}}],
+        "rowHeaders": [{"properties": {"fontSize": _lit("10L")}}],
+        "values": [{"properties": {"fontSize": _lit("10L"), "backColor": _solid("#FFFFFF"),
+                                    "backColorAlternate": _solid("#F8FAFC")}}],
+        "grid": [{"properties": {"gridHorizontal": _lit("true"), "gridHorizontalColor": _solid("#E2E8F0"),
+                                  "gridVertical": _lit("false"), "rowPadding": _lit("4L")}}]
+    }
+
+def _gauge_objects():
+    """Gauge: clean font sizing."""
+    return {"gaugeAxis": [{"properties": {"fontSize": _lit("10L")}}]}
 ```
 
 ---
 
 ## Core Helper Functions
 
-Always include these at the top of every script:
+Always include these in every script:
 
 ```python
 def uid(seed):
@@ -78,10 +166,13 @@ def column_field(table, column):
     return {"field": {"Column": {"Expression": {"SourceRef": {"Entity": table}}, "Property": column}},
             "queryRef": f"{table}.{column}", "nativeQueryRef": column}
 
-def make_visual(name, x, y, w, h, vtype, query_state, z=1000):
-    return {"$schema": SCHEMA_VISUAL, "name": uid(name),
-            "position": {"x": x, "y": y, "z": z, "height": h, "width": w, "tabOrder": 0},
-            "visual": {"visualType": vtype, "query": {"queryState": query_state}, "drillFilterOtherVisuals": True}}
+def make_visual(name, x, y, w, h, vtype, query_state, objects=None, z=1000):
+    v = {"$schema": SCHEMA_VISUAL, "name": uid(name),
+         "position": {"x": x, "y": y, "z": z, "height": h, "width": w, "tabOrder": 0},
+         "visual": {"visualType": vtype, "query": {"queryState": query_state}, "drillFilterOtherVisuals": True}}
+    if objects:
+        v["visual"]["objects"] = objects
+    return v
 
 def write_visual(page_dir, visual_json):
     vdir = os.path.join(page_dir, "visuals", visual_json["name"])
@@ -167,50 +258,59 @@ def write_page(page_id, display_name, visuals):
 
 ## Function Implementations
 
-Include all of these in every generated script:
+Include all of these in every generated script. Each function now includes built-in formatting via the `objects` parameter.
 
 ```python
 def make_card(name, x, y, w, h, table, measure):
-    return make_visual(name, x, y, w, h, "cardVisual", {"Data": {"projections": [measure_field(table, measure)]}})
+    return make_visual(name, x, y, w, h, "cardVisual",
+        {"Data": {"projections": [measure_field(table, measure)]}},
+        objects=_card_objects())
 
 def make_slicer(name, x, y, w, h, table, column):
-    return make_visual(name, x, y, w, h, "slicer", {"Values": {"projections": [column_field(table, column)]}})
+    return make_visual(name, x, y, w, h, "slicer",
+        {"Values": {"projections": [column_field(table, column)]}})
 
 def make_clustered_bar(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
     return make_visual(name, x, y, w, h, "clusteredBarChart",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
-         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=_chart_objects(show_labels=True, label_position="'OutsideEnd'"))
 
 def make_clustered_column(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
     return make_visual(name, x, y, w, h, "clusteredColumnChart",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
-         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=_chart_objects(show_labels=True, label_position="'OutsideEnd'"))
 
 def make_line_chart(name, x, y, w, h, cat_table, cat_col, val_table, val_measure, val2_table=None, val2_measure=None):
     qs = {"Category": {"projections": [column_field(cat_table, cat_col)]},
           "Y": {"projections": [measure_field(val_table, val_measure)]}}
     if val2_table and val2_measure:
         qs["Y"]["projections"].append(measure_field(val2_table, val2_measure))
-    return make_visual(name, x, y, w, h, "lineChart", qs)
+    return make_visual(name, x, y, w, h, "lineChart", qs, objects=_line_chart_objects())
 
 def make_area_chart(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
     return make_visual(name, x, y, w, h, "areaChart",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
-         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=_line_chart_objects())
 
 def make_donut(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
     return make_visual(name, x, y, w, h, "donutChart",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
-         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=_chart_objects(show_labels=True, label_position="'OutsideEnd'"))
 
 def make_pie(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
     return make_visual(name, x, y, w, h, "pieChart",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
-         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=_chart_objects(show_labels=True, label_position="'OutsideEnd'"))
 
 def make_table(name, x, y, w, h, fields_list):
     projections = [measure_field(t, c) if m else column_field(t, c) for t, c, m in fields_list]
-    return make_visual(name, x, y, w, h, "tableEx", {"Values": {"projections": projections}})
+    return make_visual(name, x, y, w, h, "tableEx",
+        {"Values": {"projections": projections}}, objects=_table_objects())
 
 def make_matrix(name, x, y, w, h, row_fields, col_fields, val_fields):
     rows = [column_field(t, c) for t, c in row_fields]
@@ -219,7 +319,7 @@ def make_matrix(name, x, y, w, h, row_fields, col_fields, val_fields):
     qs = {"Rows": {"projections": rows}, "Values": {"projections": vals}}
     if cols:
         qs["Columns"] = {"projections": cols}
-    return make_visual(name, x, y, w, h, "pivotTable", qs)
+    return make_visual(name, x, y, w, h, "pivotTable", qs, objects=_matrix_objects())
 
 def make_filled_map(name, x, y, w, h, loc_table, loc_col, val_table, val_measure):
     return make_visual(name, x, y, w, h, "filledMap",
@@ -248,17 +348,19 @@ def make_gauge(name, x, y, w, h, val_table, val_measure, target_table=None, targ
         qs["MinValue"] = {"projections": [measure_field(min_table, min_measure)]}
     if max_table and max_measure:
         qs["MaxValue"] = {"projections": [measure_field(max_table, max_measure)]}
-    return make_visual(name, x, y, w, h, "gauge", qs)
+    return make_visual(name, x, y, w, h, "gauge", qs, objects=_gauge_objects())
 
 def make_waterfall(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
     return make_visual(name, x, y, w, h, "waterfallChart",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
-         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=_chart_objects(show_labels=True, label_position="'OutsideEnd'"))
 
 def make_funnel(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
     return make_visual(name, x, y, w, h, "funnel",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
-         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=_chart_objects(show_labels=True, label_position="'OutsideEnd'"))
 
 def make_scatter(name, x, y, w, h, detail_table, detail_col, x_table, x_measure, y_table, y_measure, size_table=None, size_measure=None):
     qs = {"Category": {"projections": [column_field(detail_table, detail_col)]},
@@ -272,93 +374,112 @@ def make_ribbon(name, x, y, w, h, cat_table, cat_col, series_table, series_col, 
     return make_visual(name, x, y, w, h, "ribbonChart",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
          "Series": {"projections": [column_field(series_table, series_col)]},
-         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=_chart_objects())
 
 def make_stacked_column(name, x, y, w, h, cat_table, cat_col, series_table, series_col, val_table, val_measure):
     return make_visual(name, x, y, w, h, "clusteredColumnChart",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
          "Series": {"projections": [column_field(series_table, series_col)]},
-         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=_chart_objects())
 
 def make_stacked_bar(name, x, y, w, h, cat_table, cat_col, series_table, series_col, val_table, val_measure):
     return make_visual(name, x, y, w, h, "clusteredBarChart",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
          "Series": {"projections": [column_field(series_table, series_col)]},
-         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=_chart_objects())
 
 def make_hundred_pct_stacked_bar(name, x, y, w, h, cat_table, cat_col, series_table, series_col, val_table, val_measure):
     return make_visual(name, x, y, w, h, "hundredPercentStackedBarChart",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
          "Series": {"projections": [column_field(series_table, series_col)]},
-         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=_chart_objects())
 
 def make_hundred_pct_stacked_column(name, x, y, w, h, cat_table, cat_col, series_table, series_col, val_table, val_measure):
     return make_visual(name, x, y, w, h, "hundredPercentStackedColumnChart",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
          "Series": {"projections": [column_field(series_table, series_col)]},
-         "Y": {"projections": [measure_field(val_table, val_measure)]}})
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=_chart_objects())
 ```
 
 ---
 
 ## Layout Rules
 
-The canvas is **1280 x 720 pixels**. Follow these layout conventions:
+The canvas is **1280 x 720 pixels**. These layouts are designed for readability and professional appearance.
 
-### Standard Page Layout
+### Standard Page Layout — Spacious (preferred)
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│ Row 1 (y=10, h=110): KPI Cards + Slicer                 │
-│   4-5 cards evenly spaced, slicer at right edge          │
+│ Row 1 (y=10, h=140): KPI Cards + Slicer                 │
+│   3-4 cards, generous width, slicer at right edge        │
 ├──────────────────────────────────────────────────────────┤
-│ Row 2 (y=140, h=280): Primary Charts                    │
-│   2-3 charts side by side                                │
+│ Row 2 (y=170, h=310): Primary Charts                    │
+│   2 charts side by side (never more than 3)              │
 ├──────────────────────────────────────────────────────────┤
-│ Row 3 (y=440, h=260): Detail Table or Matrix             │
-│   Full width (x=20, w=1230)                              │
+│ Row 3 (y=500, h=200): Detail Table or leave empty        │
+│   Full width — or omit for a cleaner page                │
 └──────────────────────────────────────────────────────────┘
 ```
 
 ### Spacing Rules
 - Left margin: x=20
 - Right edge: x + w ≤ 1260
-- Gap between visuals: 10-20px
-- Card row: y=10, height=110
-- Chart row: y=140, height=280
-- Table row: y=440, height=260
-- Slicer: typically top-right corner, w=210-270
+- Gap between visuals: 15-20px
+- Card row: y=10, height=**140** (not 110 — gives cards room to breathe)
+- Chart row: y=**170**, height=**310** (larger charts are more readable)
+- Table row: y=**500**, height=**200** (or omit entirely)
+- Slicer: top-right corner, w=220-260
 
-### Cards Layout (5 cards + 1 slicer)
+### Cards Layout (3 cards + 1 slicer)
 ```python
-make_card("c1", 20, 10, 190, 110, ...)    # card 1
-make_card("c2", 225, 10, 190, 110, ...)   # card 2
-make_card("c3", 430, 10, 190, 110, ...)   # card 3
-make_card("c4", 635, 10, 190, 110, ...)   # card 4
-make_card("c5", 840, 10, 190, 110, ...)   # card 5
-make_slicer("s1", 1045, 10, 210, 110, ...) # slicer
+make_card("c1", 20, 10, 300, 140, ...)     # card 1
+make_card("c2", 340, 10, 300, 140, ...)    # card 2
+make_card("c3", 660, 10, 300, 140, ...)    # card 3
+make_slicer("s1", 980, 10, 270, 140, ...)  # slicer
 ```
 
 ### Cards Layout (4 cards + 1 slicer)
 ```python
-make_card("c1", 20, 10, 235, 110, ...)
-make_card("c2", 270, 10, 235, 110, ...)
-make_card("c3", 520, 10, 235, 110, ...)
-make_card("c4", 770, 10, 235, 110, ...)
-make_slicer("s1", 1020, 10, 230, 110, ...)
+make_card("c1", 20, 10, 230, 140, ...)     # card 1
+make_card("c2", 265, 10, 230, 140, ...)    # card 2
+make_card("c3", 510, 10, 230, 140, ...)    # card 3
+make_card("c4", 755, 10, 230, 140, ...)    # card 4
+make_slicer("s1", 1000, 10, 250, 140, ...) # slicer
 ```
 
 ### Two Charts Side by Side
 ```python
-make_line_chart("chart1", 20, 140, 610, 280, ...)
-make_clustered_bar("chart2", 650, 140, 600, 280, ...)
+make_line_chart("chart1", 20, 170, 610, 310, ...)
+make_clustered_bar("chart2", 650, 170, 600, 310, ...)
 ```
 
-### Three Charts Side by Side
+### Three Charts Side by Side (use sparingly)
 ```python
-make_chart("chart1", 20, 140, 400, 280, ...)
-make_chart("chart2", 440, 140, 380, 280, ...)
-make_chart("chart3", 840, 140, 410, 280, ...)
+make_chart("chart1", 20, 170, 400, 310, ...)
+make_chart("chart2", 435, 170, 395, 310, ...)
+make_chart("chart3", 845, 170, 405, 310, ...)
+```
+
+### Full-Width Chart (for important trends)
+```python
+make_line_chart("chart1", 20, 170, 1230, 310, ...)
+```
+
+### Detail Table (full width, bottom of page)
+```python
+make_table("tbl", 20, 500, 1230, 200, ...)
+```
+
+### Dedicated Table Page (table gets most of the space)
+```python
+make_slicer("s1", 20, 10, 300, 50, ...)
+make_table("tbl", 20, 80, 1230, 620, ...)
 ```
 
 ---
@@ -369,13 +490,15 @@ When choosing which visual type to use for a measure, follow these rules:
 
 ### Cards (make_card)
 - Use for top-level KPI measures: totals, rates, counts, averages
-- Pick the 4-6 most important measures for cards
+- Pick the **3-4 most important** measures for cards (not 5-6)
 - Percentage measures (rates, margins) are good card candidates
+- Card height should be **140px** — gives room for the accent bar, value, and label
 
 ### Line Charts (make_line_chart)
 - Use when the category axis is a time column (Year_Month, Date, Quarter)
 - Use dual-line when comparing current vs prior period (e.g., Total Revenue + Revenue PY)
 - Ideal for trends, time intelligence measures
+- **Give trend charts generous width** — at least 600px, ideally full width for key trends
 
 ### Bar / Column Charts (make_clustered_bar, make_clustered_column)
 - Use when comparing values across categories (suppliers, products, departments)
@@ -387,6 +510,7 @@ When choosing which visual type to use for a measure, follow these rules:
 - Use for part-of-whole with fewer than 8 categories
 - Donut preferred over pie in most cases
 - Good for distribution by warehouse, region, or status
+- **Pair with another chart**, not alone — a donut next to a bar chart tells a better story
 
 ### Area Charts (make_area_chart)
 - Use for rate/percentage measures over time (e.g., On Time Delivery Rate)
@@ -394,9 +518,10 @@ When choosing which visual type to use for a measure, follow these rules:
 
 ### Tables (make_table)
 - Use for detail data showing multiple columns + measures
-- Place at the bottom of the page (Row 3)
+- Place at the bottom of the page (Row 3) **or give a dedicated page**
 - Mix columns (False) and measures (True) in the fields_list
 - Include identifying columns first, then measures
+- **Don't cram a table under charts if it's important** — give it space
 
 ### Matrix (make_matrix)
 - Use for cross-tabulation: dimension rows × measure values
@@ -409,6 +534,7 @@ When choosing which visual type to use for a measure, follow these rules:
 ### Scatter (make_scatter)
 - Use when comparing two measures per entity (e.g., Lead Time vs OTD Rate per supplier)
 - Add size measure for bubble sizing (e.g., Order Value)
+- **Give scatter plots generous space** — at least 500x300
 
 ### Waterfall (make_waterfall)
 - Use for showing cumulative contribution by category
@@ -435,15 +561,17 @@ When choosing which visual type to use for a measure, follow these rules:
 
 ## Page Grouping Logic
 
-When organizing a dashboard with many measures, group pages by theme:
+When organizing a dashboard with many measures, group pages by theme. Aim for **4-6 pages** with **5-8 visuals each** (not 8-12). Every page should have a clear purpose that you could state in one sentence.
 
-1. **Overview / KPIs page** — Top-level metrics, trends over time, key distributions
-2. **Dimension deep-dive pages** — One page per major dimension (Supplier Scorecard, Product Analysis, Department View)
-3. **Detail / drill-down page** — Tables and matrices with granular data
-4. **Geographic page** — Maps, treemaps (if location data exists)
-5. **Advanced analytics page** — Scatter plots, gauges, waterfalls (if the model has enough measures)
+1. **Overview / KPIs page** — The 3-4 most important metrics as cards, one key trend chart (full width or half), one distribution chart. This page answers "how are we doing overall?"
 
-Typical dashboard: 4-7 pages. Each page: 8-12 visuals.
+2. **Dimension deep-dive pages** — One page per major dimension (Supplier Scorecard, Product Analysis, Department View). Each gets its own cards relevant to that dimension, 1-2 charts, and optionally a focused table.
+
+3. **Detail / drill-down page** — Tables and matrices with granular data. Give the table most of the page height. This page answers "show me the raw numbers."
+
+4. **Geographic page** — Maps, treemaps (only if location data exists). Don't force this page if there's no geographic dimension.
+
+5. **Advanced analytics page** — Scatter plots, gauges, waterfalls. Only if the model has enough measures to make these meaningful. Don't add this page just to showcase visual variety.
 
 ---
 
@@ -494,127 +622,15 @@ print("Done!")
 
 ---
 
-## Example 1: Generating from a Prompt File
-
-**Input from user:**
-> Read `ecommerce/ECommerce_Dashboard_Prompts.md` and generate a `generate_pages.py` for this dashboard.
-
-**What you do:**
-1. Read the prompt file — extract table names (FactSales, FactReturns, DimProduct, DimCustomer, DimStore, Calendar), column names, and all DAX measure names from `_Measures`
-2. Check if the prompt file has a Visual Layout Reference section — if yes, follow it exactly
-3. If no layout reference, use the heuristics in this skill to design pages
-4. Write a complete `generate_pages.py` with all helper functions and page definitions
-
-## Example 2: Generating from a Data Model Description
+## Example: Generating from a Data Model Description
 
 **Input from user:**
 > I have tables: FactSales, DimProduct (with category, product_name), DimStore (with store_name, region), Calendar (with Year_Month, Year).
-> Measures in _Measures: Total Revenue, Total Units, Avg Price, Revenue PY, Revenue YoY Growth, Revenue by Region.
+> Measures in _Measures: Total Revenue, Total Units, Avg Price, Revenue PY, Revenue YoY Growth.
 
 **Your output:** A complete `generate_pages.py` with:
-- Page 1: Overview — 4 cards (Revenue, Units, Avg Price, YoY Growth), slicer (Year), line chart (Revenue + Revenue PY over Year_Month), bar chart (Revenue by category), donut (Units by region)
-- Page 2: Product Analysis — cards, bar chart by product_name, table with product details
-- Page 3: Store Performance — cards, bar chart by store_name, matrix (store × measures)
+- Page 1: Overview — 3 cards (Revenue, Units, YoY Growth) + Year slicer, full-width line chart (Revenue + Revenue PY over Year_Month), bar chart (Revenue by category) + donut (Units by region) side by side
+- Page 2: Product Analysis — 3 cards, bar chart by product_name, table with product details
+- Page 3: Store Performance — 3 cards, bar chart by store_name, matrix (store × measures)
 
-## Example 3: End-to-end from CSVs
-
-**Input from user:**
-> Here are my CSV files in `data/`. Create a complete dashboard for this data.
-
-**What you do:**
-1. Inspect CSV headers to identify Fact tables (transactional) vs Dim tables (lookup/reference)
-2. Identify foreign key relationships (shared ID columns between tables)
-3. Write a `*_Dashboard_Prompts.md` with all phases: data loading, relationships, Calendar table, DAX measures
-4. Generate a `generate_pages.py` from the prompt file you just wrote
-
-## Example 4: Brief-Driven Generation (CSVs + One Paragraph)
-
-This is the most powerful workflow. The user provides raw CSV files and a short business brief. You do everything: design the data model, write the prompt file, and generate the dashboard script.
-
-### How it works
-
-1. User drops CSVs into the project folder
-2. User gives a 1-3 sentence brief describing what they want to track
-3. You inspect the CSVs, design the data model, write the `*_Dashboard_Prompts.md`, and generate the `generate_pages.py`
-
-### What the brief should contain
-
-- The business domain (e-commerce, healthcare, HR, finance, logistics, etc.)
-- The key questions or KPIs they care about (revenue, retention, delivery performance, etc.)
-- Optionally: any specific comparisons they want (YoY, by region, by department)
-
-### Example briefs and how to respond
-
-**Brief 1: E-Commerce**
-> "This is e-commerce sales data. I want to track revenue, profit margins, returns, and customer retention. Compare current vs last year."
-
-Your response:
-- Inspect CSVs to find: FactSales, FactReturns, DimProduct, DimCustomer, DimStore
-- Design relationships from matching ID columns
-- Write prompt file with measures: Total Revenue, Total Cost, Profit Margin, Return Rate, Customer Count, Revenue PY, Revenue YoY Growth, L3M/L12M rolling averages
-- Generate pages: Executive Overview, Product Performance, Customer Trends, Returns Analysis
-
-**Brief 2: Hospital Operations**
-> "Hospital admissions and wait times data. I need to monitor patient flow, department workload, readmission rates, and wait time bottlenecks."
-
-Your response:
-- Inspect CSVs to find: FactAdmissions, FactWaitTimes, DimDepartment, DimDoctor, DimPatient
-- Design relationships including inactive date relationships (admission_date, discharge_date)
-- Write prompt file with measures: Total Admissions, Avg Length of Stay (DATEDIFF), Readmission Rate (EARLIER self-join), Avg Wait Time, Department Utilization
-- Generate pages: Hospital Overview, Department Deep-Dive, Wait Time Analysis, Patient Demographics
-
-**Brief 3: HR / People Analytics**
-> "Employee data with monthly snapshots and recruitment pipeline. Track headcount, attrition, compensation equity, and hiring funnel."
-
-Your response:
-- Inspect CSVs to find: FactEmployeeSnapshot, FactRecruitment, DimEmployee, DimDepartment, DimJobLevel
-- Design relationships with multiple inactive relationships for snapshot pattern
-- Write prompt file with measures: Current Headcount (LASTDATE snapshot), Attrition Rate (POWER annualized), Gender Pay Gap (VAR+RETURN), Avg Tenure (DATEDIFF), Offer Acceptance Rate
-- Generate pages: Workforce Overview, Attrition Analysis, Compensation & Equity, Recruitment Funnel
-
-**Brief 4: Finance / Budgeting**
-> "Actuals vs budget data by cost center. Need variance analysis, spend trends, and department-level drill-down."
-
-Your response:
-- Inspect CSVs to find: FactActuals, FactBudget, DimCostCenter, DimAccount, DimDepartment
-- Design multi-fact model with shared dimensions
-- Write prompt file with measures: Total Actuals, Total Budget, Variance (Actuals - Budget), Variance %, Spend YTD, Budget Utilization Rate
-- Generate pages: Financial Overview, Variance Analysis, Department Spend, Account Detail
-
-**Brief 5: Marketing / Campaign Analytics**
-> "Campaign performance data — impressions, clicks, conversions, spend. Want to see ROI by channel and funnel drop-off."
-
-Your response:
-- Inspect CSVs to find: FactCampaigns, DimChannel, DimAudience, DimCreative
-- Design relationships from campaign/channel IDs
-- Write prompt file with measures: Total Impressions, Click-Through Rate, Conversion Rate, Cost Per Acquisition, ROAS (Return on Ad Spend), Funnel Drop-off Rate
-- Generate pages: Campaign Overview, Channel Comparison, Funnel Analysis, ROI Deep-Dive
-
-### DAX pattern selection based on domain
-
-When designing measures from a brief, choose DAX patterns based on what the data supports:
-
-| Data Pattern | DAX Pattern | Example |
-|-------------|-------------|---------|
-| Date column exists | SAMEPERIODLASTYEAR, TOTALYTD, DATESINPERIOD | Revenue PY, Revenue YTD, L3M Revenue |
-| Multiple date columns on fact table | USERELATIONSHIP with inactive relationships | Avg Lead Time = DATEDIFF(order_date, delivery_date) |
-| Snapshot/periodic data | LASTDATE pattern | Current Headcount, Latest Inventory |
-| Self-referencing logic | EARLIER | 30-Day Readmission Rate |
-| Cross-table calculation | SUMX with RELATED | Total Cost = SUMX(Sales, Sales[Qty] * RELATED(Product[UnitCost])) |
-| Rate/ratio | DIVIDE (always safe division) | Profit Margin = DIVIDE([Profit], [Revenue], 0) |
-| Annualized rate from periodic data | POWER | Annualized Attrition = 1 - POWER(1 - [Period Rate], 12) |
-| Conditional status | SWITCH returning hex colors | RAG Status for conditional formatting |
-| Part-of-whole | DIVIDE with ALL | % of Total = DIVIDE([Revenue], CALCULATE([Revenue], ALL(DimProduct))) |
-
-### Output structure
-
-For a brief-driven generation, always produce two files:
-
-1. `{Domain}_Dashboard_Prompts.md` — Full data model specification following the existing Phase 0/1A/1B/1C+ structure
-2. `scripts/generate_pages.py` — Complete visual generation script with all pages and visuals
-
-The user then executes Phase 0-1 (via MCP, manually, or any other method) and runs the Python script. Dashboard ready.
-
----
-
-Use the layout rules, visual selection heuristics, and naming conventions described above.
+Use the layout rules, visual selection heuristics, and naming conventions described above. Every visual includes built-in formatting from the `_*_objects()` functions.
