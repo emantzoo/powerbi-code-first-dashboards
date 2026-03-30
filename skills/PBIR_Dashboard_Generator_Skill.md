@@ -166,12 +166,18 @@ def column_field(table, column):
     return {"field": {"Column": {"Expression": {"SourceRef": {"Entity": table}}, "Property": column}},
             "queryRef": f"{table}.{column}", "nativeQueryRef": column}
 
-def make_visual(name, x, y, w, h, vtype, query_state, objects=None, z=1000):
+def make_visual(name, x, y, w, h, vtype, query_state=None, objects=None, visual_container_objects=None, z=1000, how_created=None):
     v = {"$schema": SCHEMA_VISUAL, "name": uid(name),
          "position": {"x": x, "y": y, "z": z, "height": h, "width": w, "tabOrder": 0},
-         "visual": {"visualType": vtype, "query": {"queryState": query_state}, "drillFilterOtherVisuals": True}}
+         "visual": {"visualType": vtype, "drillFilterOtherVisuals": True}}
+    if query_state:
+        v["visual"]["query"] = {"queryState": query_state}
     if objects:
         v["visual"]["objects"] = objects
+    if visual_container_objects:
+        v["visual"]["visualContainerObjects"] = visual_container_objects
+    if how_created:
+        v["howCreated"] = how_created
     return v
 
 def write_visual(page_dir, visual_json):

@@ -176,7 +176,7 @@ make_card("sc1_rev", 20, 10, 300, 140, "_Measures", "Total Revenue")
 
 This generates PBIR JSON for a fully data-bound KPI card — complete with accent bar, shadow, and rounded corners. The `make_*` functions handle both data bindings and professional formatting, so the output looks polished on first open without manual formatting work.
 
-22 visual types available via `make_*` functions: `card`, `gauge`, `clusteredBar`, `clusteredColumn`, `lineChart` (dual Y), `areaChart`, `donut`, `pie`, `waterfall`, `funnel`, `scatter` (with optional bubble size), `ribbon`, `stackedColumn`, `stackedBar`, `100%StackedBar`, `100%StackedColumn`, `table`, `matrix`, `treemap`, `filledMap`, `bubbleMap`, `slicer`.
+26 visual types available via `make_*` functions: `card`, `gauge`, `clusteredBar`, `clusteredColumn`, `lineChart` (dual Y), `areaChart`, `donut`, `pie`, `waterfall`, `funnel`, `scatter` (with optional bubble size), `ribbon`, `stackedColumn`, `stackedBar`, `100%StackedBar`, `100%StackedColumn`, `table`, `matrix`, `treemap`, `filledMap`, `bubbleMap`, `slicer`, `titleBar`, `button` (page navigation), `clusteredBarGradient`, `clusteredColumnGradient`.
 
 Each function takes a visual name, canvas position (x, y, w, h), and data bindings (table/column for categories, table/measure for values). Full reference in the [skill file](skills/PBIR_Dashboard_Generator_Skill.md).
 
@@ -193,6 +193,12 @@ Every `make_*` function includes professional formatting defaults in the generat
 **Tables** — bold column headers with theme accent color background and white text, alternating row colors, horizontal gridlines only.
 
 **Matrices** — same header styling as tables, plus clean row header formatting.
+
+**Title bars** — full-width colored textbox with white text (Segoe UI Semibold 18px), hidden visual header. Dark slate default, customizable background color.
+
+**Buttons** — action buttons with centered text, optional page navigation via `visualLink`. Use for dashboard navigation between pages.
+
+**Gradient charts** — clustered bar/column variants with conditional formatting. Bars/columns are colored on a min-to-max gradient based on the measure value, using `FillRule` with `linearGradient2`.
 
 The formatting is built into each `make_*` function via internal `_*_objects()` helpers. The architecture is designed to be expandable — adding more visual parameters (custom accent colors, toggling shadows, controlling label positions) means adding optional parameters to the existing functions without breaking any existing scripts. For global styling (page background, color palette, font family), apply the included theme file: View > Themes > Browse for themes > select `themes/code-first-dashboard.json`.
 

@@ -254,12 +254,18 @@ def column_field(table, column):
     return {"field": {"Column": {"Expression": {"SourceRef": {"Entity": table}}, "Property": column}},
             "queryRef": f"{table}.{column}", "nativeQueryRef": column}
 
-def make_visual(name, x, y, w, h, vtype, query_state, objects=None, z=1000):
+def make_visual(name, x, y, w, h, vtype, query_state=None, objects=None, visual_container_objects=None, z=1000, how_created=None):
     v = {"$schema": SCHEMA_VISUAL, "name": uid(name),
          "position": {"x": x, "y": y, "z": z, "height": h, "width": w, "tabOrder": 0},
-         "visual": {"visualType": vtype, "query": {"queryState": query_state}, "drillFilterOtherVisuals": True}}
+         "visual": {"visualType": vtype, "drillFilterOtherVisuals": True}}
+    if query_state:
+        v["visual"]["query"] = {"queryState": query_state}
     if objects:
         v["visual"]["objects"] = objects
+    if visual_container_objects:
+        v["visual"]["visualContainerObjects"] = visual_container_objects
+    if how_created:
+        v["howCreated"] = how_created
     return v
 
 def write_visual(page_dir, visual_json):
@@ -431,6 +437,192 @@ def make_hundred_pct_stacked_column(name, x, y, w, h, cat_table, cat_col, series
          "Series": {"projections": [column_field(series_table, series_col)]},
          "Y": {"projections": [measure_field(val_table, val_measure)]}},
         objects=_chart_objects())
+
+
+# ── New visual types: title bars, buttons, conditional formatting ──────────
+
+def make_title_bar(name, x, y, w, h, text, bg_color="#1E293B"):
+    """Dashboard title bar — a styled text box with colored background."""
+    return make_visual(name, x, y, w, h, "textbox",
+        objects={
+            "general": [
+                {
+                    "properties": {
+                        "paragraphs": [
+                            {
+                                "textRuns": [
+                                    {
+                                        "value": text,
+                                        "textStyle": {
+                                            "fontFamily": "Segoe UI Semibold",
+                                            "fontSize": "18px",
+                                            "color": "#FFFFFF"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        visual_container_objects={
+            "background": [
+                {
+                    "properties": {
+                        "show": _lit("true"),
+                        "color": _solid(bg_color),
+                        "transparency": _lit("0D")
+                    }
+                }
+            ],
+            "visualHeader": [
+                {
+                    "properties": {
+                        "show": _lit("false")
+                    }
+                }
+            ]
+        },
+        z=9000)
+
+
+def make_button(name, x, y, w, h, text, page_name=None):
+    """Navigation button — for page navigation or custom actions."""
+    obj = {
+        "icon": [
+            {
+                "properties": {
+                    "shapeType": _lit("'blank'")
+                },
+                "selector": {"id": "default"}
+            },
+            {
+                "properties": {
+                    "show": _lit("false")
+                }
+            }
+        ],
+        "text": [
+            {
+                "properties": {
+                    "show": _lit("true")
+                }
+            },
+            {
+                "properties": {
+                    "text": _lit(f"'{text}'"),
+                    "horizontalAlignment": _lit("'center'")
+                },
+                "selector": {"id": "default"}
+            }
+        ]
+    }
+    vco = {}
+    if page_name:
+        vco["visualLink"] = [
+            {
+                "properties": {
+                    "show": _lit("true"),
+                    "type": _lit("'PageNavigation'"),
+                    "navigationPage": _lit(f"'{page_name}'")
+                }
+            }
+        ]
+    return make_visual(name, x, y, w, h, "actionButton",
+        objects=obj,
+        visual_container_objects=vco if vco else None,
+        z=8000,
+        how_created="InsertVisualButton")
+
+
+def _gradient_fill(measure_table, measure_name):
+    """Build a conditional formatting gradient fill rule for bar/column chart data points."""
+    return {
+        "dataPoint": [
+            {
+                "properties": {
+                    "fill": {
+                        "solid": {
+                            "color": {
+                                "expr": {
+                                    "FillRule": {
+                                        "Input": {
+                                            "Measure": {
+                                                "Expression": {
+                                                    "SourceRef": {
+                                                        "Entity": measure_table
+                                                    }
+                                                },
+                                                "Property": measure_name
+                                            }
+                                        },
+                                        "FillRule": {
+                                            "linearGradient2": {
+                                                "min": {
+                                                    "color": {
+                                                        "Literal": {
+                                                            "Value": "'minColor'"
+                                                        }
+                                                    }
+                                                },
+                                                "max": {
+                                                    "color": {
+                                                        "Literal": {
+                                                            "Value": "'maxColor'"
+                                                        }
+                                                    }
+                                                },
+                                                "nullColoringStrategy": {
+                                                    "strategy": {
+                                                        "Literal": {
+                                                            "Value": "'asZero'"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "selector": {
+                    "data": [
+                        {
+                            "dataViewWildcard": {
+                                "matchingOption": 1
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+
+
+def make_clustered_bar_gradient(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
+    """Clustered bar chart with conditional formatting — bars colored by a min/max gradient."""
+    base_objects = _chart_objects(show_labels=True, label_position="'OutsideEnd'")
+    gradient_objects = _gradient_fill(val_table, val_measure)
+    base_objects.update(gradient_objects)
+    return make_visual(name, x, y, w, h, "clusteredBarChart",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=base_objects)
+
+
+def make_clustered_column_gradient(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
+    """Clustered column chart with conditional formatting — columns colored by a min/max gradient."""
+    base_objects = _chart_objects(show_labels=True, label_position="'OutsideEnd'")
+    gradient_objects = _gradient_fill(val_table, val_measure)
+    base_objects.update(gradient_objects)
+    return make_visual(name, x, y, w, h, "clusteredColumnChart",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=base_objects)
+
 
 # ===== PAGE 1: Supply Chain KPIs =====
 p1_id = uid("sc_page1_kpis")
