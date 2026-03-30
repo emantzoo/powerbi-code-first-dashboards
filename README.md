@@ -8,7 +8,7 @@ The entire approach rests on **two text files** that together define a complete 
 
 **1. `*_Dashboard_Prompts.md`** — The data model specification. This file describes everything about the data layer: which CSVs to load, column data types, table relationships, a Calendar table, and all DAX measures organized in phases. Think of it as a recipe that, when followed step by step in Power BI Desktop (or by an MCP agent), produces a fully wired-up data model. It does not generate any visuals — only the model that visuals will query.
 
-**2. `scripts/generate_pages.py`** — The visual layout script. Pure Python (no dependencies beyond stdlib). When you run it, it writes `visual.json` files into the PBIR folder structure of your `.pbip` project. Each file defines one visual: its type, position on the canvas, size, and data bindings to the measures and columns from the data model. This is what actually builds the dashboard pages.
+**2. `scripts/generate_pages.py`** — The visual layout script. Pure Python (no dependencies beyond stdlib). When you run it, it writes `visual.json` files into the PBIR folder structure of your `.pbip` project. Each file defines one visual: its type, position on the canvas, size, data bindings, and formatting (accent bars on cards, styled table headers, clean chart gridlines, data labels). The visuals are designed to look professional on first open, not like a raw data dump.
 
 **Where do these files come from?** Write them yourself or have Claude generate them — or mix and match. See [Getting Started](#getting-started) below.
 
@@ -61,7 +61,7 @@ flowchart TD
 
     SAVE --> STEP2[Step 2: Run generate_pages.py\npython scripts/generate_pages.py]
     STEP2 --> JSON[visual.json files written\ninto PBIR folder structure]
-    JSON --> STEP3[Step 3: Reopen .pbip in Power BI\nPolish — 15-30 min]
+    JSON --> STEP3[Step 3: Reopen .pbip in Power BI\nApply theme, review — 5-10 min]
     STEP3 --> DONE[Dashboard Ready]
 
     style START fill:#ffd,stroke:#333
@@ -79,7 +79,7 @@ The two diagrams above show the full picture. In short: get the two files (Diagr
 
 1. **Build the data model** from the Prompts file — load CSVs, create relationships, add DAX measures. Do this manually in Power BI Desktop or via an MCP agent. Save as `.pbip`.
 2. **Run generate_pages.py** (with Power BI closed) — the script writes `visual.json` files into the PBIR folder structure.
-3. **Reopen the `.pbip`** — all pages appear with data-bound visuals. Polish themes and formatting (15–30 min).
+3. **Reopen the `.pbip`** — all pages appear with formatted, data-bound visuals. Apply a theme for global color consistency, review titles and layout (5–10 min).
 
 The two Options below walk through each path end-to-end with specific steps.
 
@@ -101,7 +101,7 @@ You write both files yourself and execute every step by hand. No AI involved.
 3. **Build the data model in Power BI Desktop.** Open Power BI, load your CSVs via Get Data, then follow your prompt file step by step — set column types, create relationships in Model view, add the Calendar table, and type (or paste) each DAX measure into the `_Measures` table. This is the most time-consuming part.
 4. **Save as `.pbip`.** File > Save As, choose the Power BI Project format. Then **close Power BI Desktop** (it locks the files).
 5. **Run the script.** `python scripts/generate_pages.py` — writes `visual.json` files into the PBIR folder structure.
-6. **Reopen the `.pbip`** — all pages appear with data-bound visuals. Polish themes and formatting as needed.
+6. **Reopen the `.pbip`** — all pages appear with formatted, data-bound visuals. Optionally apply a theme JSON for global color consistency.
 
 ### Option B: Fully Automated
 
@@ -114,7 +114,7 @@ Claude generates both files from your raw CSVs and a short business brief, then 
 5. **Execute the prompt file via MCP.** Paste each phase into your MCP client (Claude Desktop, Claude Code, or any client with the Power BI Modeling MCP server). The agent loads tables, creates relationships, and enters DAX measures programmatically.
 6. **Save as `.pbip`**, then **close Power BI Desktop**.
 7. **Run the generated script.** `python scripts/generate_pages.py`.
-8. **Reopen the `.pbip`** and polish.
+8. **Reopen the `.pbip`** — apply a theme, review, done.
 
 ### Mixing the Two Paths
 
@@ -146,7 +146,7 @@ The AI never writes raw JSON. It either calls deterministic `make_*` functions (
 
 ## Example Dashboards
 
-Five complete dashboard projects across different business domains, each with sample CSV data, a prompt file, and a `generate_pages.py` script:
+Four complete dashboard projects across different business domains, each with sample CSV data, a prompt file, and a `generate_pages.py` script:
 
 | Dashboard | Tables | DAX Measures | Key Patterns |
 |-----------|--------|-------------|--------------|
@@ -154,7 +154,6 @@ Five complete dashboard projects across different business domains, each with sa
 | **Hospital** | 5 | 32 | DATEDIFF, EARLIER self-join for readmissions, TOTALMTD |
 | **HR** | 5 | 34 | LASTDATE snapshot, POWER annualized attrition, VAR+RETURN |
 | **Supply Chain** | 6 | 42 | Multi-fact model, 8x USERELATIONSHIP, semi-additive LASTDATE |
-| **Finance** | 5 | 21 | Multi-fact (Actuals+Budget), USERELATIONSHIP x4, DIVIDE with ALL |
 
 ### Screenshots (Supply Chain)
 
@@ -172,14 +171,30 @@ Five complete dashboard projects across different business domains, each with sa
 Each visual is one line of Python:
 
 ```python
-make_card("sc1_rev", 20, 10, 295, 110, "_Measures", "Total Revenue")
+make_card("sc1_rev", 20, 10, 300, 140, "_Measures", "Total Revenue")
 ```
 
-This generates 15+ lines of PBIR JSON that Power BI reads as a fully data-bound KPI card. With 34 visuals across 7 pages, writing raw JSON would be tedious and error-prone.
+This generates PBIR JSON for a fully data-bound KPI card — complete with accent bar, shadow, and rounded corners. The `make_*` functions handle both data bindings and professional formatting, so the output looks polished on first open without manual formatting work.
 
 22 visual types available via `make_*` functions: `card`, `gauge`, `clusteredBar`, `clusteredColumn`, `lineChart` (dual Y), `areaChart`, `donut`, `pie`, `waterfall`, `funnel`, `scatter` (with optional bubble size), `ribbon`, `stackedColumn`, `stackedBar`, `100%StackedBar`, `100%StackedColumn`, `table`, `matrix`, `treemap`, `filledMap`, `bubbleMap`, `slicer`.
 
 Each function takes a visual name, canvas position (x, y, w, h), and data bindings (table/column for categories, table/measure for values). Full reference in the [skill file](skills/PBIR_Dashboard_Generator_Skill.md).
+
+## Built-in Formatting
+
+Every `make_*` function includes professional formatting defaults in the generated `visual.json`. No manual formatting needed for a clean, presentable result.
+
+**Cards** — accent bar (colored top stripe), drop shadow, rounded corners, clean padding. Designed to look like modern KPI tiles, not default Power BI cards.
+
+**Bar, column, donut, pie, waterfall, funnel charts** — data labels enabled, hidden axis titles (the data is self-explanatory), dashed light gridlines.
+
+**Line and area charts** — thicker line stroke, clean dashed gridlines, no data labels (too cluttered on trend lines).
+
+**Tables** — bold column headers with theme accent color background and white text, alternating row colors, horizontal gridlines only.
+
+**Matrices** — same header styling as tables, plus clean row header formatting.
+
+The formatting is built into each `make_*` function via internal `_*_objects()` helpers. The architecture is designed to be expandable — adding more visual parameters (custom accent colors, toggling shadows, controlling label positions) means adding optional parameters to the existing functions without breaking any existing scripts. For global styling (page background, color palette, font family), apply the included theme file: View > Themes > Browse for themes > select `themes/code-first-dashboard.json`.
 
 ## Related Projects
 
@@ -198,12 +213,13 @@ powerbi-code-first-dashboards/
   hospital/                        # Hospital Operations dashboard project
   hr/                              # HR People Analytics dashboard project
   supply_chain/                    # Supply Chain & Inventory dashboard project
-  finance/                         # Finance Budget vs Actuals dashboard project
     data/                          #   CSV files (sample data included)
     scripts/generate_pages.py      #   PBIR visual generator (pure Python)
     SupplyChain_Dashboard_Prompts.md  # Full data model specification
   skills/
     PBIR_Dashboard_Generator_Skill.md  # Claude skill for auto-generating dashboards
+  themes/
+    code-first-dashboard.json      # Power BI theme for global color/font consistency
   workflow/
     PowerBI_From_Code_Workflow.md   # Detailed methodology guide
   images/                          # Dashboard screenshots
@@ -217,5 +233,6 @@ powerbi-code-first-dashboards/
 | Power BI Desktop | Runtime engine | Yes |
 | PBIR (JSON) | Visual layout definition | Yes |
 | Python | Visual page generation scripts | Yes |
+| Theme JSON | Global colors, fonts, page background | Optional (included) |
 | Power BI Modeling MCP | Automated data model creation | Optional |
 | Claude Skill | Auto-generate from data models | Optional |
