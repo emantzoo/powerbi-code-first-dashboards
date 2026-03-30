@@ -1,0 +1,21 @@
+cost_center_id,cost_center_name,region,cost_center_type,department_id
+CC001,Marketing Operations,North,Direct,DEPT03
+CC002,IT Infrastructure,South,Indirect,DEPT02
+CC003,Sales West,East,Overhead,DEPT04
+CC004,Sales East,West,Direct,DEPT04
+CC005,Finance Core,North,Indirect,DEPT01
+CC006,HR Services,South,Overhead,DEPT05
+CC007,Engineering Platform,East,Direct,DEPT02
+CC008,Engineering Data,West,Indirect,DEPT02
+CC009,Product Design,North,Overhead,DEPT08
+CC010,Product Analytics,South,Direct,DEPT08
+CC011,Operations Logistics,East,Indirect,DEPT06
+CC012,Operations Support,West,Overhead,DEPT06
+CC013,Legal Compliance,North,Direct,DEPT07
+CC014,Legal Contracts,South,Indirect,DEPT07
+CC015,Marketing Digital,East,Overhead,DEPT03
+CC016,Sales North,West,Direct,DEPT04
+CC017,Finance Planning,North,Indirect,DEPT01
+CC018,HR Recruiting,South,Overhead,DEPT05
+CC019,Engineering Mobile,East,Direct,DEPT02
+CC020,Operations Warehouse,West,Indirect,DEPT06

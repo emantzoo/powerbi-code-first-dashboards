@@ -1,0 +1,16 @@
+account_id,account_name,account_type,account_group
+ACC001,Salaries & Wages,Personnel,Compensation
+ACC002,Benefits & Insurance,Personnel,Compensation
+ACC003,Travel & Entertainment,Operating,Travel
+ACC004,Software Licenses,Operating,Technology
+ACC005,Office Supplies,Operating,Facilities
+ACC006,Marketing Spend,Operating,Services
+ACC007,Utilities,Administrative,Facilities
+ACC008,Rent & Facilities,Administrative,Facilities
+ACC009,Training & Development,Operating,Services
+ACC010,Professional Services,Operating,Services
+ACC011,Depreciation,Capital,Facilities
+ACC012,Maintenance,Administrative,Facilities
+ACC013,Telecommunications,Operating,Technology
+ACC014,Contracted Services,Operating,Services
+ACC015,Miscellaneous,Administrative,Services

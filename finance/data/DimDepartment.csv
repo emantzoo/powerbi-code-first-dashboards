@@ -1,0 +1,9 @@
+department_id,department_name,department_head,headcount
+DEPT01,Finance,Sarah Chen,45
+DEPT02,Engineering,James Wilson,120
+DEPT03,Marketing,Maria Lopez,35
+DEPT04,Sales,Robert Kim,80
+DEPT05,HR,Emma Davis,25
+DEPT06,Operations,David Brown,90
+DEPT07,Legal,Patricia Moore,15
+DEPT08,Product,Michael Zhang,55
