@@ -1,85 +1,183 @@
-# PortPulse — Piraeus Port Congestion & Waiting Time Analyzer
+# PortPulse — Piraeus Port Congestion & Waiting Time Analyzer — Power BI Build Prompts
 
-## Power BI Data Model Specification
+Use these prompts in order. Each one is a copy-paste block for Claude Desktop (Cowork or Code tab).
 
----
-
-## Phase 0 — Data Loading
-
-### Table: AIS_Positions (Fact)
-Source: `piraeus_ais.csv` (~5,000 rows)
-
-| Column | Type | Description |
-|--------|------|-------------|
-| mmsi | Text | Vessel identifier (treat as text, not number) |
-| timestamp | DateTime | AIS position timestamp |
-| lat | Decimal | Latitude |
-| lon | Decimal | Longitude |
-| speed_knots | Decimal | Speed in knots |
-| vessel_type | Text | Container, Tanker, Bulk Carrier, Passenger, Ro-Ro |
-| vessel_name | Text | Vessel name |
-| flag | Text | Flag state |
-| hour | Whole Number | Hour of day (0–23) |
-| day_of_week | Text | Day name (Monday, Tuesday, …) |
-| date | Date | Date only |
-
-**Power Query computed columns (add in Power Query Editor):**
-
-| Column | Type | Formula |
-|--------|------|---------|
-| Status | Text | `= if speed_knots < 0.5 and lat >= 37.935 and lat <= 37.960 and lon >= 23.595 and lon <= 23.650 then "Berthed" else if speed_knots < 1.0 and lat >= 37.845 and lat <= 37.935 and lon >= 23.505 and lon <= 23.575 then "Waiting" else if speed_knots >= 5.0 then "In Transit" else "Maneuvering"` |
-| Zone | Text | `= if lat >= 37.935 then "Port" else if lat >= 37.845 then "Anchorage" else "Approach"` |
-| anomaly_score | Decimal | Added by R script transform (Isolation Forest) |
-| is_anomaly | Boolean | Added by R script transform (top 10% anomaly scores) |
-
-### Table: PiraeusZones (Dim)
-Source: `piraeus_zones.csv`
-
-| Column | Type | Description |
-|--------|------|-------------|
-| zone | Text | Zone name (Container Terminal, Passenger Terminal, etc.) |
-| lat | Decimal | Zone center latitude |
-| lon | Decimal | Zone center longitude |
-| type | Text | "berth" or "anchorage" |
-
-### Table: VesselClusters (Dim)
-Source: R script transform output (Power Query)
-
-| Column | Type | Description |
-|--------|------|-------------|
-| mmsi | Text | Vessel identifier |
-| vessel_type | Text | Vessel type |
-| flag | Text | Flag state |
-| avg_speed | Decimal | Average speed across all positions |
-| max_speed | Decimal | Maximum speed recorded |
-| pct_slow | Decimal | % of time speed < 1 knot |
-| avg_lat | Decimal | Average latitude |
-| avg_lon | Decimal | Average longitude |
-| n_positions | Whole Number | Number of AIS positions |
-| cluster | Whole Number | K-means cluster ID |
-| cluster_label | Text | Cluster label (Long-term Waiting, Berthed/Short Wait, In Transit, Mixed Behaviour) |
+The data CSVs are in: `C:\Users\emant\Documents\powerbi-code-first-dashboards\portpulse\data`
 
 ---
 
-## Phase 1A — Relationships
+## PHASE 0 — Load Data
 
-| From | To | Cardinality | Cross-filter |
-|------|----|-------------|-------------|
-| AIS_Positions[mmsi] | VesselClusters[mmsi] | Many-to-One | Both |
+> Open a blank Power BI Desktop first. Then paste this into Claude Desktop:
+
+```
+Connect to my open Power BI Desktop file.
+
+Load these CSV files from C:\Users\emant\Documents\powerbi-code-first-dashboards\portpulse\data into my Power BI model:
+- piraeus_ais.csv (~4000 rows — AIS vessel positions with timestamps, coordinates, speed)
+- piraeus_zones.csv (5 rows — port zone reference with coordinates)
+
+Read the headers from each CSV and create tables with the correct column names and data types.
+
+For piraeus_ais (rename table to AIS_Positions):
+- mmsi: Text (not number — no arithmetic on vessel IDs)
+- timestamp: DateTime
+- lat, lon: Decimal Number
+- speed_knots: Decimal Number
+- vessel_type, vessel_name, flag, day_of_week: Text
+- hour: Whole Number
+- date: Date
+
+For piraeus_zones (rename table to PiraeusZones):
+- zone: Text
+- lat, lon: Decimal Number
+- type: Text
+
+Refresh the model after loading. Confirm row counts for each table.
+```
 
 ---
 
-## Phase 1B — Calendar Table
+## PHASE 0B — Power Query Computed Columns
 
-Not required for this dataset (date column exists on AIS_Positions directly, 3-day window).
+> Paste this after Phase 0 completes:
+
+```
+Open Power Query Editor for the AIS_Positions table.
+
+Add a custom column called "Status" with this formula:
+= if [speed_knots] < 0.5 and [lat] >= 37.935 and [lat] <= 37.960 and [lon] >= 23.595 and [lon] <= 23.650 then "Berthed" else if [speed_knots] < 1.0 and [lat] >= 37.845 and [lat] <= 37.935 and [lon] >= 23.505 and [lon] <= 23.575 then "Waiting" else if [speed_knots] >= 5.0 then "In Transit" else "Maneuvering"
+
+Add another custom column called "Zone" with this formula:
+= if [lat] >= 37.935 then "Port" else if [lat] >= 37.845 then "Anchorage" else "Approach"
+
+Set both new columns to Text type.
+
+Close & Apply.
+```
 
 ---
 
-## Phase 1C — Core KPI Measures
+## PHASE 0C — R Script Transform: Anomaly Detection (Optional)
 
-Create these in a `_Measures` table:
+> This step requires R installed and configured in Power BI. Skip if R is not set up.
 
-```dax
+```
+Open Power Query Editor for the AIS_Positions table.
+
+Go to Transform > Run R Script. Paste this R code:
+
+library(dplyr)
+library(solitude)
+
+features <- dataset %>%
+  select(speed_knots, lat, lon, hour) %>%
+  mutate(across(everything(), as.numeric))
+
+iso <- isolationForest$new(
+  sample_size = min(256, nrow(features)),
+  num_trees = 100
+)
+iso$fit(features)
+
+scores <- iso$predict(features)
+
+threshold <- quantile(scores$anomaly_score, 0.90)
+dataset$anomaly_score <- scores$anomaly_score
+dataset$is_anomaly <- scores$anomaly_score >= threshold
+
+output <- dataset
+
+Click OK. This adds anomaly_score (Decimal) and is_anomaly (True/False) columns.
+Set anomaly_score to Decimal Number type and is_anomaly to True/False type.
+
+Close & Apply.
+```
+
+---
+
+## PHASE 0D — R Script Transform: Vessel Clustering (Optional)
+
+> This creates a separate VesselClusters table. Skip if R is not set up.
+
+```
+In Power Query Editor, go to the AIS_Positions table.
+Right-click the table > Reference (this creates a new query based on AIS_Positions).
+Rename the new query to "VesselClusters".
+
+On the VesselClusters query, go to Transform > Run R Script. Paste this R code:
+
+library(dplyr)
+
+vessel_summary <- dataset %>%
+  group_by(mmsi, vessel_type, flag) %>%
+  summarise(
+    avg_speed = mean(speed_knots, na.rm = TRUE),
+    max_speed = max(speed_knots, na.rm = TRUE),
+    pct_slow = mean(speed_knots < 1.0, na.rm = TRUE),
+    avg_lat = mean(lat, na.rm = TRUE),
+    avg_lon = mean(lon, na.rm = TRUE),
+    n_positions = n(),
+    .groups = "drop"
+  )
+
+set.seed(42)
+cluster_features <- vessel_summary %>%
+  select(avg_speed, pct_slow, avg_lat) %>%
+  scale()
+
+km <- kmeans(cluster_features, centers = 4, nstart = 25)
+vessel_summary$cluster <- km$cluster
+
+cluster_labels <- vessel_summary %>%
+  group_by(cluster) %>%
+  summarise(avg_spd = mean(avg_speed), avg_pct_slow = mean(pct_slow)) %>%
+  mutate(cluster_label = case_when(
+    avg_pct_slow > 0.8 & avg_spd < 1 ~ "Long-term Waiting",
+    avg_pct_slow > 0.5 ~ "Berthed/Short Wait",
+    avg_spd > 8 ~ "In Transit",
+    TRUE ~ "Mixed Behaviour"
+  ))
+
+vessel_summary <- vessel_summary %>%
+  left_join(cluster_labels %>% select(cluster, cluster_label), by = "cluster")
+
+output <- vessel_summary
+
+Click OK. Set column types:
+- mmsi: Text
+- vessel_type, flag, cluster_label: Text
+- avg_speed, max_speed, pct_slow, avg_lat, avg_lon: Decimal Number
+- n_positions, cluster: Whole Number
+
+Close & Apply.
+```
+
+---
+
+## PHASE 1A — Relationships
+
+> Paste this after all data is loaded:
+
+```
+Delete all auto-detected relationships in the model first.
+
+Then create this relationship:
+1. AIS_Positions[mmsi] -> VesselClusters[mmsi] (Many:1, ACTIVE, both directions cross-filter)
+
+If VesselClusters table was not created (R steps were skipped), skip this phase.
+```
+
+---
+
+## PHASE 1B — DAX Measures (Batch 1: Core KPIs)
+
+```
+Create a _Measures table with this DAX expression:
+_Measures = {1}
+
+Then add these measures to _Measures:
+
 Waiting Vessels =
 CALCULATE(
     DISTINCTCOUNT(AIS_Positions[mmsi]),
@@ -128,9 +226,11 @@ Total Positions = COUNT(AIS_Positions[mmsi])
 
 ---
 
-## Phase 1D — Cost Estimation Measures
+## PHASE 1C — DAX Measures (Batch 2: Cost Estimation)
 
-```dax
+```
+Add these measures to _Measures:
+
 Daily Cost Rate =
 SWITCH(
     SELECTEDVALUE(AIS_Positions[vessel_type]),
@@ -169,9 +269,11 @@ FORMAT([Total Waiting Cost USD], "$#,##0")
 
 ---
 
-## Phase 1E — Trend Measures
+## PHASE 1D — DAX Measures (Batch 3: Trends & Anomalies)
 
-```dax
+```
+Add these measures to _Measures:
+
 Daily Waiting Count =
 CALCULATE(
     DISTINCTCOUNT(AIS_Positions[mmsi]),
@@ -193,9 +295,11 @@ CALCULATE(
 
 ---
 
-## Phase 1F — Cost Insight Measure
+## PHASE 1E — DAX Measures (Batch 4: Cost Insight)
 
-```dax
+```
+Add this measure to _Measures:
+
 Cost Insight =
 VAR MostExpensiveType =
     TOPN(1, SUMMARIZE(AIS_Positions, AIS_Positions[vessel_type],
@@ -207,41 +311,30 @@ RETURN
 
 ---
 
-## Visual Layout Reference
+## PHASE 2 — Save
 
-### Page 1: Port Overview
-- Title bar: "PortPulse — Piraeus Port Congestion Monitor"
-- 4 KPI cards: Waiting Vessels, Avg Wait Hours, Congestion Index, Total Waiting Cost USD
-- Map: vessel positions (lat/lon), color by Status, size by speed
-- Slicers: vessel_type, flag, Status
-- Bar chart: Avg Wait Hours by vessel_type
-- Nav buttons: Trends, Vessels, Costs
+```
+Save the file as a Power BI Project (.pbip) with the name "portpulse_dash" in:
+C:\Users\emant\Documents\powerbi-code-first-dashboards\portpulse\
 
-### Page 2: Trends & Patterns
-- 3 KPI cards: Daily Waiting Count, Waiting 7D Avg, Total Vessels
-- Line chart: date × Daily Waiting Count + Waiting 7D Avg
-- Bar chart: Avg Wait Hours by day_of_week
-- Clustered column: Waiting Vessels by hour
-- Nav buttons: Back, Vessels, Costs
+Then close Power BI Desktop completely (the Python script needs exclusive file access).
+```
 
-### Page 3: Vessel Detail
-- 2 KPI cards: Total Vessels, Anomaly Count
-- Slicer: vessel_type
-- Table: mmsi, vessel_name, flag, vessel_type, Status, cluster_label, avg_speed, Avg Wait Hours, anomaly_score, is_anomaly
-- Scatter: detail=vessel_name, x=Avg Speed, y=Avg Wait Hours (from VesselClusters perspective)
-- Nav buttons: Back, Trends, Costs
+---
 
-### Page 4: Cost Impact
-- 3 KPI cards: Total Waiting Cost USD, Waiting Vessels, Avg Wait Hours
-- Donut: Total Waiting Cost USD by vessel_type
-- Gradient bar: Total Waiting Cost USD by vessel_name (top waiters)
-- Table: mmsi, vessel_name, vessel_type, flag, Avg Wait Hours, Total Waiting Cost USD
-- Nav buttons: Back, Trends, Vessels
+## After Coworker completes all phases:
+
+1. Close Power BI Desktop
+2. Run: `python portpulse/scripts/generate_pages.py`
+3. Reopen `portpulse_dash.pbip` — 4 pages with all visuals will appear
+4. Apply theme: View > Themes > Browse > `themes/code-first-dashboard.json`
+5. Configure button navigation: select each button > Format > Action > Page navigation
+6. R script visuals (ARIMA forecast, anomaly scatter, cluster plot) are embedded via `make_r_visual` — they will render if R is configured
 
 ---
 
 ## Notes
 
-- R script visuals (anomaly scatter, cluster plot, ARIMA forecast) must be added manually in Power BI Desktop — PBIR JSON does not support R script visual types
-- Navigation buttons render but must have page navigation configured manually in Power BI Desktop (Format > Action > Page navigation)
-- Data is ~5,000 rows / 31 vessels / 3 days of AIS positions for Piraeus port
+- If R is not installed, skip Phases 0C and 0D. The dashboard will work without anomaly detection and clustering — the Anomaly Count measure and VesselClusters table references will show blank/error, which is fine
+- Navigation buttons render but page navigation must be configured manually in Power BI Desktop (Format > Action > Page navigation)
+- Data is ~4,000 rows / 31 vessels / 3 days of AIS positions for Piraeus port
