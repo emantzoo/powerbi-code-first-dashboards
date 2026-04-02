@@ -1,15 +1,15 @@
 """
 PBIR Visual Helper Functions — with built-in formatting defaults.
 
-Drop-in replacement for the unformatted versions. Same function signatures,
-same call sites — but every visual now includes professional formatting
-in the `objects` property of the visual.json.
+PortPulse: Piraeus Port Congestion & Waiting Time Analyzer
+4 pages: Port Overview, Trends & Patterns, Vessel Detail, Cost Impact
 """
 
 import json, os, hashlib, shutil
 
 # ── Path and schema constants ──────────────────────────────────────────────
-BASE = r"C:\Users\emant\Documents\powerbi-code-first-dashboards\hospital\hospital_dashb.Report\definition\pages"
+# UPDATE this path to match your saved .pbip project location
+BASE = r"C:\Users\emant\Documents\powerbi-code-first-dashboards\portpulse\portpulse_dash.Report\definition\pages"
 
 SCHEMA_VISUAL = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json"
 SCHEMA_PAGE   = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json"
@@ -621,6 +621,7 @@ def make_r_visual(name, x, y, w, h, fields_list, r_script):
     r_script: string of R code (will be escaped into PBIR literal format)
     """
     projections = [measure_field(t, c) if m else column_field(t, c) for t, c, m in fields_list]
+    # Escape the R script for PBIR literal format (single quotes, newlines as \\n)
     escaped = r_script.replace("'", "\\'").replace("\n", "\\n")
     objects = {
         "script": [
@@ -637,102 +638,210 @@ def make_r_visual(name, x, y, w, h, fields_list, r_script):
         objects=objects)
 
 
-# ===== PAGE 1: Hospital Overview =====
-p1_id = uid("hosp_page1_overview")
+# ===================================================================
+# PAGE DEFINITIONS
+# ===================================================================
+
+# ===== PAGE 1: Port Overview =====
+p1_id = uid("pp_page1_overview")
 p1 = [
-    make_title_bar("h1_title", 0, 0, 1280, 50, "Hospital Operations Dashboard"),
-    make_card("h1_admissions", 20, 60, 235, 140, "_Measures", "Total Admissions"),
-    make_card("h1_los", 270, 60, 235, 140, "_Measures", "Avg Length of Stay"),
-    make_card("h1_occupancy", 520, 60, 235, 140, "_Measures", "Daily Bed Occupancy Rate"),
-    make_card("h1_readmit", 770, 60, 235, 140, "_Measures", "Readmission Rate"),
-    make_slicer("h1_year", 1020, 60, 230, 140, "Calendar", "Year"),
-    make_clustered_bar_gradient("h1_dept_bar", 20, 220, 400, 280, "DimDepartment", "department_name", "_Measures", "Total Admissions"),
-    make_line_chart("h1_trend", 440, 220, 400, 280, "Calendar", "Year_Month", "_Measures", "Total Admissions"),
-    make_donut("h1_type_donut", 860, 220, 380, 280, "FactAdmissions", "admission_type", "_Measures", "Total Admissions"),
-    make_area_chart("h1_charges_area", 20, 520, 600, 160, "Calendar", "Year_Month", "_Measures", "Total Charges"),
-    make_clustered_bar("h1_los_bar", 640, 520, 600, 160, "DimDepartment", "department_name", "_Measures", "Avg Length of Stay"),
-    make_button("h1_btn_dept", 1100, 670, 150, 40, "Departments"),
+    make_title_bar("pp1_title", 0, 0, 1280, 50, "PortPulse — Piraeus Port Congestion Monitor", bg_color="#0F2B46"),
+    # KPI cards row
+    make_card("pp1_waiting", 20, 60, 230, 140, "_Measures", "Waiting Vessels"),
+    make_card("pp1_wait_hrs", 265, 60, 230, 140, "_Measures", "Avg Wait Hours"),
+    make_card("pp1_congestion", 510, 60, 230, 140, "_Measures", "Congestion Index"),
+    make_card("pp1_cost", 755, 60, 230, 140, "_Measures", "Total Waiting Cost USD"),
+    # Slicers (right side)
+    make_slicer("pp1_slicer_type", 1000, 60, 250, 65, "AIS_Positions", "vessel_type"),
+    make_slicer("pp1_slicer_flag", 1000, 135, 250, 65, "AIS_Positions", "flag"),
+    # Map — vessel positions (takes up main area)
+    make_map("pp1_map", 20, 215, 740, 310,
+        "AIS_Positions", "vessel_name",
+        "AIS_Positions", "lat",
+        "AIS_Positions", "lon",
+        "_Measures", "Total Positions"),
+    # Slicer for Status
+    make_slicer("pp1_slicer_status", 780, 215, 200, 65, "AIS_Positions", "Status"),
+    # Bar chart — wait time by vessel type
+    make_clustered_bar("pp1_wait_by_type", 780, 290, 470, 235, "AIS_Positions", "vessel_type",
+        "_Measures", "Avg Wait Hours"),
+    # Table at bottom
+    make_table("pp1_table", 20, 540, 1230, 140, [
+        ("AIS_Positions", "vessel_name", False),
+        ("AIS_Positions", "vessel_type", False),
+        ("AIS_Positions", "flag", False),
+        ("AIS_Positions", "Status", False),
+        ("_Measures", "Avg Wait Hours", True),
+        ("_Measures", "Congestion Index", True),
+    ]),
+    # Nav buttons
+    make_button("pp1_btn_trends", 920, 670, 110, 40, "Trends"),
+    make_button("pp1_btn_vessels", 1040, 670, 110, 40, "Vessels"),
+    make_button("pp1_btn_costs", 1160, 670, 100, 40, "Costs"),
 ]
 
-# ===== PAGE 2: Department Deep-Dive =====
-p2_id = uid("hosp_page2_dept")
+# ===== PAGE 2: Trends & Patterns =====
+p2_id = uid("pp_page2_trends")
 p2 = [
-    make_card("h2_admissions", 20, 10, 230, 140, "_Measures", "Total Admissions"),
-    make_card("h2_charges", 265, 10, 230, 140, "_Measures", "Total Charges"),
-    make_card("h2_avg_charge", 510, 10, 230, 140, "_Measures", "Avg Charge per Admission"),
-    make_card("h2_emerg_pct", 755, 10, 230, 140, "_Measures", "Emergency Pct"),
-    make_slicer("h2_dept", 1000, 10, 250, 140, "DimDepartment", "department_name"),
-    make_clustered_bar("h2_dept_charges", 20, 170, 610, 310, "DimDepartment", "department_name", "_Measures", "Total Charges"),
-    make_clustered_bar("h2_diag_bar", 650, 170, 600, 310, "FactAdmissions", "diagnosis_code", "_Measures", "Total Admissions"),
-    make_matrix("h2_matrix", 20, 500, 1230, 180,
-        [("DimDepartment", "department_name")],
-        [("Calendar", "Year")],
-        [("_Measures", "Total Admissions"), ("_Measures", "Avg Length of Stay"), ("_Measures", "Total Charges"), ("_Measures", "Daily Bed Occupancy Rate")]),
-    make_button("h2_btn_back", 20, 670, 100, 40, "Back"),
-    make_button("h2_btn_wait", 1100, 670, 150, 40, "Wait Times"),
+    # KPI cards
+    make_card("pp2_daily_wait", 20, 10, 300, 140, "_Measures", "Daily Waiting Count"),
+    make_card("pp2_7d_avg", 340, 10, 300, 140, "_Measures", "Waiting 7D Avg"),
+    make_card("pp2_total_vessels", 660, 10, 300, 140, "_Measures", "Total Vessels"),
+    make_slicer("pp2_slicer_type", 980, 10, 270, 140, "AIS_Positions", "vessel_type"),
+    # Line chart — congestion trend (date × daily waiting + 7D avg)
+    make_line_chart("pp2_trend", 20, 170, 1230, 260, "AIS_Positions", "date",
+        "_Measures", "Daily Waiting Count", "_Measures", "Waiting 7D Avg"),
+    # Bar chart — wait time by day of week
+    make_clustered_bar("pp2_by_dow", 20, 450, 400, 210, "AIS_Positions", "day_of_week",
+        "_Measures", "Avg Wait Hours"),
+    # Column chart — waiting vessels by hour
+    make_clustered_column("pp2_by_hour", 440, 450, 400, 210, "AIS_Positions", "hour",
+        "_Measures", "Waiting Vessels"),
+    # R visual — congestion forecast (ARIMA)
+    # NOTE: Requires R packages: forecast, ggplot2. Falls back to empty if R not configured.
+    make_r_visual("pp2_r_forecast", 860, 450, 390, 210,
+        [("AIS_Positions", "date", False),
+         ("AIS_Positions", "mmsi", False),
+         ("AIS_Positions", "Status", False)],
+        r"""library(forecast)
+library(ggplot2)
+daily <- dataset %>%
+  dplyr::group_by(date) %>%
+  dplyr::summarise(waiting = dplyr::n_distinct(mmsi[Status == "Waiting"])) %>%
+  dplyr::arrange(date)
+if (nrow(daily) >= 3) {
+  ts_data <- ts(daily$waiting, frequency = 7)
+  fit <- auto.arima(ts_data)
+  fc <- forecast(fit, h = 3)
+  fc_df <- data.frame(
+    date = seq(max(daily$date) + 1, by = "day", length.out = 3),
+    forecast = as.numeric(fc$mean),
+    lower = as.numeric(fc$lower[,2]),
+    upper = as.numeric(fc$upper[,2])
+  )
+  p <- ggplot() +
+    geom_line(data = daily, aes(x = date, y = waiting), color = "#2c3e50", size = 1) +
+    geom_ribbon(data = fc_df, aes(x = date, ymin = lower, ymax = upper), fill = "#3498db", alpha = 0.2) +
+    geom_line(data = fc_df, aes(x = date, y = forecast), color = "#3498db", size = 1, linetype = "dashed") +
+    labs(title = "Congestion Forecast (3-day)", x = "", y = "Waiting Vessels") +
+    theme_minimal()
+  print(p)
+}
+"""),
+    # Nav buttons
+    make_button("pp2_btn_back", 20, 670, 100, 40, "Back"),
+    make_button("pp2_btn_vessels", 1040, 670, 110, 40, "Vessels"),
+    make_button("pp2_btn_costs", 1160, 670, 100, 40, "Costs"),
 ]
 
-# ===== PAGE 3: Wait Time Analysis =====
-p3_id = uid("hosp_page3_wait")
+# ===== PAGE 3: Vessel Detail =====
+p3_id = uid("pp_page3_vessels")
 p3 = [
-    make_card("h3_wait", 20, 10, 295, 140, "_Measures", "Avg Wait Minutes"),
-    make_card("h3_triage", 330, 10, 295, 140, "_Measures", "Avg Triage Minutes"),
-    make_card("h3_under15", 640, 10, 295, 140, "_Measures", "Wait Under 15min Pct"),
-    make_card("h3_over60", 950, 10, 295, 140, "_Measures", "Wait Over 60min Pct"),
-    make_clustered_bar("h3_cat_bar", 20, 170, 400, 310, "FactWaitTimes", "wait_category", "_Measures", "Total Wait Records"),
-    make_line_chart("h3_trend", 440, 170, 400, 310, "Calendar", "Year_Month", "_Measures", "Avg Wait Minutes"),
-    make_donut("h3_dept_donut", 860, 170, 380, 310, "DimDepartment", "department_name", "_Measures", "Total Wait Records"),
-    make_table("h3_table", 20, 500, 1230, 180, [
-        ("DimDepartment", "department_name", False),
-        ("_Measures", "Total Wait Records", True),
-        ("_Measures", "Avg Wait Minutes", True),
-        ("_Measures", "Avg Triage Minutes", True),
-        ("_Measures", "Wait Under 15min Pct", True),
-        ("_Measures", "Wait Over 60min Pct", True),
+    # KPI cards
+    make_card("pp3_total", 20, 10, 300, 140, "_Measures", "Total Vessels"),
+    make_card("pp3_anomalies", 340, 10, 300, 140, "_Measures", "Anomaly Count"),
+    make_slicer("pp3_slicer_type", 660, 10, 280, 140, "AIS_Positions", "vessel_type"),
+    make_slicer("pp3_slicer_status", 960, 10, 280, 140, "AIS_Positions", "Status"),
+    # Detail table — full vessel listing
+    make_table("pp3_table", 20, 170, 1230, 260, [
+        ("AIS_Positions", "mmsi", False),
+        ("AIS_Positions", "vessel_name", False),
+        ("AIS_Positions", "flag", False),
+        ("AIS_Positions", "vessel_type", False),
+        ("AIS_Positions", "Status", False),
+        ("VesselClusters", "cluster_label", False),
+        ("_Measures", "Avg Speed", True),
+        ("_Measures", "Avg Wait Hours", True),
     ]),
-    make_button("h3_btn_back", 20, 670, 100, 40, "Back"),
-    make_button("h3_btn_patient", 1100, 670, 150, 40, "Patients"),
+    # R visual — anomaly scatter plot
+    make_r_visual("pp3_r_anomaly", 20, 450, 600, 230,
+        [("AIS_Positions", "lon", False),
+         ("AIS_Positions", "lat", False),
+         ("AIS_Positions", "is_anomaly", False),
+         ("AIS_Positions", "speed_knots", False)],
+        r"""library(ggplot2)
+p <- ggplot(dataset, aes(x = lon, y = lat, color = as.factor(is_anomaly))) +
+  geom_point(aes(size = speed_knots), alpha = 0.6) +
+  scale_color_manual(values = c("FALSE" = "#95a5a6", "TRUE" = "#e74c3c"),
+                     labels = c("Normal", "Anomaly")) +
+  labs(title = "Anomalous Vessel Positions",
+       x = "Longitude", y = "Latitude",
+       color = "Status", size = "Speed (kn)") +
+  theme_minimal() +
+  coord_fixed(ratio = 1.3)
+print(p)
+"""),
+    # R visual — vessel behaviour clusters
+    make_r_visual("pp3_r_clusters", 640, 450, 610, 230,
+        [("VesselClusters", "avg_speed", False),
+         ("VesselClusters", "pct_slow", False),
+         ("VesselClusters", "cluster_label", False),
+         ("VesselClusters", "n_positions", False)],
+        r"""library(ggplot2)
+p <- ggplot(dataset, aes(x = avg_speed, y = pct_slow,
+                          color = cluster_label, size = n_positions)) +
+  geom_point(alpha = 0.7) +
+  scale_color_brewer(palette = "Set1") +
+  labs(title = "Vessel Behaviour Clusters",
+       x = "Average Speed (kn)", y = "% Time Slow (<1 kn)",
+       color = "Cluster", size = "Positions") +
+  theme_minimal()
+print(p)
+"""),
+    # Nav buttons
+    make_button("pp3_btn_back", 20, 670, 100, 40, "Back"),
+    make_button("pp3_btn_trends", 920, 670, 110, 40, "Trends"),
+    make_button("pp3_btn_costs", 1160, 670, 100, 40, "Costs"),
 ]
 
-# ===== PAGE 4: Patient Demographics =====
-p4_id = uid("hosp_page4_patient")
+# ===== PAGE 4: Cost Impact =====
+p4_id = uid("pp_page4_costs")
 p4 = [
-    make_card("h4_patients", 20, 10, 295, 140, "_Measures", "Unique Patients"),
-    make_card("h4_admissions", 330, 10, 295, 140, "_Measures", "Total Admissions"),
-    make_card("h4_adm_yoy", 640, 10, 295, 140, "_Measures", "Admissions YoY Growth"),
-    make_card("h4_chg_yoy", 950, 10, 295, 140, "_Measures", "Charges YoY Growth"),
-    make_clustered_bar("h4_age_bar", 20, 170, 400, 310, "DimPatient", "age_group", "_Measures", "Total Admissions"),
-    make_donut("h4_gender_donut", 440, 170, 380, 310, "DimPatient", "gender", "_Measures", "Total Admissions"),
-    make_clustered_bar("h4_ins_bar", 840, 170, 410, 310, "DimPatient", "insurance_type", "_Measures", "Total Charges"),
-    make_table("h4_table", 20, 500, 1230, 180, [
-        ("DimPatient", "age_group", False),
-        ("DimPatient", "insurance_type", False),
-        ("_Measures", "Total Admissions", True),
-        ("_Measures", "Avg Length of Stay", True),
-        ("_Measures", "Total Charges", True),
-        ("_Measures", "Avg Charge per Admission", True),
+    # KPI cards
+    make_card("pp4_total_cost", 20, 10, 300, 140, "_Measures", "Total Waiting Cost USD"),
+    make_card("pp4_waiting", 340, 10, 300, 140, "_Measures", "Waiting Vessels"),
+    make_card("pp4_wait_hrs", 660, 10, 300, 140, "_Measures", "Avg Wait Hours"),
+    make_slicer("pp4_slicer_type", 980, 10, 270, 140, "AIS_Positions", "vessel_type"),
+    # Donut — cost breakdown by vessel type
+    make_donut("pp4_donut", 20, 170, 400, 310, "AIS_Positions", "vessel_type",
+        "_Measures", "Total Waiting Cost USD"),
+    # Gradient bar — cost per vessel (top waiters)
+    make_clustered_bar_gradient("pp4_cost_bar", 440, 170, 810, 310, "AIS_Positions", "vessel_name",
+        "_Measures", "Total Waiting Cost USD"),
+    # Cost detail table
+    make_table("pp4_table", 20, 500, 1230, 180, [
+        ("AIS_Positions", "mmsi", False),
+        ("AIS_Positions", "vessel_name", False),
+        ("AIS_Positions", "vessel_type", False),
+        ("AIS_Positions", "flag", False),
+        ("_Measures", "Avg Wait Hours", True),
+        ("_Measures", "Total Waiting Cost USD", True),
     ]),
-    make_button("h4_btn_back", 20, 670, 100, 40, "Back"),
+    # Nav buttons
+    make_button("pp4_btn_back", 20, 670, 100, 40, "Back"),
+    make_button("pp4_btn_trends", 920, 670, 110, 40, "Trends"),
+    make_button("pp4_btn_vessels", 1040, 670, 110, 40, "Vessels"),
 ]
 
-# Remove old default page
-old_page = os.path.join(BASE, "a1f55d2f97fa0fb931d3")
-if os.path.exists(old_page):
-    shutil.rmtree(old_page)
 
-# Write all pages
-write_page(p1_id, "Hospital Overview", p1)
-write_page(p2_id, "Department Deep-Dive", p2)
-write_page(p3_id, "Wait Time Analysis", p3)
-write_page(p4_id, "Patient Demographics", p4)
+# ===================================================================
+# WRITE ALL PAGES
+# ===================================================================
+
+write_page(p1_id, "Port Overview", p1)
+write_page(p2_id, "Trends & Patterns", p2)
+write_page(p3_id, "Vessel Detail", p3)
+write_page(p4_id, "Cost Impact", p4)
 
 # Update pages.json
 with open(os.path.join(BASE, "pages.json"), "w", encoding="utf-8") as f:
     json.dump({"$schema": SCHEMA_PAGES, "pageOrder": [p1_id, p2_id, p3_id, p4_id],
                "activePageName": p1_id}, f, indent=2)
 
-print(f"Page 1 (Hospital Overview): {p1_id} - {len(p1)} visuals")
-print(f"Page 2 (Department Deep-Dive): {p2_id} - {len(p2)} visuals")
-print(f"Page 3 (Wait Time Analysis): {p3_id} - {len(p3)} visuals")
-print(f"Page 4 (Patient Demographics): {p4_id} - {len(p4)} visuals")
+print(f"Page 1 (Port Overview): {p1_id} - {len(p1)} visuals")
+print(f"Page 2 (Trends & Patterns): {p2_id} - {len(p2)} visuals")
+print(f"Page 3 (Vessel Detail): {p3_id} - {len(p3)} visuals")
+print(f"Page 4 (Cost Impact): {p4_id} - {len(p4)} visuals")
 print("Done!")
+print("\nNOTE: R script visuals (anomaly scatter, cluster plot, ARIMA forecast)")
+print("must be added manually in Power BI Desktop.")

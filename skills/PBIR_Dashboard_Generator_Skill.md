@@ -47,7 +47,7 @@ import json, os, hashlib, shutil
 BASE = r"C:\path\to\project.Report\definition\pages"
 
 # 2. Schema constants
-SCHEMA_VISUAL = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json"
+SCHEMA_VISUAL = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json"
 SCHEMA_PAGE = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json"
 SCHEMA_PAGES = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json"
 
@@ -274,6 +274,12 @@ def write_page(page_id, display_name, visuals):
 | `make_clustered_bar_gradient` | clusteredBarChart | `(name, x, y, w, h, cat_table, cat_col, val_table, val_measure)` | Bar chart with min/max gradient coloring |
 | `make_clustered_column_gradient` | clusteredColumnChart | `(name, x, y, w, h, cat_table, cat_col, val_table, val_measure)` | Column chart with min/max gradient coloring |
 
+### Script Visuals (R / Python)
+
+| Function | Visual Type | Parameters | Use When |
+|----------|------------|------------|----------|
+| `make_r_visual` | scriptVisual | `(name, x, y, w, h, fields_list, r_script)` where fields_list = `[(table, col_or_measure, is_measure_bool), ...]` | Embed R code (ggplot2, forecast, etc.) with data bindings. Requires R installed and configured in Power BI Desktop. |
+
 ---
 
 ## Function Implementations
@@ -477,6 +483,24 @@ def make_clustered_column_gradient(name, x, y, w, h, cat_table, cat_col, val_tab
     return make_visual(name, x, y, w, h, "clusteredColumnChart",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
          "Y": {"projections": [measure_field(val_table, val_measure)]}}, objects=base_objects)
+
+# ── Script Visuals (R / Python) ──────────────────────────────────
+
+def make_r_visual(name, x, y, w, h, fields_list, r_script):
+    """R script visual — embeds R code with data field bindings.
+    fields_list: [(table, col_or_measure, is_measure_bool), ...]
+    r_script: string of R code (will be escaped into PBIR literal format)
+    """
+    projections = [measure_field(t, c) if m else column_field(t, c) for t, c, m in fields_list]
+    escaped = r_script.replace("'", "\\'").replace("\n", "\\n")
+    objects = {
+        "script": [{"properties": {
+            "source": _lit(f"'{escaped}'"),
+            "provider": _lit("'R'")
+        }}]
+    }
+    return make_visual(name, x, y, w, h, "scriptVisual",
+        {"Values": {"projections": projections}}, objects=objects)
 ```
 
 ---

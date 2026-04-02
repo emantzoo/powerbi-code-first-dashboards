@@ -11,7 +11,7 @@ import json, os, hashlib, shutil
 # ── Path and schema constants ──────────────────────────────────────────────
 BASE = r"C:\Users\emant\Documents\powerbi-code-first-dashboards\hr\hr_dashb.Report\definition\pages"
 
-SCHEMA_VISUAL = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.6.0/schema.json"
+SCHEMA_VISUAL = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json"
 SCHEMA_PAGE   = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json"
 SCHEMA_PAGES  = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json"
 
@@ -613,6 +613,28 @@ def make_clustered_column_gradient(name, x, y, w, h, cat_table, cat_col, val_tab
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
          "Y": {"projections": [measure_field(val_table, val_measure)]}},
         objects=base_objects)
+
+
+def make_r_visual(name, x, y, w, h, fields_list, r_script):
+    """R script visual — embeds R code with data field bindings.
+    fields_list: [(table, col_or_measure, is_measure_bool), ...]
+    r_script: string of R code (will be escaped into PBIR literal format)
+    """
+    projections = [measure_field(t, c) if m else column_field(t, c) for t, c, m in fields_list]
+    escaped = r_script.replace("'", "\\'").replace("\n", "\\n")
+    objects = {
+        "script": [
+            {
+                "properties": {
+                    "source": _lit(f"'{escaped}'"),
+                    "provider": _lit("'R'")
+                }
+            }
+        ]
+    }
+    return make_visual(name, x, y, w, h, "scriptVisual",
+        {"Values": {"projections": projections}},
+        objects=objects)
 
 
 # ===== PAGE 1: Workforce Overview =====
