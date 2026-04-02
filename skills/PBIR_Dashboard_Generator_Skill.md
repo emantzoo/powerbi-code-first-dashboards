@@ -492,7 +492,7 @@ def make_r_visual(name, x, y, w, h, fields_list, r_script):
     r_script: string of R code (will be escaped into PBIR literal format)
     """
     projections = [measure_field(t, c) if m else column_field(t, c) for t, c, m in fields_list]
-    escaped = r_script.replace("'", "\\'").replace("\n", "\\n")
+    escaped = r_script.replace("'", "\\'")
     objects = {
         "script": [{"properties": {
             "source": _lit(f"'{escaped}'"),

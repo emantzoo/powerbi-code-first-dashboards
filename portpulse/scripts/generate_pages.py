@@ -358,11 +358,12 @@ def make_filled_map(name, x, y, w, h, loc_table, loc_col, val_table, val_measure
         {"Category": {"projections": [column_field(loc_table, loc_col)]},
          "Y": {"projections": [measure_field(val_table, val_measure)]}})
 
-def make_map(name, x, y, w, h, cat_table, cat_col, lat_table, lat_col, lng_table, lng_col, size_table, size_measure):
+def make_map(name, x, y, w, h, cat_table, cat_col, lat_table, lat_measure, lng_table, lng_measure, size_table, size_measure):
+    """Azure bubble map — Category is text label, Lat/Lon/Size are measures."""
     return make_visual(name, x, y, w, h, "map",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
-         "Y": {"projections": [column_field(lat_table, lat_col)]},
-         "X": {"projections": [column_field(lng_table, lng_col)]},
+         "Y": {"projections": [measure_field(lat_table, lat_measure)]},
+         "X": {"projections": [measure_field(lng_table, lng_measure)]},
          "Size": {"projections": [measure_field(size_table, size_measure)]}})
 
 def make_treemap(name, x, y, w, h, cat_table, cat_col, val_table, val_measure, group_table=None, group_col=None):
@@ -621,8 +622,8 @@ def make_r_visual(name, x, y, w, h, fields_list, r_script):
     r_script: string of R code (will be escaped into PBIR literal format)
     """
     projections = [measure_field(t, c) if m else column_field(t, c) for t, c, m in fields_list]
-    # Escape the R script for PBIR literal format (single quotes, newlines as \\n)
-    escaped = r_script.replace("'", "\\'").replace("\n", "\\n")
+    # Escape single quotes for PBIR literal wrapper; json.dumps handles \n naturally
+    escaped = r_script.replace("'", "\\'")
     objects = {
         "script": [
             {
@@ -657,8 +658,8 @@ p1 = [
     # Map — vessel positions (takes up main area)
     make_map("pp1_map", 20, 215, 740, 310,
         "AIS_Positions", "vessel_name",
-        "AIS_Positions", "lat",
-        "AIS_Positions", "lon",
+        "_Measures", "Avg Lat",
+        "_Measures", "Avg Lon",
         "_Measures", "Total Positions"),
     # Slicer for Status
     make_slicer("pp1_slicer_status", 780, 215, 200, 65, "AIS_Positions", "Status"),
@@ -705,6 +706,7 @@ p2 = [
          ("AIS_Positions", "Status", False)],
         r"""library(forecast)
 library(ggplot2)
+dataset$date <- as.Date(dataset$date)
 daily <- dataset %>%
   dplyr::group_by(date) %>%
   dplyr::summarise(waiting = dplyr::n_distinct(mmsi[Status == "Waiting"])) %>%
@@ -720,9 +722,9 @@ if (nrow(daily) >= 3) {
     upper = as.numeric(fc$upper[,2])
   )
   p <- ggplot() +
-    geom_line(data = daily, aes(x = date, y = waiting), color = "#2c3e50", size = 1) +
+    geom_line(data = daily, aes(x = date, y = waiting), color = "#2c3e50", linewidth = 1) +
     geom_ribbon(data = fc_df, aes(x = date, ymin = lower, ymax = upper), fill = "#3498db", alpha = 0.2) +
-    geom_line(data = fc_df, aes(x = date, y = forecast), color = "#3498db", size = 1, linetype = "dashed") +
+    geom_line(data = fc_df, aes(x = date, y = forecast), color = "#3498db", linewidth = 1, linetype = "dashed") +
     labs(title = "Congestion Forecast (3-day)", x = "", y = "Waiting Vessels") +
     theme_minimal()
   print(p)
@@ -739,7 +741,7 @@ p3_id = uid("pp_page3_vessels")
 p3 = [
     # KPI cards
     make_card("pp3_total", 20, 10, 300, 140, "_Measures", "Total Vessels"),
-    make_card("pp3_anomalies", 340, 10, 300, 140, "_Measures", "Anomaly Count"),
+    make_card("pp3_avg_speed", 340, 10, 300, 140, "_Measures", "Avg Speed"),
     make_slicer("pp3_slicer_type", 660, 10, 280, 140, "AIS_Positions", "vessel_type"),
     make_slicer("pp3_slicer_status", 960, 10, 280, 140, "AIS_Positions", "Status"),
     # Detail table — full vessel listing
@@ -749,41 +751,59 @@ p3 = [
         ("AIS_Positions", "flag", False),
         ("AIS_Positions", "vessel_type", False),
         ("AIS_Positions", "Status", False),
-        ("VesselClusters", "cluster_label", False),
+        ("AIS_Positions", "Zone", False),
         ("_Measures", "Avg Speed", True),
         ("_Measures", "Avg Wait Hours", True),
     ]),
-    # R visual — anomaly scatter plot
+    # R visual — anomaly detection (Isolation Forest computed inline)
     make_r_visual("pp3_r_anomaly", 20, 450, 600, 230,
         [("AIS_Positions", "lon", False),
          ("AIS_Positions", "lat", False),
-         ("AIS_Positions", "is_anomaly", False),
-         ("AIS_Positions", "speed_knots", False)],
+         ("AIS_Positions", "speed_knots", False),
+         ("AIS_Positions", "hour", False)],
         r"""library(ggplot2)
-p <- ggplot(dataset, aes(x = lon, y = lat, color = as.factor(is_anomaly))) +
+library(solitude)
+features <- dataset[, c("speed_knots", "lat", "lon", "hour")]
+features[] <- lapply(features, as.numeric)
+iso <- isolationForest$new(sample_size = min(256, nrow(features)), num_trees = 100)
+iso$fit(features)
+scores <- iso$predict(features)
+dataset$anomaly <- ifelse(scores$anomaly_score >= quantile(scores$anomaly_score, 0.90),
+                          "Anomaly", "Normal")
+p <- ggplot(dataset, aes(x = lon, y = lat, color = anomaly)) +
   geom_point(aes(size = speed_knots), alpha = 0.6) +
-  scale_color_manual(values = c("FALSE" = "#95a5a6", "TRUE" = "#e74c3c"),
-                     labels = c("Normal", "Anomaly")) +
-  labs(title = "Anomalous Vessel Positions",
+  scale_color_manual(values = c("Normal" = "#95a5a6", "Anomaly" = "#e74c3c")) +
+  labs(title = "Anomaly Detection (Isolation Forest)",
        x = "Longitude", y = "Latitude",
        color = "Status", size = "Speed (kn)") +
   theme_minimal() +
   coord_fixed(ratio = 1.3)
 print(p)
 """),
-    # R visual — vessel behaviour clusters
+    # R visual — vessel behaviour clusters (K-means computed inline)
     make_r_visual("pp3_r_clusters", 640, 450, 610, 230,
-        [("VesselClusters", "avg_speed", False),
-         ("VesselClusters", "pct_slow", False),
-         ("VesselClusters", "cluster_label", False),
-         ("VesselClusters", "n_positions", False)],
+        [("AIS_Positions", "mmsi", False),
+         ("AIS_Positions", "vessel_type", False),
+         ("AIS_Positions", "speed_knots", False),
+         ("AIS_Positions", "lat", False)],
         r"""library(ggplot2)
-p <- ggplot(dataset, aes(x = avg_speed, y = pct_slow,
-                          color = cluster_label, size = n_positions)) +
+library(dplyr)
+vessel_summary <- dataset %>%
+  group_by(mmsi, vessel_type) %>%
+  summarise(avg_speed = mean(speed_knots, na.rm = TRUE),
+            pct_slow = mean(speed_knots < 1.0, na.rm = TRUE),
+            avg_lat = mean(lat, na.rm = TRUE),
+            n_pos = n(), .groups = "drop")
+set.seed(42)
+cf <- scale(vessel_summary[, c("avg_speed", "pct_slow", "avg_lat")])
+km <- kmeans(cf, centers = 4, nstart = 25)
+vessel_summary$cluster <- factor(km$cluster)
+p <- ggplot(vessel_summary, aes(x = avg_speed, y = pct_slow,
+                                 color = cluster, size = n_pos)) +
   geom_point(alpha = 0.7) +
   scale_color_brewer(palette = "Set1") +
-  labs(title = "Vessel Behaviour Clusters",
-       x = "Average Speed (kn)", y = "% Time Slow (<1 kn)",
+  labs(title = "Vessel Behaviour Clusters (K-means)",
+       x = "Avg Speed (kn)", y = "% Time Slow (<1 kn)",
        color = "Cluster", size = "Positions") +
   theme_minimal()
 print(p)
