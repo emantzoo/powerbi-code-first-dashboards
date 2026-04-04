@@ -1004,23 +1004,24 @@ p1 = [
 # ===== PAGE 2: Trends & Patterns =====
 p2_id = uid("pp_page2_trends")
 p2 = [
+    make_title_bar("pp2_title", 0, 0, 1280, 50, "Trends & Patterns", bg_color="#0F2B46"),
     # KPI cards
-    make_card("pp2_daily_wait", 20, 10, 300, 140, "_Measures", "Daily Waiting Count"),
-    make_card("pp2_7d_avg", 340, 10, 300, 140, "_Measures", "Waiting 7D Avg"),
-    make_card("pp2_total_vessels", 660, 10, 300, 140, "_Measures", "Total Vessels"),
-    make_slicer("pp2_slicer_type", 980, 10, 270, 140, "AIS_Positions", "vessel_type"),
+    make_card("pp2_daily_wait", 20, 60, 300, 140, "_Measures", "Daily Waiting Count"),
+    make_card("pp2_7d_avg", 340, 60, 300, 140, "_Measures", "Waiting 7D Avg"),
+    make_card("pp2_total_vessels", 660, 60, 300, 140, "_Measures", "Total Vessels"),
+    make_slicer("pp2_slicer_type", 980, 60, 270, 140, "AIS_Positions", "vessel_type"),
     # Line chart — congestion trend (date × daily waiting + 7D avg)
-    make_line_chart("pp2_trend", 20, 170, 1230, 260, "AIS_Positions", "date",
+    make_line_chart("pp2_trend", 20, 220, 1230, 260, "AIS_Positions", "date",
         "_Measures", "Daily Waiting Count", "_Measures", "Waiting 7D Avg"),
     # Bar chart — wait time by day of week
-    make_clustered_bar("pp2_by_dow", 20, 450, 400, 210, "AIS_Positions", "day_of_week",
+    make_clustered_bar("pp2_by_dow", 20, 500, 400, 160, "AIS_Positions", "day_of_week",
         "_Measures", "Avg Wait Hours"),
     # Column chart — waiting vessels by hour
-    make_clustered_column("pp2_by_hour", 440, 450, 400, 210, "AIS_Positions", "hour",
+    make_clustered_column("pp2_by_hour", 440, 500, 400, 160, "AIS_Positions", "hour",
         "_Measures", "Waiting Vessels"),
     # R visual — congestion forecast (ARIMA)
     # NOTE: Requires R packages: forecast, ggplot2. Falls back to empty if R not configured.
-    make_r_visual("pp2_r_forecast", 860, 450, 390, 210,
+    make_r_visual("pp2_r_forecast", 860, 500, 390, 160,
         [("AIS_Positions", "date", False),
          ("AIS_Positions", "mmsi", False),
          ("AIS_Positions", "Status", False)],
@@ -1059,13 +1060,14 @@ if (nrow(daily) >= 3) {
 # ===== PAGE 3: Vessel Detail =====
 p3_id = uid("pp_page3_vessels")
 p3 = [
+    make_title_bar("pp3_title", 0, 0, 1280, 50, "Vessel Detail", bg_color="#0F2B46"),
     # KPI cards
-    make_card("pp3_total", 20, 10, 300, 140, "_Measures", "Total Vessels"),
-    make_card("pp3_avg_speed", 340, 10, 300, 140, "_Measures", "Avg Speed"),
-    make_slicer("pp3_slicer_type", 660, 10, 280, 140, "AIS_Positions", "vessel_type"),
-    make_slicer("pp3_slicer_status", 960, 10, 280, 140, "AIS_Positions", "Status"),
+    make_card("pp3_total", 20, 60, 300, 140, "_Measures", "Total Vessels"),
+    make_card("pp3_avg_speed", 340, 60, 300, 140, "_Measures", "Avg Speed"),
+    make_slicer("pp3_slicer_type", 660, 60, 280, 140, "AIS_Positions", "vessel_type"),
+    make_slicer("pp3_slicer_status", 960, 60, 280, 140, "AIS_Positions", "Status"),
     # Detail table — full vessel listing
-    make_table("pp3_table", 20, 170, 1230, 260, [
+    make_table("pp3_table", 20, 220, 1230, 220, [
         ("AIS_Positions", "mmsi", False),
         ("AIS_Positions", "vessel_name", False),
         ("AIS_Positions", "flag", False),
@@ -1076,7 +1078,7 @@ p3 = [
         ("_Measures", "Avg Wait Hours", True),
     ]),
     # R visual — anomaly detection (Isolation Forest computed inline)
-    make_r_visual("pp3_r_anomaly", 20, 450, 600, 230,
+    make_r_visual("pp3_r_anomaly", 20, 460, 600, 200,
         [("AIS_Positions", "lon", False),
          ("AIS_Positions", "lat", False),
          ("AIS_Positions", "speed_knots", False),
@@ -1101,7 +1103,7 @@ p <- ggplot(dataset, aes(x = lon, y = lat, color = anomaly)) +
 print(p)
 """),
     # R visual — vessel behaviour clusters (K-means computed inline)
-    make_r_visual("pp3_r_clusters", 640, 450, 610, 230,
+    make_r_visual("pp3_r_clusters", 640, 460, 610, 200,
         [("AIS_Positions", "mmsi", False),
          ("AIS_Positions", "vessel_type", False),
          ("AIS_Positions", "speed_knots", False),
@@ -1137,19 +1139,20 @@ print(p)
 # ===== PAGE 4: Cost Impact =====
 p4_id = uid("pp_page4_costs")
 p4 = [
+    make_title_bar("pp4_title", 0, 0, 1280, 50, "Cost Impact", bg_color="#0F2B46"),
     # KPI cards
-    make_card("pp4_total_cost", 20, 10, 300, 140, "_Measures", "Total Waiting Cost USD"),
-    make_card("pp4_waiting", 340, 10, 300, 140, "_Measures", "Waiting Vessels"),
-    make_card("pp4_wait_hrs", 660, 10, 300, 140, "_Measures", "Avg Wait Hours"),
-    make_slicer("pp4_slicer_type", 980, 10, 270, 140, "AIS_Positions", "vessel_type"),
+    make_card("pp4_total_cost", 20, 60, 300, 140, "_Measures", "Total Waiting Cost USD"),
+    make_card("pp4_waiting", 340, 60, 300, 140, "_Measures", "Waiting Vessels"),
+    make_card("pp4_wait_hrs", 660, 60, 300, 140, "_Measures", "Avg Wait Hours"),
+    make_slicer("pp4_slicer_type", 980, 60, 270, 140, "AIS_Positions", "vessel_type"),
     # Donut — cost breakdown by vessel type
-    make_donut("pp4_donut", 20, 170, 400, 310, "AIS_Positions", "vessel_type",
+    make_donut("pp4_donut", 20, 220, 400, 260, "AIS_Positions", "vessel_type",
         "_Measures", "Total Waiting Cost USD"),
     # Gradient bar — cost per vessel (top waiters)
-    make_clustered_bar_gradient("pp4_cost_bar", 440, 170, 810, 310, "AIS_Positions", "vessel_name",
+    make_clustered_bar_gradient("pp4_cost_bar", 440, 220, 810, 260, "AIS_Positions", "vessel_name",
         "_Measures", "Total Waiting Cost USD"),
     # Cost detail table
-    make_table("pp4_table", 20, 500, 1230, 180, [
+    make_table("pp4_table", 20, 500, 1230, 160, [
         ("AIS_Positions", "mmsi", False),
         ("AIS_Positions", "vessel_name", False),
         ("AIS_Positions", "vessel_type", False),

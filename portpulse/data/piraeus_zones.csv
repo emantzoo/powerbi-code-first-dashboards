@@ -1,6 +1,6 @@
 zone,lat,lon,type
-Container Terminal (PCT),37.94,23.6,berth
+Container Terminal (PCT),37.94,23.61,berth
 Passenger Terminal,37.948,23.638,berth
-Car Terminal (Drapetsona),37.952,23.617,berth
-Anchorage South,37.86,23.54,anchorage
-Anchorage Central,37.9,23.55,anchorage
+Car Terminal (Drapetsona),37.95,23.62,berth
+Anchorage South,37.89,23.6,anchorage
+Anchorage Central,37.91,23.615,anchorage

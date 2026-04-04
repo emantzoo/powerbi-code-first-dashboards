@@ -146,7 +146,7 @@ The AI never writes raw JSON. It either calls deterministic `make_*` functions (
 
 ## Example Dashboards
 
-Four complete dashboard projects across different business domains, each with sample CSV data, a prompt file, and a `generate_pages.py` script:
+Five complete dashboard projects across different business domains, each with sample CSV data, a prompt file, and a `generate_pages.py` script:
 
 | Dashboard | Tables | DAX Measures | Key Patterns |
 |-----------|--------|-------------|--------------|
@@ -154,7 +154,21 @@ Four complete dashboard projects across different business domains, each with sa
 | **Hospital** | 5 | 32 | DATEDIFF, EARLIER self-join for readmissions, TOTALMTD |
 | **HR** | 5 | 34 | LASTDATE snapshot, POWER annualized attrition, VAR+RETURN |
 | **Supply Chain** | 6 | 42 | Multi-fact model, 8x USERELATIONSHIP, semi-additive LASTDATE |
-| **PortPulse (Piraeus)** | 2 | 17 | Embedded R visuals (ARIMA, Isolation Forest, K-means), live AIS data, Azure Map |
+| **PortPulse (Piraeus)** | 2 | 17 | Embedded R visuals (ARIMA, Isolation Forest, K-means), live AIS data, Azure Map, auto-generated PNG backgrounds |
+
+### Screenshots (PortPulse — Piraeus Port Congestion)
+
+![Port Overview](images/portpulse_overview.png)
+*Azure Map with vessel positions, KPI cards, wait time by vessel type, detail table*
+
+![Trends & Patterns](images/portpulse_trends.png)
+*Congestion trend line (daily count + 7D moving average), by day-of-week and hour, R ARIMA forecast*
+
+![Vessel Detail](images/portpulse_vessels.png)
+*Full vessel listing with slicers, R Isolation Forest anomaly detection, K-means behaviour clusters*
+
+![Cost Impact](images/portpulse_costs.png)
+*Waiting cost donut by vessel type, gradient bar chart by vessel, cost detail table*
 
 ### Screenshots (Supply Chain)
 
@@ -201,6 +215,10 @@ Every `make_*` function includes professional formatting defaults in the generat
 
 **Gradient charts** — clustered bar/column variants with conditional formatting. Bars/columns are colored on a min-to-max gradient based on the measure value, using `FillRule` with `linearGradient2`.
 
+**R visuals** — embedded R scripts that run inside Power BI's R visual host. `make_r_visual` binds data fields and injects R code (ggplot2, forecast, solitude, dplyr) directly into the PBIR JSON. Used in PortPulse for ARIMA congestion forecasting, Isolation Forest anomaly detection, and K-means vessel behaviour clustering — all rendered as interactive ggplot2 charts within the dashboard.
+
+**Auto-generated backgrounds** — `make_background()` renders a 1280x720 PNG per page using Pillow: dark header bar with page title, rounded container zones behind visual clusters, accent stripes, grid dots, and a footer bar. `write_background()` then embeds the PNG into the PBIR page as a canvas wallpaper (RegisteredResources + page.json background reference). Fully code-first — no manual image import needed.
+
 The formatting is built into each `make_*` function via internal `_*_objects()` helpers. The architecture is designed to be expandable — adding more visual parameters (custom accent colors, toggling shadows, controlling label positions) means adding optional parameters to the existing functions without breaking any existing scripts. For global styling (page background, color palette, font family), apply the included theme file: View > Themes > Browse for themes > select `themes/code-first-dashboard.json`.
 
 ## Related Projects
@@ -222,13 +240,15 @@ powerbi-code-first-dashboards/
   supply_chain/                    # Supply Chain & Inventory dashboard project
   portpulse/                       # Piraeus port congestion dashboard (R analytics + live AIS)
     data/                          #   CSV files + live AIS collector script
-    scripts/generate_pages.py      #   PBIR visual generator (pure Python)
+    backgrounds/                   #   Auto-generated PNG page backgrounds
+    scripts/generate_pages.py      #   PBIR visual generator (Python + Pillow)
     PortPulse_Dashboard_Prompts.md #   Full data model specification
     DEMO_GUIDE.md                  #   Demo walkthrough and setup instructions
   skills/
     PBIR_Dashboard_Generator_Skill.md  # Claude skill for auto-generating dashboards
   themes/
-    code-first-dashboard.json      # Power BI theme for global color/font consistency
+    code-first-dashboard.json      # Power BI theme (light)
+    code-first-dashboard-dark.json # Power BI theme (dark variant)
   workflow/
     PowerBI_From_Code_Workflow.md   # Detailed methodology guide
   images/                          # Dashboard screenshots
@@ -242,6 +262,7 @@ powerbi-code-first-dashboards/
 | Power BI Desktop | Runtime engine | Yes |
 | PBIR (JSON) | Visual layout definition | Yes |
 | Python | Visual page generation scripts | Yes |
+| Pillow | PNG background rendering (make_background) | Optional (PortPulse only) |
 | Theme JSON | Global colors, fonts, page background | Optional (included) |
 | R | Embedded analytics (ARIMA, Isolation Forest, K-means) | Optional (PortPulse only) |
 | Power BI Modeling MCP | Automated data model creation | Optional |

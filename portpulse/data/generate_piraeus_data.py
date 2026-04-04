@@ -50,16 +50,16 @@ VESSELS = [
 
 # ── Geographic zones ───────────────────────────────────────────────────────
 # Port berths (lat 37.935–37.960, lon 23.595–23.650)
-BERTH_LAT = (37.935, 37.960)
-BERTH_LON = (23.595, 23.650)
+BERTH_LAT = (37.935, 37.955)
+BERTH_LON = (23.600, 23.648)
 
-# Anchorage (lat 37.845–37.935, lon 23.505–23.575)
-ANCH_LAT = (37.845, 37.935)
-ANCH_LON = (23.505, 23.575)
+# Anchorage — Saronic Gulf south of port entrance (open water)
+ANCH_LAT = (37.880, 37.930)
+ANCH_LON = (23.580, 23.640)
 
-# Approach / transit (lat 37.750–37.845, lon 23.450–23.550)
-APPR_LAT = (37.750, 37.845)
-APPR_LON = (23.450, 23.550)
+# Approach / transit — further south in the Saronic Gulf
+APPR_LAT = (37.830, 37.880)
+APPR_LON = (23.570, 23.630)
 
 
 def rand_in(low, high):
@@ -201,11 +201,11 @@ def main():
     with open(zones_path, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["zone", "lat", "lon", "type"])
-        w.writerow(["Container Terminal (PCT)", 37.940, 23.600, "berth"])
+        w.writerow(["Container Terminal (PCT)", 37.940, 23.610, "berth"])
         w.writerow(["Passenger Terminal", 37.948, 23.638, "berth"])
-        w.writerow(["Car Terminal (Drapetsona)", 37.952, 23.617, "berth"])
-        w.writerow(["Anchorage South", 37.860, 23.540, "anchorage"])
-        w.writerow(["Anchorage Central", 37.900, 23.550, "anchorage"])
+        w.writerow(["Car Terminal (Drapetsona)", 37.950, 23.620, "berth"])
+        w.writerow(["Anchorage South", 37.890, 23.600, "anchorage"])
+        w.writerow(["Anchorage Central", 37.910, 23.615, "anchorage"])
 
     print(f"Generated {len(all_rows)} AIS positions for {len(VESSELS)} vessels")
     print(f"  {ais_path}")
