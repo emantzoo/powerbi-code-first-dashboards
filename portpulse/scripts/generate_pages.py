@@ -274,6 +274,43 @@ def write_visual(page_dir, visual_json):
     with open(os.path.join(vdir, "visual.json"), "w", encoding="utf-8") as f:
         json.dump(visual_json, f, indent=2, ensure_ascii=False)
 
+def write_theme(theme_path):
+    """Copy a theme JSON into the PBIR project and update report.json to reference it."""
+    report_dir = os.path.dirname(BASE)  # .Report/definition/
+    report_json_path = os.path.join(report_dir, "report.json")
+    if not os.path.exists(report_json_path):
+        return
+    with open(theme_path, "r", encoding="utf-8") as f:
+        theme = json.load(f)
+    theme_name = theme.get("name", "CustomTheme")
+    # Copy theme into StaticResources
+    theme_dest_dir = os.path.join(report_dir, "..", "StaticResources", "SharedResources", "BaseThemes")
+    os.makedirs(theme_dest_dir, exist_ok=True)
+    dest_file = os.path.join(theme_dest_dir, os.path.basename(theme_path))
+    shutil.copy2(theme_path, dest_file)
+    # Update report.json
+    with open(report_json_path, "r", encoding="utf-8") as f:
+        report = json.load(f)
+    report["themeCollection"]["baseTheme"] = {
+        "name": theme_name,
+        "reportVersionAtImport": {"visual": "2.7.0", "report": "3.2.0", "page": "2.3.0"},
+        "type": "SharedResources"
+    }
+    # Update resourcePackages to point to custom theme
+    report["resourcePackages"] = [{
+        "name": "SharedResources",
+        "type": "SharedResources",
+        "items": [{
+            "name": theme_name,
+            "path": f"BaseThemes/{os.path.basename(theme_path)}",
+            "type": "BaseTheme"
+        }]
+    }]
+    with open(report_json_path, "w", encoding="utf-8") as f:
+        json.dump(report, f, indent=2, ensure_ascii=False)
+    print(f"Theme applied: {theme_name}")
+
+
 def write_page(page_id, display_name, visuals):
     page_dir = os.path.join(BASE, page_id)
     visuals_dir = os.path.join(page_dir, "visuals")
@@ -858,10 +895,14 @@ with open(os.path.join(BASE, "pages.json"), "w", encoding="utf-8") as f:
     json.dump({"$schema": SCHEMA_PAGES, "pageOrder": [p1_id, p2_id, p3_id, p4_id],
                "activePageName": p1_id}, f, indent=2)
 
+# Apply theme — resolve repo root from BASE (pages -> definition -> .Report -> project -> repo)
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(BASE))))
+THEME_PATH = os.path.join(REPO_ROOT, "themes", "code-first-dashboard.json")
+if os.path.exists(THEME_PATH):
+    write_theme(THEME_PATH)
+
 print(f"Page 1 (Port Overview): {p1_id} - {len(p1)} visuals")
 print(f"Page 2 (Trends & Patterns): {p2_id} - {len(p2)} visuals")
 print(f"Page 3 (Vessel Detail): {p3_id} - {len(p3)} visuals")
 print(f"Page 4 (Cost Impact): {p4_id} - {len(p4)} visuals")
 print("Done!")
-print("\nNOTE: R script visuals (anomaly scatter, cluster plot, ARIMA forecast)")
-print("must be added manually in Power BI Desktop.")
