@@ -5,7 +5,13 @@ PortPulse: Piraeus Port Congestion & Waiting Time Analyzer
 4 pages: Port Overview, Trends & Patterns, Vessel Detail, Cost Impact
 """
 
-import json, os, hashlib, shutil
+import json, os, hashlib, shutil, base64
+
+try:
+    from PIL import Image, ImageDraw, ImageFont
+    HAS_PILLOW = True
+except ImportError:
+    HAS_PILLOW = False
 
 # ── Path and schema constants ──────────────────────────────────────────────
 # UPDATE this path to match your saved .pbip project location
@@ -296,16 +302,20 @@ def write_theme(theme_path):
         "reportVersionAtImport": {"visual": "2.7.0", "report": "3.2.0", "page": "2.3.0"},
         "type": "SharedResources"
     }
-    # Update resourcePackages to point to custom theme
-    report["resourcePackages"] = [{
-        "name": "SharedResources",
-        "type": "SharedResources",
-        "items": [{
-            "name": theme_name,
-            "path": f"BaseThemes/{os.path.basename(theme_path)}",
-            "type": "BaseTheme"
-        }]
-    }]
+    # Update SharedResources package (preserve other packages like RegisteredResources)
+    packages = report.get("resourcePackages", [])
+    shared_pkg = None
+    for pkg in packages:
+        if pkg.get("name") == "SharedResources":
+            shared_pkg = pkg
+            break
+    if shared_pkg is None:
+        shared_pkg = {"name": "SharedResources", "type": "SharedResources", "items": []}
+        packages.append(shared_pkg)
+    shared_pkg["items"] = [{"name": theme_name,
+                            "path": f"BaseThemes/{os.path.basename(theme_path)}",
+                            "type": "BaseTheme"}]
+    report["resourcePackages"] = packages
     with open(report_json_path, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2, ensure_ascii=False)
     print(f"Theme applied: {theme_name}")
@@ -653,28 +663,64 @@ def make_clustered_column_gradient(name, x, y, w, h, cat_table, cat_col, val_tab
         objects=base_objects)
 
 
-def make_background(page_name, visuals, style="light", display_name=None, colors=None):
-    """Generate a 1280x720 SVG canvas background with container zones behind visual clusters.
+def _hex_to_rgb(hex_color):
+    """Convert '#RRGGBB' to (R, G, B) tuple."""
+    h = hex_color.lstrip("#")
+    return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
 
-    Clusters visuals by y-position proximity, draws rounded-rect group containers,
-    header bar with page title, footer bar, accent stripes, and subtle grid dots.
 
-    Args:
-        page_name: Used for the output filename (backgrounds/{page_name}.svg)
-        visuals: List of visual dicts (as returned by make_* functions, must have 'position')
-        style: "light" or "dark" — color palette matching the theme JSON
-        display_name: Page title shown in the header bar (white text)
-        colors: Optional dict override for any palette key (bg, container, border,
-                accent, header_bg, footer_bg, dot_color, divider, header_text)
+def _alpha_blend(fg_rgb, bg_rgb, alpha):
+    """Blend fg over bg with given alpha (0.0-1.0)."""
+    return tuple(int(fg * alpha + bg * (1 - alpha)) for fg, bg in zip(fg_rgb, bg_rgb))
+
+
+def _cluster_visuals(visuals):
+    """Extract visual positions and cluster into row groups.
+    Returns (rects, group_boxes) where group_boxes are (x, y, w, h) bounding boxes.
     """
+    PAD = 10
+    HEADER_H = 50
+    FOOTER_H = 40
     W, H = 1280, 720
-    PAD = 10      # padding around visual clusters
-    RADIUS = 12   # container corner radius
-    HEADER_H = 50 # header bar height
-    FOOTER_H = 40 # footer bar height
-    GRID_SPACING = 40  # dot grid spacing
+    ROW_GAP = 80
 
-    # ── Color palettes (from theme JSONs) ──
+    rects = []
+    for v in visuals:
+        pos = v.get("position", {})
+        x, y, w, h = pos.get("x", 0), pos.get("y", 0), pos.get("width", 0), pos.get("height", 0)
+        vtype = v.get("visual", {}).get("visualType", "")
+        if vtype in ("textbox", "actionButton"):
+            continue
+        if w > 0 and h > 0:
+            rects.append((x, y, w, h))
+
+    if not rects:
+        return rects, []
+
+    sorted_rects = sorted(rects, key=lambda r: r[1])
+    clusters = []
+    current_cluster = [sorted_rects[0]]
+    for rect in sorted_rects[1:]:
+        if abs(rect[1] - max(r[1] for r in current_cluster)) <= ROW_GAP:
+            current_cluster.append(rect)
+        else:
+            clusters.append(current_cluster)
+            current_cluster = [rect]
+    clusters.append(current_cluster)
+
+    group_boxes = []
+    for cluster in clusters:
+        min_x = max(0, min(r[0] for r in cluster) - PAD)
+        min_y = max(HEADER_H + 2, min(r[1] for r in cluster) - PAD)
+        max_x = min(W, max(r[0] + r[2] for r in cluster) + PAD)
+        max_y = min(H - FOOTER_H - 2, max(r[1] + r[3] for r in cluster) + PAD)
+        group_boxes.append((min_x, min_y, max_x - min_x, max_y - min_y))
+
+    return rects, group_boxes
+
+
+def _get_palette(style="light", colors=None):
+    """Return color palette dict for the given style."""
     if style == "dark":
         palette = dict(
             bg="#0F172A", container="#1E293B", border="#334155",
@@ -687,122 +733,207 @@ def make_background(page_name, visuals, style="light", display_name=None, colors
             dot_color="#E2E8F0", divider="#CBD5E1", header_text="#FFFFFF")
     if colors:
         palette.update(colors)
-    bg        = palette["bg"]
-    container = palette["container"]
-    border    = palette["border"]
-    accent    = palette["accent"]
-    header_bg = palette["header_bg"]
-    footer_bg = palette["footer_bg"]
-    dot_color = palette["dot_color"]
-    divider   = palette["divider"]
-    header_text = palette["header_text"]
+    return palette
 
-    # ── Extract positions (skip visuals without position, e.g. malformed) ──
-    rects = []
-    for v in visuals:
-        pos = v.get("position", {})
-        x, y, w, h = pos.get("x", 0), pos.get("y", 0), pos.get("width", 0), pos.get("height", 0)
-        vtype = v.get("visual", {}).get("visualType", "")
-        # Skip title bars, buttons, and nav elements — they don't need container zones
-        if vtype in ("textbox", "actionButton"):
-            continue
-        if w > 0 and h > 0:
-            rects.append((x, y, w, h))
 
-    # ── Cluster visuals into row groups ──
-    # Group visuals whose top edges (y) are within 80px of each other.
-    # This keeps cards + slicers in the same header band, and charts in the same
-    # mid-section band, while separating distinct layout sections.
-    ROW_GAP = 80  # max y-start difference to merge into same cluster
-    if not rects:
-        clusters = []
-    else:
-        sorted_rects = sorted(rects, key=lambda r: r[1])  # sort by y-start
-        clusters = []
-        current_cluster = [sorted_rects[0]]
-        for rect in sorted_rects[1:]:
-            # Compare this rect's y-start to the latest y-start in the cluster
-            if abs(rect[1] - max(r[1] for r in current_cluster)) <= ROW_GAP:
-                current_cluster.append(rect)
-            else:
-                clusters.append(current_cluster)
-                current_cluster = [rect]
-        clusters.append(current_cluster)
+def make_background(page_name, visuals, style="light", display_name=None, colors=None):
+    """Generate a 1280x720 background image (PNG if Pillow available, else SVG).
 
-    # ── Compute bounding boxes for each cluster ──
-    group_boxes = []
-    for cluster in clusters:
-        min_x = max(0, min(r[0] for r in cluster) - PAD)
-        min_y = max(HEADER_H + 2, min(r[1] for r in cluster) - PAD)  # clamp below header
-        max_x = min(W, max(r[0] + r[2] for r in cluster) + PAD)
-        max_y = min(H - FOOTER_H - 2, max(r[1] + r[3] for r in cluster) + PAD)  # clamp above footer
-        group_boxes.append((min_x, min_y, max_x - min_x, max_y - min_y))
+    Clusters visuals by y-position proximity, draws rounded-rect group containers,
+    header bar with page title, footer bar, accent stripes, and subtle grid dots.
 
-    # ── Build SVG ──
-    svg_parts = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
-        f'  <rect width="{W}" height="{H}" fill="{bg}"/>',
-    ]
+    Returns the path to the generated file.
+    """
+    W, H = 1280, 720
+    RADIUS = 12
+    HEADER_H = 50
+    FOOTER_H = 40
+    GRID_SPACING = 40
 
-    # Grid dots (subtle background texture)
-    svg_parts.append(f'  <g opacity="0.5">')
-    for gx in range(GRID_SPACING, W, GRID_SPACING):
-        for gy in range(HEADER_H + GRID_SPACING, H - FOOTER_H, GRID_SPACING):
-            svg_parts.append(f'    <circle cx="{gx}" cy="{gy}" r="0.8" fill="{dot_color}"/>')
-    svg_parts.append('  </g>')
+    palette = _get_palette(style, colors)
+    _, group_boxes = _cluster_visuals(visuals)
 
-    # Header bar with page title
-    svg_parts.append(f'  <rect x="0" y="0" width="{W}" height="{HEADER_H}" fill="{header_bg}"/>')
-    if display_name:
-        svg_parts.append(
-            f'  <text x="20" y="33" font-family="Segoe UI Semibold, sans-serif" '
-            f'font-size="16" fill="{header_text}">{display_name}</text>'
-        )
-
-    # Container zones with accent left border stripes
-    for (bx, by, bw, bh) in group_boxes:
-        # Container background
-        svg_parts.append(
-            f'  <rect x="{bx}" y="{by}" width="{bw}" height="{bh}" '
-            f'rx="{RADIUS}" ry="{RADIUS}" fill="{container}" '
-            f'stroke="{border}" stroke-width="1" opacity="0.6"/>'
-        )
-        # Accent left border stripe (4px wide, inside the container)
-        stripe_h = min(bh - 2 * RADIUS, bh * 0.6)
-        stripe_y = by + (bh - stripe_h) / 2
-        svg_parts.append(
-            f'  <rect x="{bx}" y="{stripe_y:.0f}" width="4" height="{stripe_h:.0f}" '
-            f'rx="2" ry="2" fill="{accent}" opacity="0.8"/>'
-        )
-
-    # Section dividers between clusters (horizontal lines)
-    sorted_boxes = sorted(group_boxes, key=lambda b: b[1])
-    for i in range(len(sorted_boxes) - 1):
-        box_bottom = sorted_boxes[i][1] + sorted_boxes[i][3]
-        next_box_top = sorted_boxes[i + 1][1]
-        if next_box_top - box_bottom > 10:
-            div_y = (box_bottom + next_box_top) / 2
-            svg_parts.append(
-                f'  <line x1="20" y1="{div_y:.0f}" x2="{W - 20}" y2="{div_y:.0f}" '
-                f'stroke="{divider}" stroke-width="0.5" stroke-dasharray="6,4" opacity="0.4"/>'
-            )
-
-    # Footer bar
-    svg_parts.append(
-        f'  <rect x="0" y="{H - FOOTER_H}" width="{W}" height="{FOOTER_H}" '
-        f'fill="{footer_bg}" opacity="0.5"/>'
-    )
-
-    svg_parts.append('</svg>')
-    svg_content = '\n'.join(svg_parts)
-
-    # ── Write to backgrounds/ folder ──
     bg_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "backgrounds")
     os.makedirs(bg_dir, exist_ok=True)
-    svg_path = os.path.join(bg_dir, f"{page_name}.svg")
-    with open(svg_path, "w", encoding="utf-8") as f:
-        f.write(svg_content)
-    print(f"Background: {svg_path}")
+
+    if HAS_PILLOW:
+        # ── Render PNG directly with Pillow ──
+        bg_rgb = _hex_to_rgb(palette["bg"])
+        img = Image.new("RGB", (W, H), bg_rgb)
+        draw = ImageDraw.Draw(img, "RGBA")
+
+        # Grid dots
+        dot_rgb = _hex_to_rgb(palette["dot_color"])
+        dot_rgba = dot_rgb + (80,)  # ~30% opacity
+        for gx in range(GRID_SPACING, W, GRID_SPACING):
+            for gy in range(HEADER_H + GRID_SPACING, H - FOOTER_H, GRID_SPACING):
+                draw.ellipse([gx - 1, gy - 1, gx + 1, gy + 1], fill=dot_rgba)
+
+        # Header bar
+        header_rgb = _hex_to_rgb(palette["header_bg"])
+        draw.rectangle([0, 0, W, HEADER_H], fill=header_rgb)
+
+        # Header title text
+        if display_name:
+            txt_rgb = _hex_to_rgb(palette["header_text"])
+            try:
+                font = ImageFont.truetype("segoeuib.ttf", 16)
+            except OSError:
+                try:
+                    font = ImageFont.truetype("segoeui.ttf", 16)
+                except OSError:
+                    font = ImageFont.load_default()
+            draw.text((20, 15), display_name, fill=txt_rgb, font=font)
+
+        # Container zones
+        container_rgb = _hex_to_rgb(palette["container"])
+        border_rgb = _hex_to_rgb(palette["border"])
+        accent_rgb = _hex_to_rgb(palette["accent"])
+        container_rgba = container_rgb + (153,)  # 0.6 opacity
+        for (bx, by, bw, bh) in group_boxes:
+            draw.rounded_rectangle(
+                [bx, by, bx + bw, by + bh],
+                radius=RADIUS, fill=container_rgba, outline=border_rgb, width=1)
+            # Accent stripe
+            stripe_h = int(min(bh - 2 * RADIUS, bh * 0.6))
+            stripe_y = int(by + (bh - stripe_h) / 2)
+            accent_rgba = accent_rgb + (204,)  # 0.8 opacity
+            draw.rounded_rectangle(
+                [bx, stripe_y, bx + 4, stripe_y + stripe_h],
+                radius=2, fill=accent_rgba)
+
+        # Section dividers
+        divider_rgb = _hex_to_rgb(palette["divider"])
+        divider_rgba = divider_rgb + (100,)  # ~0.4 opacity
+        sorted_boxes = sorted(group_boxes, key=lambda b: b[1])
+        for i in range(len(sorted_boxes) - 1):
+            box_bottom = sorted_boxes[i][1] + sorted_boxes[i][3]
+            next_box_top = sorted_boxes[i + 1][1]
+            if next_box_top - box_bottom > 10:
+                div_y = int((box_bottom + next_box_top) / 2)
+                # Dashed line (draw segments)
+                for dx in range(20, W - 20, 10):
+                    draw.line([dx, div_y, dx + 6, div_y], fill=divider_rgba, width=1)
+
+        # Footer bar
+        footer_rgb = _hex_to_rgb(palette["footer_bg"])
+        footer_rgba = footer_rgb + (128,)  # 0.5 opacity
+        draw.rectangle([0, H - FOOTER_H, W, H], fill=footer_rgba)
+
+        png_path = os.path.join(bg_dir, f"{page_name}.png")
+        img.save(png_path, "PNG")
+        print(f"Background PNG: {png_path}")
+        return png_path
+
+    else:
+        # ── Fallback: SVG output ──
+        svg_parts = [
+            f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
+            f'  <rect width="{W}" height="{H}" fill="{palette["bg"]}"/>',
+            f'  <g opacity="0.5">',
+        ]
+        for gx in range(GRID_SPACING, W, GRID_SPACING):
+            for gy in range(HEADER_H + GRID_SPACING, H - FOOTER_H, GRID_SPACING):
+                svg_parts.append(f'    <circle cx="{gx}" cy="{gy}" r="0.8" fill="{palette["dot_color"]}"/>')
+        svg_parts.append('  </g>')
+        svg_parts.append(f'  <rect x="0" y="0" width="{W}" height="{HEADER_H}" fill="{palette["header_bg"]}"/>')
+        if display_name:
+            svg_parts.append(
+                f'  <text x="20" y="33" font-family="Segoe UI Semibold, sans-serif" '
+                f'font-size="16" fill="{palette["header_text"]}">{display_name}</text>')
+        for (bx, by, bw, bh) in group_boxes:
+            svg_parts.append(
+                f'  <rect x="{bx}" y="{by}" width="{bw}" height="{bh}" '
+                f'rx="{RADIUS}" ry="{RADIUS}" fill="{palette["container"]}" '
+                f'stroke="{palette["border"]}" stroke-width="1" opacity="0.6"/>')
+            stripe_h = min(bh - 2 * RADIUS, bh * 0.6)
+            stripe_y = by + (bh - stripe_h) / 2
+            svg_parts.append(
+                f'  <rect x="{bx}" y="{stripe_y:.0f}" width="4" height="{stripe_h:.0f}" '
+                f'rx="2" ry="2" fill="{palette["accent"]}" opacity="0.8"/>')
+        svg_parts.append(
+            f'  <rect x="0" y="{H - FOOTER_H}" width="{W}" height="{FOOTER_H}" '
+            f'fill="{palette["footer_bg"]}" opacity="0.5"/>')
+        svg_parts.append('</svg>')
+        svg_path = os.path.join(bg_dir, f"{page_name}.svg")
+        with open(svg_path, "w", encoding="utf-8") as f:
+            f.write('\n'.join(svg_parts))
+        print(f"Background SVG (install Pillow for PNG+auto-embed): {svg_path}")
+        return svg_path
+
+
+def write_background(page_id, png_path):
+    """Embed a PNG background into a PBIR page: copies to RegisteredResources,
+    patches page.json with background image reference, and updates report.json
+    with RegisteredResources package entry.
+    """
+    if not os.path.exists(png_path) or not png_path.endswith(".png"):
+        return
+
+    report_dir = os.path.dirname(BASE)  # .Report/definition/
+    page_json_path = os.path.join(BASE, page_id, "page.json")
+    report_json_path = os.path.join(report_dir, "report.json")
+
+    # Generate a unique resource filename (Power BI style: Picture1<random digits>.png)
+    file_hash = hashlib.md5(open(png_path, "rb").read()).hexdigest()[:16]
+    resource_name = f"bg_{file_hash}.png"
+
+    # Copy PNG to RegisteredResources
+    res_dir = os.path.join(report_dir, "..", "StaticResources", "RegisteredResources")
+    os.makedirs(res_dir, exist_ok=True)
+    shutil.copy2(png_path, os.path.join(res_dir, resource_name))
+
+    # Patch page.json — add background image object
+    with open(page_json_path, "r", encoding="utf-8") as f:
+        page = json.load(f)
+    page["objects"] = {
+        "background": [{
+            "properties": {
+                "image": {
+                    "image": {
+                        "name": {"expr": {"Literal": {"Value": f"'{os.path.basename(png_path)}'"}}},
+                        "url": {"expr": {"ResourcePackageItem": {
+                            "PackageName": "RegisteredResources",
+                            "PackageType": 1,
+                            "ItemName": resource_name
+                        }}},
+                        "scaling": {"expr": {"Literal": {"Value": "'Normal'"}}}
+                    }
+                },
+                "transparency": {"expr": {"Literal": {"Value": "0D"}}}
+            }
+        }],
+        "displayArea": [{
+            "properties": {
+                "verticalAlignment": {"expr": {"Literal": {"Value": "'Top'"}}}
+            }
+        }]
+    }
+    with open(page_json_path, "w", encoding="utf-8") as f:
+        json.dump(page, f, indent=2, ensure_ascii=False)
+
+    # Patch report.json — ensure RegisteredResources package exists with this image
+    with open(report_json_path, "r", encoding="utf-8") as f:
+        report = json.load(f)
+    packages = report.get("resourcePackages", [])
+    # Find or create RegisteredResources package
+    reg_pkg = None
+    for pkg in packages:
+        if pkg.get("name") == "RegisteredResources":
+            reg_pkg = pkg
+            break
+    if reg_pkg is None:
+        reg_pkg = {"name": "RegisteredResources", "type": "RegisteredResources", "items": []}
+        packages.append(reg_pkg)
+    # Add image item if not already present
+    existing_names = {item["name"] for item in reg_pkg["items"]}
+    if resource_name not in existing_names:
+        reg_pkg["items"].append({"name": resource_name, "path": resource_name, "type": "Image"})
+    report["resourcePackages"] = packages
+    with open(report_json_path, "w", encoding="utf-8") as f:
+        json.dump(report, f, indent=2, ensure_ascii=False)
+
+    print(f"Background embedded: {resource_name} -> page {page_id}")
 
 
 def make_r_visual(name, x, y, w, h, fields_list, r_script):
@@ -1042,11 +1173,16 @@ write_page(p2_id, "Trends & Patterns", p2)
 write_page(p3_id, "Vessel Detail", p3)
 write_page(p4_id, "Cost Impact", p4)
 
-# Generate SVG backgrounds for each page
-make_background("port_overview", p1, display_name="Port Overview")
-make_background("trends_patterns", p2, display_name="Trends & Patterns")
-make_background("vessel_detail", p3, display_name="Vessel Detail")
-make_background("cost_impact", p4, display_name="Cost Impact")
+# Generate background images and embed into PBIR pages
+for pg_name, pg_id, pg_visuals, pg_title in [
+    ("port_overview", p1_id, p1, "Port Overview"),
+    ("trends_patterns", p2_id, p2, "Trends & Patterns"),
+    ("vessel_detail", p3_id, p3, "Vessel Detail"),
+    ("cost_impact", p4_id, p4, "Cost Impact"),
+]:
+    bg_path = make_background(pg_name, pg_visuals, display_name=pg_title)
+    if bg_path and bg_path.endswith(".png"):
+        write_background(pg_id, bg_path)
 
 # Update pages.json
 with open(os.path.join(BASE, "pages.json"), "w", encoding="utf-8") as f:
