@@ -653,19 +653,22 @@ def make_clustered_column_gradient(name, x, y, w, h, cat_table, cat_col, val_tab
         objects=base_objects)
 
 
-def make_background(page_name, visuals, style="light"):
+def make_background(page_name, visuals, style="light", display_name=None, colors=None):
     """Generate a 1280x720 SVG canvas background with container zones behind visual clusters.
 
-    Clusters visuals by y-position proximity (~30px = same row), draws rounded-rect
-    group containers, header bar, footer bar, accent stripes, and subtle grid dots.
+    Clusters visuals by y-position proximity, draws rounded-rect group containers,
+    header bar with page title, footer bar, accent stripes, and subtle grid dots.
 
     Args:
         page_name: Used for the output filename (backgrounds/{page_name}.svg)
         visuals: List of visual dicts (as returned by make_* functions, must have 'position')
         style: "light" or "dark" — color palette matching the theme JSON
+        display_name: Page title shown in the header bar (white text)
+        colors: Optional dict override for any palette key (bg, container, border,
+                accent, header_bg, footer_bg, dot_color, divider, header_text)
     """
     W, H = 1280, 720
-    PAD = 8       # padding around visual clusters
+    PAD = 10      # padding around visual clusters
     RADIUS = 12   # container corner radius
     HEADER_H = 50 # header bar height
     FOOTER_H = 40 # footer bar height
@@ -673,23 +676,26 @@ def make_background(page_name, visuals, style="light"):
 
     # ── Color palettes (from theme JSONs) ──
     if style == "dark":
-        bg       = "#0F172A"  # page background
-        container = "#1E293B"  # container fill
-        border   = "#334155"  # container border
-        accent   = "#60A5FA"  # accent stripe
-        header_bg = "#1E293B"
-        footer_bg = "#1E293B"
-        dot_color = "#334155"
-        divider  = "#334155"
+        palette = dict(
+            bg="#0F172A", container="#1E293B", border="#334155",
+            accent="#60A5FA", header_bg="#1E293B", footer_bg="#1E293B",
+            dot_color="#334155", divider="#334155", header_text="#FFFFFF")
     else:
-        bg       = "#F1F5F9"
-        container = "#FFFFFF"
-        border   = "#E2E8F0"
-        accent   = "#2563EB"
-        header_bg = "#1E293B"
-        footer_bg = "#F8FAFC"
-        dot_color = "#E2E8F0"
-        divider  = "#CBD5E1"
+        palette = dict(
+            bg="#F1F5F9", container="#FFFFFF", border="#E2E8F0",
+            accent="#2563EB", header_bg="#1E293B", footer_bg="#F8FAFC",
+            dot_color="#E2E8F0", divider="#CBD5E1", header_text="#FFFFFF")
+    if colors:
+        palette.update(colors)
+    bg        = palette["bg"]
+    container = palette["container"]
+    border    = palette["border"]
+    accent    = palette["accent"]
+    header_bg = palette["header_bg"]
+    footer_bg = palette["footer_bg"]
+    dot_color = palette["dot_color"]
+    divider   = palette["divider"]
+    header_text = palette["header_text"]
 
     # ── Extract positions (skip visuals without position, e.g. malformed) ──
     rects = []
@@ -745,8 +751,13 @@ def make_background(page_name, visuals, style="light"):
             svg_parts.append(f'    <circle cx="{gx}" cy="{gy}" r="0.8" fill="{dot_color}"/>')
     svg_parts.append('  </g>')
 
-    # Header bar
+    # Header bar with page title
     svg_parts.append(f'  <rect x="0" y="0" width="{W}" height="{HEADER_H}" fill="{header_bg}"/>')
+    if display_name:
+        svg_parts.append(
+            f'  <text x="20" y="33" font-family="Segoe UI Semibold, sans-serif" '
+            f'font-size="16" fill="{header_text}">{display_name}</text>'
+        )
 
     # Container zones with accent left border stripes
     for (bx, by, bw, bh) in group_boxes:
@@ -1032,10 +1043,10 @@ write_page(p3_id, "Vessel Detail", p3)
 write_page(p4_id, "Cost Impact", p4)
 
 # Generate SVG backgrounds for each page
-make_background("port_overview", p1)
-make_background("trends_patterns", p2)
-make_background("vessel_detail", p3)
-make_background("cost_impact", p4)
+make_background("port_overview", p1, display_name="Port Overview")
+make_background("trends_patterns", p2, display_name="Trends & Patterns")
+make_background("vessel_detail", p3, display_name="Vessel Detail")
+make_background("cost_impact", p4, display_name="Cost Impact")
 
 # Update pages.json
 with open(os.path.join(BASE, "pages.json"), "w", encoding="utf-8") as f:
