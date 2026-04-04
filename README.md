@@ -154,6 +154,7 @@ Four complete dashboard projects across different business domains, each with sa
 | **Hospital** | 5 | 32 | DATEDIFF, EARLIER self-join for readmissions, TOTALMTD |
 | **HR** | 5 | 34 | LASTDATE snapshot, POWER annualized attrition, VAR+RETURN |
 | **Supply Chain** | 6 | 42 | Multi-fact model, 8x USERELATIONSHIP, semi-additive LASTDATE |
+| **PortPulse (Piraeus)** | 2 | 17 | Embedded R visuals (ARIMA, Isolation Forest, K-means), live AIS data, Azure Map |
 
 ### Screenshots (Supply Chain)
 
@@ -176,7 +177,7 @@ make_card("sc1_rev", 20, 10, 300, 140, "_Measures", "Total Revenue")
 
 This generates PBIR JSON for a fully data-bound KPI card — complete with accent bar, shadow, and rounded corners. The `make_*` functions handle both data bindings and professional formatting, so the output looks polished on first open without manual formatting work.
 
-26 visual types available via `make_*` functions: `card`, `gauge`, `clusteredBar`, `clusteredColumn`, `lineChart` (dual Y), `areaChart`, `donut`, `pie`, `waterfall`, `funnel`, `scatter` (with optional bubble size), `ribbon`, `stackedColumn`, `stackedBar`, `100%StackedBar`, `100%StackedColumn`, `table`, `matrix`, `treemap`, `filledMap`, `bubbleMap`, `slicer`, `titleBar`, `button` (page navigation), `clusteredBarGradient`, `clusteredColumnGradient`.
+27 visual types available via `make_*` functions: `card`, `gauge`, `clusteredBar`, `clusteredColumn`, `lineChart` (dual Y), `areaChart`, `donut`, `pie`, `waterfall`, `funnel`, `scatter` (with optional bubble size), `ribbon`, `stackedColumn`, `stackedBar`, `100%StackedBar`, `100%StackedColumn`, `table`, `matrix`, `treemap`, `filledMap`, `bubbleMap`, `slicer`, `titleBar`, `button` (page navigation), `clusteredBarGradient`, `clusteredColumnGradient`, `rVisual` (embedded R/Python scripts).
 
 Each function takes a visual name, canvas position (x, y, w, h), and data bindings (table/column for categories, table/measure for values). Full reference in the [skill file](skills/PBIR_Dashboard_Generator_Skill.md).
 
@@ -219,9 +220,11 @@ powerbi-code-first-dashboards/
   hospital/                        # Hospital Operations dashboard project
   hr/                              # HR People Analytics dashboard project
   supply_chain/                    # Supply Chain & Inventory dashboard project
-    data/                          #   CSV files (sample data included)
+  portpulse/                       # Piraeus port congestion dashboard (R analytics + live AIS)
+    data/                          #   CSV files + live AIS collector script
     scripts/generate_pages.py      #   PBIR visual generator (pure Python)
-    SupplyChain_Dashboard_Prompts.md  # Full data model specification
+    PortPulse_Dashboard_Prompts.md #   Full data model specification
+    DEMO_GUIDE.md                  #   Demo walkthrough and setup instructions
   skills/
     PBIR_Dashboard_Generator_Skill.md  # Claude skill for auto-generating dashboards
   themes/
@@ -240,5 +243,6 @@ powerbi-code-first-dashboards/
 | PBIR (JSON) | Visual layout definition | Yes |
 | Python | Visual page generation scripts | Yes |
 | Theme JSON | Global colors, fonts, page background | Optional (included) |
+| R | Embedded analytics (ARIMA, Isolation Forest, K-means) | Optional (PortPulse only) |
 | Power BI Modeling MCP | Automated data model creation | Optional |
 | Claude Skill | Auto-generate from data models | Optional |
