@@ -653,6 +653,147 @@ def make_clustered_column_gradient(name, x, y, w, h, cat_table, cat_col, val_tab
         objects=base_objects)
 
 
+def make_background(page_name, visuals, style="light"):
+    """Generate a 1280x720 SVG canvas background with container zones behind visual clusters.
+
+    Clusters visuals by y-position proximity (~30px = same row), draws rounded-rect
+    group containers, header bar, footer bar, accent stripes, and subtle grid dots.
+
+    Args:
+        page_name: Used for the output filename (backgrounds/{page_name}.svg)
+        visuals: List of visual dicts (as returned by make_* functions, must have 'position')
+        style: "light" or "dark" — color palette matching the theme JSON
+    """
+    W, H = 1280, 720
+    PAD = 8       # padding around visual clusters
+    RADIUS = 12   # container corner radius
+    HEADER_H = 50 # header bar height
+    FOOTER_H = 40 # footer bar height
+    GRID_SPACING = 40  # dot grid spacing
+
+    # ── Color palettes (from theme JSONs) ──
+    if style == "dark":
+        bg       = "#0F172A"  # page background
+        container = "#1E293B"  # container fill
+        border   = "#334155"  # container border
+        accent   = "#60A5FA"  # accent stripe
+        header_bg = "#1E293B"
+        footer_bg = "#1E293B"
+        dot_color = "#334155"
+        divider  = "#334155"
+    else:
+        bg       = "#F1F5F9"
+        container = "#FFFFFF"
+        border   = "#E2E8F0"
+        accent   = "#2563EB"
+        header_bg = "#1E293B"
+        footer_bg = "#F8FAFC"
+        dot_color = "#E2E8F0"
+        divider  = "#CBD5E1"
+
+    # ── Extract positions (skip visuals without position, e.g. malformed) ──
+    rects = []
+    for v in visuals:
+        pos = v.get("position", {})
+        x, y, w, h = pos.get("x", 0), pos.get("y", 0), pos.get("width", 0), pos.get("height", 0)
+        vtype = v.get("visual", {}).get("visualType", "")
+        # Skip title bars, buttons, and nav elements — they don't need container zones
+        if vtype in ("textbox", "actionButton"):
+            continue
+        if w > 0 and h > 0:
+            rects.append((x, y, w, h))
+
+    # ── Cluster visuals into row groups ──
+    # Group visuals whose top edges (y) are within 80px of each other.
+    # This keeps cards + slicers in the same header band, and charts in the same
+    # mid-section band, while separating distinct layout sections.
+    ROW_GAP = 80  # max y-start difference to merge into same cluster
+    if not rects:
+        clusters = []
+    else:
+        sorted_rects = sorted(rects, key=lambda r: r[1])  # sort by y-start
+        clusters = []
+        current_cluster = [sorted_rects[0]]
+        for rect in sorted_rects[1:]:
+            # Compare this rect's y-start to the latest y-start in the cluster
+            if abs(rect[1] - max(r[1] for r in current_cluster)) <= ROW_GAP:
+                current_cluster.append(rect)
+            else:
+                clusters.append(current_cluster)
+                current_cluster = [rect]
+        clusters.append(current_cluster)
+
+    # ── Compute bounding boxes for each cluster ──
+    group_boxes = []
+    for cluster in clusters:
+        min_x = max(0, min(r[0] for r in cluster) - PAD)
+        min_y = max(HEADER_H + 2, min(r[1] for r in cluster) - PAD)  # clamp below header
+        max_x = min(W, max(r[0] + r[2] for r in cluster) + PAD)
+        max_y = min(H - FOOTER_H - 2, max(r[1] + r[3] for r in cluster) + PAD)  # clamp above footer
+        group_boxes.append((min_x, min_y, max_x - min_x, max_y - min_y))
+
+    # ── Build SVG ──
+    svg_parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
+        f'  <rect width="{W}" height="{H}" fill="{bg}"/>',
+    ]
+
+    # Grid dots (subtle background texture)
+    svg_parts.append(f'  <g opacity="0.5">')
+    for gx in range(GRID_SPACING, W, GRID_SPACING):
+        for gy in range(HEADER_H + GRID_SPACING, H - FOOTER_H, GRID_SPACING):
+            svg_parts.append(f'    <circle cx="{gx}" cy="{gy}" r="0.8" fill="{dot_color}"/>')
+    svg_parts.append('  </g>')
+
+    # Header bar
+    svg_parts.append(f'  <rect x="0" y="0" width="{W}" height="{HEADER_H}" fill="{header_bg}"/>')
+
+    # Container zones with accent left border stripes
+    for (bx, by, bw, bh) in group_boxes:
+        # Container background
+        svg_parts.append(
+            f'  <rect x="{bx}" y="{by}" width="{bw}" height="{bh}" '
+            f'rx="{RADIUS}" ry="{RADIUS}" fill="{container}" '
+            f'stroke="{border}" stroke-width="1" opacity="0.6"/>'
+        )
+        # Accent left border stripe (4px wide, inside the container)
+        stripe_h = min(bh - 2 * RADIUS, bh * 0.6)
+        stripe_y = by + (bh - stripe_h) / 2
+        svg_parts.append(
+            f'  <rect x="{bx}" y="{stripe_y:.0f}" width="4" height="{stripe_h:.0f}" '
+            f'rx="2" ry="2" fill="{accent}" opacity="0.8"/>'
+        )
+
+    # Section dividers between clusters (horizontal lines)
+    sorted_boxes = sorted(group_boxes, key=lambda b: b[1])
+    for i in range(len(sorted_boxes) - 1):
+        box_bottom = sorted_boxes[i][1] + sorted_boxes[i][3]
+        next_box_top = sorted_boxes[i + 1][1]
+        if next_box_top - box_bottom > 10:
+            div_y = (box_bottom + next_box_top) / 2
+            svg_parts.append(
+                f'  <line x1="20" y1="{div_y:.0f}" x2="{W - 20}" y2="{div_y:.0f}" '
+                f'stroke="{divider}" stroke-width="0.5" stroke-dasharray="6,4" opacity="0.4"/>'
+            )
+
+    # Footer bar
+    svg_parts.append(
+        f'  <rect x="0" y="{H - FOOTER_H}" width="{W}" height="{FOOTER_H}" '
+        f'fill="{footer_bg}" opacity="0.5"/>'
+    )
+
+    svg_parts.append('</svg>')
+    svg_content = '\n'.join(svg_parts)
+
+    # ── Write to backgrounds/ folder ──
+    bg_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "backgrounds")
+    os.makedirs(bg_dir, exist_ok=True)
+    svg_path = os.path.join(bg_dir, f"{page_name}.svg")
+    with open(svg_path, "w", encoding="utf-8") as f:
+        f.write(svg_content)
+    print(f"Background: {svg_path}")
+
+
 def make_r_visual(name, x, y, w, h, fields_list, r_script):
     """R script visual — embeds R code with data field bindings.
     fields_list: [(table, col_or_measure, is_measure_bool), ...]
@@ -889,6 +1030,12 @@ write_page(p1_id, "Port Overview", p1)
 write_page(p2_id, "Trends & Patterns", p2)
 write_page(p3_id, "Vessel Detail", p3)
 write_page(p4_id, "Cost Impact", p4)
+
+# Generate SVG backgrounds for each page
+make_background("port_overview", p1)
+make_background("trends_patterns", p2)
+make_background("vessel_detail", p3)
+make_background("cost_impact", p4)
 
 # Update pages.json
 with open(os.path.join(BASE, "pages.json"), "w", encoding="utf-8") as f:
