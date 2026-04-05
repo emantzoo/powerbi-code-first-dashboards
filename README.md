@@ -1,5 +1,8 @@
 # Power BI Dashboards from Code — Zero Manual UI Work
 
+![Power BI Dashboards from Code](https://raw.githubusercontent.com/emantzoo/emantzoo.github.io/master/images/powerbi-dashboards.jpg)
+
+
 Python scripts generate PBIR JSON files that Power BI renders as complete, multi-page dashboards. No dragging fields, no clicking through menus — one line of Python per visual.
 
 ## What You Need
