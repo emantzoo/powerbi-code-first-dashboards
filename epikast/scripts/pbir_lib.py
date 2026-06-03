@@ -362,6 +362,28 @@ def make_filled_map(name, x, y, w, h, loc_table, loc_col, val_table, val_measure
         {"Category": {"projections": [column_field(loc_table, loc_col)]},
          "Y": {"projections": [measure_field(val_table, val_measure)]}})
 
+def make_key_influencers(name, x, y, w, h, analyze, explain_fields):
+    """Power BI native Key Influencers AI visual.
+    analyze = (table, field, is_measure_bool) — the outcome to explain.
+    explain_fields = [(table, column), ...] — candidate drivers.
+    NOTE: native AI visual; if the role bindings don't take on your PBI version,
+    drag the fields into Analyze / Explain-by manually (30 seconds)."""
+    at, an, am = analyze
+    a_proj = measure_field(at, an) if am else column_field(at, an)
+    qs = {"Analyze": {"projections": [a_proj]},
+          "ExplainBy": {"projections": [column_field(t, c) for t, c in explain_fields]}}
+    return make_visual(name, x, y, w, h, "keyDriversVisual", qs)
+
+def make_decomposition_tree(name, x, y, w, h, analyze, explain_fields):
+    """Power BI native Decomposition Tree AI visual.
+    analyze = (table, measure) — the metric to break down.
+    explain_fields = [(table, column), ...] — dimensions to drill into.
+    NOTE: native AI visual; rebind manually if role names differ on your PBI version."""
+    at, am = analyze
+    qs = {"Analyze": {"projections": [measure_field(at, am)]},
+          "Explain": {"projections": [column_field(t, c) for t, c in explain_fields]}}
+    return make_visual(name, x, y, w, h, "decompositionTreeVisual", qs)
+
 def make_matrix_heatmap(name, x, y, w, h, row_fields, col_fields, val_table, val_measure,
                         min_color="#F8696B", mid_color="#FFEB84", max_color="#63BE7B"):
     """Matrix whose value cells are shaded on a red→amber→green scale (conditional backColor)."""
