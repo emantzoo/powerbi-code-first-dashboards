@@ -365,6 +365,17 @@ Performance Tier =
 VAR Total = COUNTROWS(ALL(DimRep))
 VAR Rnk = RANKX(ALL(DimRep), CALCULATE([Meaningful Interactions]), , DESC)
 RETURN IF(Rnk <= ROUNDUP(Total * 0.2, 0), "Top 20%", "Rest")
+
+# DimRep — tenure band for the workforce ramp-up analysis (Internal report)
+Tenure Bucket = SWITCH(TRUE(),
+    DimRep[TenureMonths] < 6, "0-6mo",
+    DimRep[TenureMonths] < 12, "6-12mo",
+    DimRep[TenureMonths] < 18, "12-18mo",
+    "18+mo")
+
+# FactHCPCalls — 2-hour evening call-time band for the connect-rate heatmap (Internal report)
+CallTimeBucket = VAR h = VALUE(LEFT(FactHCPCalls[CallTime], 2))
+RETURN SWITCH(TRUE(), h < 18, "16-18", h < 20, "18-20", h < 22, "20-22", "22-00")
 ```
 
 ---
