@@ -194,11 +194,14 @@ def make_clustered_bar_multi(name, x, y, w, h, cat_table, cat_col, val_list):
         objects=_chart_objects(show_labels=False))
 
 def make_line_chart(name, x, y, w, h, cat_table, cat_col, val_table, val_measure,
-                    val2_table=None, val2_measure=None, ref_value=None, ref_label=None):
+                    val2_table=None, val2_measure=None, val3_table=None, val3_measure=None,
+                    ref_value=None, ref_label=None):
     qs = {"Category": {"projections": [column_field(cat_table, cat_col)]},
           "Y": {"projections": [measure_field(val_table, val_measure)]}}
     if val2_table and val2_measure:
         qs["Y"]["projections"].append(measure_field(val2_table, val2_measure))
+    if val3_table and val3_measure:
+        qs["Y"]["projections"].append(measure_field(val3_table, val3_measure))
     obj = _line_chart_objects()
     if ref_value is not None:
         obj["y1AxisReferenceLine"] = [{
@@ -327,6 +330,37 @@ def make_multi_card(name, x, y, w, h, val_fields):
     """A-vs-B comparison card. val_fields = [(table, measure), ...] shown as rows."""
     return make_visual(name, x, y, w, h, "multiRowCard",
         {"Values": {"projections": [measure_field(t, m) for t, m in val_fields]}})
+
+def make_measure_column(name, x, y, w, h, val_list):
+    """Clustered column with NO category — each measure renders as its own column.
+    Use to compare measures that have no shared dimension (e.g. AI vs Non-AI rates).
+    val_list = [(table, measure), ...]"""
+    return make_visual(name, x, y, w, h, "clusteredColumnChart",
+        {"Y": {"projections": [measure_field(t, m) for t, m in val_list]}},
+        objects=_chart_objects(show_labels=True))
+
+def make_measure_bar(name, x, y, w, h, val_list):
+    """Horizontal version of make_measure_column."""
+    return make_visual(name, x, y, w, h, "clusteredBarChart",
+        {"Y": {"projections": [measure_field(t, m) for t, m in val_list]}},
+        objects=_chart_objects(show_labels=True))
+
+def make_stacked_bar(name, x, y, w, h, cat_table, cat_col, series_table, series_col, val_table, val_measure):
+    return make_visual(name, x, y, w, h, "barChart",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Series": {"projections": [column_field(series_table, series_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}}, objects=_chart_objects())
+
+def make_stacked_column(name, x, y, w, h, cat_table, cat_col, series_table, series_col, val_table, val_measure):
+    return make_visual(name, x, y, w, h, "columnChart",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Series": {"projections": [column_field(series_table, series_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}}, objects=_chart_objects())
+
+def make_filled_map(name, x, y, w, h, loc_table, loc_col, val_table, val_measure):
+    return make_visual(name, x, y, w, h, "filledMap",
+        {"Category": {"projections": [column_field(loc_table, loc_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}})
 
 def make_matrix_heatmap(name, x, y, w, h, row_fields, col_fields, val_table, val_measure,
                         min_color="#F8696B", mid_color="#FFEB84", max_color="#63BE7B"):

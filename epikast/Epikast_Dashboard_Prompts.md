@@ -263,6 +263,7 @@ Concluded Experiments = CALCULATE(COUNTROWS(DimExperiment), LEFT(DimExperiment[S
 Running Experiments = CALCULATE(COUNTROWS(DimExperiment), DimExperiment[Status] = "Running")
 Win Rate = DIVIDE(CALCULATE(COUNTROWS(DimExperiment), DimExperiment[Status] = "Concluded - Winner"), [Concluded Experiments], 0)
 Avg Observed Lift = CALCULATE(AVERAGE(DimExperiment[ObservedLift]), DimExperiment[Status] = "Concluded - Winner")
+Experiment Lift = AVERAGE(DimExperiment[ObservedLift])
 ```
 
 ### 9. Financials (7)

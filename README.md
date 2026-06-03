@@ -158,7 +158,7 @@ Six complete dashboard projects across different business domains, each with sam
 | **HR** | 5 | 34 | LASTDATE snapshot, POWER annualized attrition, VAR+RETURN |
 | **Supply Chain** | 6 | 42 | Multi-fact model, 8x USERELATIONSHIP, semi-additive LASTDATE |
 | **PortPulse (Piraeus)** | 2 | 17 | Embedded R visuals (ARIMA, Isolation Forest, K-means), live AIS data, Azure Map, auto-generated PNG backgrounds |
-| **Epikast (Pharma Ops)** | 11 | 122 | 5-fact pharma-ops model (HCP calls, patient access, Rx, MSL AI assistant, financials), TREATAS virtual relationships, USERELATIONSHIP, IN operator, patient-access bottleneck mining, selling-time analysis, A/B experiment tracking, SWITCH RAG. _Data model + spec complete; 6 dashboards / 16 pages of visuals in progress._ |
+| **Epikast (Pharma Ops)** | 11 | 123 | 5-fact pharma-ops model (HCP calls, patient access, Rx, MSL AI assistant, financials) feeding **3 reports off one model** — Internal Ops (6pp), AI Effectiveness (5pp), Client-facing (5pp), 168 visuals. TREATAS virtual relationships, USERELATIONSHIP, A/B experiment tracking, patient-access bottleneck mining, selling-time + top-performer analysis, combo/heatmap/reference-line visuals, SWITCH RAG. |
 
 ### Screenshots (PortPulse — Piraeus Port Congestion)
 
@@ -248,10 +248,13 @@ powerbi-code-first-dashboards/
     scripts/generate_pages.py      #   PBIR visual generator (Python + Pillow)
     PortPulse_Dashboard_Prompts.md #   Full data model specification
     DEMO_GUIDE.md                  #   Demo walkthrough and setup instructions
-  epikast/                         # Pharma ops dashboards (11-table model, 113 measures)
+  epikast/                         # Pharma ops dashboards (11-table model, 123 measures)
     data/                          #   11 CSVs + deterministic data generator
-    Epikast_Dashboard_Prompts.md   #   Full data model spec + 6-dashboard layout specs
-    scripts/                       #   PBIR visual generators (in progress)
+    Epikast_Dashboard_Prompts.md   #   Full data model spec + dashboard layout specs
+    scripts/pbir_lib.py            #   Shared make_* helper library
+    scripts/generate_pages_internal.py  # Internal Ops report (6 pages)
+    scripts/generate_pages_ai.py        # AI Effectiveness report (5 pages)
+    scripts/generate_pages_client.py    # Client-facing report (5 pages)
   skills/
     PBIR_Dashboard_Generator_Skill.md  # Claude skill for auto-generating dashboards
   themes/
