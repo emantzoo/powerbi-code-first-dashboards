@@ -1,0 +1,301 @@
+hcp_id,hcp_name,specialty,segment,decile,region,territory,latitude,longitude
+HCP0001,Dr. Jennifer Wright,Immunology,Mid Value,4,West,WE-01,37.4616,-122.4717
+HCP0002,Dr. Richard Wright,Cardiology,Emerging,1,West,WE-05,47.2417,-122.3833
+HCP0003,Dr. Sofia Hernandez,Endocrinology,Emerging,1,Midwest,MI-06,40.0919,-83.2991
+HCP0004,Dr. Richard Martinez,Endocrinology,High Value,9,Southwest,SO-03,32.5302,-96.6651
+HCP0005,Dr. Richard Murphy,Oncology,Mid Value,6,Midwest,MI-05,41.7076,-87.6859
+HCP0006,Dr. Sofia Miller,Endocrinology,Mid Value,5,West,WE-08,34.2872,-117.8758
+HCP0007,Dr. Carlos Adams,Immunology,High Value,8,West,WE-02,47.8609,-122.1312
+HCP0008,Dr. Linda Chen,Endocrinology,High Value,7,West,WE-02,37.7392,-122.1105
+HCP0009,Dr. John Smith,Oncology,High Value,8,West,WE-07,33.8273,-118.0004
+HCP0010,Dr. Joseph Jones,Neurology,Mid Value,4,West,WE-09,47.9965,-122.2557
+HCP0011,Dr. Fatima Chen,Neurology,Emerging,1,Southwest,SO-05,29.9618,-95.0979
+HCP0012,Dr. Joseph Williams,Rheumatology,Emerging,2,Southeast,SO-05,25.5493,-80.3231
+HCP0013,Dr. Ahmed Jones,Rheumatology,Mid Value,4,Southwest,SO-04,32.4281,-96.8709
+HCP0014,Dr. Wei Smith,Endocrinology,Mid Value,5,Midwest,MI-07,39.9428,-82.6446
+HCP0015,Dr. Priya Adams,Cardiology,Emerging,3,Southeast,SO-08,25.5372,-80.2431
+HCP0016,Dr. John Adams,Endocrinology,Mid Value,4,Northeast,NO-01,41.0383,-73.9325
+HCP0017,Dr. Mary Rodriguez,Neurology,KOL,10,West,WE-06,37.5442,-122.5579
+HCP0018,Dr. Lisa Smith,Rheumatology,Emerging,1,Southwest,SO-09,29.4021,-95.0083
+HCP0019,Dr. James Adams,Cardiology,Mid Value,4,Southeast,SO-04,33.45,-84.2524
+HCP0020,Dr. Jennifer Adams,Endocrinology,Emerging,2,West,WE-02,34.2744,-118.5127
+HCP0021,Dr. Richard Patel,Rheumatology,High Value,8,Southeast,SO-04,25.4225,-80.0393
+HCP0022,Dr. Wei Johnson,Immunology,High Value,9,West,WE-09,37.7176,-122.5229
+HCP0023,Dr. Karen Lopez,Rheumatology,Mid Value,5,Midwest,MI-08,40.127,-83.0504
+HCP0024,Dr. Joseph Nguyen,Rheumatology,Mid Value,6,West,WE-05,47.464,-122.5357
+HCP0025,Dr. Mei Patel,Immunology,KOL,10,Southwest,SO-01,32.7721,-96.937
+HCP0026,Dr. Ahmed Rodriguez,Endocrinology,High Value,8,Midwest,MI-01,44.9911,-93.5122
+HCP0027,Dr. Lisa Chen,Neurology,Mid Value,4,Southeast,SO-01,33.4234,-84.6107
+HCP0028,Dr. Susan Nguyen,Rheumatology,High Value,8,West,WE-09,47.4708,-122.1698
+HCP0029,Dr. William Brown,Rheumatology,High Value,7,Southeast,SO-09,26.1224,-80.0397
+HCP0030,Dr. Raj Adams,Immunology,High Value,8,Southeast,SO-02,34.0151,-84.551
+HCP0031,Dr. David Johnson,Oncology,High Value,9,Southeast,SO-09,35.0608,-80.4878
+HCP0032,Dr. Barbara Chen,Neurology,Emerging,3,West,WE-08,37.6475,-122.047
+HCP0033,Dr. Lisa Williams,Endocrinology,Emerging,2,Southeast,SO-01,25.4831,-79.9429
+HCP0034,Dr. Mei Adams,Endocrinology,KOL,9,Southeast,SO-04,25.9823,-80.2875
+HCP0035,Dr. Mary Adams,Rheumatology,Mid Value,6,Southwest,SO-02,33.1348,-97.0308
+HCP0036,Dr. Priya Williams,Cardiology,High Value,7,Southeast,SO-01,33.6758,-84.2365
+HCP0037,Dr. Ahmed Kim,Oncology,High Value,8,Midwest,MI-04,45.3169,-93.0347
+HCP0038,Dr. Linda Jones,Immunology,Mid Value,4,West,WE-03,37.432,-122.6867
+HCP0039,Dr. Ahmed Martinez,Rheumatology,Mid Value,4,Southeast,SO-07,26.1158,-80.1914
+HCP0040,Dr. Mei Rodriguez,Oncology,Mid Value,6,Midwest,MI-02,44.7609,-93.1256
+HCP0041,Dr. Mary Garcia,Neurology,Mid Value,5,Southwest,SO-09,33.5696,-111.7411
+HCP0042,Dr. Lisa Lopez,Neurology,Emerging,1,Northeast,NO-06,39.8094,-75.4815
+HCP0043,Dr. Priya Johnson,Neurology,High Value,8,Northeast,NO-02,39.8042,-75.3066
+HCP0044,Dr. Karen Johnson,Cardiology,Mid Value,6,Southwest,SO-09,29.6498,-95.1646
+HCP0045,Dr. John Martinez,Neurology,Mid Value,5,West,WE-08,37.472,-122.0409
+HCP0046,Dr. Priya Nguyen,Oncology,Emerging,1,West,WE-04,34.446,-117.9134
+HCP0047,Dr. Raj Rodriguez,Neurology,Emerging,2,Midwest,MI-08,45.362,-93.47
+HCP0048,Dr. John Williams,Immunology,High Value,9,Midwest,MI-07,39.8331,-82.7686
+HCP0049,Dr. Wei Chen,Cardiology,Emerging,3,Southeast,SO-08,25.7926,-80.3157
+HCP0050,Dr. Ahmed Davis,Endocrinology,Emerging,1,Midwest,MI-07,39.748,-82.7784
+HCP0051,Dr. Sofia Jones,Neurology,High Value,9,Northeast,NO-01,40.4138,-73.6337
+HCP0052,Dr. James Jones,Neurology,Emerging,2,Southeast,SO-03,34.887,-80.6179
+HCP0053,Dr. Sofia Murphy,Neurology,High Value,9,Southeast,SO-06,25.8631,-79.8818
+HCP0054,Dr. Carlos Martinez,Cardiology,Emerging,1,Midwest,MI-02,44.925,-93.5862
+HCP0055,Dr. Barbara Smith,Oncology,Mid Value,4,West,WE-06,38.0118,-122.5847
+HCP0056,Dr. Sofia Garcia,Cardiology,Mid Value,5,Southeast,SO-03,34.8903,-80.5464
+HCP0057,Dr. Joseph Rodriguez,Neurology,Mid Value,4,West,WE-05,34.1857,-117.9246
+HCP0058,Dr. Wei Martinez,Rheumatology,Emerging,2,Midwest,MI-07,45.1301,-93.2995
+HCP0059,Dr. Richard Wright,Immunology,High Value,8,Southeast,SO-05,26.1559,-80.3556
+HCP0060,Dr. Fatima Johnson,Endocrinology,Mid Value,6,Southwest,SO-08,33.7147,-111.7517
+HCP0061,Dr. Mei Rodriguez,Rheumatology,Emerging,1,Southwest,SO-03,29.863,-95.0471
+HCP0062,Dr. Fatima Jones,Oncology,KOL,10,West,WE-05,37.6363,-122.487
+HCP0063,Dr. Jennifer Rodriguez,Neurology,High Value,9,Southeast,SO-05,33.9462,-84.517
+HCP0064,Dr. Fatima Patel,Endocrinology,Mid Value,4,Northeast,NO-06,42.0323,-71.1432
+HCP0065,Dr. Sofia Rodriguez,Endocrinology,Mid Value,6,Southeast,SO-07,26.0196,-79.8396
+HCP0066,Dr. William Adams,Cardiology,Mid Value,6,Northeast,NO-02,42.4684,-71.0875
+HCP0067,Dr. Mary Martinez,Neurology,High Value,7,West,WE-02,47.284,-122.0223
+HCP0068,Dr. Priya Nguyen,Endocrinology,Mid Value,6,Northeast,NO-03,40.2609,-75.0413
+HCP0069,Dr. Susan Miller,Neurology,Mid Value,4,Southwest,SO-08,33.8088,-111.7896
+HCP0070,Dr. Mary Patel,Immunology,Emerging,2,Northeast,NO-04,42.7347,-70.6997
+HCP0071,Dr. James Johnson,Immunology,Mid Value,6,Southwest,SO-04,33.8395,-111.8444
+HCP0072,Dr. William Jones,Endocrinology,KOL,9,Southeast,SO-01,33.5708,-84.0008
+HCP0073,Dr. John Smith,Immunology,Mid Value,6,Northeast,NO-04,40.0237,-75.5526
+HCP0074,Dr. Robert Chen,Neurology,KOL,10,Southeast,SO-06,25.7723,-80.5046
+HCP0075,Dr. Barbara Kim,Rheumatology,High Value,9,Midwest,MI-01,39.6099,-83.0156
+HCP0076,Dr. Robert Williams,Immunology,Mid Value,6,Midwest,MI-03,41.5306,-87.8098
+HCP0077,Dr. Barbara Kim,Endocrinology,Mid Value,6,West,WE-07,37.4542,-122.258
+HCP0078,Dr. Karen Hernandez,Neurology,Mid Value,5,Southwest,SO-07,33.3812,-112.3979
+HCP0079,Dr. Lisa Williams,Oncology,High Value,8,Midwest,MI-02,41.5527,-87.9525
+HCP0080,Dr. Priya Murphy,Immunology,Mid Value,4,West,WE-02,47.5348,-122.0332
+HCP0081,Dr. Susan Brown,Endocrinology,Mid Value,6,Southwest,SO-09,29.5306,-95.2444
+HCP0082,Dr. David Wright,Cardiology,Emerging,1,Southeast,SO-07,34.0251,-84.0084
+HCP0083,Dr. David Smith,Cardiology,Mid Value,6,Southwest,SO-05,33.6106,-112.2268
+HCP0084,Dr. Richard Williams,Cardiology,Mid Value,6,Southeast,SO-01,34.9005,-80.8187
+HCP0085,Dr. Fatima Hernandez,Endocrinology,Mid Value,5,Midwest,MI-02,42.1848,-87.9053
+HCP0086,Dr. Karen Chen,Endocrinology,Mid Value,5,Southwest,SO-08,29.6917,-95.5973
+HCP0087,Dr. Sofia Wright,Neurology,High Value,7,Midwest,MI-09,40.0949,-83.3625
+HCP0088,Dr. Michael Jones,Immunology,Emerging,2,Midwest,MI-05,41.7406,-88.0236
+HCP0089,Dr. Linda Cohen,Endocrinology,Mid Value,6,West,WE-06,47.2639,-122.0427
+HCP0090,Dr. Karen Wright,Neurology,Mid Value,5,Northeast,NO-07,40.5444,-74.082
+HCP0091,Dr. Karen Brown,Cardiology,High Value,9,Southeast,SO-07,35.2982,-80.8239
+HCP0092,Dr. Robert Cohen,Rheumatology,Emerging,1,Midwest,MI-02,41.9026,-87.8747
+HCP0093,Dr. David Miller,Cardiology,High Value,7,Southwest,SO-03,29.9686,-95.2454
+HCP0094,Dr. Joseph Wright,Rheumatology,Emerging,3,Northeast,NO-06,40.244,-75.0634
+HCP0095,Dr. David Wright,Oncology,Mid Value,6,Northeast,NO-06,39.9585,-75.3169
+HCP0096,Dr. Robert Adams,Endocrinology,KOL,10,Midwest,MI-09,44.8854,-93.2007
+HCP0097,Dr. Michael Hernandez,Endocrinology,Mid Value,6,Southwest,SO-08,29.7615,-95.0036
+HCP0098,Dr. Carlos Garcia,Oncology,High Value,9,Midwest,MI-04,45.1439,-92.8722
+HCP0099,Dr. Richard Nguyen,Immunology,Mid Value,5,Midwest,MI-01,40.1926,-82.881
+HCP0100,Dr. Sofia Adams,Cardiology,High Value,8,Northeast,NO-06,42.0253,-70.928
+HCP0101,Dr. Robert Martinez,Endocrinology,High Value,7,Southwest,SO-07,32.8915,-96.9342
+HCP0102,Dr. Raj Lopez,Oncology,Mid Value,6,Northeast,NO-06,39.7997,-74.8043
+HCP0103,Dr. John Williams,Immunology,Emerging,1,Southeast,SO-02,35.2333,-80.8113
+HCP0104,Dr. John Adams,Neurology,Emerging,3,West,WE-03,47.336,-122.067
+HCP0105,Dr. Karen Lopez,Rheumatology,Mid Value,5,Southwest,SO-04,30.1361,-95.2813
+HCP0106,Dr. Barbara Chen,Cardiology,Mid Value,6,Southwest,SO-06,29.903,-95.3135
+HCP0107,Dr. Karen Garcia,Cardiology,Mid Value,6,Midwest,MI-03,45.2762,-93.6233
+HCP0108,Dr. Barbara Williams,Cardiology,Emerging,1,Midwest,MI-05,44.9373,-93.2543
+HCP0109,Dr. Karen Johnson,Neurology,Mid Value,5,Southwest,SO-09,33.3476,-112.1651
+HCP0110,Dr. Carlos Hernandez,Cardiology,Mid Value,4,Northeast,NO-03,41.9907,-70.725
+HCP0111,Dr. Mei Smith,Oncology,Mid Value,5,Midwest,MI-01,44.7825,-92.997
+HCP0112,Dr. Barbara Brown,Oncology,Emerging,1,Midwest,MI-04,39.8971,-82.7637
+HCP0113,Dr. Carlos Cohen,Endocrinology,KOL,10,Midwest,MI-04,45.1526,-93.432
+HCP0114,Dr. Sofia Williams,Endocrinology,Mid Value,5,Northeast,NO-06,40.3669,-73.9852
+HCP0115,Dr. Carlos Patel,Immunology,Emerging,1,Midwest,MI-05,40.1591,-83.1131
+HCP0116,Dr. John Johnson,Immunology,High Value,9,Northeast,NO-09,42.2309,-70.9447
+HCP0117,Dr. Jennifer Jones,Oncology,Emerging,3,Southwest,SO-08,33.078,-112.3127
+HCP0118,Dr. Richard Murphy,Neurology,High Value,8,Southwest,SO-05,29.3897,-95.2523
+HCP0119,Dr. Patricia Lopez,Neurology,Mid Value,5,Southeast,SO-07,25.9563,-79.8761
+HCP0120,Dr. Susan Cohen,Immunology,High Value,8,Midwest,MI-02,42.0598,-87.9667
+HCP0121,Dr. Patricia Williams,Immunology,Emerging,2,West,WE-05,33.8974,-118.1616
+HCP0122,Dr. Fatima Lopez,Endocrinology,High Value,8,Midwest,MI-07,41.6977,-87.2458
+HCP0123,Dr. Sofia Garcia,Oncology,KOL,10,Northeast,NO-03,40.9917,-73.8635
+HCP0124,Dr. Susan Patel,Endocrinology,KOL,9,Midwest,MI-01,45.0619,-93.1218
+HCP0125,Dr. Susan Patel,Immunology,Mid Value,4,Southeast,SO-05,35.0268,-81.1523
+HCP0126,Dr. David Kim,Cardiology,High Value,9,West,WE-05,47.7614,-121.9332
+HCP0127,Dr. Joseph Williams,Rheumatology,High Value,8,Southeast,SO-06,33.8833,-84.2204
+HCP0128,Dr. Ahmed Garcia,Immunology,Mid Value,6,Midwest,MI-09,39.7406,-82.6107
+HCP0129,Dr. Wei Lopez,Neurology,High Value,7,Southwest,SO-09,29.4642,-95.0624
+HCP0130,Dr. Wei Williams,Cardiology,High Value,9,Northeast,NO-06,42.474,-71.0989
+HCP0131,Dr. Jennifer Jones,Neurology,Mid Value,6,West,WE-09,38.1035,-122.7751
+HCP0132,Dr. Ahmed Davis,Immunology,Mid Value,4,Northeast,NO-09,42.676,-70.7822
+HCP0133,Dr. Mei Murphy,Oncology,High Value,7,Southeast,SO-09,25.8745,-80.1184
+HCP0134,Dr. Robert Johnson,Rheumatology,High Value,9,West,WE-05,34.1731,-118.0301
+HCP0135,Dr. Barbara Martinez,Neurology,Mid Value,6,Midwest,MI-04,42.1219,-87.4818
+HCP0136,Dr. Lisa Kim,Cardiology,Mid Value,5,Southeast,SO-06,25.847,-80.3417
+HCP0137,Dr. Raj Murphy,Oncology,High Value,8,West,WE-06,47.3996,-122.6341
+HCP0138,Dr. Mei Nguyen,Cardiology,High Value,7,Midwest,MI-03,45.2286,-92.918
+HCP0139,Dr. Lisa Martinez,Neurology,High Value,8,West,WE-01,47.2782,-122.4175
+HCP0140,Dr. Mary Martinez,Neurology,Emerging,1,Midwest,MI-08,44.8064,-93.6585
+HCP0141,Dr. Susan Johnson,Neurology,Mid Value,5,Northeast,NO-01,42.4163,-71.3032
+HCP0142,Dr. David Adams,Rheumatology,High Value,9,Midwest,MI-02,39.6641,-83.3215
+HCP0143,Dr. Michael Adams,Endocrinology,Emerging,1,Southeast,SO-07,35.2272,-81.2069
+HCP0144,Dr. Mei Cohen,Cardiology,Mid Value,5,Northeast,NO-06,40.2977,-75.3104
+HCP0145,Dr. Raj Murphy,Neurology,Emerging,3,Midwest,MI-05,41.858,-88.0165
+HCP0146,Dr. Ahmed Smith,Endocrinology,Mid Value,5,Southeast,SO-08,35.0395,-80.7186
+HCP0147,Dr. Lisa Garcia,Endocrinology,Mid Value,4,Southwest,SO-07,29.4786,-95.2252
+HCP0148,Dr. William Nguyen,Cardiology,Mid Value,4,Northeast,NO-07,40.8652,-74.0777
+HCP0149,Dr. Ahmed Jones,Endocrinology,Mid Value,6,Southwest,SO-04,29.8091,-94.9713
+HCP0150,Dr. William Murphy,Immunology,Mid Value,5,Midwest,MI-05,45.0659,-93.5112
+HCP0151,Dr. Ahmed Miller,Rheumatology,High Value,7,Southeast,SO-08,33.6026,-84.509
+HCP0152,Dr. Sofia Murphy,Neurology,Emerging,3,Southwest,SO-07,33.0314,-96.4333
+HCP0153,Dr. Susan Kim,Rheumatology,High Value,8,Southwest,SO-05,29.9583,-95.5986
+HCP0154,Dr. Fatima Wright,Cardiology,Mid Value,4,Southwest,SO-04,33.089,-111.7499
+HCP0155,Dr. Ahmed Chen,Oncology,Mid Value,5,Southeast,SO-03,33.3531,-84.3477
+HCP0156,Dr. Barbara Hernandez,Immunology,High Value,8,Southwest,SO-01,33.103,-97.1254
+HCP0157,Dr. Mary Patel,Neurology,High Value,7,West,WE-03,34.4015,-117.874
+HCP0158,Dr. Mei Brown,Immunology,High Value,7,Southwest,SO-05,32.7402,-96.684
+HCP0159,Dr. Michael Brown,Immunology,Mid Value,5,Midwest,MI-03,40.1461,-82.8802
+HCP0160,Dr. Michael Garcia,Endocrinology,High Value,8,West,WE-07,47.8678,-122.3199
+HCP0161,Dr. William Davis,Oncology,Mid Value,4,Northeast,NO-05,42.267,-71.1015
+HCP0162,Dr. James Rodriguez,Rheumatology,Emerging,3,Southeast,SO-06,25.9159,-80.5421
+HCP0163,Dr. Ahmed Martinez,Rheumatology,Mid Value,6,Northeast,NO-02,42.4711,-70.7064
+HCP0164,Dr. Joseph Adams,Immunology,Mid Value,5,Southeast,SO-07,35.3887,-80.5129
+HCP0165,Dr. Robert Cohen,Neurology,Mid Value,6,Southwest,SO-09,29.9234,-95.7073
+HCP0166,Dr. Jennifer Hernandez,Endocrinology,High Value,9,West,WE-08,33.7452,-118.4794
+HCP0167,Dr. Raj Nguyen,Neurology,Mid Value,5,West,WE-01,34.0992,-118.1055
+HCP0168,Dr. Michael Wright,Oncology,Mid Value,4,Southeast,SO-01,25.7007,-80.0315
+HCP0169,Dr. Karen Garcia,Cardiology,Emerging,2,Midwest,MI-07,39.8608,-82.6857
+HCP0170,Dr. Sofia Murphy,Cardiology,Emerging,3,Midwest,MI-06,44.6727,-92.8707
+HCP0171,Dr. Joseph Murphy,Neurology,Mid Value,4,Midwest,MI-09,41.7815,-87.8461
+HCP0172,Dr. Mary Nguyen,Endocrinology,High Value,7,Midwest,MI-01,44.7703,-93.6112
+HCP0173,Dr. Richard Kim,Cardiology,KOL,9,West,WE-09,33.826,-117.9527
+HCP0174,Dr. William Wright,Endocrinology,High Value,7,Northeast,NO-06,40.5023,-73.705
+HCP0175,Dr. Priya Wright,Rheumatology,Mid Value,5,West,WE-03,37.8757,-122.4776
+HCP0176,Dr. Raj Hernandez,Rheumatology,KOL,10,Midwest,MI-07,44.9044,-93.4251
+HCP0177,Dr. Ahmed Jones,Neurology,Emerging,2,Northeast,NO-01,40.0025,-74.791
+HCP0178,Dr. William Williams,Neurology,Mid Value,5,Midwest,MI-06,39.6352,-82.8191
+HCP0179,Dr. Mary Williams,Cardiology,KOL,10,Southeast,SO-09,33.5226,-84.6209
+HCP0180,Dr. Patricia Chen,Cardiology,High Value,7,Southwest,SO-04,32.694,-97.0055
+HCP0181,Dr. Susan Martinez,Immunology,Emerging,3,Southeast,SO-06,35.2374,-80.8453
+HCP0182,Dr. William Nguyen,Oncology,Emerging,2,Northeast,NO-04,42.5531,-71.4459
+HCP0183,Dr. William Davis,Neurology,Emerging,1,Midwest,MI-04,39.9606,-82.8751
+HCP0184,Dr. Lisa Kim,Cardiology,High Value,9,West,WE-06,37.5103,-122.2431
+HCP0185,Dr. Sofia Johnson,Oncology,High Value,9,Midwest,MI-07,44.6878,-93.1604
+HCP0186,Dr. Susan Johnson,Endocrinology,Mid Value,6,Northeast,NO-08,42.4875,-71.4463
+HCP0187,Dr. David Murphy,Immunology,Mid Value,6,Midwest,MI-01,39.963,-82.8405
+HCP0188,Dr. John Davis,Cardiology,Emerging,3,Midwest,MI-09,41.68,-87.7462
+HCP0189,Dr. Linda Davis,Immunology,Mid Value,5,Southwest,SO-02,29.8834,-95.0832
+HCP0190,Dr. Lisa Johnson,Rheumatology,KOL,10,Southwest,SO-01,29.9227,-95.7037
+HCP0191,Dr. Mary Davis,Cardiology,Mid Value,4,Southwest,SO-08,33.2653,-111.7347
+HCP0192,Dr. Michael Wright,Cardiology,Emerging,1,West,WE-07,38.118,-122.58
+HCP0193,Dr. Richard Jones,Rheumatology,High Value,9,West,WE-02,34.0528,-117.8642
+HCP0194,Dr. Mei Adams,Neurology,KOL,9,Northeast,NO-06,40.3365,-74.1873
+HCP0195,Dr. Jennifer Wright,Rheumatology,Mid Value,5,Midwest,MI-07,44.6464,-93.1701
+HCP0196,Dr. Richard Jones,Rheumatology,High Value,7,Southwest,SO-07,29.6137,-95.6846
+HCP0197,Dr. John Williams,Cardiology,Emerging,1,Northeast,NO-07,40.6719,-73.9622
+HCP0198,Dr. Mei Adams,Immunology,High Value,8,Midwest,MI-07,41.488,-87.6988
+HCP0199,Dr. Sofia Patel,Cardiology,KOL,9,Southwest,SO-03,29.5755,-95.5551
+HCP0200,Dr. Lisa Williams,Immunology,KOL,10,Northeast,NO-05,40.308,-74.9885
+HCP0201,Dr. Barbara Smith,Neurology,Mid Value,4,Midwest,MI-06,45.2511,-93.3611
+HCP0202,Dr. John Martinez,Immunology,High Value,8,Southwest,SO-04,33.4316,-112.3319
+HCP0203,Dr. Lisa Wright,Cardiology,Emerging,3,Midwest,MI-06,41.7789,-87.3766
+HCP0204,Dr. Sofia Murphy,Oncology,Mid Value,6,Midwest,MI-08,42.2325,-87.8621
+HCP0205,Dr. John Martinez,Cardiology,High Value,8,Southwest,SO-05,29.8873,-95.1976
+HCP0206,Dr. Richard Murphy,Endocrinology,Mid Value,5,Southwest,SO-07,29.7953,-95.1372
+HCP0207,Dr. Sofia Lopez,Cardiology,Mid Value,4,Southeast,SO-01,35.2777,-80.7271
+HCP0208,Dr. Patricia Rodriguez,Cardiology,Mid Value,4,West,WE-09,37.9724,-122.373
+HCP0209,Dr. Sofia Wright,Rheumatology,Mid Value,5,West,WE-09,47.3268,-121.9339
+HCP0210,Dr. John Lopez,Immunology,High Value,7,Midwest,MI-06,44.9421,-93.4995
+HCP0211,Dr. Joseph Hernandez,Oncology,High Value,8,Midwest,MI-05,44.6135,-93.0964
+HCP0212,Dr. Linda Cohen,Cardiology,Emerging,3,Northeast,NO-09,40.4409,-73.9581
+HCP0213,Dr. Carlos Nguyen,Neurology,High Value,9,Midwest,MI-01,45.1677,-92.9585
+HCP0214,Dr. Michael Rodriguez,Rheumatology,Mid Value,6,Midwest,MI-02,45.0397,-93.0254
+HCP0215,Dr. David Chen,Endocrinology,High Value,7,Midwest,MI-06,40.0388,-82.9098
+HCP0216,Dr. Sofia Martinez,Endocrinology,High Value,8,West,WE-02,34.1899,-118.3932
+HCP0217,Dr. Raj Patel,Neurology,High Value,8,Southeast,SO-03,33.8088,-84.4496
+HCP0218,Dr. Barbara Jones,Cardiology,Mid Value,4,Midwest,MI-06,45.2514,-93.1695
+HCP0219,Dr. Richard Murphy,Endocrinology,Mid Value,4,Southwest,SO-08,33.3757,-112.0806
+HCP0220,Dr. James Davis,Immunology,Emerging,3,West,WE-01,47.4261,-122.302
+HCP0221,Dr. Wei Brown,Immunology,Emerging,1,Northeast,NO-09,40.2112,-75.2717
+HCP0222,Dr. Patricia Davis,Immunology,Emerging,2,Southwest,SO-01,33.4082,-112.1951
+HCP0223,Dr. Wei Lopez,Rheumatology,KOL,9,Southwest,SO-07,33.1812,-112.3626
+HCP0224,Dr. David Adams,Endocrinology,Emerging,3,Southeast,SO-03,33.6079,-84.2248
+HCP0225,Dr. David Jones,Rheumatology,Mid Value,5,Southeast,SO-03,25.5614,-80.0227
+HCP0226,Dr. Carlos Rodriguez,Rheumatology,High Value,8,Southwest,SO-07,33.3485,-112.4136
+HCP0227,Dr. David Lopez,Neurology,Emerging,3,Southwest,SO-08,29.6222,-95.7678
+HCP0228,Dr. Sofia Lopez,Oncology,Emerging,3,Southwest,SO-09,29.6786,-94.9953
+HCP0229,Dr. Priya Wright,Cardiology,High Value,8,Southwest,SO-08,33.679,-111.7587
+HCP0230,Dr. Patricia Garcia,Neurology,KOL,9,Southwest,SO-08,29.3609,-95.0034
+HCP0231,Dr. David Williams,Rheumatology,Emerging,1,Southeast,SO-06,33.5493,-84.4905
+HCP0232,Dr. Fatima Davis,Neurology,Mid Value,6,Southwest,SO-02,32.9397,-97.1961
+HCP0233,Dr. James Smith,Rheumatology,KOL,9,Midwest,MI-06,45.2315,-92.8745
+HCP0234,Dr. Robert Brown,Oncology,Mid Value,4,Midwest,MI-06,41.7721,-87.7904
+HCP0235,Dr. Robert Cohen,Endocrinology,Emerging,1,Midwest,MI-01,41.9664,-87.8985
+HCP0236,Dr. Joseph Miller,Oncology,Mid Value,6,Southeast,SO-02,34.9391,-81.1446
+HCP0237,Dr. David Williams,Cardiology,Mid Value,4,West,WE-09,47.687,-122.1552
+HCP0238,Dr. Raj Adams,Endocrinology,Emerging,1,Southeast,SO-04,25.96,-80.3554
+HCP0239,Dr. Linda Chen,Rheumatology,Emerging,1,Northeast,NO-02,40.7354,-73.6238
+HCP0240,Dr. Susan Murphy,Rheumatology,Emerging,2,Southeast,SO-03,35.4373,-80.4795
+HCP0241,Dr. Mary Johnson,Neurology,KOL,9,Southwest,SO-09,29.5896,-95.1997
+HCP0242,Dr. Priya Adams,Cardiology,Mid Value,6,Southwest,SO-05,29.4273,-95.7066
+HCP0243,Dr. Wei Williams,Immunology,High Value,9,Southwest,SO-07,32.9607,-96.5198
+HCP0244,Dr. Mei Johnson,Immunology,High Value,7,Northeast,NO-03,40.4084,-73.8397
+HCP0245,Dr. Fatima Rodriguez,Cardiology,KOL,10,West,WE-06,47.3077,-122.1072
+HCP0246,Dr. David Cohen,Oncology,Mid Value,5,Southeast,SO-05,25.9316,-80.1305
+HCP0247,Dr. Jennifer Lopez,Cardiology,Mid Value,5,Northeast,NO-05,42.5788,-70.7435
+HCP0248,Dr. Mary Smith,Cardiology,Mid Value,6,West,WE-01,37.7523,-122.513
+HCP0249,Dr. Carlos Nguyen,Cardiology,High Value,9,Northeast,NO-06,39.7512,-74.8325
+HCP0250,Dr. Raj Johnson,Cardiology,High Value,9,Southeast,SO-04,35.4706,-80.458
+HCP0251,Dr. Robert Murphy,Neurology,KOL,10,Midwest,MI-01,41.7732,-87.7965
+HCP0252,Dr. Lisa Miller,Rheumatology,High Value,8,Southwest,SO-09,29.9688,-95.5737
+HCP0253,Dr. Carlos Smith,Immunology,Emerging,2,Northeast,NO-01,40.9199,-74.105
+HCP0254,Dr. Karen Chen,Oncology,Mid Value,6,West,WE-03,47.7755,-122.6577
+HCP0255,Dr. Fatima Williams,Endocrinology,High Value,9,Southwest,SO-02,32.781,-96.6872
+HCP0256,Dr. Linda Martinez,Immunology,KOL,9,Midwest,MI-06,42.2189,-87.7154
+HCP0257,Dr. Robert Miller,Cardiology,Mid Value,5,Southwest,SO-02,33.1727,-112.3425
+HCP0258,Dr. Joseph Martinez,Neurology,High Value,9,Midwest,MI-05,45.2598,-93.5927
+HCP0259,Dr. Robert Davis,Immunology,Mid Value,5,Southwest,SO-07,29.7712,-95.2281
+HCP0260,Dr. Priya Murphy,Cardiology,Emerging,2,Southeast,SO-02,25.7313,-79.9487
+HCP0261,Dr. Richard Lopez,Rheumatology,High Value,7,Northeast,NO-02,40.0185,-75.3581
+HCP0262,Dr. John Williams,Immunology,KOL,9,Southwest,SO-02,33.0826,-112.1052
+HCP0263,Dr. James Patel,Rheumatology,Emerging,2,Northeast,NO-07,39.6908,-75.3934
+HCP0264,Dr. Mei Adams,Cardiology,High Value,7,Northeast,NO-05,39.9517,-74.859
+HCP0265,Dr. Michael Cohen,Cardiology,KOL,10,Midwest,MI-09,45.2137,-92.8735
+HCP0266,Dr. Wei Cohen,Immunology,Mid Value,5,Southwest,SO-07,29.5767,-95.7489
+HCP0267,Dr. Susan Wright,Cardiology,High Value,7,West,WE-03,33.7323,-118.1182
+HCP0268,Dr. Susan Garcia,Cardiology,Mid Value,6,Southeast,SO-04,25.8357,-79.9468
+HCP0269,Dr. Wei Wright,Cardiology,Mid Value,6,West,WE-04,47.8756,-122.0838
+HCP0270,Dr. Mary Davis,Endocrinology,Mid Value,4,Midwest,MI-04,44.5937,-93.2826
+HCP0271,Dr. Jennifer Hernandez,Oncology,Emerging,3,Southeast,SO-01,34.9453,-80.6793
+HCP0272,Dr. Sofia Patel,Endocrinology,Emerging,3,Northeast,NO-02,39.8218,-75.3071
+HCP0273,Dr. William Garcia,Rheumatology,Mid Value,5,Northeast,NO-09,40.1074,-74.8221
+HCP0274,Dr. Ahmed Martinez,Cardiology,Mid Value,5,Southwest,SO-03,29.9435,-95.0108
+HCP0275,Dr. Mei Davis,Rheumatology,Mid Value,6,West,WE-02,34.4016,-118.5312
+HCP0276,Dr. Robert Hernandez,Neurology,KOL,10,West,WE-01,47.4184,-122.5325
+HCP0277,Dr. Richard Kim,Rheumatology,Mid Value,4,Northeast,NO-07,42.7354,-70.7513
+HCP0278,Dr. Lisa Wright,Rheumatology,Emerging,1,Midwest,MI-04,44.7079,-93.606
+HCP0279,Dr. Robert Hernandez,Cardiology,KOL,9,Southwest,SO-07,33.1771,-112.414
+HCP0280,Dr. Ahmed Smith,Neurology,Emerging,2,Southwest,SO-03,32.8626,-96.8496
+HCP0281,Dr. Priya Murphy,Immunology,High Value,7,Northeast,NO-05,40.5507,-74.3293
+HCP0282,Dr. James Nguyen,Oncology,Mid Value,4,Midwest,MI-05,42.1372,-87.5297
+HCP0283,Dr. Barbara Williams,Neurology,High Value,7,Midwest,MI-02,44.8245,-93.347
+HCP0284,Dr. Richard Garcia,Immunology,Emerging,3,Midwest,MI-07,44.8733,-93.3084
+HCP0285,Dr. Mary Jones,Rheumatology,Mid Value,5,Southeast,SO-02,25.4303,-80.3168
+HCP0286,Dr. Raj Nguyen,Endocrinology,Mid Value,4,Midwest,MI-08,40.0194,-83.2103
+HCP0287,Dr. Wei Adams,Cardiology,KOL,9,Southeast,SO-02,26.1211,-80.2326
+HCP0288,Dr. Robert Nguyen,Cardiology,Emerging,2,Northeast,NO-03,40.2199,-75.3589
+HCP0289,Dr. Richard Murphy,Immunology,Mid Value,5,Southwest,SO-05,32.7925,-96.4633
+HCP0290,Dr. John Wright,Endocrinology,Emerging,1,Northeast,NO-02,41.0527,-73.9559
+HCP0291,Dr. Carlos Chen,Endocrinology,Emerging,2,Northeast,NO-08,41.9901,-71.2386
+HCP0292,Dr. Ahmed Davis,Oncology,Mid Value,5,Northeast,NO-08,40.2893,-74.8476
+HCP0293,Dr. Ahmed Brown,Cardiology,High Value,8,Northeast,NO-03,40.5532,-73.811
+HCP0294,Dr. Carlos Williams,Cardiology,Emerging,3,Southwest,SO-08,29.5295,-95.1106
+HCP0295,Dr. Robert Martinez,Rheumatology,Mid Value,6,West,WE-09,47.5289,-122.1077
+HCP0296,Dr. Mary Davis,Oncology,Emerging,1,Midwest,MI-08,39.6016,-83.1105
+HCP0297,Dr. Patricia Smith,Cardiology,High Value,9,Southeast,SO-06,33.74,-84.4311
+HCP0298,Dr. Fatima Williams,Immunology,Mid Value,4,Southwest,SO-01,33.3577,-112.3437
+HCP0299,Dr. Sofia Miller,Immunology,Emerging,1,West,WE-07,34.0628,-117.952
+HCP0300,Dr. Mei Smith,Cardiology,Mid Value,6,Southwest,SO-05,29.8471,-95.0154
