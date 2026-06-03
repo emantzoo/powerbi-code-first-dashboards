@@ -1,0 +1,34 @@
+segment_type,segment_value,outcome,recommended_tactic,est_uplift
+Overall,All,Meaningful Interaction,AI-Followed vs Not,0.099
+Specialty,Cardiologist,Meaningful Interaction,AI-Followed vs Not,0.098
+Specialty,General Practitioner,Meaningful Interaction,Video vs Phone,0.0921
+Specialty,Immunologist,Meaningful Interaction,Video vs Phone,0.1048
+Specialty,Internist,Meaningful Interaction,Video vs Phone,0.113
+Specialty,Neurologist,Meaningful Interaction,AI-Followed vs Not,0.1081
+Specialty,Oncologist,Meaningful Interaction,AI-Followed vs Not,0.1099
+Specialty,Pulmonologist,Meaningful Interaction,Script A vs B,0.0987
+Tier,Tier 1 - High Value,Meaningful Interaction,Video vs Phone,0.0875
+Tier,Tier 2 - Medium Value,Meaningful Interaction,AI-Followed vs Not,0.0887
+Tier,Tier 3 - Low Value,Meaningful Interaction,AI-Followed vs Not,0.1186
+Overall,All,Connect,Video vs Phone,0.101
+Specialty,Cardiologist,Connect,AI-Followed vs Not,0.1056
+Specialty,General Practitioner,Connect,Video vs Phone,0.1103
+Specialty,Immunologist,Connect,AI-Followed vs Not,0.1027
+Specialty,Internist,Connect,Video vs Phone,0.1622
+Specialty,Neurologist,Connect,AI-Followed vs Not,0.1039
+Specialty,Oncologist,Connect,Video vs Phone,0.1038
+Specialty,Pulmonologist,Connect,AI-Followed vs Not,0.0899
+Tier,Tier 1 - High Value,Connect,AI-Followed vs Not,0.0618
+Tier,Tier 2 - Medium Value,Connect,Video vs Phone,0.0824
+Tier,Tier 3 - Low Value,Connect,Video vs Phone,0.1211
+Overall,All,HCP Sentiment,AI-Followed vs Not,0.3881
+Specialty,Cardiologist,HCP Sentiment,AI-Followed vs Not,0.3726
+Specialty,General Practitioner,HCP Sentiment,AI-Followed vs Not,0.3881
+Specialty,Immunologist,HCP Sentiment,AI-Followed vs Not,0.3861
+Specialty,Internist,HCP Sentiment,AI-Followed vs Not,0.395
+Specialty,Neurologist,HCP Sentiment,AI-Followed vs Not,0.3599
+Specialty,Oncologist,HCP Sentiment,AI-Followed vs Not,0.4782
+Specialty,Pulmonologist,HCP Sentiment,Script A vs B,0.3622
+Tier,Tier 1 - High Value,HCP Sentiment,Script A vs B,0.324
+Tier,Tier 2 - Medium Value,HCP Sentiment,AI-Followed vs Not,0.3849
+Tier,Tier 3 - Low Value,HCP Sentiment,AI-Followed vs Not,0.4078

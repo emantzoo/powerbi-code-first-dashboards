@@ -1,0 +1,13 @@
+outcome,feature,importance,uplift,direction
+Meaningful Interaction,AI-Followed vs Not,0.099,0.099,Helps
+Meaningful Interaction,Script A vs B,0.0742,0.0742,Helps
+Meaningful Interaction,Video vs Phone,0.067,0.067,Helps
+Meaningful Interaction,Email vs Phone,0.0233,0.0233,Helps
+Connect,AI-Followed vs Not,0.0971,0.0971,Helps
+Connect,Script A vs B,0.0295,0.0295,Helps
+Connect,Video vs Phone,0.101,0.101,Helps
+Connect,Email vs Phone,0.0523,0.0523,Helps
+HCP Sentiment,AI-Followed vs Not,0.3881,0.3881,Helps
+HCP Sentiment,Script A vs B,0.3206,0.3206,Helps
+HCP Sentiment,Video vs Phone,0.0295,0.0295,Helps
+HCP Sentiment,Email vs Phone,0.0131,-0.0131,Hurts

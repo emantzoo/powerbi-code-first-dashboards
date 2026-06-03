@@ -58,6 +58,15 @@ Facts:
 - FactMSLPartnerUsage.csv   (~8300 rows — AI medical-info assistant queries)
 - FactFinancials.csv        (10 rows — monthly program P&L)
 
+Model-output tables (Approach B — generate them first with `python scripts/train_uplift.py`):
+- FactUplift.csv         (~132 rows — uplift per tactic × outcome × segment, with 95% CIs)
+- DimNBA.csv             (~33 rows — next-best-action: top tactic per segment/outcome)
+- FeatureImportance.csv  (~12 rows — overall |uplift| per tactic, per outcome)
+Load these three as STANDALONE tables — no relationships (they are pre-aggregated model
+output; each visual reads its own columns). uplift / ci_low / ci_high / treated_value /
+control_value / importance / est_uplift = Decimal; n_treated / n_control / significant =
+Whole Number; everything else Text.
+
 Read each CSV header and create tables with correct names/types.
 - Dates (Date, CallDate, RxDate, FirstContactDate, PASubmitDate, PADecisionDate,
   FulfillmentDate, FirstDoseDate, UsageDate, MonthDate, HireDate, EnrollmentDate,
@@ -355,7 +364,23 @@ Selling Time Pct = DIVIDE([Selling Minutes], [Total Handling Minutes], 0)
 Admin Time Pct = DIVIDE(SUM(FactHCPCalls[AfterCallWorkMinutes]), [Total Handling Minutes], 0)
 ```
 
-**Total: 122 measures** across 16 groups.
+### 17. Sentiment & Insight Engine (4)  ⭐ added
+
+> Sentiment analysis on the AI `HCPSentimentScore` (uses the `SentimentBand` column
+> below), plus two helper measures over the offline uplift output tables.
+
+```
+Positive Sentiment Pct = DIVIDE(
+    CALCULATE([Total Calls], FactHCPCalls[SentimentBand] = "Positive"),
+    CALCULATE([Total Calls], NOT(ISBLANK(FactHCPCalls[HCPSentimentScore]))), 0)
+Negative Sentiment Pct = DIVIDE(
+    CALCULATE([Total Calls], FactHCPCalls[SentimentBand] = "Negative"),
+    CALCULATE([Total Calls], NOT(ISBLANK(FactHCPCalls[HCPSentimentScore]))), 0)
+Avg Uplift = AVERAGE(FactUplift[uplift])
+Avg Importance = AVERAGE(FeatureImportance[importance])
+```
+
+**Total: 127 measures** across 17 groups.
 
 ### Calculated Columns
 
@@ -377,6 +402,13 @@ Tenure Bucket = SWITCH(TRUE(),
 # FactHCPCalls — 2-hour evening call-time band for the connect-rate heatmap (Internal report)
 CallTimeBucket = VAR h = VALUE(LEFT(FactHCPCalls[CallTime], 2))
 RETURN SWITCH(TRUE(), h < 18, "16-18", h < 20, "18-20", h < 22, "20-22", "22-00")
+
+# FactHCPCalls — sentiment band for the Sentiment Analysis page (Insights Engine report)
+SentimentBand = SWITCH(TRUE(),
+    ISBLANK(FactHCPCalls[HCPSentimentScore]), BLANK(),
+    FactHCPCalls[HCPSentimentScore] >= 4, "Positive",
+    FactHCPCalls[HCPSentimentScore] >= 2.5, "Neutral",
+    "Negative")
 ```
 
 ---

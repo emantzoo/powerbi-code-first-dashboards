@@ -1,0 +1,133 @@
+outcome,tactic,segment_type,segment_value,treated_value,control_value,uplift,ci_low,ci_high,n_treated,n_control,significant
+Meaningful Interaction,AI-Followed vs Not,Overall,All,0.2924,0.1934,0.099,0.085,0.113,6289,8711,1
+Meaningful Interaction,Script A vs B,Overall,All,0.272,0.1978,0.0742,0.0607,0.0877,7503,7497,1
+Meaningful Interaction,Video vs Phone,Overall,All,0.2908,0.2238,0.067,0.0424,0.0916,1458,10584,1
+Meaningful Interaction,Email vs Phone,Overall,All,0.2471,0.2238,0.0233,0.0058,0.0408,2958,10584,1
+Meaningful Interaction,AI-Followed vs Not,Specialty,Cardiologist,0.2951,0.1971,0.098,0.0635,0.1325,1030,1461,1
+Meaningful Interaction,Script A vs B,Specialty,Cardiologist,0.2695,0.2053,0.0642,0.0309,0.0975,1254,1237,1
+Meaningful Interaction,Video vs Phone,Specialty,Cardiologist,0.2727,0.2301,0.0426,-0.0181,0.1033,231,1760,0
+Meaningful Interaction,Email vs Phone,Specialty,Cardiologist,0.248,0.2301,0.0179,-0.0248,0.0605,500,1760,0
+Meaningful Interaction,AI-Followed vs Not,Specialty,General Practitioner,0.2782,0.1947,0.0836,0.0428,0.1243,708,1053,1
+Meaningful Interaction,Script A vs B,Specialty,General Practitioner,0.2564,0.1988,0.0575,0.0185,0.0966,901,860,1
+Meaningful Interaction,Video vs Phone,Specialty,General Practitioner,0.3117,0.2196,0.0921,0.0155,0.1688,154,1248,1
+Meaningful Interaction,Email vs Phone,Specialty,General Practitioner,0.2228,0.2196,0.0033,-0.0455,0.0521,359,1248,0
+Meaningful Interaction,AI-Followed vs Not,Specialty,Immunologist,0.2709,0.1822,0.0887,0.0505,0.1269,790,1147,1
+Meaningful Interaction,Script A vs B,Specialty,Immunologist,0.257,0.1798,0.0772,0.0406,0.1138,969,968,1
+Meaningful Interaction,Video vs Phone,Specialty,Immunologist,0.3086,0.2039,0.1048,0.0306,0.179,162,1393,1
+Meaningful Interaction,Email vs Phone,Specialty,Immunologist,0.233,0.2039,0.0291,-0.0183,0.0765,382,1393,0
+Meaningful Interaction,AI-Followed vs Not,Specialty,Internist,0.3068,0.1949,0.1118,0.0746,0.149,916,1226,1
+Meaningful Interaction,Script A vs B,Specialty,Internist,0.2782,0.2073,0.071,0.0348,0.1072,1071,1071,1
+Meaningful Interaction,Video vs Phone,Specialty,Internist,0.3362,0.2232,0.113,0.049,0.1769,235,1510,1
+Meaningful Interaction,Email vs Phone,Specialty,Internist,0.262,0.2232,0.0388,-0.0093,0.0869,397,1510,0
+Meaningful Interaction,AI-Followed vs Not,Specialty,Neurologist,0.3029,0.1948,0.1081,0.0722,0.1441,964,1335,1
+Meaningful Interaction,Script A vs B,Specialty,Neurologist,0.289,0.1919,0.0971,0.0624,0.1318,1142,1157,1
+Meaningful Interaction,Video vs Phone,Specialty,Neurologist,0.2566,0.2351,0.0215,-0.035,0.0781,265,1608,0
+Meaningful Interaction,Email vs Phone,Specialty,Neurologist,0.2488,0.2351,0.0138,-0.0322,0.0597,426,1608,0
+Meaningful Interaction,AI-Followed vs Not,Specialty,Oncologist,0.3003,0.1904,0.1099,0.0692,0.1505,746,1040,1
+Meaningful Interaction,Script A vs B,Specialty,Oncologist,0.2567,0.2159,0.0408,0.0015,0.0802,892,894,1
+Meaningful Interaction,Video vs Phone,Specialty,Oncologist,0.2914,0.2248,0.0667,-0.0046,0.1379,175,1228,0
+Meaningful Interaction,Email vs Phone,Specialty,Oncologist,0.248,0.2248,0.0233,-0.0259,0.0724,383,1228,0
+Meaningful Interaction,AI-Followed vs Not,Specialty,Pulmonologist,0.2881,0.1974,0.0907,0.0573,0.1241,1135,1449,1
+Meaningful Interaction,Script A vs B,Specialty,Pulmonologist,0.2873,0.1885,0.0987,0.0661,0.1314,1274,1310,1
+Meaningful Interaction,Video vs Phone,Specialty,Pulmonologist,0.2754,0.2259,0.0495,-0.0106,0.1096,236,1837,0
+Meaningful Interaction,Email vs Phone,Specialty,Pulmonologist,0.2603,0.2259,0.0344,-0.0082,0.0769,511,1837,0
+Meaningful Interaction,AI-Followed vs Not,Tier,Tier 1 - High Value,0.2668,0.2179,0.0489,0.0074,0.0904,716,973,1
+Meaningful Interaction,Script A vs B,Tier,Tier 1 - High Value,0.2758,0.198,0.0778,0.0375,0.1181,881,808,1
+Meaningful Interaction,Video vs Phone,Tier,Tier 1 - High Value,0.3129,0.2254,0.0875,0.0089,0.1662,147,1198,1
+Meaningful Interaction,Email vs Phone,Tier,Tier 1 - High Value,0.2529,0.2254,0.0275,-0.0241,0.0792,344,1198,0
+Meaningful Interaction,AI-Followed vs Not,Tier,Tier 2 - Medium Value,0.2848,0.196,0.0887,0.0665,0.1109,2465,3443,1
+Meaningful Interaction,Script A vs B,Tier,Tier 2 - Medium Value,0.2718,0.1953,0.0764,0.0549,0.0979,2918,2990,1
+Meaningful Interaction,Video vs Phone,Tier,Tier 2 - Medium Value,0.2964,0.2225,0.0739,0.0356,0.1122,614,4144,1
+Meaningful Interaction,Email vs Phone,Tier,Tier 2 - Medium Value,0.2374,0.2225,0.0149,-0.0128,0.0426,1150,4144,0
+Meaningful Interaction,AI-Followed vs Not,Tier,Tier 3 - Low Value,0.3044,0.1858,0.1186,0.0987,0.1385,3108,4295,1
+Meaningful Interaction,Script A vs B,Tier,Tier 3 - Low Value,0.2713,0.1998,0.0715,0.0523,0.0908,3704,3699,1
+Meaningful Interaction,Video vs Phone,Tier,Tier 3 - Low Value,0.2812,0.2245,0.0567,0.0214,0.0919,697,5242,1
+Meaningful Interaction,Email vs Phone,Tier,Tier 3 - Low Value,0.2534,0.2245,0.0289,0.0039,0.0539,1464,5242,1
+Connect,AI-Followed vs Not,Overall,All,0.4549,0.3578,0.0971,0.0812,0.113,6289,8711,1
+Connect,Script A vs B,Overall,All,0.4133,0.3838,0.0295,0.0139,0.0452,7503,7497,1
+Connect,Video vs Phone,Overall,All,0.4794,0.3784,0.101,0.0738,0.1283,1458,10584,1
+Connect,Email vs Phone,Overall,All,0.4307,0.3784,0.0523,0.0322,0.0724,2958,10584,1
+Connect,AI-Followed vs Not,Specialty,Cardiologist,0.4553,0.3498,0.1056,0.0666,0.1446,1030,1461,1
+Connect,Script A vs B,Specialty,Cardiologist,0.4171,0.3694,0.0476,0.0093,0.0859,1254,1237,1
+Connect,Video vs Phone,Specialty,Cardiologist,0.4762,0.375,0.1012,0.0329,0.1695,231,1760,1
+Connect,Email vs Phone,Specialty,Cardiologist,0.42,0.375,0.045,-0.0038,0.0938,500,1760,0
+Connect,AI-Followed vs Not,Specialty,General Practitioner,0.435,0.3599,0.0751,0.0285,0.1217,708,1053,1
+Connect,Script A vs B,Specialty,General Practitioner,0.3996,0.3802,0.0193,-0.0262,0.0649,901,860,0
+Connect,Video vs Phone,Specialty,General Practitioner,0.4805,0.3702,0.1103,0.027,0.1937,154,1248,1
+Connect,Email vs Phone,Specialty,General Practitioner,0.4206,0.3702,0.0504,-0.0072,0.1081,359,1248,0
+Connect,AI-Followed vs Not,Specialty,Immunologist,0.4532,0.3505,0.1027,0.0583,0.147,790,1147,1
+Connect,Script A vs B,Specialty,Immunologist,0.4014,0.3833,0.0182,-0.0253,0.0617,969,968,0
+Connect,Video vs Phone,Specialty,Immunologist,0.463,0.3719,0.0911,0.0102,0.172,162,1393,1
+Connect,Email vs Phone,Specialty,Immunologist,0.4372,0.3719,0.0653,0.0095,0.1212,382,1393,1
+Connect,AI-Followed vs Not,Specialty,Internist,0.4662,0.3662,0.0999,0.0578,0.142,916,1226,1
+Connect,Script A vs B,Specialty,Internist,0.4043,0.4136,-0.0093,-0.051,0.0323,1071,1071,0
+Connect,Video vs Phone,Specialty,Internist,0.5489,0.3868,0.1622,0.094,0.2304,235,1510,1
+Connect,Email vs Phone,Specialty,Internist,0.4106,0.3868,0.0238,-0.0304,0.0781,397,1510,0
+Connect,AI-Followed vs Not,Specialty,Neurologist,0.4627,0.3588,0.1039,0.0632,0.1445,964,1335,1
+Connect,Script A vs B,Specialty,Neurologist,0.4221,0.3829,0.0392,-0.0009,0.0792,1142,1157,0
+Connect,Video vs Phone,Specialty,Neurologist,0.4453,0.3818,0.0634,-0.0009,0.1278,265,1608,0
+Connect,Email vs Phone,Specialty,Neurologist,0.4531,0.3818,0.0712,0.0183,0.1241,426,1608,1
+Connect,AI-Followed vs Not,Specialty,Oncologist,0.4491,0.3519,0.0971,0.0511,0.1431,746,1040,1
+Connect,Script A vs B,Specialty,Oncologist,0.3924,0.3926,-0.0002,-0.0455,0.0451,892,894,0
+Connect,Video vs Phone,Specialty,Oncologist,0.48,0.3762,0.1038,0.025,0.1826,175,1228,1
+Connect,Email vs Phone,Specialty,Oncologist,0.4047,0.3762,0.0285,-0.0277,0.0846,383,1228,0
+Connect,AI-Followed vs Not,Specialty,Pulmonologist,0.4564,0.3665,0.0899,0.0518,0.1281,1135,1449,1
+Connect,Script A vs B,Specialty,Pulmonologist,0.4427,0.3702,0.0725,0.0347,0.1103,1274,1310,1
+Connect,Video vs Phone,Specialty,Pulmonologist,0.4619,0.3838,0.0781,0.0107,0.1455,236,1837,1
+Connect,Email vs Phone,Specialty,Pulmonologist,0.4599,0.3838,0.0761,0.0275,0.1247,511,1837,1
+Connect,AI-Followed vs Not,Tier,Tier 1 - High Value,0.4246,0.3628,0.0618,0.0146,0.1089,716,973,1
+Connect,Script A vs B,Tier,Tier 1 - High Value,0.4075,0.3688,0.0387,-0.0078,0.0852,881,808,0
+Connect,Video vs Phone,Tier,Tier 1 - High Value,0.449,0.3706,0.0784,-0.0066,0.1633,147,1198,0
+Connect,Email vs Phone,Tier,Tier 1 - High Value,0.4273,0.3706,0.0567,-0.0023,0.1157,344,1198,0
+Connect,AI-Followed vs Not,Tier,Tier 2 - Medium Value,0.4495,0.3721,0.0774,0.052,0.1029,2465,3443,1
+Connect,Script A vs B,Tier,Tier 2 - Medium Value,0.4171,0.392,0.0251,0.0001,0.0501,2918,2990,1
+Connect,Video vs Phone,Tier,Tier 2 - Medium Value,0.4723,0.39,0.0824,0.0402,0.1245,614,4144,1
+Connect,Email vs Phone,Tier,Tier 2 - Medium Value,0.42,0.39,0.03,-0.0021,0.0622,1150,4144,0
+Connect,AI-Followed vs Not,Tier,Tier 3 - Low Value,0.4662,0.3453,0.1209,0.0984,0.1435,3108,4295,1
+Connect,Script A vs B,Tier,Tier 3 - Low Value,0.4117,0.3804,0.0313,0.0091,0.0536,3704,3699,1
+Connect,Video vs Phone,Tier,Tier 3 - Low Value,0.4921,0.371,0.1211,0.0817,0.1604,697,5242,1
+Connect,Email vs Phone,Tier,Tier 3 - Low Value,0.4399,0.371,0.0688,0.0403,0.0974,1464,5242,1
+HCP Sentiment,AI-Followed vs Not,Overall,All,3.6852,3.2971,0.3881,0.3537,0.4224,2861,3117,1
+HCP Sentiment,Script A vs B,Overall,All,3.6372,3.3165,0.3206,0.2858,0.3555,3101,2877,1
+HCP Sentiment,Video vs Phone,Overall,All,3.5117,3.4822,0.0295,-0.0267,0.0857,699,4005,0
+HCP Sentiment,Email vs Phone,Overall,All,3.4691,3.4822,-0.0131,-0.0581,0.0318,1274,4005,0
+HCP Sentiment,AI-Followed vs Not,Specialty,Cardiologist,3.7021,3.3295,0.3726,0.2863,0.4588,469,511,1
+HCP Sentiment,Script A vs B,Specialty,Cardiologist,3.6293,3.3689,0.2603,0.1724,0.3482,523,457,1
+HCP Sentiment,Video vs Phone,Specialty,Cardiologist,3.4818,3.5167,-0.0348,-0.1749,0.1052,110,660,0
+HCP Sentiment,Email vs Phone,Specialty,Cardiologist,3.4938,3.5167,-0.0229,-0.1371,0.0914,210,660,0
+HCP Sentiment,AI-Followed vs Not,Specialty,General Practitioner,3.6701,3.2821,0.3881,0.2875,0.4886,308,379,1
+HCP Sentiment,Script A vs B,Specialty,General Practitioner,3.6044,3.2927,0.3118,0.211,0.4126,360,327,1
+HCP Sentiment,Video vs Phone,Specialty,General Practitioner,3.5514,3.4615,0.0899,-0.0768,0.2566,74,462,0
+HCP Sentiment,Email vs Phone,Specialty,General Practitioner,3.3927,3.4615,-0.0688,-0.2033,0.0658,151,462,0
+HCP Sentiment,AI-Followed vs Not,Specialty,Immunologist,3.6662,3.2801,0.3861,0.2899,0.4823,358,402,1
+HCP Sentiment,Script A vs B,Specialty,Immunologist,3.6231,3.293,0.3301,0.2334,0.4269,389,371,1
+HCP Sentiment,Video vs Phone,Specialty,Immunologist,3.6533,3.4409,0.2124,0.0338,0.391,75,518,1
+HCP Sentiment,Email vs Phone,Specialty,Immunologist,3.4413,3.4409,0.0004,-0.1221,0.1229,167,518,0
+HCP Sentiment,AI-Followed vs Not,Specialty,Internist,3.6888,3.2938,0.395,0.3037,0.4862,427,449,1
+HCP Sentiment,Script A vs B,Specialty,Internist,3.6642,3.3124,0.3518,0.2597,0.4439,433,443,1
+HCP Sentiment,Video vs Phone,Specialty,Internist,3.5411,3.4586,0.0825,-0.0479,0.2129,129,584,0
+HCP Sentiment,Email vs Phone,Specialty,Internist,3.5423,3.4586,0.0838,-0.0409,0.2084,163,584,0
+HCP Sentiment,AI-Followed vs Not,Specialty,Neurologist,3.6791,3.3192,0.3599,0.2729,0.447,446,479,1
+HCP Sentiment,Script A vs B,Specialty,Neurologist,3.6475,3.3244,0.3231,0.2352,0.4111,482,443,1
+HCP Sentiment,Video vs Phone,Specialty,Neurologist,3.4593,3.5166,-0.0573,-0.2,0.0855,118,614,0
+HCP Sentiment,Email vs Phone,Specialty,Neurologist,3.4373,3.5166,-0.0793,-0.1933,0.0347,193,614,0
+HCP Sentiment,AI-Followed vs Not,Specialty,Oncologist,3.7167,3.2385,0.4782,0.3807,0.5756,335,366,1
+HCP Sentiment,Script A vs B,Specialty,Oncologist,3.616,3.3185,0.2975,0.1959,0.3991,350,351,1
+HCP Sentiment,Video vs Phone,Specialty,Oncologist,3.4738,3.4714,0.0024,-0.1554,0.1602,84,462,0
+HCP Sentiment,Email vs Phone,Specialty,Oncologist,3.4503,3.4714,-0.0211,-0.1448,0.1026,155,462,0
+HCP Sentiment,AI-Followed vs Not,Specialty,Pulmonologist,3.6739,3.313,0.3609,0.2782,0.4437,518,531,1
+HCP Sentiment,Script A vs B,Specialty,Pulmonologist,3.6587,3.2965,0.3622,0.2793,0.4451,564,485,1
+HCP Sentiment,Video vs Phone,Specialty,Pulmonologist,3.4688,3.4906,-0.0218,-0.1634,0.1198,109,705,0
+HCP Sentiment,Email vs Phone,Specialty,Pulmonologist,3.5034,3.4906,0.0128,-0.0923,0.1179,235,705,0
+HCP Sentiment,AI-Followed vs Not,Tier,Tier 1 - High Value,3.6306,3.3286,0.302,0.197,0.4069,304,353,1
+HCP Sentiment,Script A vs B,Tier,Tier 1 - High Value,3.6153,3.2913,0.324,0.2195,0.4286,359,298,1
+HCP Sentiment,Video vs Phone,Tier,Tier 1 - High Value,3.4909,3.4705,0.0204,-0.1689,0.2098,66,444,0
+HCP Sentiment,Email vs Phone,Tier,Tier 1 - High Value,3.4517,3.4705,-0.0188,-0.1478,0.1103,147,444,0
+HCP Sentiment,AI-Followed vs Not,Tier,Tier 2 - Medium Value,3.6653,3.2805,0.3849,0.3303,0.4395,1108,1281,1
+HCP Sentiment,Script A vs B,Tier,Tier 2 - Medium Value,3.615,3.297,0.3179,0.2626,0.3733,1217,1172,1
+HCP Sentiment,Video vs Phone,Tier,Tier 2 - Medium Value,3.5159,3.4522,0.0637,-0.0215,0.1489,290,1616,0
+HCP Sentiment,Email vs Phone,Tier,Tier 2 - Medium Value,3.4476,3.4522,-0.0045,-0.0779,0.0688,483,1616,0
+HCP Sentiment,AI-Followed vs Not,Tier,Tier 3 - Low Value,3.7119,3.304,0.4078,0.3591,0.4565,1449,1483,1
+HCP Sentiment,Script A vs B,Tier,Tier 3 - Low Value,3.6601,3.3382,0.3219,0.2724,0.3714,1525,1407,1
+HCP Sentiment,Video vs Phone,Tier,Tier 3 - Low Value,3.5122,3.5099,0.0024,-0.079,0.0838,343,1945,0
+HCP Sentiment,Email vs Phone,Tier,Tier 3 - Low Value,3.4891,3.5099,-0.0207,-0.0841,0.0427,644,1945,0
