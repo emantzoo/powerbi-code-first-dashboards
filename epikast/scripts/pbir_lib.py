@@ -1,19 +1,26 @@
 """
-Epikast Engagement Dashboard — PBIR visual generator.
+Shared PBIR helper library for the Epikast dashboards.
 
-Writes visual.json files into the .pbip PBIR folder structure. Power BI renders
-them as a polished, 6-page dashboard. Pure stdlib — run with Power BI closed:
+Both report layout scripts (generate_pages_internal.py and
+generate_pages_client.py) import from here, so the make_* functions and
+formatting defaults live in exactly one place. They run against ONE shared
+semantic model but write into TWO separate report definitions.
 
-    python scripts/generate_pages.py
+Usage from a layout script:
 
-Helper library (make_* + _*_objects) is shared with the other projects in this
-repo; only the page definitions at the bottom are Epikast-specific.
+    import pbir_lib as pb
+    from pbir_lib import *          # make_*, write_page, uid, ...
+    pb.BASE = r"C:\\...\\epikast_internal_dashb.Report\\definition\\pages"
+    ...
+    write_page(p1_id, "Operations Overview", p1)
+
+Pure stdlib. Run the layout scripts with Power BI closed.
 """
 
 import json, os, hashlib, shutil
 
-# ── Path and schema constants ──────────────────────────────────────────────
-BASE = r"C:\Users\emant\Documents\powerbi-code-first-dashboards\epikast\epikast_dashb.Report\definition\pages"
+# Set by the importing layout script before any write_page() call.
+BASE = None
 
 SCHEMA_VISUAL = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json"
 SCHEMA_PAGE   = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json"
@@ -134,6 +141,8 @@ def write_visual(page_dir, visual_json):
         json.dump(visual_json, f, indent=2, ensure_ascii=False)
 
 def write_page(page_id, display_name, visuals):
+    if BASE is None:
+        raise RuntimeError("pbir_lib.BASE is not set — assign it in the layout script before calling write_page().")
     page_dir = os.path.join(BASE, page_id)
     visuals_dir = os.path.join(page_dir, "visuals")
     if os.path.exists(visuals_dir):
@@ -144,6 +153,11 @@ def write_page(page_id, display_name, visuals):
                     "displayOption": "FitToPage", "height": 720, "width": 1280}, f, indent=2)
     for v in visuals:
         write_visual(page_dir, v)
+
+def write_pages_json(page_order):
+    with open(os.path.join(BASE, "pages.json"), "w", encoding="utf-8") as f:
+        json.dump({"$schema": SCHEMA_PAGES, "pageOrder": page_order,
+                   "activePageName": page_order[0]}, f, indent=2)
 
 
 # ── Visual builder functions ───────────────────────────────────────────────
@@ -338,166 +352,3 @@ def make_clustered_column_gradient(name, x, y, w, h, cat_table, cat_col, val_tab
     return make_visual(name, x, y, w, h, "clusteredColumnChart",
         {"Category": {"projections": [column_field(cat_table, cat_col)]},
          "Y": {"projections": [measure_field(val_table, val_measure)]}}, objects=base_objects)
-
-
-# ═══════════════════════════════════════════════════════════════════════════
-# PAGE DEFINITIONS — Epikast Engagement Dashboard
-# ═══════════════════════════════════════════════════════════════════════════
-EPIKAST_TEAL = "#0F766E"   # title-bar accent (clinical teal)
-
-# ===== PAGE 1: Engagement Overview =====
-p1_id = uid("epi_page1_overview")
-p1 = [
-    make_title_bar("e1_title", 0, 0, 1280, 50, "Epikast — Engagement Overview", EPIKAST_TEAL),
-    make_card("e1_interactions", 20, 60, 235, 140, "_Measures", "Total Interactions"),
-    make_card("e1_connect", 270, 60, 235, 140, "_Measures", "Connect Rate"),
-    make_card("e1_hcps", 520, 60, 235, 140, "_Measures", "Unique HCPs Reached"),
-    make_card("e1_sentiment", 770, 60, 235, 140, "_Measures", "Avg Sentiment Score"),
-    make_slicer("e1_year", 1020, 60, 230, 140, "Calendar", "Year"),
-    make_clustered_bar_gradient("e1_client_bar", 20, 220, 400, 280, "DimClient", "client_name", "_Measures", "Total Interactions"),
-    make_line_chart("e1_trend", 440, 220, 400, 280, "Calendar", "Year_Month", "_Measures", "Total Interactions", "_Measures", "Interactions PY"),
-    make_donut("e1_channel", 860, 220, 380, 280, "FactInteractions", "channel", "_Measures", "Total Interactions"),
-    make_area_chart("e1_minutes", 20, 520, 600, 160, "Calendar", "Year_Month", "_Measures", "Total Engagement Minutes"),
-    make_clustered_bar("e1_type_bar", 640, 520, 600, 160, "FactInteractions", "interaction_type", "_Measures", "Total Interactions"),
-    make_button("e1_btn_agents", 1100, 670, 150, 40, "Agents"),
-]
-
-# ===== PAGE 2: Agent & Rep Performance =====
-p2_id = uid("epi_page2_agents")
-p2 = [
-    make_title_bar("e2_title", 0, 0, 1280, 50, "Epikast — Agent & Rep Performance", EPIKAST_TEAL),
-    make_card("e2_interactions", 20, 60, 235, 140, "_Measures", "Total Interactions"),
-    make_card("e2_duration", 270, 60, 235, 140, "_Measures", "Avg Interaction Duration"),
-    make_card("e2_connect", 520, 60, 235, 140, "_Measures", "Connect Rate"),
-    make_card("e2_per_hcp", 770, 60, 235, 140, "_Measures", "Interactions per HCP"),
-    make_slicer("e2_role", 1020, 60, 230, 140, "DimAgent", "role"),
-    make_clustered_bar("e2_role_bar", 20, 220, 400, 280, "DimAgent", "role", "_Measures", "Total Interactions"),
-    make_scatter("e2_scatter", 440, 220, 800, 280, "DimAgent", "agent_name",
-                 "_Measures", "Connect Rate", "_Measures", "Avg Sentiment Score",
-                 "_Measures", "Total Interactions"),
-    make_matrix("e2_matrix", 20, 520, 1230, 180,
-        [("DimAgent", "role")],
-        [("DimAgent", "team")],
-        [("_Measures", "Total Interactions"), ("_Measures", "Connect Rate"),
-         ("_Measures", "Avg Interaction Duration"), ("_Measures", "Avg Sentiment Score"),
-         ("_Measures", "Avg Script Adherence")]),
-    make_button("e2_btn_back", 20, 670, 100, 40, "Back"),
-    make_button("e2_btn_hcp", 1100, 670, 150, 40, "HCPs"),
-]
-
-# ===== PAGE 3: HCP Engagement =====
-p3_id = uid("epi_page3_hcp")
-p3 = [
-    make_title_bar("e3_title", 0, 0, 1280, 50, "Epikast — HCP Engagement", EPIKAST_TEAL),
-    make_card("e3_hcps", 20, 60, 235, 140, "_Measures", "Unique HCPs Reached"),
-    make_card("e3_reach", 270, 60, 235, 140, "_Measures", "HCP Reach Pct"),
-    make_card("e3_per_hcp", 520, 60, 235, 140, "_Measures", "Interactions per HCP"),
-    make_card("e3_sci", 770, 60, 235, 140, "_Measures", "Scientific Exchange Pct"),
-    make_slicer("e3_specialty", 1020, 60, 230, 140, "DimHCP", "specialty"),
-    make_clustered_bar("e3_spec_bar", 20, 220, 400, 280, "DimHCP", "specialty", "_Measures", "Total Interactions"),
-    make_donut("e3_segment", 440, 220, 380, 280, "DimHCP", "segment", "_Measures", "Total Interactions"),
-    make_map("e3_map", 840, 220, 410, 280, "DimHCP", "territory",
-             "DimHCP", "latitude", "DimHCP", "longitude", "_Measures", "Total Interactions"),
-    make_table("e3_table", 20, 520, 1230, 160, [
-        ("DimHCP", "hcp_name", False),
-        ("DimHCP", "specialty", False),
-        ("DimHCP", "segment", False),
-        ("DimHCP", "region", False),
-        ("_Measures", "Total Interactions", True),
-        ("_Measures", "Avg Sentiment Score", True),
-        ("_Measures", "Scientific Exchange Pct", True),
-    ]),
-    make_button("e3_btn_back", 20, 670, 100, 40, "Back"),
-    make_button("e3_btn_patient", 1100, 670, 150, 40, "Patients"),
-]
-
-# ===== PAGE 4: Patient Support & Outcomes =====
-p4_id = uid("epi_page4_patient")
-p4 = [
-    make_title_bar("e4_title", 0, 0, 1280, 50, "Epikast — Patient Support & Outcomes", EPIKAST_TEAL),
-    make_card("e4_enrolled", 20, 60, 235, 140, "_Measures", "Total Patients Enrolled"),
-    make_card("e4_active", 270, 60, 235, 140, "_Measures", "Active Patient Rate"),
-    make_card("e4_adherence", 520, 60, 235, 140, "_Measures", "Avg Adherence"),
-    make_card("e4_nps", 770, 60, 235, 140, "_Measures", "NPS Score"),
-    make_slicer("e4_status", 1020, 60, 230, 140, "FactPatientSupport", "status"),
-    make_clustered_bar("e4_barrier_bar", 20, 220, 400, 280, "FactPatientSupport", "barrier_type", "_Measures", "Support Records"),
-    make_donut("e4_payer", 440, 220, 380, 280, "FactPatientSupport", "payer_status", "_Measures", "Support Records"),
-    make_clustered_bar("e4_client_adh", 840, 220, 410, 280, "DimClient", "client_name", "_Measures", "Avg Adherence"),
-    make_table("e4_table", 20, 520, 1230, 160, [
-        ("DimPatient", "age_group", False),
-        ("FactPatientSupport", "status", False),
-        ("_Measures", "Support Records", True),
-        ("_Measures", "Avg Adherence", True),
-        ("_Measures", "Avg Time to Therapy", True),
-        ("_Measures", "Avg Persistence Days", True),
-        ("_Measures", "Barrier Resolution Rate", True),
-    ]),
-    make_button("e4_btn_back", 20, 670, 100, 40, "Back"),
-    make_button("e4_btn_quality", 1100, 670, 150, 40, "Quality"),
-]
-
-# ===== PAGE 5: Quality & Compliance =====
-p5_id = uid("epi_page5_quality")
-p5 = [
-    make_title_bar("e5_title", 0, 0, 1280, 50, "Epikast — Quality & Compliance", EPIKAST_TEAL),
-    make_card("e5_compliance", 20, 60, 235, 140, "_Measures", "Compliance Pass Rate"),
-    make_card("e5_adherence", 270, 60, 235, 140, "_Measures", "Avg Script Adherence"),
-    make_card("e5_ae", 520, 60, 235, 140, "_Measures", "Adverse Event Rate"),
-    make_card("e5_pos", 770, 60, 235, 140, "_Measures", "Positive Sentiment Pct"),
-    make_slicer("e5_team", 1020, 60, 230, 140, "DimAgent", "team"),
-    make_clustered_bar("e5_role_adh", 20, 220, 400, 280, "DimAgent", "role", "_Measures", "Avg Script Adherence"),
-    make_line_chart("e5_sentiment_trend", 440, 220, 400, 280, "Calendar", "Year_Month", "_Measures", "Avg Sentiment Score"),
-    make_donut("e5_outcome", 860, 220, 380, 280, "FactInteractions", "outcome", "_Measures", "Total Interactions"),
-    make_table("e5_table", 20, 520, 1230, 160, [
-        ("DimAgent", "team", False),
-        ("_Measures", "Compliance Pass Rate", True),
-        ("_Measures", "Compliance Reviews", True),
-        ("_Measures", "Adverse Events Flagged", True),
-        ("_Measures", "Avg Script Adherence", True),
-        ("_Measures", "Avg Sentiment Score", True),
-    ]),
-    make_button("e5_btn_back", 20, 670, 100, 40, "Back"),
-    make_button("e5_btn_client", 1100, 670, 150, 40, "Clients"),
-]
-
-# ===== PAGE 6: Client Campaign Health =====
-p6_id = uid("epi_page6_client")
-p6 = [
-    make_title_bar("e6_title", 0, 0, 1280, 50, "Epikast — Client Campaign Health", EPIKAST_TEAL),
-    make_card("e6_interactions", 20, 60, 235, 140, "_Measures", "Total Interactions"),
-    make_card("e6_active", 270, 60, 235, 140, "_Measures", "Active Patients"),
-    make_card("e6_connect", 520, 60, 235, 140, "_Measures", "Connect Rate"),
-    make_card("e6_payer", 770, 60, 235, 140, "_Measures", "Payer Approval Rate"),
-    make_slicer("e6_client", 1020, 60, 230, 140, "DimClient", "client_name"),
-    make_clustered_bar_gradient("e6_client_bar", 20, 220, 610, 280, "DimClient", "client_name", "_Measures", "Total Interactions"),
-    make_clustered_bar("e6_ta_bar", 650, 220, 600, 280, "DimClient", "therapeutic_area", "_Measures", "Connect Rate"),
-    make_matrix("e6_matrix", 20, 520, 1230, 180,
-        [("DimClient", "client_name")],
-        None,
-        [("_Measures", "Total Interactions"), ("_Measures", "Connect Rate"),
-         ("_Measures", "Unique HCPs Reached"), ("_Measures", "Active Patients"),
-         ("_Measures", "Avg Adherence"), ("_Measures", "NPS Score")]),
-    make_button("e6_btn_back", 20, 670, 100, 40, "Back"),
-]
-
-# Write all pages
-write_page(p1_id, "Engagement Overview", p1)
-write_page(p2_id, "Agent & Rep Performance", p2)
-write_page(p3_id, "HCP Engagement", p3)
-write_page(p4_id, "Patient Support & Outcomes", p4)
-write_page(p5_id, "Quality & Compliance", p5)
-write_page(p6_id, "Client Campaign Health", p6)
-
-# Update pages.json
-with open(os.path.join(BASE, "pages.json"), "w", encoding="utf-8") as f:
-    json.dump({"$schema": SCHEMA_PAGES, "pageOrder": [p1_id, p2_id, p3_id, p4_id, p5_id, p6_id],
-               "activePageName": p1_id}, f, indent=2)
-
-print(f"Page 1 (Engagement Overview):        {p1_id} - {len(p1)} visuals")
-print(f"Page 2 (Agent & Rep Performance):    {p2_id} - {len(p2)} visuals")
-print(f"Page 3 (HCP Engagement):             {p3_id} - {len(p3)} visuals")
-print(f"Page 4 (Patient Support & Outcomes): {p4_id} - {len(p4)} visuals")
-print(f"Page 5 (Quality & Compliance):       {p5_id} - {len(p5)} visuals")
-print(f"Page 6 (Client Campaign Health):     {p6_id} - {len(p6)} visuals")
-print(f"Total: {len(p1)+len(p2)+len(p3)+len(p4)+len(p5)+len(p6)} visuals across 6 pages")
-print("Done!")

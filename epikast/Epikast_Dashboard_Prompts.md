@@ -281,88 +281,129 @@ Compliance RAG Color = SWITCH(
 
 ---
 
-## PHASE 1I — Save
+## PHASE 1J — DAX Measures (Batch 7: Workforce & Capacity — internal report)
+
+```
+Add these measures to _Measures. They power the internal Workforce & Capacity
+and Agent Performance pages (delivery-team operations).
+
+Roster Size = COUNTROWS(DimAgent)
+
+Active Agents = DISTINCTCOUNT(FactInteractions[agent_id])
+
+Agent Utilization = DIVIDE([Active Agents], [Roster Size], 0)
+
+Interactions per Agent = DIVIDE([Total Interactions], [Active Agents], 0)
+
+Avg Tenure Months = AVERAGE(DimAgent[tenure_months])
+```
+
+---
+
+## PHASE 1I — Save (one model, two reports)
+
+This project ships **two reports off one shared semantic model**:
+
+- **`epikast_internal_dashb`** — for Epikast's own delivery/operations teams
+  (rep-level performance, quality/compliance, workforce capacity). NOT for clients.
+- **`epikast_client_dashb`** — the client-safe deliverable (engagement overview,
+  HCP engagement, patient outcomes, campaign health). Filter/RLS to one client.
+
+Both query the identical model you built in Phases 0–1J — only the pages differ.
 
 > Do this manually:
 
-1. In Power BI Desktop: **File > Save As > Power BI Project (.pbip)**
-2. Save to `C:\YOUR_SAVE_PATH\EpikastDashboard` (name the report `epikast_dashb`)
-3. **Close Power BI Desktop completely**
+1. In Power BI Desktop: **File > Save As > Power BI Project (.pbip)**, save the first
+   report as `C:\YOUR_SAVE_PATH\epikast_internal_dashb`.
+2. Create the second report against the **same semantic model** and save it as
+   `epikast_client_dashb`. (Either: save a copy and let both reference one shared
+   `.SemanticModel`, or duplicate the project — the model definition is identical.)
+3. **Close Power BI Desktop completely** before running the layout scripts.
 
 ---
 
 ## PHASE 2 — Generate Visuals (PBIR)
 
-> Run the Python script — no AI needed:
+> Run the two Python scripts — no AI needed. They share `scripts/pbir_lib.py`
+> (the make_* helpers) and write into their respective report folders.
 
-1. Edit `scripts/generate_pages.py` — update the `BASE` path on line ~12 to match your `.pbip` save location
-2. Close Power BI Desktop
+1. Edit the `BASE` path near the top of each script to match where you saved each `.pbip`:
+   - `scripts/generate_pages_internal.py` → `...\epikast_internal_dashb.Report\definition\pages`
+   - `scripts/generate_pages_client.py`   → `...\epikast_client_dashb.Report\definition\pages`
+2. Close Power BI Desktop.
 3. Run:
 
 ```bash
-python scripts/generate_pages.py
+python scripts/generate_pages_internal.py    # 4 internal pages
+python scripts/generate_pages_client.py      # 4 client-facing pages
 ```
 
-The script generates 6 pages (~45 visuals): KPI cards, line/area trends, clustered bars
-(incl. gradient), donuts, a scatter agent-quality plot, an HCP territory bubble map,
-detail tables, and matrices — all as PBIR `visual.json` files.
+Each emits KPI cards, line/area trends, clustered bars (incl. gradient), donuts, a
+scatter plot, a bubble map (client report), detail tables, and matrices as PBIR
+`visual.json` files.
 
 ### Visual Layout Reference
 
-Canvas is 1280x720. Every page opens with a colored title bar.
+Canvas is 1280x720. Every page opens with a colored title bar (internal = indigo,
+client = teal).
 
-**Page 1 — Engagement Overview** — "How is engagement performing overall?"
-- Cards (y=60): Total Interactions, Connect Rate, Unique HCPs Reached, Avg Sentiment Score; Year slicer
-- Bar gradient: client_name vs Total Interactions
-- Line (dual): Year_Month vs Total Interactions + Interactions PY
-- Donut: channel mix
-- Area: Year_Month vs Total Engagement Minutes
-- Bar: interaction_type vs Total Interactions
+#### Internal report — `generate_pages_internal.py`
+
+**Page 1 — Operations Overview** — "How is delivery performing overall?"
+- Cards: Total Interactions, Connect Rate, Active Agents, Total Engagement Minutes; Year slicer
+- Bar gradient: team vs Total Interactions · Line (dual): Total Interactions + Interactions PY · Donut: channel
+- Area: Total Engagement Minutes · Bar: interaction_type vs Total Interactions
 
 **Page 2 — Agent & Rep Performance** — "Who is delivering, and how well?"
-- Cards: Total Interactions, Avg Interaction Duration, Connect Rate, Interactions per HCP; role slicer
-- Bar: role vs Total Interactions
-- Scatter: agents — X Connect Rate, Y Avg Sentiment Score, size Total Interactions
+- Cards: Active Agents, Interactions per Agent, Connect Rate, Avg Interaction Duration; role slicer
+- Bar: role vs Total Interactions · Scatter: agents (X Connect Rate, Y Avg Sentiment, size Total Interactions)
 - Matrix: role x team vs core metrics
 
-**Page 3 — HCP Engagement** — "Which physicians are we reaching?"
-- Cards: Unique HCPs Reached, HCP Reach Pct, Interactions per HCP, Scientific Exchange Pct; specialty slicer
-- Bar: specialty vs Total Interactions
-- Donut: segment mix
-- Bubble map: HCP territory by Total Interactions
-- Table: HCP detail
-
-**Page 4 — Patient Support & Outcomes** — "Are patients getting on and staying on therapy?"
-- Cards: Total Patients Enrolled, Active Patient Rate, Avg Adherence, NPS Score; status slicer
-- Bar: barrier_type vs Support Records
-- Donut: payer_status mix
-- Bar: client_name vs Avg Adherence
-- Table: age_group x outcome metrics
-
-**Page 5 — Quality & Compliance** — "Are we compliant and on-message?"
+**Page 3 — Quality & Compliance** — "Are we compliant and on-message?"
 - Cards: Compliance Pass Rate, Avg Script Adherence, Adverse Event Rate, Positive Sentiment Pct; team slicer
-- Bar: role vs Avg Script Adherence
-- Line: Year_Month vs Avg Sentiment Score
-- Donut: outcome mix
+- Bar: role vs Avg Script Adherence · Line: Avg Sentiment Score · Donut: outcome
 - Table: team x compliance metrics
 
-**Page 6 — Client Campaign Health** — "How is each client's program performing?"
+**Page 4 — Workforce & Capacity** — "How is the delivery team utilized?"
+- Cards: Roster Size, Active Agents, Agent Utilization, Avg Tenure Months; hub_location slicer
+- Bar: hub_location vs Total Interactions · Scatter: agents (X Avg Tenure Months, Y Interactions per Agent)
+- Table: hub_location x team capacity metrics
+
+#### Client report — `generate_pages_client.py`
+
+**Page 1 — Engagement Overview** — "How is engagement performing overall?"
+- Cards: Total Interactions, Connect Rate, Unique HCPs Reached, Avg Sentiment Score; Year slicer
+- Bar gradient: client_name vs Total Interactions · Line (dual): Total Interactions + Interactions PY · Donut: channel
+- Area: Total Engagement Minutes · Bar: interaction_type vs Total Interactions
+
+**Page 2 — HCP Engagement** — "Which physicians are we reaching?"
+- Cards: Unique HCPs Reached, HCP Reach Pct, Interactions per HCP, Scientific Exchange Pct; specialty slicer
+- Bar: specialty vs Total Interactions · Donut: segment · Bubble map: HCP territory by Total Interactions
+- Table: HCP detail
+
+**Page 3 — Patient Support & Outcomes** — "Are patients getting on and staying on therapy?"
+- Cards: Total Patients Enrolled, Active Patient Rate, Avg Adherence, NPS Score; status slicer
+- Bar: barrier_type vs Support Records · Donut: payer_status · Bar: client_name vs Avg Adherence
+- Table: age_group x outcome metrics
+
+**Page 4 — Client Campaign Health** — "How is each client's program performing?"
 - Cards: Total Interactions, Active Patients, Connect Rate, Payer Approval Rate; client slicer
-- Bar gradient: client_name vs Total Interactions
-- Bar: therapeutic_area vs Connect Rate
+- Bar gradient: client_name vs Total Interactions · Bar: therapeutic_area vs Connect Rate
 - Matrix: client_name vs Total Interactions, Connect Rate, Unique HCPs Reached, Active Patients, Avg Adherence, NPS Score
 
 ---
 
 ## PHASE 3 — Open and Polish
 
-1. Open `EpikastDashboard.pbip` in Power BI Desktop
-2. All 6 pages should appear with data-bound visuals
-3. Manual polish (~15-30 min):
+1. Open `epikast_internal_dashb.pbip` and `epikast_client_dashb.pbip` in Power BI Desktop
+2. Each report's pages should appear with data-bound visuals
+3. Manual polish (~15-30 min per report):
    - Apply a color theme — a clinical teal/indigo palette suits a biopharma brand
    - Set conditional formatting on KPI cards using the RAG Color measures
    - Sync the Year slicer across pages (View > Sync Slicers)
-   - Configure Page 6 (client) or Page 2 (agent) as a drill-through page
+   - In the **client** report, set row-level security (RLS) on DimClient so each client
+     sees only their own data, and make Campaign Health a drill-through page on client_name
+   - In the **internal** report, make Agent Performance a drill-through page on agent / team
    - Add page navigation to the buttons (Format > Action > Page navigation)
    - Format percentage measures (Connect Rate, rates, Pcts) as 0.0%
    - Format sentiment/adherence as 0.00, duration with a " min" suffix, NPS as whole number
