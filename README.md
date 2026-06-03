@@ -158,7 +158,7 @@ Six complete dashboard projects across different business domains, each with sam
 | **HR** | 5 | 34 | LASTDATE snapshot, POWER annualized attrition, VAR+RETURN |
 | **Supply Chain** | 6 | 42 | Multi-fact model, 8x USERELATIONSHIP, semi-additive LASTDATE |
 | **PortPulse (Piraeus)** | 2 | 17 | Embedded R visuals (ARIMA, Isolation Forest, K-means), live AIS data, Azure Map, auto-generated PNG backgrounds |
-| **Epikast (Pharma Ops)** | 11 | 113 | 5-fact pharma-ops model (HCP calls, patient access, Rx, MSL AI assistant, financials), TREATAS virtual relationships, USERELATIONSHIP, IN operator, A/B experiment tracking, SWITCH RAG. _Data model + spec complete; 6 dashboards / 16 pages of visuals in progress._ |
+| **Epikast (Pharma Ops)** | 11 | 122 | 5-fact pharma-ops model (HCP calls, patient access, Rx, MSL AI assistant, financials), TREATAS virtual relationships, USERELATIONSHIP, IN operator, patient-access bottleneck mining, selling-time analysis, A/B experiment tracking, SWITCH RAG. _Data model + spec complete; 6 dashboards / 16 pages of visuals in progress._ |
 
 ### Screenshots (PortPulse — Piraeus Port Congestion)
 

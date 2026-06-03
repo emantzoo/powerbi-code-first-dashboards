@@ -327,7 +327,45 @@ MSL Answer Quality RAG = SWITCH(TRUE(), [Fully Answered Rate] >= 0.70, "Green", 
 Script Deviation RAG = SWITCH(TRUE(), [Script Deviation Rate] <= 0.05, "Green", [Script Deviation Rate] <= 0.15, "Amber", "Red")
 ```
 
-**Total: 113 measures** across 14 groups.
+### 15. Patient Access Bottleneck (5)  ⭐ added
+
+> Process-mining "where do the days go?" — avg days per funnel stage. Each wraps
+> `USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])` (fix #2) and filters out
+> rows whose end-date is blank so `DATEDIFF` never sees a missing date. Stacked together
+> they reconstruct Avg Time to Therapy and expose the slow stage (PA decision).
+
+```
+Avg Days Rx to Contact = CALCULATE(AVERAGEX(FactPatientCases, DATEDIFF(FactPatientCases[RxDate], FactPatientCases[FirstContactDate], DAY)), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Avg Days Contact to PA Submit = CALCULATE(AVERAGEX(FactPatientCases, DATEDIFF(FactPatientCases[FirstContactDate], FactPatientCases[PASubmitDate], DAY)), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Avg Days PA Submit to Decision = CALCULATE(AVERAGEX(FILTER(FactPatientCases, NOT(ISBLANK(FactPatientCases[PADecisionDate]))), DATEDIFF(FactPatientCases[PASubmitDate], FactPatientCases[PADecisionDate], DAY)), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Avg Days Decision to Fulfillment = CALCULATE(AVERAGEX(FILTER(FactPatientCases, NOT(ISBLANK(FactPatientCases[FulfillmentDate]))), DATEDIFF(FactPatientCases[PADecisionDate], FactPatientCases[FulfillmentDate], DAY)), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Avg Days Fulfillment to First Dose = CALCULATE(AVERAGEX(FILTER(FactPatientCases, NOT(ISBLANK(FactPatientCases[FirstDoseDate]))), DATEDIFF(FactPatientCases[FulfillmentDate], FactPatientCases[FirstDoseDate], DAY)), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+```
+
+### 16. Selling Time vs Admin (4)  ⭐ added
+
+> Epikast's #1 productivity lever — how much rep time is live engagement vs after-call work.
+> `AHT_Minutes = DurationMinutes + AfterCallWorkMinutes`, so these split total handling time.
+
+```
+Total Handling Minutes = SUM(FactHCPCalls[AHT_Minutes])
+Selling Minutes = CALCULATE(SUM(FactHCPCalls[DurationMinutes]), FactHCPCalls[IsConnected] = 1)
+Selling Time Pct = DIVIDE([Selling Minutes], [Total Handling Minutes], 0)
+Admin Time Pct = DIVIDE(SUM(FactHCPCalls[AfterCallWorkMinutes]), [Total Handling Minutes], 0)
+```
+
+**Total: 122 measures** across 16 groups.
+
+### Calculated Columns
+
+```
+# DimRep — splits reps into Top 20% vs Rest by lifetime meaningful interactions, so the
+# "what do top performers do differently?" comparison works as a slicer / axis.  ⭐ added
+Performance Tier =
+VAR Total = COUNTROWS(ALL(DimRep))
+VAR Rnk = RANKX(ALL(DimRep), CALCULATE([Meaningful Interactions]), , DESC)
+RETURN IF(Rnk <= ROUNDUP(Total * 0.2, 0), "Top 20%", "Rest")
+```
 
 ---
 
@@ -350,6 +388,13 @@ Canvas 1280×720.
 | 4 | A/B Test Tracker | 2 (Experiment Registry, Script A/B Deep Dive) | Optimization team |
 | 5 | Compliance & Quality | 1 | Compliance officer |
 | 6 | Channel Mix & Workforce | 1 | Ops / workforce planning |
+
+**Added analyses woven into the above:** a **patient-access bottleneck** stage-duration
+waterfall (group 15) on Dashboard 2 — surfacing the slow PA-decision stage (~15 of the ~26
+day time-to-therapy); a **selling-time vs admin** split (group 16) on Dashboards 1/6; and a
+**top-performer vs rest** comparison (via `DimRep[Performance Tier]`) on Dashboard 1's Rep
+Productivity page — contrasting AI adoption, Script-A use, follow-up and notes compliance
+between the top 20% and the rest.
 
 > A few visuals in these specs need small new helper functions beyond the existing
 > framework: **combo chart** (bars + line on a secondary axis), **heatmap matrix** with a
