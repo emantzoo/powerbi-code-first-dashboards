@@ -1,0 +1,6 @@
+DrugID,DrugName,TherapyArea,LaunchDate,IsSpecialty
+DRG-001,DrugAlpha-100mg,Oncology,2024-03-15,1
+DRG-002,DrugBeta-50mg,Cardiology,2023-09-01,0
+DRG-003,DrugGamma-200mg,Immunology,2025-01-10,1
+DRG-004,NeuroX-75mg,Neurology,2024-11-20,1
+DRG-005,CardioPlus-25mg,Cardiology,2025-06-01,0

@@ -158,7 +158,7 @@ Six complete dashboard projects across different business domains, each with sam
 | **HR** | 5 | 34 | LASTDATE snapshot, POWER annualized attrition, VAR+RETURN |
 | **Supply Chain** | 6 | 42 | Multi-fact model, 8x USERELATIONSHIP, semi-additive LASTDATE |
 | **PortPulse (Piraeus)** | 2 | 17 | Embedded R visuals (ARIMA, Isolation Forest, K-means), live AIS data, Azure Map, auto-generated PNG backgrounds |
-| **Epikast (Biopharma Engagement)** | 6 | 47 | Two reports off one shared model (internal ops + client-safe), conformed-dimension multi-fact, IN operator, DATESINPERIOD L3M, NPS VAR+RETURN, SWITCH RAG, bubble map by HCP territory |
+| **Epikast (Pharma Ops)** | 11 | 113 | 5-fact pharma-ops model (HCP calls, patient access, Rx, MSL AI assistant, financials), TREATAS virtual relationships, USERELATIONSHIP, IN operator, A/B experiment tracking, SWITCH RAG. _Data model + spec complete; 6 dashboards / 16 pages of visuals in progress._ |
 
 ### Screenshots (PortPulse — Piraeus Port Congestion)
 
@@ -248,12 +248,10 @@ powerbi-code-first-dashboards/
     scripts/generate_pages.py      #   PBIR visual generator (Python + Pillow)
     PortPulse_Dashboard_Prompts.md #   Full data model specification
     DEMO_GUIDE.md                  #   Demo walkthrough and setup instructions
-  epikast/                         # Biopharma engagement dashboards (one model, two reports)
-    data/                          #   CSV files + deterministic data generator
-    scripts/pbir_lib.py            #   Shared make_* helper library
-    scripts/generate_pages_internal.py  # Internal ops report (4 pages)
-    scripts/generate_pages_client.py    # Client-safe report (4 pages)
-    Epikast_Dashboard_Prompts.md   #   Full data model specification
+  epikast/                         # Pharma ops dashboards (11-table model, 113 measures)
+    data/                          #   11 CSVs + deterministic data generator
+    Epikast_Dashboard_Prompts.md   #   Full data model spec + 6-dashboard layout specs
+    scripts/                       #   PBIR visual generators (in progress)
   skills/
     PBIR_Dashboard_Generator_Skill.md  # Claude skill for auto-generating dashboards
   themes/

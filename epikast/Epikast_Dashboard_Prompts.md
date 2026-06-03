@@ -1,460 +1,388 @@
-# Epikast Engagement Dashboard — Power BI Build Prompts
+# Epikast Pharma Ops — Power BI Build Prompts (Data Model)
 
-Epikast is a technology-enabled biopharma services company: outsourced, remote/hybrid
-HCP engagement (inside sales reps + MSLs), patient support & adherence, medical affairs,
-and AI-driven insight — delivered from a cost-effective hub and integrated with the
-client's Veeva Vault CRM. This dashboard gives Epikast delivery teams (internal) and their
-biopharma clients (external) a single view of engagement volume, quality/compliance,
-patient outcomes, and per-client campaign health.
+Tech-enabled biopharma services: HCP engagement (inside reps + MSLs), patient access &
+adherence, MSL Partner (AI medical-information assistant), A/B experimentation, and program
+financials — delivered from an Athens hub for US biopharma clients.
 
-Use these prompts in order. Each one is a copy-paste block for Claude Desktop (Cowork or Code tab).
+This file builds the **shared semantic model**. It feeds **6 dashboards / 16 pages**
+(specs at the bottom). Visuals are generated separately by the Python scripts in `scripts/`
+(built in the next step — this checkpoint is the data model only).
 
-Replace `C:\YOUR_DATA_PATH` with the folder where you saved the 6 CSVs.
-Replace `C:\YOUR_SAVE_PATH` with where you want the `.pbip` project saved.
+Use the phases in order. Each grey block is copy-paste ready for Claude Desktop (Cowork /
+Code) driving the Power BI Modeling MCP, or follow them by hand in Power BI Desktop.
 
-> The sample CSVs in `data/` are generated deterministically by
-> `data/generate_epikast_data.py` (stdlib only, `random.seed(42)`) — rerun it to
-> regenerate identical data, or edit it to change volumes.
+> **Sample data**: `data/generate_epikast_data.py` (stdlib, `random.seed(42)`) writes all
+> 11 CSVs into `data/`. Period 2025-07-01 → 2026-04-30.
+
+---
+
+## ⚠️ Changes from the source spec (applied fixes)
+
+Three corrections were applied so the model and its slicers behave correctly. Each is
+flagged inline below with **[FIX]**.
+
+1. **Rx from / NBRx from Engaged HCPs** — original `FILTER(VALUES(FactRx[HCPID]), …)`
+   can't see `FactHCPCalls` (filters flow Dim→Fact, not Fact→Fact). Rewritten with
+   `TREATAS` of the connected-HCP set onto `FactRx[HCPID]`.
+2. **Patient-case time response** — `FactPatientCases[RxDate] → DimCalendar` is inactive,
+   so without help the Quarter / YearMonth slicers on the Patient Access pages would be
+   ignored. Every `FactPatientCases` measure activates the relationship with
+   `USERELATIONSHIP`.
+3. **Secondary `RepID` relationships set ACTIVE** — the source marked
+   `FactPatientCases[RepID]→DimRep` and `FactMSLPartnerUsage[RepID]→DimRep` inactive, which
+   would break the MSL-by-rep and case-by-rep breakdowns. They're conformed dimensions
+   (single-direction, no ambiguous path), so they're active. `DimDrug[DrugName]→…[Drug]`
+   relationships were also added so the DrugName slicers work.
 
 ---
 
 ## PHASE 0 — Load Data
 
-> Open a blank Power BI Desktop first. Then paste this into Claude Desktop:
-
 ```
 Connect to my open Power BI Desktop file.
 
-Load all CSV files from C:\YOUR_DATA_PATH into my Power BI model.
-The folder contains these 6 files:
-- FactInteractions.csv (12000 rows — HCP engagement events: phone/email/video/portal)
-- FactPatientSupport.csv (1400 rows — patient adherence & navigation records)
-- DimAgent.csv (60 rows — Epikast delivery talent: reps, MSLs, navigators)
-- DimHCP.csv (300 rows — targeted physicians with specialty, segment, geo)
-- DimClient.csv (8 rows — biopharma clients with therapeutic area and brand)
-- DimPatient.csv (1500 rows — patients enrolled in support programs)
+Load all CSV files from C:\YOUR_DATA_PATH into my Power BI model. The folder has 11 files:
 
-Read the headers from each CSV and create tables with the correct column names and data types.
-For date columns (interaction_date, enrollment_date, contract_start), use Date type.
-For ID columns (interaction_id, support_id, agent_id, hcp_id, client_id, patient_id), use Text type.
-For numeric columns (duration_minutes, tenure_months, decile, time_to_therapy_days,
-  persistence_days, nps_score), use Whole Number.
-For ratio columns (sentiment_score, script_adherence_pct, adherence_pct, latitude, longitude),
-  use Decimal Number.
-For text columns (agent_name, role, credential, team, hub_location, hcp_name, specialty,
-  segment, region, territory, client_name, therapeutic_area, brand, engagement_model,
-  age_group, gender, insurance_type, channel, interaction_type, connected, outcome,
-  next_best_action, compliance_status, adverse_event_flagged, status, barrier_type,
-  barrier_resolved, payer_status), use Text type.
+Dimensions:
+- DimCalendar.csv      (304 rows — one row per day, 2025-07-01 to 2026-04-30)
+- DimRep.csv           (25 rows — delivery talent: MSL / Patient Support / HCP Engagement)
+- DimHCP.csv           (500 rows — physicians: specialty, therapy area, tier, geo)
+- DimPatient.csv       (2000 rows — patient demographics + insurance)
+- DimDrug.csv          (5 rows — brands with therapy area, launch date, specialty flag)
+- DimExperiment.csv    (8 rows — A/B experiment registry)
 
-Set latitude/longitude on DimHCP to the Latitude/Longitude data categories so they map correctly.
+Facts:
+- FactHCPCalls.csv          (15000 rows — HCP engagement events)
+- FactPatientCases.csv      (3000 rows — patient access journey Rx → first dose)
+- FactRx.csv                (~7700 rows — prescriptions)
+- FactMSLPartnerUsage.csv   (~8300 rows — AI medical-info assistant queries)
+- FactFinancials.csv        (10 rows — monthly program P&L)
 
-Refresh the model after loading. Confirm row counts for each table.
+Read each CSV header and create tables with correct names/types.
+- Dates (Date, CallDate, RxDate, FirstContactDate, PASubmitDate, PADecisionDate,
+  FulfillmentDate, FirstDoseDate, UsageDate, MonthDate, HireDate, EnrollmentDate,
+  StartDate, EndDate, LaunchDate): Date type.
+- IDs (all *ID columns): Text.
+- Flags (IsConnected, IsMeaningfulInteraction, AIRecommended, AIFollowed,
+  IsScheduleAdherent, NotesTaken, FollowUpScheduled, ScriptDeviation, AdverseEventFlagged,
+  IsAbandoned, FirstCallResolved, Adherent30/60/90, IsTarget, IsSpecialty, IsNewToBrand,
+  IsWeekend, IsActive, UsedInHCPInteraction): Whole Number (0/1, blanks allowed where noted).
+- Counts/days/minutes/scores (DurationMinutes, AHT_Minutes, *Days, *Sec, *Minutes,
+  Quantity, TenureMonths, *Score, UserSatisfaction, *Headcount, *Cost*, *Revenue*): Decimal
+  or Whole Number as appropriate.
+- Everything else (names, Role, Team, Specialty, Tier, Region, Status, Channel, Script,
+  PAStatus, AnswerQuality, etc.): Text.
+
+Refresh and confirm row counts.
 ```
+
+> Mark **DimCalendar** as a Date Table on `[Date]` (Table tools → Mark as date table). The
+> time-intelligence measures (DATESINPERIOD, DATEADD, etc.) require it.
 
 ---
 
 ## PHASE 1A — Relationships
 
 ```
-Delete all auto-detected relationships in the model first.
+Delete all auto-detected relationships first. Then create:
 
-Then create these relationships. DimAgent, DimClient, and Calendar are CONFORMED
-dimensions shared by both fact tables — every relationship below is single-direction
-(dimension filters fact), so there is no ambiguous path and all can stay ACTIVE.
+# Date — only Calls is ACTIVE; the rest are INACTIVE and activated per-measure via USERELATIONSHIP
+1.  FactHCPCalls[CallDate]          -> DimCalendar[Date]   (Many:1, ACTIVE,   single)
+2.  FactPatientCases[RxDate]        -> DimCalendar[Date]   (Many:1, INACTIVE, single)
+3.  FactRx[RxDate]                  -> DimCalendar[Date]   (Many:1, INACTIVE, single)
+4.  FactMSLPartnerUsage[UsageDate]  -> DimCalendar[Date]   (Many:1, INACTIVE, single)
+5.  FactFinancials[MonthDate]       -> DimCalendar[Date]   (Many:1, INACTIVE, single)
 
-1. FactInteractions[agent_id]        -> DimAgent[agent_id]      (Many:1, ACTIVE, single direction)
-2. FactInteractions[hcp_id]          -> DimHCP[hcp_id]          (Many:1, ACTIVE, single direction)
-3. FactInteractions[client_id]       -> DimClient[client_id]    (Many:1, ACTIVE, single direction)
-4. FactPatientSupport[patient_id]    -> DimPatient[patient_id]  (Many:1, ACTIVE, single direction)
-5. FactPatientSupport[agent_id]      -> DimAgent[agent_id]      (Many:1, ACTIVE, single direction)
-6. FactPatientSupport[client_id]     -> DimClient[client_id]    (Many:1, ACTIVE, single direction)
+# Rep / HCP / Patient — conformed dims, all ACTIVE  [FIX #3: RepID links are active]
+6.  FactHCPCalls[RepID]             -> DimRep[RepID]       (Many:1, ACTIVE, single)
+7.  FactHCPCalls[HCPID]             -> DimHCP[HCPID]       (Many:1, ACTIVE, single)
+8.  FactPatientCases[PatientID]     -> DimPatient[PatientID] (Many:1, ACTIVE, single)
+9.  FactPatientCases[RepID]         -> DimRep[RepID]       (Many:1, ACTIVE, single)
+10. FactRx[HCPID]                   -> DimHCP[HCPID]       (Many:1, ACTIVE, single)
+11. FactMSLPartnerUsage[RepID]      -> DimRep[RepID]       (Many:1, ACTIVE, single)
 
-Do NOT create date relationships yet — we'll do that after the Calendar table.
+# Drug — conformed, all ACTIVE  [FIX #4: enables DrugName slicers]
+12. DimDrug[DrugName]               -> FactHCPCalls[Drug]
+13. DimDrug[DrugName]               -> FactPatientCases[Drug]
+14. DimDrug[DrugName]               -> FactRx[Drug]
+15. DimDrug[DrugName]               -> FactMSLPartnerUsage[Drug]
+
+All single-direction (dimension filters fact). Multiple facts sharing DimCalendar / DimRep /
+DimDrug is the conformed-dimension pattern — no ambiguous path is created.
 ```
 
 ---
 
-## PHASE 1B — Calendar Table
+## PHASE 1 — DAX Measures
+
+Create a `_Measures` table and add the measures below, grouped by theme. Names are exact
+(case-sensitive) and must match what the visual scripts reference.
+
+### 1. HCP Engagement (13)
 
 ```
-Create a DAX calculated table called Calendar:
-
-Calendar = ADDCOLUMNS(
-    CALENDAR(DATE(2024,1,1), DATE(2025,6,30)),
-    "Year", YEAR([Date]),
-    "Quarter", "Q" & CEILING(MONTH([Date])/3, 1),
-    "Month_Num", MONTH([Date]),
-    "Month_Name", FORMAT([Date], "MMMM"),
-    "Year_Quarter", FORMAT([Date], "YYYY") & "-Q" & CEILING(MONTH([Date])/3, 1),
-    "Year_Month", FORMAT([Date], "YYYY-MM"),
-    "Day_of_Week", FORMAT([Date], "dddd"),
-    "Is_Weekend", IF(WEEKDAY([Date], 2) >= 6, "Weekend", "Weekday")
-)
-
-Mark it as a Date Table using the Date column.
-
-Then create these date relationships (both ACTIVE — separate fact tables to a shared Calendar):
-7. FactInteractions[interaction_date]   -> Calendar[Date] (Many:1, ACTIVE, single direction)
-8. FactPatientSupport[enrollment_date]  -> Calendar[Date] (Many:1, ACTIVE, single direction)
+Total Calls = COUNTROWS(FactHCPCalls)
+Connected Calls = CALCULATE([Total Calls], FactHCPCalls[IsConnected] = 1)
+Connect Rate = DIVIDE([Connected Calls], [Total Calls], 0)
+Meaningful Interactions = CALCULATE([Total Calls], FactHCPCalls[IsMeaningfulInteraction] = 1)
+Meaningful Interaction Rate = DIVIDE([Meaningful Interactions], [Connected Calls], 0)
+HCPs Contacted = DISTINCTCOUNT(FactHCPCalls[HCPID])
+Target HCPs = CALCULATE(DISTINCTCOUNT(DimHCP[HCPID]), DimHCP[IsTarget] = 1)
+HCP Reach = DIVIDE(CALCULATE(DISTINCTCOUNT(FactHCPCalls[HCPID]), FactHCPCalls[IsConnected] = 1), [Target HCPs], 0)
+Avg Contact Frequency = DIVIDE([Connected Calls], [HCPs Contacted], 0)
+Avg Call Duration = CALCULATE(AVERAGE(FactHCPCalls[DurationMinutes]), FactHCPCalls[IsConnected] = 1)
+Avg Meaningful Duration = CALCULATE(AVERAGE(FactHCPCalls[DurationMinutes]), FactHCPCalls[IsMeaningfulInteraction] = 1)
+Follow Up Rate = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[FollowUpScheduled] = 1), [Connected Calls], 0)
+Avg HCP Sentiment = CALCULATE(AVERAGE(FactHCPCalls[HCPSentimentScore]), NOT(ISBLANK(FactHCPCalls[HCPSentimentScore])))
 ```
+
+### 2. AI / Next-Best-Action (9)
+
+```
+AI Recommended Calls = CALCULATE([Total Calls], FactHCPCalls[AIRecommended] = 1)
+AI Followed Calls = CALCULATE([Total Calls], FactHCPCalls[AIFollowed] = 1)
+AI Acceptance Rate = DIVIDE([AI Followed Calls], [AI Recommended Calls], 0)
+AI Connect Rate = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[AIFollowed] = 1, FactHCPCalls[IsConnected] = 1), [AI Followed Calls], 0)
+Non-AI Connect Rate = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[AIRecommended] = 0, FactHCPCalls[IsConnected] = 1), CALCULATE([Total Calls], FactHCPCalls[AIRecommended] = 0), 0)
+AI Lift on Connect Rate = [AI Connect Rate] - [Non-AI Connect Rate]
+AI Meaningful Rate = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[AIFollowed] = 1, FactHCPCalls[IsMeaningfulInteraction] = 1), CALCULATE([Total Calls], FactHCPCalls[AIFollowed] = 1, FactHCPCalls[IsConnected] = 1), 0)
+Non-AI Meaningful Rate = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[AIRecommended] = 0, FactHCPCalls[IsMeaningfulInteraction] = 1), CALCULATE([Total Calls], FactHCPCalls[AIRecommended] = 0, FactHCPCalls[IsConnected] = 1), 0)
+AI Lift on Meaningful Rate = [AI Meaningful Rate] - [Non-AI Meaningful Rate]
+```
+
+### 3. Script A/B Testing (8)
+
+```
+Script A Calls = CALCULATE([Total Calls], FactHCPCalls[Script] = "Script A - Empathetic")
+Script B Calls = CALCULATE([Total Calls], FactHCPCalls[Script] = "Script B - Direct")
+Script A Connect Rate = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Script] = "Script A - Empathetic", FactHCPCalls[IsConnected] = 1), [Script A Calls], 0)
+Script B Connect Rate = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Script] = "Script B - Direct", FactHCPCalls[IsConnected] = 1), [Script B Calls], 0)
+Script A Meaningful Rate = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Script] = "Script A - Empathetic", FactHCPCalls[IsMeaningfulInteraction] = 1), CALCULATE([Total Calls], FactHCPCalls[Script] = "Script A - Empathetic", FactHCPCalls[IsConnected] = 1), 0)
+Script B Meaningful Rate = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Script] = "Script B - Direct", FactHCPCalls[IsMeaningfulInteraction] = 1), CALCULATE([Total Calls], FactHCPCalls[Script] = "Script B - Direct", FactHCPCalls[IsConnected] = 1), 0)
+Script A Avg Duration = CALCULATE(AVERAGE(FactHCPCalls[DurationMinutes]), FactHCPCalls[Script] = "Script A - Empathetic", FactHCPCalls[IsConnected] = 1)
+Script B Avg Duration = CALCULATE(AVERAGE(FactHCPCalls[DurationMinutes]), FactHCPCalls[Script] = "Script B - Direct", FactHCPCalls[IsConnected] = 1)
+```
+
+### 4. Patient Support (21)
+
+> **[FIX #2]** Every measure here wraps `USERELATIONSHIP(FactPatientCases[RxDate],
+> DimCalendar[Date])` so Quarter / YearMonth slicers and trend axes filter patient data.
+> Ratio measures that only reference other measures inherit it automatically.
+
+```
+Total Cases = CALCULATE(COUNTROWS(FactPatientCases), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Active Cases = CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[CaseStatus] IN {"Open", "In Progress"}, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Resolved Cases = CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[CaseStatus] = "Resolved", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Abandoned Cases = CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[IsAbandoned] = 1, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Abandonment Rate = DIVIDE([Abandoned Cases], [Total Cases], 0)
+Avg Time to Therapy = CALCULATE(AVERAGE(FactPatientCases[TimeToTherapyDays]), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Median Time to Therapy = CALCULATE(MEDIAN(FactPatientCases[TimeToTherapyDays]), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+PA Approval Rate = DIVIDE(
+    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[PAStatus] = "Approved", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])),
+    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[PAStatus] IN {"Approved", "Denied", "Appeal"}, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])), 0)
+PA Denial Rate = DIVIDE(
+    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[PAStatus] = "Denied", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])),
+    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[PAStatus] IN {"Approved", "Denied", "Appeal"}, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])), 0)
+Avg PA Decision Delay = CALCULATE(AVERAGE(FactPatientCases[PADecisionDelayDays]), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+First Call Resolution Rate = DIVIDE(
+    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[FirstCallResolved] = 1, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])),
+    [Resolved Cases], 0)
+Avg Case Resolution Days = CALCULATE(AVERAGE(FactPatientCases[CaseResolutionDays]), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Avg First Contact Delay = CALCULATE(AVERAGE(FactPatientCases[FirstContactDelayDays]), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Contacted Within 48h Rate = DIVIDE(
+    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[FirstContactDelayDays] <= 2, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])),
+    [Total Cases], 0)
+Adherence 30 Day = DIVIDE(
+    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[Adherent30] = 1, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])),
+    CALCULATE(COUNTROWS(FactPatientCases), NOT(ISBLANK(FactPatientCases[Adherent30])), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])), 0)
+Adherence 60 Day = DIVIDE(
+    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[Adherent60] = 1, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])),
+    CALCULATE(COUNTROWS(FactPatientCases), NOT(ISBLANK(FactPatientCases[Adherent60])), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])), 0)
+Adherence 90 Day = DIVIDE(
+    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[Adherent90] = 1, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])),
+    CALCULATE(COUNTROWS(FactPatientCases), NOT(ISBLANK(FactPatientCases[Adherent90])), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])), 0)
+Abandoned Pre PA = CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[IsAbandoned] = 1, FactPatientCases[AbandonmentStage] = "Pre-PA", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Abandoned During PA = CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[IsAbandoned] = 1, FactPatientCases[AbandonmentStage] = "During PA", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Abandoned Post PA = CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[IsAbandoned] = 1, FactPatientCases[AbandonmentStage] = "Post-PA", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Abandoned Post Fulfillment = CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[IsAbandoned] = 1, FactPatientCases[AbandonmentStage] = "Post-Fulfillment", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+```
+
+### 5. Ops Efficiency (7)
+
+```
+Avg AHT = AVERAGE(FactHCPCalls[AHT_Minutes])
+Avg After Call Work = AVERAGE(FactHCPCalls[AfterCallWorkMinutes])
+Schedule Adherence Rate = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[IsScheduleAdherent] = 1), [Total Calls], 0)
+Calls Per Rep Per Day = DIVIDE([Total Calls], DISTINCTCOUNT(FactHCPCalls[RepID]) * DISTINCTCOUNT(FactHCPCalls[CallDate]), 0)
+Connected Calls Per Rep Per Day = DIVIDE([Connected Calls], DISTINCTCOUNT(FactHCPCalls[RepID]) * DISTINCTCOUNT(FactHCPCalls[CallDate]), 0)
+Meaningful Per Rep Per Day = DIVIDE([Meaningful Interactions], DISTINCTCOUNT(FactHCPCalls[RepID]) * DISTINCTCOUNT(FactHCPCalls[CallDate]), 0)
+Notes Compliance Rate = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[NotesTaken] = 1), [Connected Calls], 0)
+```
+
+### 6. Prescriptions (7)
+
+> **[FIX #1]** "Rx from / NBRx from Engaged HCPs" use `TREATAS` to push the connected-HCP
+> set onto `FactRx[HCPID]` (the original `FILTER(VALUES(FactRx[HCPID]) …)` could not see
+> `FactHCPCalls`).
+
+```
+Total Rx = CALCULATE(COUNTROWS(FactRx), USERELATIONSHIP(FactRx[RxDate], DimCalendar[Date]))
+New to Brand Rx = CALCULATE(COUNTROWS(FactRx), FactRx[IsNewToBrand] = 1, USERELATIONSHIP(FactRx[RxDate], DimCalendar[Date]))
+NBRx Rate = DIVIDE([New to Brand Rx], [Total Rx], 0)
+Rx Per HCP = DIVIDE([Total Rx], DISTINCTCOUNT(FactRx[HCPID]), 0)
+Rx from Engaged HCPs =
+VAR EngagedHCPs = CALCULATETABLE(VALUES(FactHCPCalls[HCPID]), FactHCPCalls[IsConnected] = 1)
+RETURN CALCULATE(COUNTROWS(FactRx), USERELATIONSHIP(FactRx[RxDate], DimCalendar[Date]), TREATAS(EngagedHCPs, FactRx[HCPID]))
+Rx from Non-Engaged HCPs = [Total Rx] - [Rx from Engaged HCPs]
+NBRx from Engaged HCPs =
+VAR EngagedHCPs = CALCULATETABLE(VALUES(FactHCPCalls[HCPID]), FactHCPCalls[IsConnected] = 1)
+RETURN CALCULATE(COUNTROWS(FactRx), FactRx[IsNewToBrand] = 1, USERELATIONSHIP(FactRx[RxDate], DimCalendar[Date]), TREATAS(EngagedHCPs, FactRx[HCPID]))
+```
+
+### 7. MSL Partner Usage (11)
+
+```
+Total MSL Queries = CALCULATE(COUNTROWS(FactMSLPartnerUsage), USERELATIONSHIP(FactMSLPartnerUsage[UsageDate], DimCalendar[Date]))
+MSL Queries Per Day = DIVIDE([Total MSL Queries], DISTINCTCOUNT(FactMSLPartnerUsage[UsageDate]), 0)
+MSL Queries Per MSL Per Day = DIVIDE([Total MSL Queries], DISTINCTCOUNT(FactMSLPartnerUsage[RepID]) * DISTINCTCOUNT(FactMSLPartnerUsage[UsageDate]), 0)
+Fully Answered Rate = DIVIDE(CALCULATE(COUNTROWS(FactMSLPartnerUsage), FactMSLPartnerUsage[AnswerQuality] = "Fully Answered"), [Total MSL Queries], 0)
+Partially Answered Rate = DIVIDE(CALCULATE(COUNTROWS(FactMSLPartnerUsage), FactMSLPartnerUsage[AnswerQuality] = "Partially Answered"), [Total MSL Queries], 0)
+No Answer Rate = DIVIDE(CALCULATE(COUNTROWS(FactMSLPartnerUsage), FactMSLPartnerUsage[AnswerQuality] = "No Answer Found"), [Total MSL Queries], 0)
+Avg Time to Answer Sec = AVERAGE(FactMSLPartnerUsage[TimeToAnswerSec])
+Total Time Saved Hours = DIVIDE(SUM(FactMSLPartnerUsage[TimeSavedMinutes]), 60, 0)
+Avg Time Saved Per Query Min = AVERAGE(FactMSLPartnerUsage[TimeSavedMinutes])
+Used in HCP Interaction Rate = DIVIDE(CALCULATE(COUNTROWS(FactMSLPartnerUsage), FactMSLPartnerUsage[UsedInHCPInteraction] = 1), [Total MSL Queries], 0)
+Avg MSL Satisfaction = AVERAGE(FactMSLPartnerUsage[UserSatisfaction])
+```
+
+### 8. Experiment Tracking (5)
+
+```
+Total Experiments = COUNTROWS(DimExperiment)
+Concluded Experiments = CALCULATE(COUNTROWS(DimExperiment), LEFT(DimExperiment[Status], 9) = "Concluded")
+Running Experiments = CALCULATE(COUNTROWS(DimExperiment), DimExperiment[Status] = "Running")
+Win Rate = DIVIDE(CALCULATE(COUNTROWS(DimExperiment), DimExperiment[Status] = "Concluded - Winner"), [Concluded Experiments], 0)
+Avg Observed Lift = CALCULATE(AVERAGE(DimExperiment[ObservedLift]), DimExperiment[Status] = "Concluded - Winner")
+```
+
+### 9. Financials (7)
+
+```
+Total Revenue USD = SUM(FactFinancials[TotalRevenue_USD])
+Total Cost EUR = SUM(FactFinancials[TotalCost_EUR])
+Gross Margin USD = SUM(FactFinancials[GrossMargin_USD])
+Gross Margin Pct = DIVIDE([Gross Margin USD], [Total Revenue USD], 0)
+Avg Cost Per Call = AVERAGE(FactFinancials[CostPerCall_EUR])
+Avg Cost Per Case = AVERAGE(FactFinancials[CostPerCase_EUR])
+Cost Breakdown Rep Pct = DIVIDE(SUM(FactFinancials[RepCost_EUR]), [Total Cost EUR], 0)
+```
+
+### 10. Time Intelligence (5)
+
+```
+Calls L4W = CALCULATE([Total Calls], DATESINPERIOD(DimCalendar[Date], MAX(DimCalendar[Date]), -28, DAY))
+Connect Rate L4W = CALCULATE([Connect Rate], DATESINPERIOD(DimCalendar[Date], MAX(DimCalendar[Date]), -28, DAY))
+Calls MoM Change = VAR Current = [Total Calls] VAR Prior = CALCULATE([Total Calls], DATEADD(DimCalendar[Date], -1, MONTH)) RETURN DIVIDE(Current - Prior, Prior, 0)
+Connect Rate MoM Change = [Connect Rate] - CALCULATE([Connect Rate], DATEADD(DimCalendar[Date], -1, MONTH))
+Abandonment Rate MoM Change = [Abandonment Rate] - CALCULATE([Abandonment Rate], DATEADD(DimCalendar[Date], -1, MONTH))
+```
+
+### 11. Compliance & Quality (5)
+
+```
+Script Deviation Rate = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[ScriptDeviation] = 1), [Connected Calls], 0)
+Avg Call Quality Score = CALCULATE(AVERAGE(FactHCPCalls[CallQualityScore]), NOT(ISBLANK(FactHCPCalls[CallQualityScore])))
+AE Flag Rate = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[AdverseEventFlagged] = 1), [Connected Calls], 0)
+High Quality Calls Pct = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[CallQualityScore] >= 7), CALCULATE([Total Calls], NOT(ISBLANK(FactHCPCalls[CallQualityScore]))), 0)
+Low Quality Calls Pct = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[CallQualityScore] <= 4), CALCULATE([Total Calls], NOT(ISBLANK(FactHCPCalls[CallQualityScore]))), 0)
+```
+
+### 12. Workforce Efficiency (4)
+
+```
+Quality Adjusted Productivity = [Meaningful Per Rep Per Day] * [Avg Call Quality Score] / 10
+Utilization Rate = DIVIDE([Total Calls] * [Avg AHT], DISTINCTCOUNT(FactHCPCalls[RepID]) * DISTINCTCOUNT(FactHCPCalls[CallDate]) * 480, 0)
+Calls Per Productive Hour = DIVIDE([Total Calls], [Total Calls] * [Avg AHT] / 60, 0)
+Deviation Rate by Tenure = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[ScriptDeviation] = 1), [Total Calls], 0)
+```
+
+### 13. Channel Mix (4)
+
+```
+Phone Calls Pct = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Channel] = "Phone"), [Total Calls], 0)
+Email Pct = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Channel] = "Email"), [Total Calls], 0)
+Video Pct = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Channel] = "Video"), [Total Calls], 0)
+Connect Rate by Channel Phone = DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Channel] = "Phone", FactHCPCalls[IsConnected] = 1), CALCULATE([Total Calls], FactHCPCalls[Channel] = "Phone"), 0)
+```
+
+### 14. RAG Indicators (7)
+
+```
+Connect Rate RAG = SWITCH(TRUE(), [Connect Rate] >= 0.35, "Green", [Connect Rate] >= 0.25, "Amber", "Red")
+Abandonment Rate RAG = SWITCH(TRUE(), [Abandonment Rate] <= 0.15, "Green", [Abandonment Rate] <= 0.25, "Amber", "Red")
+Time to Therapy RAG = SWITCH(TRUE(), [Avg Time to Therapy] <= 20, "Green", [Avg Time to Therapy] <= 35, "Amber", "Red")
+PA Approval Rate RAG = SWITCH(TRUE(), [PA Approval Rate] >= 0.70, "Green", [PA Approval Rate] >= 0.55, "Amber", "Red")
+Schedule Adherence RAG = SWITCH(TRUE(), [Schedule Adherence Rate] >= 0.85, "Green", [Schedule Adherence Rate] >= 0.75, "Amber", "Red")
+MSL Answer Quality RAG = SWITCH(TRUE(), [Fully Answered Rate] >= 0.70, "Green", [Fully Answered Rate] >= 0.55, "Amber", "Red")
+Script Deviation RAG = SWITCH(TRUE(), [Script Deviation Rate] <= 0.05, "Green", [Script Deviation Rate] <= 0.15, "Amber", "Red")
+```
+
+**Total: 113 measures** across 14 groups.
 
 ---
 
-## PHASE 1C — DAX Measures (Batch 1: Core Engagement KPIs)
-
-```
-Create a _Measures table (or add to it if it exists) with these DAX measures:
-
-Total Interactions = COUNTROWS(FactInteractions)
-
-Connected Interactions = CALCULATE([Total Interactions], FactInteractions[connected] = "Yes")
-
-Connect Rate = DIVIDE([Connected Interactions], [Total Interactions], 0)
-
-Total Engagement Minutes = SUM(FactInteractions[duration_minutes])
-
-Avg Interaction Duration = DIVIDE([Total Engagement Minutes], [Connected Interactions], 0)
-
-Unique HCPs Reached = DISTINCTCOUNT(FactInteractions[hcp_id])
-
-HCP Reach Pct = DIVIDE([Unique HCPs Reached], COUNTROWS(DimHCP), 0)
-
-Interactions per HCP = DIVIDE([Total Interactions], [Unique HCPs Reached], 0)
-```
-
----
-
-## PHASE 1D — DAX Measures (Batch 2: Channel & Engagement Quality)
-
-```
-Add these measures to _Measures:
-
-Phone Interactions = CALCULATE([Total Interactions], FactInteractions[channel] = "Phone")
-
-Email Interactions = CALCULATE([Total Interactions], FactInteractions[channel] = "Email")
-
-Video Interactions = CALCULATE([Total Interactions], FactInteractions[channel] = "Video")
-
-Portal Interactions = CALCULATE([Total Interactions], FactInteractions[channel] = "Portal")
-
-Scientific Exchange Pct = DIVIDE(
-    CALCULATE([Total Interactions], FactInteractions[interaction_type] = "Scientific Exchange"),
-    [Total Interactions], 0
-)
-
-Promotional Pct = DIVIDE(
-    CALCULATE([Total Interactions], FactInteractions[interaction_type] = "Promotional"),
-    [Total Interactions], 0
-)
-
-Avg Sentiment Score = AVERAGE(FactInteractions[sentiment_score])
-
-Positive Sentiment Pct = DIVIDE(
-    CALCULATE([Total Interactions], FactInteractions[sentiment_score] >= 0.6),
-    [Total Interactions], 0
-)
-```
-
----
-
-## PHASE 1E — DAX Measures (Batch 3: Quality & Compliance)
-
-```
-Add these measures to _Measures:
-
-Avg Script Adherence = AVERAGE(FactInteractions[script_adherence_pct])
-
-Compliance Pass Rate = DIVIDE(
-    CALCULATE([Total Interactions], FactInteractions[compliance_status] = "Pass"),
-    [Total Interactions], 0
-)
-
-Compliance Reviews = CALCULATE([Total Interactions], FactInteractions[compliance_status] = "Review")
-
-Adverse Events Flagged = CALCULATE([Total Interactions], FactInteractions[adverse_event_flagged] = "Yes")
-
-Adverse Event Rate = DIVIDE([Adverse Events Flagged], [Total Interactions], 0)
-```
-
----
-
-## PHASE 1F — DAX Measures (Batch 4: Time Intelligence)
-
-```
-Add these measures to _Measures:
-
-Interactions PY = CALCULATE([Total Interactions], SAMEPERIODLASTYEAR(Calendar[Date]))
-
-Interactions YoY Growth = DIVIDE([Total Interactions] - [Interactions PY], [Interactions PY], 0)
-
-Interactions MTD = TOTALMTD([Total Interactions], Calendar[Date])
-
-Interactions YTD = TOTALYTD([Total Interactions], Calendar[Date])
-
-Interactions L3M = CALCULATE(
-    [Total Interactions],
-    DATESINPERIOD(Calendar[Date], MAX(Calendar[Date]), -3, MONTH)
-)
-
-Connect Rate PY = CALCULATE([Connect Rate], SAMEPERIODLASTYEAR(Calendar[Date]))
-```
-
----
-
-## PHASE 1G — DAX Measures (Batch 5: Patient Support & Outcomes)
-
-```
-Add these measures to _Measures:
-
-Support Records = COUNTROWS(FactPatientSupport)
-
-Total Patients Enrolled = DISTINCTCOUNT(FactPatientSupport[patient_id])
-
-Active Patients = CALCULATE([Support Records], FactPatientSupport[status] IN {"Active", "On Therapy"})
-
-Active Patient Rate = DIVIDE([Active Patients], [Support Records], 0)
-
-Discontinued Patients = CALCULATE([Support Records], FactPatientSupport[status] = "Discontinued")
-
-Discontinuation Rate = DIVIDE([Discontinued Patients], [Support Records], 0)
-
-Avg Time to Therapy = AVERAGE(FactPatientSupport[time_to_therapy_days])
-
-Avg Adherence = AVERAGE(FactPatientSupport[adherence_pct])
-
-Avg Persistence Days = AVERAGE(FactPatientSupport[persistence_days])
-
-Barrier Resolution Rate = DIVIDE(
-    CALCULATE([Support Records], FactPatientSupport[barrier_resolved] = "Yes"),
-    CALCULATE([Support Records], FactPatientSupport[barrier_type] <> "None"),
-    0
-)
-
-Payer Approval Rate = DIVIDE(
-    CALCULATE([Support Records], FactPatientSupport[payer_status] IN {"Approved", "Appeal Won"}),
-    [Support Records], 0
-)
-
-NPS Score =
-VAR Promoters = CALCULATE([Support Records], FactPatientSupport[nps_score] >= 9)
-VAR Detractors = CALCULATE([Support Records], FactPatientSupport[nps_score] <= 6)
-RETURN DIVIDE(Promoters - Detractors, [Support Records], 0) * 100
-```
-
----
-
-## PHASE 1H — DAX Measures (Batch 6: Conditional Formatting RAG)
-
-```
-Add these measures to _Measures. They return hex colors for KPI-card and
-table conditional formatting (green = good, amber = watch, red = act).
-
-Connect Rate RAG Color = SWITCH(
-    TRUE(),
-    [Connect Rate] >= 0.70, "#27AE60",
-    [Connect Rate] >= 0.55, "#F39C12",
-    "#E74C3C"
-)
-
-Sentiment RAG Color = SWITCH(
-    TRUE(),
-    [Avg Sentiment Score] >= 0.65, "#27AE60",
-    [Avg Sentiment Score] >= 0.50, "#F39C12",
-    "#E74C3C"
-)
-
-Adherence RAG Color = SWITCH(
-    TRUE(),
-    [Avg Adherence] >= 0.80, "#27AE60",
-    [Avg Adherence] >= 0.65, "#F39C12",
-    "#E74C3C"
-)
-
-Compliance RAG Color = SWITCH(
-    TRUE(),
-    [Compliance Pass Rate] >= 0.97, "#27AE60",
-    [Compliance Pass Rate] >= 0.93, "#F39C12",
-    "#E74C3C"
-)
-```
-
----
-
-## PHASE 1J — DAX Measures (Batch 7: Workforce & Capacity — internal report)
-
-```
-Add these measures to _Measures. They power the internal Workforce & Capacity
-and Agent Performance pages (delivery-team operations).
-
-Roster Size = COUNTROWS(DimAgent)
-
-Active Agents = DISTINCTCOUNT(FactInteractions[agent_id])
-
-Agent Utilization = DIVIDE([Active Agents], [Roster Size], 0)
-
-Interactions per Agent = DIVIDE([Total Interactions], [Active Agents], 0)
-
-Avg Tenure Months = AVERAGE(DimAgent[tenure_months])
-```
-
----
-
-## PHASE 1I — Save (one model, two reports)
-
-This project ships **two reports off one shared semantic model**:
-
-- **`epikast_internal_dashb`** — for Epikast's own delivery/operations teams
-  (rep-level performance, quality/compliance, workforce capacity). NOT for clients.
-- **`epikast_client_dashb`** — the client-safe deliverable (engagement overview,
-  HCP engagement, patient outcomes, campaign health). Filter/RLS to one client.
-
-Both query the identical model you built in Phases 0–1J — only the pages differ.
-
-> Do this manually:
-
-1. In Power BI Desktop: **File > Save As > Power BI Project (.pbip)**, save the first
-   report as `C:\YOUR_SAVE_PATH\epikast_internal_dashb`.
-2. Create the second report against the **same semantic model** and save it as
-   `epikast_client_dashb`. (Either: save a copy and let both reference one shared
-   `.SemanticModel`, or duplicate the project — the model definition is identical.)
-3. **Close Power BI Desktop completely** before running the layout scripts.
-
----
-
-## PHASE 2 — Generate Visuals (PBIR)
-
-> Run the two Python scripts — no AI needed. They share `scripts/pbir_lib.py`
-> (the make_* helpers) and write into their respective report folders.
-
-1. Edit the `BASE` path near the top of each script to match where you saved each `.pbip`:
-   - `scripts/generate_pages_internal.py` → `...\epikast_internal_dashb.Report\definition\pages`
-   - `scripts/generate_pages_client.py`   → `...\epikast_client_dashb.Report\definition\pages`
-2. Close Power BI Desktop.
-3. Run:
-
-```bash
-python scripts/generate_pages_internal.py    # 4 internal pages
-python scripts/generate_pages_client.py      # 4 client-facing pages
-```
-
-Each emits KPI cards, line/area trends, clustered bars (incl. gradient), donuts, a
-scatter plot, a bubble map (client report), detail tables, and matrices as PBIR
-`visual.json` files.
-
-### Visual Layout Reference
-
-Canvas is 1280x720. Every page opens with a colored title bar (internal = indigo,
-client = teal).
-
-#### Internal report — `generate_pages_internal.py`
-
-**Page 1 — Operations Overview** — "How is delivery performing overall?"
-- Cards: Total Interactions, Connect Rate, Active Agents, Total Engagement Minutes; Year slicer
-- Bar gradient: team vs Total Interactions · Line (dual): Total Interactions + Interactions PY · Donut: channel
-- Area: Total Engagement Minutes · Bar: interaction_type vs Total Interactions
-
-**Page 2 — Agent & Rep Performance** — "Who is delivering, and how well?"
-- Cards: Active Agents, Interactions per Agent, Connect Rate, Avg Interaction Duration; role slicer
-- Bar: role vs Total Interactions · Scatter: agents (X Connect Rate, Y Avg Sentiment, size Total Interactions)
-- Matrix: role x team vs core metrics
-
-**Page 3 — Quality & Compliance** — "Are we compliant and on-message?"
-- Cards: Compliance Pass Rate, Avg Script Adherence, Adverse Event Rate, Positive Sentiment Pct; team slicer
-- Bar: role vs Avg Script Adherence · Line: Avg Sentiment Score · Donut: outcome
-- Table: team x compliance metrics
-
-**Page 4 — Workforce & Capacity** — "How is the delivery team utilized?"
-- Cards: Roster Size, Active Agents, Agent Utilization, Avg Tenure Months; hub_location slicer
-- Bar: hub_location vs Total Interactions · Scatter: agents (X Avg Tenure Months, Y Interactions per Agent)
-- Table: hub_location x team capacity metrics
-
-#### Client report — `generate_pages_client.py`
-
-**Page 1 — Engagement Overview** — "How is engagement performing overall?"
-- Cards: Total Interactions, Connect Rate, Unique HCPs Reached, Avg Sentiment Score; Year slicer
-- Bar gradient: client_name vs Total Interactions · Line (dual): Total Interactions + Interactions PY · Donut: channel
-- Area: Total Engagement Minutes · Bar: interaction_type vs Total Interactions
-
-**Page 2 — HCP Engagement** — "Which physicians are we reaching?"
-- Cards: Unique HCPs Reached, HCP Reach Pct, Interactions per HCP, Scientific Exchange Pct; specialty slicer
-- Bar: specialty vs Total Interactions · Donut: segment · Bubble map: HCP territory by Total Interactions
-- Table: HCP detail
-
-**Page 3 — Patient Support & Outcomes** — "Are patients getting on and staying on therapy?"
-- Cards: Total Patients Enrolled, Active Patient Rate, Avg Adherence, NPS Score; status slicer
-- Bar: barrier_type vs Support Records · Donut: payer_status · Bar: client_name vs Avg Adherence
-- Table: age_group x outcome metrics
-
-**Page 4 — Client Campaign Health** — "How is each client's program performing?"
-- Cards: Total Interactions, Active Patients, Connect Rate, Payer Approval Rate; client slicer
-- Bar gradient: client_name vs Total Interactions · Bar: therapeutic_area vs Connect Rate
-- Matrix: client_name vs Total Interactions, Connect Rate, Unique HCPs Reached, Active Patients, Avg Adherence, NPS Score
-
----
-
-## PHASE 3 — Open and Polish
-
-1. Open `epikast_internal_dashb.pbip` and `epikast_client_dashb.pbip` in Power BI Desktop
-2. Each report's pages should appear with data-bound visuals
-3. Manual polish (~15-30 min per report):
-   - Apply a color theme — a clinical teal/indigo palette suits a biopharma brand
-   - Set conditional formatting on KPI cards using the RAG Color measures
-   - Sync the Year slicer across pages (View > Sync Slicers)
-   - In the **client** report, set row-level security (RLS) on DimClient so each client
-     sees only their own data, and make Campaign Health a drill-through page on client_name
-   - In the **internal** report, make Agent Performance a drill-through page on agent / team
-   - Add page navigation to the buttons (Format > Action > Page navigation)
-   - Format percentage measures (Connect Rate, rates, Pcts) as 0.0%
-   - Format sentiment/adherence as 0.00, duration with a " min" suffix, NPS as whole number
+## PHASE 2 — Generate Visuals (next step)
+
+The 6 dashboards / 16 pages below are built by Python scripts in `scripts/` (PBIR JSON,
+one `make_*` call per visual). **Not built yet** — this checkpoint delivers the data model
+only. The dashboard specs are recorded here so the visual layer can be generated against
+them next.
+
+Palette: Navy `#1B3A5C`, Teal `#2E86AB`, Magenta `#A23B72`, Green `#2E8B57`,
+Amber `#DAA520`, Red `#CD3333`, Background `#F8F9FA`, Cards `#FFFFFF`, Text `#333333`.
+Canvas 1280×720.
+
+| # | Dashboard | Pages | Audience |
+|---|-----------|-------|----------|
+| 1 | Ops Overview | 4 (Exec Summary, Call Outcomes, Rep Productivity, Trends) | VP Operations |
+| 2 | Patient Access Funnel | 3 (Funnel, PA & Insurance, Adherence) | Patient services lead |
+| 3 | AI Impact | 3 (AI Call Targeting, MSL Partner Performance, MSL Partner ROI) | Exec / client |
+| 4 | A/B Test Tracker | 2 (Experiment Registry, Script A/B Deep Dive) | Optimization team |
+| 5 | Compliance & Quality | 1 | Compliance officer |
+| 6 | Channel Mix & Workforce | 1 | Ops / workforce planning |
+
+> A few visuals in these specs need small new helper functions beyond the existing
+> framework: **combo chart** (bars + line on a secondary axis), **heatmap matrix** with a
+> color scale, **reference lines**, and **A-vs-B comparison cards**. These will be added to
+> the shared `pbir_lib.py` when the visual scripts are generated.
 
 ---
 
 ## Schema Reference
 
-### Star Schema Diagram (two conformed-dimension fact tables)
-
 ```
-                         Calendar
-                       /          \
-          interaction_date      enrollment_date
-                 |                      |
-   DimAgent --- FactInteractions      FactPatientSupport --- DimPatient
-       \   \        |                   |        /   /
-        \   DimHCP (hcp_id)             |        /  (patient_id)
-         \                              |       /
-          \------- DimClient (client_id, shared) ------/
+                                  DimCalendar
+            (active: CallDate · inactive+USERELATIONSHIP: RxDate, RxDate, UsageDate, MonthDate)
+                                       |
+   DimRep ────┬──── FactHCPCalls ──────┼────── FactRx ──── DimHCP
+              │          │             │          │
+         FactMSLPartnerUsage      FactPatientCases ──── DimPatient
+                                       │
+                                  DimDrug (DrugName → each fact's Drug)
+
+   DimExperiment  ·  FactFinancials   (reference / standalone)
 ```
 
-DimAgent, DimClient, and Calendar are **conformed dimensions** — each filters both fact
-tables through its own single-direction relationship, so all relationships stay active
-without creating an ambiguous path. DimHCP is specific to FactInteractions; DimPatient is
-specific to FactPatientSupport.
+### Key DAX skills demonstrated
 
-### All Relationships
-
-| From | To | Cardinality | Active | Cross-Filter |
-|------|----|-------------|--------|--------------|
-| FactInteractions[agent_id] | DimAgent[agent_id] | Many:1 | Yes | Single |
-| FactInteractions[hcp_id] | DimHCP[hcp_id] | Many:1 | Yes | Single |
-| FactInteractions[client_id] | DimClient[client_id] | Many:1 | Yes | Single |
-| FactInteractions[interaction_date] | Calendar[Date] | Many:1 | Yes | Single |
-| FactPatientSupport[patient_id] | DimPatient[patient_id] | Many:1 | Yes | Single |
-| FactPatientSupport[agent_id] | DimAgent[agent_id] | Many:1 | Yes | Single |
-| FactPatientSupport[client_id] | DimClient[client_id] | Many:1 | Yes | Single |
-| FactPatientSupport[enrollment_date] | Calendar[Date] | Many:1 | Yes | Single |
-
-### Key DAX Skills Demonstrated
-
-| Skill | Measure |
+| Skill | Example |
 |-------|---------|
-| COUNTROWS / DISTINCTCOUNT | Total Interactions, Unique HCPs Reached |
-| CALCULATE filter context | channel/type/compliance breakdowns |
-| DIVIDE (safe ratios) | every rate / Pct measure |
-| IN operator | Active Patients, Payer Approval Rate |
-| SAMEPERIODLASTYEAR | Interactions PY, Connect Rate PY |
-| TOTALMTD / TOTALYTD | Interactions MTD, Interactions YTD |
-| DATESINPERIOD | Interactions L3M (rolling 3 months) |
-| VAR + RETURN | NPS Score (promoters − detractors) |
-| SWITCH(TRUE()) RAG | Connect Rate / Sentiment / Adherence / Compliance colors |
-| Conformed dimensions | DimAgent / DimClient / Calendar across two facts |
+| USERELATIONSHIP | all Rx / MSL / Patient-case measures (inactive date links) |
+| TREATAS (virtual relationship) | Rx from / NBRx from Engaged HCPs |
+| IN operator | Active Cases, PA Approval/Denial Rate |
+| DIVIDE (safe ratios) | every rate / Pct |
+| DATESINPERIOD / DATEADD | Calls L4W, MoM change measures |
+| VAR + RETURN | Calls MoM Change, engaged-HCP measures |
+| LEFT / text logic | Concluded Experiments |
+| SWITCH(TRUE()) RAG | 7 status-color measures |
+| Conformed dimensions | DimRep / DimDrug / DimCalendar across multiple facts |
