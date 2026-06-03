@@ -232,6 +232,15 @@ for i in range(N_CALLS):
         meaningful = False
         interaction_type = "N/A"
 
+    # ── REALISM FIX: HCP sentiment (AI layer output) tracks conversation quality
+    #    — better when the interaction was meaningful, AI-guided, or empathetic-script.
+    if connected:
+        base_sent = (3.0 + (0.6 if meaningful else -0.3) + (0.3 if ai_followed else 0.0)
+                     + (0.2 if "Empathetic" in script else 0.0) + random.gauss(0, 0.5))
+        sentiment_score = round(min(5.0, max(1.0, base_sent)), 1)
+    else:
+        sentiment_score = None
+
     # Post-call work
     after_call_work = random.gauss(3, 1.5) if connected else random.gauss(0.5, 0.3)
     after_call_work = max(0.2, min(15, after_call_work))
@@ -282,7 +291,7 @@ for i in range(N_CALLS):
         "TherapyArea": hcp["TherapyArea"],
         "NotesTaken": 1 if connected and random.random() < 0.9 else 0,
         "FollowUpScheduled": 1 if meaningful and random.random() < 0.5 else 0,
-        "HCPSentimentScore": round(random.uniform(1, 5), 1) if connected else None,
+        "HCPSentimentScore": sentiment_score,
         "Channel": channel,
         "ScriptDeviation": 1 if script_deviation else 0,
         "CallQualityScore": call_quality,
