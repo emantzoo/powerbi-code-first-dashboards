@@ -251,6 +251,7 @@ powerbi-code-first-dashboards/
   epikast/                         # Pharma ops dashboards (11-table model, 123 measures)
     data/                          #   11 CSVs + deterministic data generator
     Epikast_Dashboard_Prompts.md   #   Full data model spec + dashboard layout specs
+    DATA_GUIDE.md                  #   Data dictionary: files, sources, columns, schema, dashboard usage
     scripts/pbir_lib.py            #   Shared make_* helper library
     scripts/generate_pages_internal.py  # Internal Ops report (6 pages)
     scripts/generate_pages_ai.py        # AI Effectiveness report (5 pages)
