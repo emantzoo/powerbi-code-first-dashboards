@@ -149,7 +149,7 @@ The AI never writes raw JSON. It either calls deterministic `make_*` functions (
 
 ## Example Dashboards
 
-Five complete dashboard projects across different business domains, each with sample CSV data, a prompt file, and a `generate_pages.py` script:
+Six complete dashboard projects across different business domains, each with sample CSV data, a prompt file, and a `generate_pages.py` script:
 
 | Dashboard | Tables | DAX Measures | Key Patterns |
 |-----------|--------|-------------|--------------|
@@ -158,6 +158,7 @@ Five complete dashboard projects across different business domains, each with sa
 | **HR** | 5 | 34 | LASTDATE snapshot, POWER annualized attrition, VAR+RETURN |
 | **Supply Chain** | 6 | 42 | Multi-fact model, 8x USERELATIONSHIP, semi-additive LASTDATE |
 | **PortPulse (Piraeus)** | 2 | 17 | Embedded R visuals (ARIMA, Isolation Forest, K-means), live AIS data, Azure Map, auto-generated PNG backgrounds |
+| **Market Orders (Surveillance)** | 1 | 22 | Single-day order-event lifecycle, ALLEXCEPT reference-price + self-referencing cancel-latency calculated columns, pure-DAX anomaly flags (order-to-trade ratio, rapid cancels, off-market prices), auto-generated PNG backgrounds |
 
 ### Screenshots (PortPulse — Piraeus Port Congestion)
 
@@ -247,6 +248,11 @@ powerbi-code-first-dashboards/
     scripts/generate_pages.py      #   PBIR visual generator (Python + Pillow)
     PortPulse_Dashboard_Prompts.md #   Full data model specification
     DEMO_GUIDE.md                  #   Demo walkthrough and setup instructions
+  market_orders/                   # Order activity & surveillance dashboard (single trading date)
+    data/                          #   Synthetic order-event generator + CSV (52-col schema)
+    backgrounds/                   #   Auto-generated PNG page backgrounds
+    scripts/generate_pages.py      #   PBIR visual generator (Python + Pillow)
+    MarketOrders_Dashboard_Prompts.md # Full data model spec (derived columns + DAX, pure DAX anomaly flags)
   skills/
     PBIR_Dashboard_Generator_Skill.md  # Claude skill for auto-generating dashboards
   themes/
