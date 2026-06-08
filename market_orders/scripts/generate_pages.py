@@ -278,6 +278,20 @@ def make_hundred_pct_stacked_bar(name, x, y, w, h, cat_table, cat_col, series_ta
         objects=_chart_objects())
 
 
+def make_funnel(name, x, y, w, h, cat_table, cat_col, val_table, val_measure):
+    return make_visual(name, x, y, w, h, "funnel",
+        {"Category": {"projections": [column_field(cat_table, cat_col)]},
+         "Y": {"projections": [measure_field(val_table, val_measure)]}},
+        objects=_chart_objects(show_labels=True, label_position="'InsideCenter'"))
+
+def make_treemap(name, x, y, w, h, cat_table, cat_col, val_table, val_measure, group_table=None, group_col=None):
+    qs = {"Category": {"projections": [column_field(cat_table, cat_col)]},
+          "Values": {"projections": [measure_field(val_table, val_measure)]}}
+    if group_table and group_col:
+        qs["Group"] = {"projections": [column_field(group_table, group_col)]}
+    return make_visual(name, x, y, w, h, "treemap", qs)
+
+
 def make_title_bar(name, x, y, w, h, text, bg_color=HEADER_COLOR):
     return make_visual(name, x, y, w, h, "textbox",
         objects={"general": [{"properties": {"paragraphs": [
@@ -607,6 +621,62 @@ p4 = [
     make_button("mo4_btn_surv", 1040, 670, 110, 40, "Surveillance"),
 ]
 
+# ===== PAGE 5: Execution Quality & Liquidity =====
+p5_id = uid("mo_page5_execution")
+p5 = [
+    make_title_bar("mo5_title", 0, 0, 1280, 50, "Execution Quality & Liquidity"),
+    make_card("mo5_fillrate", 20, 60, 230, 140, M, "Order Fill Rate"),
+    make_card("mo5_qtyfill", 265, 60, 230, 140, M, "Quantity Fill Rate"),
+    make_card("mo5_ttf", 510, 60, 230, 140, M, "Avg Time to Fill s"),
+    make_card("mo5_passive", 755, 60, 230, 140, M, "Passive Fill Share"),
+    make_slicer("mo5_slicer_obc", 1000, 60, 250, 140, TABLE, "order_book_code"),
+    # Order lifecycle funnel (event-type stages)
+    make_funnel("mo5_funnel", 20, 215, 400, 310, TABLE, "order_event_type", M, "Total Events"),
+    # Fill rate by instrument
+    make_clustered_column("mo5_fill_instr", 435, 215, 395, 310, TABLE, "order_book_code", M, "Order Fill Rate"),
+    # Intraday time-to-fill
+    make_line_chart("mo5_ttf_hour", 845, 215, 405, 310, TABLE, "EventHour", M, "Avg Time to Fill s"),
+    # Execution scorecard
+    make_table("mo5_table", 20, 540, 1230, 140, [
+        (TABLE, "order_book_code", False),
+        (M, "New Orders", True),
+        (M, "Trades", True),
+        (M, "Order Fill Rate", True),
+        (M, "Quantity Fill Rate", True),
+        (M, "Avg Time to Fill s", True),
+        (M, "Passive Fill Share", True),
+    ]),
+    make_button("mo5_btn_back", 20, 670, 100, 40, "Overview"),
+    make_button("mo5_btn_surv", 1030, 670, 110, 40, "Surveillance"),
+    make_button("mo5_btn_part", 1150, 670, 110, 40, "Participants"),
+]
+
+# ===== PAGE 6: Participants & Order Composition =====
+p6_id = uid("mo_page6_participants")
+p6 = [
+    make_title_bar("mo6_title", 0, 0, 1280, 50, "Participants & Order Composition"),
+    make_card("mo6_clients", 20, 60, 230, 140, M, "Distinct Clients"),
+    make_card("mo6_dea", 265, 60, 230, 140, M, "DEA Share"),
+    make_card("mo6_algo", 510, 60, 230, 140, M, "Algo Share"),
+    make_card("mo6_lp", 755, 60, 230, 140, M, "Liquidity Provision Share"),
+    make_slicer("mo6_slicer_cap", 1000, 60, 250, 65, TABLE, "trading_capacity"),
+    make_slicer("mo6_slicer_mic", 1000, 135, 250, 65, TABLE, "MIC"),
+    # Order-size distribution (histogram)
+    make_clustered_column("mo6_size", 20, 215, 400, 310, TABLE, "SizeBucket", M, "New Orders"),
+    # Validity-period mix
+    make_donut("mo6_validity", 435, 215, 395, 310, TABLE, "validity_period", M, "New Orders"),
+    # Trading-capacity mix
+    make_donut("mo6_capacity", 845, 215, 405, 310, TABLE, "trading_capacity", M, "Total Events"),
+    # Top firms by orders
+    make_clustered_bar("mo6_firms", 20, 540, 610, 140, TABLE, "investment_firm_lei", M, "Distinct Orders"),
+    # Events by instrument, grouped by venue
+    make_treemap("mo6_treemap", 650, 540, 600, 140, TABLE, "order_book_code", M, "Total Events",
+                 group_table=TABLE, group_col="MIC"),
+    make_button("mo6_btn_back", 20, 670, 100, 40, "Overview"),
+    make_button("mo6_btn_exec", 1030, 670, 110, 40, "Execution"),
+    make_button("mo6_btn_insight", 1150, 670, 110, 40, "Insights"),
+]
+
 
 # ===================================================================
 # WRITE ALL PAGES
@@ -616,19 +686,23 @@ if __name__ == "__main__":
     write_page(p2_id, "Order Lifecycle & Flow", p2)
     write_page(p3_id, "Surveillance & Anomalies", p3)
     write_page(p4_id, "Firm & Instrument Insights", p4)
+    write_page(p5_id, "Execution Quality & Liquidity", p5)
+    write_page(p6_id, "Participants & Order Composition", p6)
 
     for pg_name, pg_id, pg_visuals, pg_title in [
         ("order_overview", p1_id, p1, "Order Activity Overview"),
         ("order_flow", p2_id, p2, "Order Lifecycle & Flow"),
         ("surveillance", p3_id, p3, "Surveillance & Anomalies"),
         ("firm_insights", p4_id, p4, "Firm & Instrument Insights"),
+        ("execution_quality", p5_id, p5, "Execution Quality & Liquidity"),
+        ("participants", p6_id, p6, "Participants & Order Composition"),
     ]:
         bg_path = make_background(pg_name, pg_visuals, display_name=pg_title)
         if bg_path and bg_path.endswith(".png"):
             write_background(pg_id, bg_path)
 
     with open(os.path.join(BASE, "pages.json"), "w", encoding="utf-8") as f:
-        json.dump({"$schema": SCHEMA_PAGES, "pageOrder": [p1_id, p2_id, p3_id, p4_id],
+        json.dump({"$schema": SCHEMA_PAGES, "pageOrder": [p1_id, p2_id, p3_id, p4_id, p5_id, p6_id],
                    "activePageName": p1_id}, f, indent=2)
 
     REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(BASE))))
@@ -640,4 +714,6 @@ if __name__ == "__main__":
     print(f"Page 2 (Order Lifecycle & Flow): {p2_id} - {len(p2)} visuals")
     print(f"Page 3 (Surveillance & Anomalies): {p3_id} - {len(p3)} visuals")
     print(f"Page 4 (Firm & Instrument Insights): {p4_id} - {len(p4)} visuals")
+    print(f"Page 5 (Execution Quality & Liquidity): {p5_id} - {len(p5)} visuals")
+    print(f"Page 6 (Participants & Order Composition): {p6_id} - {len(p6)} visuals")
     print("Done!")

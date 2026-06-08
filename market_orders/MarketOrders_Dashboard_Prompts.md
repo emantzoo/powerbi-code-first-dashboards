@@ -128,6 +128,49 @@ SWITCH(TRUE(),
     "None")
 ```
 
+> The following columns support the Execution Quality and Participants pages.
+
+```
+IsAlgo = IF(LEFT(OrderEvents[invest_dec], 4) = "ALGO", 1, 0)
+
+IsPassiveFill =
+IF(OrderEvents[IsTrade] = 1 && OrderEvents[passive_aggressive] = "PASV", 1, 0)
+
+-- First execution time of each order
+FirstFillTime =
+CALCULATE(
+    MIN(OrderEvents[date_time]),
+    ALLEXCEPT(OrderEvents, OrderEvents[order_ID]),
+    OrderEvents[order_event_type] IN {"FILL", "PARF"}
+)
+
+-- Seconds from order entry to first execution (set on the NEWO row)
+TimeToFillSec =
+IF(OrderEvents[order_event_type] = "NEWO" && NOT ISBLANK(OrderEvents[FirstFillTime]),
+   (OrderEvents[FirstFillTime] - OrderEvents[date_time]) * 86400.0,
+   BLANK())
+
+-- Order-size bucket for the distribution histogram
+SizeBucket =
+SWITCH(TRUE(),
+    OrderEvents[initial_quantity] <= 50, "1-50",
+    OrderEvents[initial_quantity] <= 200, "51-200",
+    OrderEvents[initial_quantity] <= 1000, "201-1,000",
+    OrderEvents[initial_quantity] <= 5000, "1,001-5,000",
+    ">5,000")
+
+SizeBucketSort =
+SWITCH(TRUE(),
+    OrderEvents[initial_quantity] <= 50, 1,
+    OrderEvents[initial_quantity] <= 200, 2,
+    OrderEvents[initial_quantity] <= 1000, 3,
+    OrderEvents[initial_quantity] <= 5000, 4,
+    5)
+```
+
+> In the model view, set **SizeBucket → Sort by column → SizeBucketSort** so the histogram
+> buckets render in size order rather than alphabetically.
+
 ---
 
 ## PHASE 2A — DAX Measures (Batch 1: Activity)
@@ -205,6 +248,62 @@ Set `Anomaly Rate` to Percentage.
 
 ---
 
+## PHASE 2D — DAX Measures (Batch 4: Execution Quality)
+
+```
+Add these measures to _Measures:
+
+Initial Quantity =
+CALCULATE(SUM(OrderEvents[initial_quantity]), OrderEvents[order_event_type] = "NEWO")
+
+Filled Orders =
+CALCULATE(DISTINCTCOUNT(OrderEvents[order_ID]), OrderEvents[IsTrade] = 1)
+
+Order Fill Rate    = DIVIDE([Filled Orders], [Distinct Orders])
+Quantity Fill Rate = DIVIDE([Traded Quantity], [Initial Quantity])
+Avg Modifies per Order = DIVIDE([Modifications], [Distinct Orders])
+
+Avg Time to Fill s =
+AVERAGEX(
+    FILTER(OrderEvents,
+           OrderEvents[order_event_type] = "NEWO" && NOT ISBLANK(OrderEvents[TimeToFillSec])),
+    OrderEvents[TimeToFillSec])
+
+Passive Fills      = SUM(OrderEvents[IsPassiveFill])
+Passive Fill Share = DIVIDE([Passive Fills], [Trades])
+```
+
+Set `Order Fill Rate`, `Quantity Fill Rate`, `Passive Fill Share` to Percentage;
+`Avg Time to Fill s` and `Avg Modifies per Order` to 1-decimal number.
+
+> `Avg Time to Fill s` is referenced verbatim by `generate_pages.py`. Keep the name exactly.
+
+---
+
+## PHASE 2E — DAX Measures (Batch 5: Participants)
+
+```
+Add these measures to _Measures:
+
+Distinct Clients =
+CALCULATE(DISTINCTCOUNT(OrderEvents[client_ID]), OrderEvents[client_ID] <> "NONE")
+
+DEA Orders = CALCULATE(DISTINCTCOUNT(OrderEvents[order_ID]), OrderEvents[DEA] = TRUE())
+DEA Share  = DIVIDE([DEA Orders], [Distinct Orders])
+
+Algo Orders = CALCULATE(DISTINCTCOUNT(OrderEvents[order_ID]), OrderEvents[IsAlgo] = 1)
+Algo Share  = DIVIDE([Algo Orders], [Distinct Orders])
+
+LP Orders = CALCULATE(DISTINCTCOUNT(OrderEvents[order_ID]), OrderEvents[liq_prov_activity] = TRUE())
+Liquidity Provision Share = DIVIDE([LP Orders], [Distinct Orders])
+```
+
+Set `DEA Share`, `Algo Share`, `Liquidity Provision Share` to Percentage.
+
+> `Liquidity Provision Share` is referenced verbatim by `generate_pages.py`. Keep the name exactly.
+
+---
+
 ## PHASE 3 — Save
 
 ```
@@ -237,6 +336,8 @@ No R is required — every visual binds to DAX measures / derived columns.
 | **Order Lifecycle & Flow** | New / modify / cancel / fill dynamics through the session | Lifecycle cards, events-by-hour stacked by event type, traded-quantity by side, order-type-class bar, capacity-by-instrument 100% bar |
 | **Surveillance & Anomalies** | The two seeded patterns, surfaced | Anomaly KPI cards, **Order-to-Trade Ratio by firm** (gradient), **off-market events by instrument**, **rapid cancels by firm**, flagged-events table |
 | **Firm & Instrument Insights** | Who and what drives volume and exceptions | Top instruments by traded notional, firms by event volume, per-firm OTR-vs-anomaly-rate scatter, firm scorecard |
+| **Execution Quality & Liquidity** | How well orders convert to fills | Fill-rate / time-to-fill / passive-fill cards, order-lifecycle funnel, fill-rate by instrument, intraday time-to-fill curve, execution scorecard |
+| **Participants & Order Composition** | Who trades and how orders are shaped | Distinct-clients / DEA / algo / liquidity-provision cards, order-size histogram, validity-period & capacity donuts, top firms, instrument treemap by venue |
 
 ---
 

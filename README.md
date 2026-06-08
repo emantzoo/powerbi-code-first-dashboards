@@ -158,7 +158,7 @@ Six complete dashboard projects across different business domains, each with sam
 | **HR** | 5 | 34 | LASTDATE snapshot, POWER annualized attrition, VAR+RETURN |
 | **Supply Chain** | 6 | 42 | Multi-fact model, 8x USERELATIONSHIP, semi-additive LASTDATE |
 | **PortPulse (Piraeus)** | 2 | 17 | Embedded R visuals (ARIMA, Isolation Forest, K-means), live AIS data, Azure Map, auto-generated PNG backgrounds |
-| **Market Orders (Surveillance)** | 1 | 22 | Single-day order-event lifecycle, ALLEXCEPT reference-price + self-referencing cancel-latency calculated columns, pure-DAX anomaly flags (order-to-trade ratio, rapid cancels, off-market prices), auto-generated PNG backgrounds |
+| **Market Orders (Surveillance)** | 1 | 37 | Single-day order-event lifecycle, 6 pages (activity, flow, surveillance, firm/instrument, execution quality, participants), ALLEXCEPT reference-price + self-referencing cancel-latency/time-to-fill calculated columns, pure-DAX anomaly flags (order-to-trade ratio, rapid cancels, off-market prices), order-size histogram, lifecycle funnel, venue treemap, auto-generated PNG backgrounds |
 
 ### Screenshots (PortPulse — Piraeus Port Congestion)
 
