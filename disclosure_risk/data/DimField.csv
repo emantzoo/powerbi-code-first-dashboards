@@ -1,0 +1,53 @@
+field,schema_category,sdc_class,risk_level,risk_weight,risk_rank,sdc_method,info_loss_metric,pct_empty,research_interest,needs_sdc
+investment_firm_lei,Core,Direct identifier,High,3,3,Pseudonymization,Not applicable,0,No,Yes
+DEA,Optional,Behavioural,Low,1,1,None,Not applicable,0,No,No
+client_ID,Optional,Direct identifier,Very High,4,4,Pseudonymization,Not applicable,0,No,Yes
+invest_dec,Core,Quasi-identifier,Medium,2,2,Generalization,Category change %,0,No,Yes
+within_firm,Optional,Behavioural,Low,1,1,None,Not applicable,0,No,No
+non_exec,Core,Behavioural,Low,1,1,None,Not applicable,0,No,No
+trading_capacity,Core,Behavioural,Medium,2,2,Generalization,Category change %,0,No,Yes
+liq_prov_activity,Core,Behavioural,Medium,2,2,Generalization,Category change %,0,No,Yes
+date_time,Optional,Quasi-identifier,High,3,3,Time generalization,Temporal deviation,0,Yes,Yes
+validity_period,Core,Behavioural,Medium,2,2,Generalization,Not applicable,0,No,Yes
+order_restriction,Core,Behavioural,Medium,2,2,Generalization,Category change %,0,No,Yes
+validity_period_ts,Core,Quasi-identifier,High,3,3,Time generalization,Temporal deviation,0,Yes,Yes
+priority_time,Core,Quasi-identifier,High,3,3,Time generalization,Temporal deviation,0,Yes,Yes
+priority_size,Optional,Behavioural,Medium,2,2,Binning,Bin change %,30,No,Yes
+sequence_no,Optional,Technical,Low,1,1,None,Not applicable,0,Yes,No
+MIC,Core,Quasi-identifier,Medium,2,2,Generalization,Category change %,0,No,Yes
+order_book_code,Core,Behavioural,Medium,2,2,Generalization,Category change %,0,No,Yes
+fin_instr_ID,Core,Quasi-identifier,High,3,3,Pseudonymization,Generalization level,0,No,Yes
+receipt_date,Core,Quasi-identifier,High,3,3,Time generalization,Temporal deviation,0,Yes,Yes
+order_ID,Core,Direct identifier,High,3,3,Pseudonymization,Not applicable,0,No,Yes
+order_event_type,Core,Behavioural,Low,1,1,None,Not applicable,0,No,No
+order_type,Core,Behavioural,Low,1,1,None,Not applicable,0,No,No
+order_type_class,Core,Behavioural,Medium,2,2,Generalization,Category change %,0,No,Yes
+limit_price,Core,Sensitive,High,3,3,Noise addition / Rounding,NMAE,0,Yes,Yes
+additional_limit_price,Core,Sensitive,Low,1,1,None,Not applicable,60,No,No
+stop_price,Core,Sensitive,Medium,2,2,Noise addition / Rounding,NMAE,40,Yes,Yes
+pegged_limit_price,Core,Sensitive,High,3,3,Noise addition / Rounding,NMAE,80,Yes,Yes
+transaction_price,Optional,Sensitive,High,3,3,Noise addition / Rounding,NMAE,60,Yes,Yes
+currency,Core,Non-sensitive,Low,1,1,None,Not applicable,0,No,No
+leg2_currency,Optional,Non-sensitive,Low,1,1,None,Category change %,95,No,No
+price_notation,Core,Non-sensitive,Low,1,1,None,Not applicable,0,No,No
+buy_sell,Optional,Behavioural,Low,1,1,None,Not applicable,0,No,No
+order_status,Optional,Behavioural,Low,1,1,None,Not applicable,0,No,No
+quantity_notation,Core,Non-sensitive,Low,1,1,None,Category change %,0,No,No
+quantity_currency,Core,Non-sensitive,Low,1,1,None,Category change %,0,No,No
+initial_quantity,Core,Sensitive,High,3,3,Noise / Binning / Top-coding,NMAE / Bin change %,0,Yes,Yes
+remaining_quantity,Optional,Sensitive,High,3,3,Noise / Binning / Top-coding,NMAE / Bin change %,40,Yes,Yes
+displayed_quantity,Optional,Sensitive,High,3,3,Noise / Binning / Top-coding,NMAE / Bin change %,30,Yes,Yes
+traded_quantity,Optional,Sensitive,High,3,3,Noise / Binning / Top-coding,NMAE / Bin change %,86,Yes,Yes
+MAQ,Optional,Behavioural,Low,1,1,None,Not applicable,100,No,No
+MES,Optional,Behavioural,Low,1,1,None,Not applicable,100,No,No
+MES_first,Optional,Behavioural,Low,1,1,None,Not applicable,100,No,No
+passive_only,Optional,Behavioural,Low,1,1,None,Not applicable,100,No,No
+passive_aggressive,Optional,Behavioural,Low,1,1,None,Not applicable,97,No,No
+self_exec_prevention,Optional,Behavioural,Medium,2,2,Generalization,Category change %,100,No,Yes
+sl_order_ID,Optional,Direct identifier,High,3,3,Pseudonymization,Not applicable,100,No,Yes
+routing_strategy,Optional,Behavioural,Medium,2,2,Generalization,Category change %,100,No,Yes
+trading_venue_trans_ID,Optional,Direct identifier,High,3,3,Pseudonymization,Not applicable,0,No,Yes
+trading_phases,Optional,Behavioural,Medium,2,2,Generalization,Category change %,98,No,Yes
+auction_price,Optional,Sensitive,Low,1,1,None,Not applicable,99,No,No
+auction_volume,Extra,Technical,Low,1,1,None,Suppression %,99,No,No
+reserved fields,Optional,Technical,Low,1,1,Drop,Not applicable,100,No,No

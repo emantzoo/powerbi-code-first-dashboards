@@ -677,6 +677,58 @@ p6 = [
     make_button("mo6_btn_insight", 1150, 670, 110, 40, "Insights"),
 ]
 
+# ===== PAGE 7: Intraday Microstructure =====
+p7_id = uid("mo_page7_microstructure")
+p7 = [
+    make_title_bar("mo7_title", 0, 0, 1280, 50, "Intraday Microstructure — Imbalance, Cumulative Flow, Activity Heatmap"),
+    make_card("mo7_buy", 20, 60, 230, 140, M, "Buy Events"),
+    make_card("mo7_sell", 265, 60, 230, 140, M, "Sell Events"),
+    make_card("mo7_imbal", 510, 60, 230, 140, M, "Buy/Sell Imbalance"),
+    make_card("mo7_events", 755, 60, 230, 140, M, "Total Events"),
+    make_slicer("mo7_slicer_obc", 1000, 60, 250, 140, TABLE, "order_book_code"),
+    # Buy vs sell events through the session
+    make_line_chart("mo7_imbalance", 20, 215, 610, 310, TABLE, "EventHour", M, "Buy Events", M, "Sell Events"),
+    # Cumulative event flow
+    make_area_chart("mo7_cumulative", 650, 215, 600, 150, TABLE, "EventHour", M, "Cumulative Events"),
+    # Quote-distance (limit vs reference) distribution
+    make_clustered_column("mo7_distance", 650, 375, 600, 150, TABLE, "DistanceBucket", M, "New Orders"),
+    # Activity heatmap: instrument x hour
+    make_matrix("mo7_heatmap", 20, 540, 1230, 140,
+                [(TABLE, "order_book_code")], [(TABLE, "EventHour")], [(M, "Total Events")]),
+    make_button("mo7_btn_back", 20, 670, 100, 40, "Overview"),
+    make_button("mo7_btn_exec", 1030, 670, 110, 40, "Execution"),
+    make_button("mo7_btn_clients", 1150, 670, 110, 40, "Clients"),
+]
+
+# ===== PAGE 8: Client Concentration =====
+p8_id = uid("mo_page8_clients")
+p8 = [
+    make_title_bar("mo8_title", 0, 0, 1280, 50, "Client Concentration"),
+    make_card("mo8_clients", 20, 60, 230, 140, M, "Distinct Clients"),
+    make_card("mo8_top5", 265, 60, 230, 140, M, "Top 5 Client Share"),
+    make_card("mo8_hhi", 510, 60, 230, 140, M, "Client HHI"),
+    make_card("mo8_notional", 755, 60, 230, 140, M, "Traded Notional"),
+    make_slicer("mo8_slicer_obc", 1000, 60, 250, 65, TABLE, "order_book_code"),
+    make_slicer("mo8_slicer_mic", 1000, 135, 250, 65, TABLE, "MIC"),
+    # Top clients by traded notional
+    make_clustered_bar_gradient("mo8_topclients", 20, 215, 610, 310, TABLE, "client_ID", M, "Traded Notional"),
+    # Client share treemap
+    make_treemap("mo8_treemap", 650, 215, 600, 150, TABLE, "client_ID", M, "Traded Notional"),
+    # Clients by order count
+    make_clustered_bar("mo8_clientorders", 650, 375, 600, 150, TABLE, "client_ID", M, "Distinct Orders"),
+    # Client scorecard
+    make_table("mo8_table", 20, 540, 1230, 140, [
+        (TABLE, "client_ID", False),
+        (M, "Distinct Orders", True),
+        (M, "Trades", True),
+        (M, "Traded Quantity", True),
+        (M, "Traded Notional", True),
+    ]),
+    make_button("mo8_btn_back", 20, 670, 100, 40, "Overview"),
+    make_button("mo8_btn_micro", 1020, 670, 130, 40, "Microstructure"),
+    make_button("mo8_btn_surv", 1160, 670, 100, 40, "Surveillance"),
+]
+
 
 # ===================================================================
 # WRITE ALL PAGES
@@ -688,6 +740,8 @@ if __name__ == "__main__":
     write_page(p4_id, "Firm & Instrument Insights", p4)
     write_page(p5_id, "Execution Quality & Liquidity", p5)
     write_page(p6_id, "Participants & Order Composition", p6)
+    write_page(p7_id, "Intraday Microstructure", p7)
+    write_page(p8_id, "Client Concentration", p8)
 
     for pg_name, pg_id, pg_visuals, pg_title in [
         ("order_overview", p1_id, p1, "Order Activity Overview"),
@@ -696,13 +750,16 @@ if __name__ == "__main__":
         ("firm_insights", p4_id, p4, "Firm & Instrument Insights"),
         ("execution_quality", p5_id, p5, "Execution Quality & Liquidity"),
         ("participants", p6_id, p6, "Participants & Order Composition"),
+        ("microstructure", p7_id, p7, "Intraday Microstructure"),
+        ("client_concentration", p8_id, p8, "Client Concentration"),
     ]:
         bg_path = make_background(pg_name, pg_visuals, display_name=pg_title)
         if bg_path and bg_path.endswith(".png"):
             write_background(pg_id, bg_path)
 
     with open(os.path.join(BASE, "pages.json"), "w", encoding="utf-8") as f:
-        json.dump({"$schema": SCHEMA_PAGES, "pageOrder": [p1_id, p2_id, p3_id, p4_id, p5_id, p6_id],
+        json.dump({"$schema": SCHEMA_PAGES,
+                   "pageOrder": [p1_id, p2_id, p3_id, p4_id, p5_id, p6_id, p7_id, p8_id],
                    "activePageName": p1_id}, f, indent=2)
 
     REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(BASE))))
@@ -716,4 +773,6 @@ if __name__ == "__main__":
     print(f"Page 4 (Firm & Instrument Insights): {p4_id} - {len(p4)} visuals")
     print(f"Page 5 (Execution Quality & Liquidity): {p5_id} - {len(p5)} visuals")
     print(f"Page 6 (Participants & Order Composition): {p6_id} - {len(p6)} visuals")
+    print(f"Page 7 (Intraday Microstructure): {p7_id} - {len(p7)} visuals")
+    print(f"Page 8 (Client Concentration): {p8_id} - {len(p8)} visuals")
     print("Done!")

@@ -171,6 +171,32 @@ SWITCH(TRUE(),
 > In the model view, set **SizeBucket → Sort by column → SizeBucketSort** so the histogram
 > buckets render in size order rather than alphabetically.
 
+> Quote-distance buckets for the microstructure distribution (priced order entries):
+
+```
+DistanceBucket =
+IF(ISBLANK(OrderEvents[AbsPriceDevBps]), "n/a",
+   SWITCH(TRUE(),
+       OrderEvents[AbsPriceDevBps] <= 10, "0-10 bps",
+       OrderEvents[AbsPriceDevBps] <= 25, "10-25 bps",
+       OrderEvents[AbsPriceDevBps] <= 50, "25-50 bps",
+       OrderEvents[AbsPriceDevBps] <= 100, "50-100 bps",
+       OrderEvents[AbsPriceDevBps] <= 150, "100-150 bps",
+       "150+ bps"))
+
+DistanceBucketSort =
+IF(ISBLANK(OrderEvents[AbsPriceDevBps]), 0,
+   SWITCH(TRUE(),
+       OrderEvents[AbsPriceDevBps] <= 10, 1,
+       OrderEvents[AbsPriceDevBps] <= 25, 2,
+       OrderEvents[AbsPriceDevBps] <= 50, 3,
+       OrderEvents[AbsPriceDevBps] <= 100, 4,
+       OrderEvents[AbsPriceDevBps] <= 150, 5,
+       6))
+```
+
+> Set **DistanceBucket → Sort by column → DistanceBucketSort**.
+
 ---
 
 ## PHASE 2A — DAX Measures (Batch 1: Activity)
@@ -304,6 +330,49 @@ Set `DEA Share`, `Algo Share`, `Liquidity Provision Share` to Percentage.
 
 ---
 
+## PHASE 2F — DAX Measures (Batch 6: Microstructure & Concentration)
+
+```
+Add these measures to _Measures:
+
+Buy Events  = CALCULATE(COUNTROWS(OrderEvents), OrderEvents[buy_sell] = "BUYI")
+Sell Events = CALCULATE(COUNTROWS(OrderEvents), OrderEvents[buy_sell] = "SELL")
+
+Buy/Sell Imbalance =
+DIVIDE([Buy Events] - [Sell Events], [Buy Events] + [Sell Events])
+
+-- Running total of events across the intraday hour axis
+Cumulative Events =
+VAR h = MAX(OrderEvents[EventHour])
+RETURN
+CALCULATE([Total Events],
+    FILTER(ALLSELECTED(OrderEvents[EventHour]), OrderEvents[EventHour] <= h))
+
+-- Client concentration (notional-weighted), clients only (exclude "NONE")
+Top 5 Client Share =
+VAR TotalN =
+    CALCULATE([Traded Notional], ALLSELECTED(OrderEvents[client_ID]), OrderEvents[client_ID] <> "NONE")
+VAR Top5 =
+    TOPN(5, FILTER(VALUES(OrderEvents[client_ID]), OrderEvents[client_ID] <> "NONE"),
+         [Traded Notional], DESC)
+RETURN DIVIDE(SUMX(Top5, [Traded Notional]), TotalN)
+
+Client HHI =
+VAR TotalN =
+    CALCULATE([Traded Notional], ALLSELECTED(OrderEvents[client_ID]), OrderEvents[client_ID] <> "NONE")
+RETURN
+SUMX(
+    FILTER(VALUES(OrderEvents[client_ID]), OrderEvents[client_ID] <> "NONE"),
+    VAR s = DIVIDE([Traded Notional], TotalN)
+    RETURN s * s
+) * 10000
+```
+
+Set `Buy/Sell Imbalance` and `Top 5 Client Share` to Percentage; `Client HHI` to whole number
+(Herfindahl-Hirschman Index, 0–10,000 scale — higher = more concentrated).
+
+---
+
 ## PHASE 3 — Save
 
 ```
@@ -338,6 +407,8 @@ No R is required — every visual binds to DAX measures / derived columns.
 | **Firm & Instrument Insights** | Who and what drives volume and exceptions | Top instruments by traded notional, firms by event volume, per-firm OTR-vs-anomaly-rate scatter, firm scorecard |
 | **Execution Quality & Liquidity** | How well orders convert to fills | Fill-rate / time-to-fill / passive-fill cards, order-lifecycle funnel, fill-rate by instrument, intraday time-to-fill curve, execution scorecard |
 | **Participants & Order Composition** | Who trades and how orders are shaped | Distinct-clients / DEA / algo / liquidity-provision cards, order-size histogram, validity-period & capacity donuts, top firms, instrument treemap by venue |
+| **Intraday Microstructure** | Order flow shape through the session | Buy/sell imbalance line, cumulative-flow area, quote-distance (limit vs reference) distribution, instrument × hour activity heatmap matrix |
+| **Client Concentration** | How concentrated activity is across clients | Top-5-share & HHI cards, top clients by notional (gradient), client treemap, clients by order count, client scorecard |
 
 ---
 

@@ -149,7 +149,7 @@ The AI never writes raw JSON. It either calls deterministic `make_*` functions (
 
 ## Example Dashboards
 
-Six complete dashboard projects across different business domains, each with sample CSV data, a prompt file, and a `generate_pages.py` script:
+Seven complete dashboard projects across different business domains, each with sample CSV data, a prompt file, and a `generate_pages.py` script:
 
 | Dashboard | Tables | DAX Measures | Key Patterns |
 |-----------|--------|-------------|--------------|
@@ -158,7 +158,8 @@ Six complete dashboard projects across different business domains, each with sam
 | **HR** | 5 | 34 | LASTDATE snapshot, POWER annualized attrition, VAR+RETURN |
 | **Supply Chain** | 6 | 42 | Multi-fact model, 8x USERELATIONSHIP, semi-additive LASTDATE |
 | **PortPulse (Piraeus)** | 2 | 17 | Embedded R visuals (ARIMA, Isolation Forest, K-means), live AIS data, Azure Map, auto-generated PNG backgrounds |
-| **Market Orders (Surveillance)** | 1 | 37 | Single-day order-event lifecycle, 6 pages (activity, flow, surveillance, firm/instrument, execution quality, participants), ALLEXCEPT reference-price + self-referencing cancel-latency/time-to-fill calculated columns, pure-DAX anomaly flags (order-to-trade ratio, rapid cancels, off-market prices), order-size histogram, lifecycle funnel, venue treemap, auto-generated PNG backgrounds |
+| **Market Orders (Surveillance)** | 1 | 43 | Single-day order-event lifecycle, 8 pages (activity, flow, surveillance, firm/instrument, execution quality, participants, microstructure, client concentration), ALLEXCEPT reference-price + self-referencing cancel-latency/time-to-fill calculated columns, pure-DAX anomaly flags (order-to-trade ratio, rapid cancels, off-market prices), buy/sell imbalance, cumulative-flow, quote-distance distribution, activity heatmap matrix, HHI/Top-5 client concentration, lifecycle funnel, venue treemap, auto-generated PNG backgrounds |
+| **Disclosure Risk (Privacy)** | 2 | 15 | Schema-level data-privacy assessment, field risk register (disclosure-control class, risk level, SDC method), SDC scenario ladder with privacy-vs-utility trade-off scatter, class × risk heatmap matrix, TOPN/HHI-free reference model — pairs with Market Orders |
 
 ### Screenshots (PortPulse — Piraeus Port Congestion)
 
@@ -253,6 +254,11 @@ powerbi-code-first-dashboards/
     backgrounds/                   #   Auto-generated PNG page backgrounds
     scripts/generate_pages.py      #   PBIR visual generator (Python + Pillow)
     MarketOrders_Dashboard_Prompts.md # Full data model spec (derived columns + DAX, pure DAX anomaly flags)
+  disclosure_risk/                 # Data-privacy & disclosure-risk assessment (schema metadata)
+    data/                          #   Field risk register + SDC scenario ladder generator + CSVs
+    backgrounds/                   #   Auto-generated PNG page backgrounds
+    scripts/generate_pages.py      #   PBIR visual generator (Python + Pillow)
+    DisclosureRisk_Dashboard_Prompts.md # Full data model spec (risk register + scenario measures)
   skills/
     PBIR_Dashboard_Generator_Skill.md  # Claude skill for auto-generating dashboards
   themes/
