@@ -21,7 +21,7 @@ except ImportError:
 
 # ── Path and schema constants ──────────────────────────────────────────────
 # UPDATE this path to match your saved .pbip project location
-BASE = r"C:\Users\emant\Documents\powerbi-code-first-dashboards\market_orders\market_orders_dash.Report\definition\pages"
+BASE = r"C:\Users\emantzouni\Documents\powerbi-code-first-dashboards\market_orders\market_orders_dash.Report\definition\pages"
 
 SCHEMA_VISUAL = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json"
 SCHEMA_PAGE   = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json"
@@ -180,8 +180,12 @@ def write_page(page_id, display_name, visuals):
 
 # ── Visual builder functions ───────────────────────────────────────────────
 def make_card(name, x, y, w, h, table, measure):
-    return make_visual(name, x, y, w, h, "cardVisual",
-        {"Data": {"projections": [measure_field(table, measure)]}}, objects=_card_objects())
+    # Use the classic `card` visual (Values role), not the new `cardVisual` (Data role).
+    # Hand-authored `cardVisual` JSON renders blank in Power BI Desktop; the classic `card`
+    # binds reliably. The cardVisual-only styling (_card_objects: layout/accentBar/etc.) does
+    # not apply to the classic card, so it is intentionally omitted.
+    return make_visual(name, x, y, w, h, "card",
+        {"Values": {"projections": [measure_field(table, measure)]}})
 
 def make_slicer(name, x, y, w, h, table, column):
     return make_visual(name, x, y, w, h, "slicer",
