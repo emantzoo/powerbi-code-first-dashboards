@@ -397,6 +397,41 @@ No R is required — every visual binds to DAX measures / derived columns.
 
 ---
 
+## Alternative build — no MCP (TOM / TMSL, direct to the engine)
+
+If the Power BI Modeling MCP isn't available — or its **write** operations are blocked by the
+harness (reads succeed, but `table/column/measure Create` returns *"the user declined"* with
+`errorSource: user`, even with the tools allow-listed) — you can build the entire model **without
+the MCP** by talking to Power BI Desktop's local Analysis Services engine directly via TOM/TMSL.
+Two scripts in `scripts/` automate this; they encode Phase 0 → 2F exactly:
+
+1. **`scripts/build_tmsl.py`** — emits two TMSL `createOrReplace` table scripts: `OrderEvents`
+   (the M partition that imports the CSV with all 52 typed columns + the 24 calculated columns +
+   the two sort-by settings) and `_Measures` (all 43 measures with format strings).
+   *Note:* the timestamp columns are ISO-8601 with a trailing `Z`, which plain `type datetime`
+   can't parse — the M keeps them as text and converts them in a dedicated step.
+2. **`scripts/apply_tmsl.ps1`** — loads the official TOM client DLLs via `Add-Type`, connects to the
+   running engine, applies both table scripts with `Server.Execute`, then triggers a Full refresh +
+   `SaveChanges()` so the partition loads and calculated columns/measures evaluate.
+
+Steps:
+1. Open your `.pbip` in Power BI Desktop (leave it open). Find its engine port — e.g. via the MCP's
+   read-only `ListLocalInstances`, or DAX Studio / Tabular Editor — and set it in `apply_tmsl.ps1`
+   (`$port`). The port changes every time Power BI Desktop launches.
+2. Set the CSV path in `build_tmsl.py` (`CSV = …`) and the temp output paths to your machine.
+3. Obtain the TOM client libraries (no installer needed): the official
+   `Microsoft.AnalysisServices.retail.amd64` / `…AdomdClient` NuGet packages are plain zips —
+   extract the `net45` DLLs and point `$amo` in `apply_tmsl.ps1` at them. Windows PowerShell 5.1
+   loads them via `Add-Type` with only the .NET Framework runtime.
+4. `python scripts/build_tmsl.py` → `powershell -File scripts/apply_tmsl.ps1`.
+5. Verify with DAX (e.g. `EVALUATE ROW("Total Events", [Total Events])` → 1765, `RefPrice` non-blank,
+   anomaly counts > 0), then **save the `.pbip`** and run `generate_pages.py` as usual for the visuals.
+
+This path is fully scripted and idempotent (`createOrReplace`), and it leaves the model attached to
+Desktop. It's the recommended fallback whenever the MCP write flow is unavailable.
+
+---
+
 ## Pages
 
 | Page | Purpose | Key visuals |
