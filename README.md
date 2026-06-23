@@ -158,7 +158,7 @@ Six complete dashboard projects across different business domains, each with sam
 | **HR** | 5 | 34 | LASTDATE snapshot, POWER annualized attrition, VAR+RETURN |
 | **Supply Chain** | 6 | 42 | Multi-fact model, 8x USERELATIONSHIP, semi-additive LASTDATE |
 | **PortPulse (Piraeus)** | 2 | 17 | Embedded R visuals (ARIMA, Isolation Forest, K-means), live AIS data, Azure Map, auto-generated PNG backgrounds |
-| **Epikast (Pharma Ops)** | 11 | 123 | 5-fact pharma-ops model (HCP calls, patient access, Rx, MSL AI assistant, financials) feeding **3 reports off one model** — Internal Ops (6pp), AI Effectiveness (5pp), Client-facing (5pp), Insights Engine (5pp — native Key Influencers/Decomposition Tree + offline uplift model, NBA, sentiment), 203 visuals. TREATAS virtual relationships, USERELATIONSHIP, A/B experiment tracking, patient-access bottleneck mining, selling-time + top-performer analysis, combo/heatmap/reference-line visuals, SWITCH RAG. |
+| **Epikast (Pharma Ops)** | 11 | 123 | 5-fact pharma-ops model (HCP calls, patient access, Rx, MSL AI assistant, financials) feeding **3 reports off one model** — Internal Ops (6pp), AI Effectiveness (5pp), Client-facing (5pp), Insights Engine (5pp — Key Influencers/Decomposition Tree + uplift/NBA/sentiment), Advanced Analytics (5pp — interaction/uplift/cohort heatmaps + embedded R forest/parallel-coords/alluvial/survival + LightGBM-SHAP), 227 visuals. TREATAS virtual relationships, USERELATIONSHIP, A/B experiment tracking, patient-access bottleneck mining, selling-time + top-performer analysis, combo/heatmap/reference-line visuals, SWITCH RAG. |
 
 ### Screenshots (PortPulse — Piraeus Port Congestion)
 
@@ -257,7 +257,9 @@ powerbi-code-first-dashboards/
     scripts/generate_pages_ai.py        # AI Effectiveness report (5 pages)
     scripts/generate_pages_client.py    # Client-facing report (5 pages)
     scripts/train_uplift.py             # Offline uplift model → FactUplift / DimNBA / FeatureImportance
+    scripts/train_shap.py               # Offline LightGBM+SHAP → ShapImportance / ShapBeeswarm (+ PNG)
     scripts/generate_pages_insights.py  # Insights Engine (5 pages — AI visuals + uplift + NBA + sentiment)
+    scripts/generate_pages_advanced.py  # Advanced Analytics (5 pages — heatmaps, forest/parallel/survival R + SHAP)
   skills/
     PBIR_Dashboard_Generator_Skill.md  # Claude skill for auto-generating dashboards
   themes/

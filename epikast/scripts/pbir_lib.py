@@ -401,3 +401,23 @@ def make_matrix_heatmap(name, x, y, w, h, row_fields, col_fields, val_table, val
     return make_visual(name, x, y, w, h, "pivotTable",
         {"Rows": {"projections": rows}, "Columns": {"projections": cols},
          "Values": {"projections": [measure_field(val_table, val_measure)]}}, objects=obj)
+
+
+# ── Embedded R / Python script visuals (PortPulse-style; need R/Python set up in PBI) ──
+def make_r_visual(name, x, y, w, h, fields_list, r_script):
+    """R script visual. fields_list = [(table, col_or_measure, is_measure_bool), ...]
+    bound into a data.frame called `dataset` (column names = field names). Include a
+    unique ID field to stop Power BI de-duplicating rows for record-level plots."""
+    projections = [measure_field(t, c) if m else column_field(t, c) for t, c, m in fields_list]
+    escaped = r_script.replace("'", "\\'")
+    return make_visual(name, x, y, w, h, "scriptVisual",
+        {"Values": {"projections": projections}},
+        objects={"script": [{"properties": {"source": _lit(f"'{escaped}'"), "provider": _lit("'R'")}}]})
+
+def make_py_visual(name, x, y, w, h, fields_list, py_script):
+    """Python script visual (same contract as make_r_visual, provider = Python)."""
+    projections = [measure_field(t, c) if m else column_field(t, c) for t, c, m in fields_list]
+    escaped = py_script.replace("'", "\\'")
+    return make_visual(name, x, y, w, h, "scriptVisual",
+        {"Values": {"projections": projections}},
+        objects={"script": [{"properties": {"source": _lit(f"'{escaped}'"), "provider": _lit("'Python'")}}]})

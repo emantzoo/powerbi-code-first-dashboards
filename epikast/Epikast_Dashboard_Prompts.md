@@ -378,9 +378,15 @@ Negative Sentiment Pct = DIVIDE(
     CALCULATE([Total Calls], NOT(ISBLANK(FactHCPCalls[HCPSentimentScore]))), 0)
 Avg Uplift = AVERAGE(FactUplift[uplift])
 Avg Importance = AVERAGE(FeatureImportance[importance])
+Avg Shap Importance = AVERAGE(ShapImportance[mean_abs_shap])
 ```
 
-**Total: 127 measures** across 17 groups.
+**Total: 128 measures** across 17 groups.
+
+> The Advanced Analytics report also loads two SHAP output tables from
+> `scripts/train_shap.py` (run it where `lightgbm`/`shap` are installed):
+> `ShapImportance.csv` (feature, mean_abs_shap, direction) and `ShapBeeswarm.csv`
+> (sampled feature, shap_value, feature_value_norm). Load as standalone tables.
 
 ### Calculated Columns
 
@@ -409,6 +415,11 @@ SentimentBand = SWITCH(TRUE(),
     FactHCPCalls[HCPSentimentScore] >= 4, "Positive",
     FactHCPCalls[HCPSentimentScore] >= 2.5, "Neutral",
     "Negative")
+
+# DimRep — AI adoption band for the "lift by AI-adoption level" view (Advanced report)
+AI Adoption Band =
+VAR r = CALCULATE(DIVIDE(CALCULATE(COUNTROWS(FactHCPCalls), FactHCPCalls[AIFollowed] = 1), COUNTROWS(FactHCPCalls)))
+RETURN SWITCH(TRUE(), r >= 0.5, "High", r >= 0.3, "Medium", "Low")
 ```
 
 ---
