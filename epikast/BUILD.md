@@ -13,6 +13,28 @@ CSVs + DAX (this repo)  ──Power BI Desktop──▶  semantic model + .pbip 
                                           reopen .pbip ▶ finished dashboard
 ```
 
+## ⚡ Quickstart — fully file-generated PBIP (no manual model build)
+If you just want working `.pbip` files with the model already inside, skip Phases 4–5 and run:
+```bash
+python epikast/scripts/generate_pbip.py --root="C:/Users/me/Documents/epikast_pbip"
+```
+This writes a shared `Epikast.SemanticModel` (15 tables, 139 measures, 6 calc columns, 15
+relationships, all from `Epikast_Dashboard_Prompts.md`) **plus** all 5 reports and their pages.
+Then in Power BI Desktop:
+1. Open any `<report>.pbip`.
+2. **Transform data → Manage parameters → `SourceFolder`** → set it to your `epikast/data`
+   folder (keep the trailing `\`), then **Close & Apply / Refresh**.
+3. Done — the model loads from the CSVs and every page renders.
+
+> Caveat: this generates the PBIP/TMSL project from scratch and hasn't been round-tripped
+> through Power BI Desktop here, so the first open may need a small fix (a metadata version
+> or theme name). If Desktop complains, paste me the error and I'll patch the generator. The
+> rock-solid fallback is the manual Phases below (Tabular Editor for the model).
+
+The rest of this doc is the **manual / step-by-step** path.
+
+---
+
 ## 0. Prerequisites
 - **Power BI Desktop (Windows).** `.pbip` / PBIR is Windows-only — there is no Mac build.
 - **Python 3** for the generators (standard library only; no pip installs needed).
