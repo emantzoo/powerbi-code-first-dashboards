@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "75df201d2e5542253eb6",
   "position": {
     "x": 20,
@@ -11,7 +11,6 @@
   },
   "visual": {
     "visualType": "tableEx",
-    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Values": {
@@ -168,17 +167,6 @@
                   }
                 }
               }
-            },
-            "backColorAlternate": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#F8FAFC'"
-                    }
-                  }
-                }
-              }
             }
           }
         }
@@ -221,6 +209,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

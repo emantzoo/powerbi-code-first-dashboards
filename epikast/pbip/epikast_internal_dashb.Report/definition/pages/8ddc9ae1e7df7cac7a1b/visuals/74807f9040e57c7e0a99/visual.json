@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "74807f9040e57c7e0a99",
   "position": {
     "x": 400,
@@ -11,7 +11,6 @@
   },
   "visual": {
     "visualType": "clusteredColumnChart",
-    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Category": {
@@ -28,7 +27,8 @@
                 }
               },
               "queryRef": "FactHCPCalls.Channel",
-              "nativeQueryRef": "Channel"
+              "nativeQueryRef": "Channel",
+              "active": true
             }
           ]
         },
@@ -125,6 +125,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

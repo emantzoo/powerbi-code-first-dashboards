@@ -167,7 +167,7 @@ def build_model_bim():
             "isActive": active, "crossFilteringBehavior": "oneDirection",
         })
 
-    data_default = "C:\\\\Users\\\\me\\\\Documents\\\\powerbi-code-first-dashboards\\\\epikast\\\\data\\\\"
+    data_default = DATA_DIR.replace("\\", "\\\\") + "\\\\"
     expressions = [{
         "name": "SourceFolder", "kind": "m",
         "expression": f'"{data_default}" meta [IsParameterQuery=true, Type="Text", '

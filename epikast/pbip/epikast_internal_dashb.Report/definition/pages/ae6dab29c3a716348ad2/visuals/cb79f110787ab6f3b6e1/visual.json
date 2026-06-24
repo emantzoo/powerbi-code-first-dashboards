@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "cb79f110787ab6f3b6e1",
   "position": {
     "x": 20,
@@ -11,27 +11,8 @@
   },
   "visual": {
     "visualType": "pivotTable",
-    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
-        "Rows": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DimCalendar"
-                    }
-                  },
-                  "Property": "DayOfWeek"
-                }
-              },
-              "queryRef": "DimCalendar.DayOfWeek",
-              "nativeQueryRef": "DayOfWeek"
-            }
-          ]
-        },
         "Columns": {
           "projections": [
             {
@@ -46,7 +27,27 @@
                 }
               },
               "queryRef": "FactHCPCalls.CallTimeBucket",
-              "nativeQueryRef": "CallTimeBucket"
+              "nativeQueryRef": "CallTimeBucket",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimCalendar"
+                    }
+                  },
+                  "Property": "DayOfWeek"
+                }
+              },
+              "queryRef": "DimCalendar.DayOfWeek",
+              "nativeQueryRef": "DayOfWeek",
+              "active": true
             }
           ]
         },
@@ -230,6 +231,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

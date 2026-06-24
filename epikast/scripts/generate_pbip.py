@@ -57,9 +57,44 @@ def scaffold_report(root, report):
     })
     # report.json (PBIR report-level)
     write_json(os.path.join(rdir, "definition", "report.json"), {
-        "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/2.0.0/schema.json",
-        "themeCollection": {"baseTheme": {"name": "CY24SU10"}},
-        "layoutOptimization": "None",
+        "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.2.0/schema.json",
+        "themeCollection": {
+            "baseTheme": {
+                "name": "CY26SU02",
+                "reportVersionAtImport": {
+                    "visual": "2.6.0",
+                    "report": "3.1.0",
+                    "page": "2.3.0"
+                },
+                "type": "SharedResources"
+            }
+        },
+        "resourcePackages": [
+            {
+                "name": "SharedResources",
+                "type": "SharedResources",
+                "items": [
+                    {
+                        "name": "CY26SU02",
+                        "path": "BaseThemes/CY26SU02.json",
+                        "type": "BaseTheme"
+                    }
+                ]
+            }
+        ],
+        "settings": {
+            "useStylableVisualContainerHeader": True,
+            "exportDataMode": "AllowSummarized",
+            "defaultDrillFilterOtherVisuals": True,
+            "allowChangeFilterTypes": True,
+            "useEnhancedTooltips": True,
+            "useDefaultAggregateDisplayName": True
+        }
+    })
+    # version.json (required by Power BI Desktop June 2026+)
+    write_json(os.path.join(rdir, "definition", "version.json"), {
+        "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/versionMetadata/1.0.0/schema.json",
+        "version": "2.0.0",
     })
     # .pbip wrapper
     write_json(os.path.join(root, f"{report}.pbip"), {

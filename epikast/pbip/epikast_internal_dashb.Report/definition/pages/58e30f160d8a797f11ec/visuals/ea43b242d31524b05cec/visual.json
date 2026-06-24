@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "ea43b242d31524b05cec",
   "position": {
     "x": 20,
@@ -11,7 +11,6 @@
   },
   "visual": {
     "visualType": "scatterChart",
-    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Category": {
@@ -28,43 +27,26 @@
                 }
               },
               "queryRef": "DimRep.RepName",
-              "nativeQueryRef": "RepName"
+              "nativeQueryRef": "RepName",
+              "active": true
             }
           ]
         },
-        "X": {
+        "Series": {
           "projections": [
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "_Measures"
+                      "Entity": "DimRep"
                     }
                   },
-                  "Property": "Total Calls"
+                  "Property": "Team"
                 }
               },
-              "queryRef": "_Measures.Total Calls",
-              "nativeQueryRef": "Total Calls"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Connect Rate"
-                }
-              },
-              "queryRef": "_Measures.Connect Rate",
-              "nativeQueryRef": "Connect Rate"
+              "queryRef": "DimRep.Team",
+              "nativeQueryRef": "Team"
             }
           ]
         },
@@ -86,25 +68,45 @@
             }
           ]
         },
-        "Series": {
+        "X": {
           "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "DimRep"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "Team"
+                  "Property": "Total Calls"
                 }
               },
-              "queryRef": "DimRep.Team",
-              "nativeQueryRef": "Team"
+              "queryRef": "_Measures.Total Calls",
+              "nativeQueryRef": "Total Calls",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Connect Rate"
+                }
+              },
+              "queryRef": "_Measures.Connect Rate",
+              "nativeQueryRef": "Connect Rate"
             }
           ]
         }
       }
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

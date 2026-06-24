@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
   "name": "86b5fa0ceaa688ab967c",
   "position": {
     "x": 20,
@@ -11,7 +11,6 @@
   },
   "visual": {
     "visualType": "slicer",
-    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Values": {
@@ -28,11 +27,13 @@
                 }
               },
               "queryRef": "DimCalendar.Quarter",
-              "nativeQueryRef": "Quarter"
+              "nativeQueryRef": "Quarter",
+              "active": true
             }
           ]
         }
       }
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

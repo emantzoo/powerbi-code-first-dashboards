@@ -62,7 +62,8 @@ def _parse_definitions(lines):
         line = raw.rstrip("\n")
         if not line.strip() or line.lstrip().startswith("#"):
             continue
-        if not line[0].isspace() and NAME_START.match(line):
+        dax_kw = re.match(r"^(VAR|RETURN|IF|CALCULATE|SWITCH|DIVIDE)\b", line, re.IGNORECASE)
+        if not line[0].isspace() and NAME_START.match(line) and not dax_kw:
             if name:
                 yield name, "\n".join(buf).strip()
             n, _, rest = line.partition(" = ")
