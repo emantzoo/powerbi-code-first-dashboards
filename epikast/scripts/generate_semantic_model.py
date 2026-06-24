@@ -176,7 +176,7 @@ def build_model_bim():
 
     return {
         "name": "Epikast",
-        "compatibilityLevel": 1567,
+        "compatibilityLevel": 1600,
         "model": {
             "culture": "en-US",
             "defaultPowerBIDataSourceVersion": "powerBI_V3",

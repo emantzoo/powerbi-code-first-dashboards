@@ -239,13 +239,9 @@ Total Rx = CALCULATE(COUNTROWS(FactRx), USERELATIONSHIP(FactRx[RxDate], DimCalen
 New to Brand Rx = CALCULATE(COUNTROWS(FactRx), FactRx[IsNewToBrand] = 1, USERELATIONSHIP(FactRx[RxDate], DimCalendar[Date]))
 NBRx Rate = DIVIDE([New to Brand Rx], [Total Rx], 0)
 Rx Per HCP = DIVIDE([Total Rx], DISTINCTCOUNT(FactRx[HCPID]), 0)
-Rx from Engaged HCPs =
-VAR EngagedHCPs = CALCULATETABLE(VALUES(FactHCPCalls[HCPID]), FactHCPCalls[IsConnected] = 1)
-RETURN CALCULATE(COUNTROWS(FactRx), USERELATIONSHIP(FactRx[RxDate], DimCalendar[Date]), TREATAS(EngagedHCPs, FactRx[HCPID]))
+Rx from Engaged HCPs = CALCULATE(COUNTROWS(FactRx), USERELATIONSHIP(FactRx[RxDate], DimCalendar[Date]), TREATAS(CALCULATETABLE(VALUES(FactHCPCalls[HCPID]), FactHCPCalls[IsConnected] = 1), FactRx[HCPID]))
 Rx from Non-Engaged HCPs = [Total Rx] - [Rx from Engaged HCPs]
-NBRx from Engaged HCPs =
-VAR EngagedHCPs = CALCULATETABLE(VALUES(FactHCPCalls[HCPID]), FactHCPCalls[IsConnected] = 1)
-RETURN CALCULATE(COUNTROWS(FactRx), FactRx[IsNewToBrand] = 1, USERELATIONSHIP(FactRx[RxDate], DimCalendar[Date]), TREATAS(EngagedHCPs, FactRx[HCPID]))
+NBRx from Engaged HCPs = CALCULATE(COUNTROWS(FactRx), FactRx[IsNewToBrand] = 1, USERELATIONSHIP(FactRx[RxDate], DimCalendar[Date]), TREATAS(CALCULATETABLE(VALUES(FactHCPCalls[HCPID]), FactHCPCalls[IsConnected] = 1), FactRx[HCPID]))
 ```
 
 ### 7. MSL Partner Usage (11)
