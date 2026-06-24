@@ -1,6 +1,6 @@
 # Epikast Dashboard Index — Plots & How to Read Them
 
-A complete map of all **5 dashboards / 27 pages**, what every plot shows, and how to read it.
+A complete map of all **9 dashboards / 39 pages**, what every plot shows, and how to read it.
 Two parts:
 
 1. **[Plot glossary](#part-1--plot-glossary)** — each visual *type* once: what it is, how to read it, when it lies to you.
@@ -9,6 +9,27 @@ Two parts:
 > All visuals are generated code-first by `scripts/generate_pages_*.py` (PBIR JSON). Measures
 > live in `Epikast_Dashboard_Prompts.md` (139 measures / 20 groups). `M` = the `_Measures` table.
 > R/Python plots need those engines configured in Power BI Desktop.
+
+---
+
+## Dashboard Summary
+
+| # | Script | Report folder | Pages | Audience |
+|---|--------|--------------|-------|----------|
+| 1 | `generate_pages_client.py` | `epikast_client_dashb` | 5 | Pharma client — outcomes & ROI |
+| 2 | `generate_pages_internal.py` | `epikast_internal_dashb` | 7 | Internal ops team — rep-level |
+| 3 | `generate_pages_ai.py` | `epikast_ai_dashb` | 5 | AI effectiveness, MSL, A/B |
+| 4 | `generate_pages_ai_impact.py` | `epikast_ai_dashb` (alt) | 3 | Condensed AI / MSL view |
+| 5 | `generate_pages_insights.py` | `epikast_insights_dashb` | 5 | Driver analysis, NBA, sentiment |
+| 6 | `generate_pages_advanced.py` | `epikast_advanced_dashb` | 5 | Heatmaps, R plots, SHAP |
+| 7 | `generate_pages_ab_tracker.py` | `epikast_ab_dashb` | 2 | Experiment registry & A/B deep dive |
+| 8 | `generate_pages_ops_overview.py` | `epikast_ops_dashb` | 4 | Smart ops command center |
+| 9 | `generate_pages_patient_access.py` | `epikast_patient_dashb` | 3 | Patient funnel & adherence |
+
+> **Note on scripts 3 & 4:** `generate_pages_ai.py` (5 pages) is the full AI dashboard
+> including experiment registry and A/B deep dive. `generate_pages_ai_impact.py` (3 pages) is
+> a condensed version covering only AI targeting and MSL partner — write it to the same
+> `epikast_ai_dashb` folder to replace pages 1–3. Use one or the other, not both.
 
 ---
 
@@ -97,7 +118,9 @@ charts Power BI can't do natively. Read each per its own type (below):
 
 Each row: **plot — binding — what it answers / how to read.**
 
-### 1. Client / External  (`epikast_client_dashb`) — teal — 5 pages
+---
+
+### 1. Client / External  (`epikast_client_dashb`) — 5 pages
 Audience: the pharma client. Outcomes & impact, no rep names.
 
 **Engagement Overview**
@@ -135,7 +158,9 @@ Audience: the pharma client. Outcomes & impact, no rep names.
 - Line — Revenue vs Cost over `YearMonth`. Bar — NBRx Rate by `TherapyArea`. Table — monthly P&L.
 - Slicers: Quarter · DrugName.
 
-### 2. Internal Ops  (`epikast_internal_dashb`) — navy — 7 pages
+---
+
+### 2. Internal Ops  (`epikast_internal_dashb`) — 7 pages
 Audience: Epikast delivery teams. Rep-level, *not* client-facing.
 
 **Executive Summary**
@@ -171,7 +196,7 @@ Audience: Epikast delivery teams. Rep-level, *not* client-facing.
 - Donut — Calls by `Channel`. Column(multi) — Connect+Meaningful by `Channel`. Column — Connect by `Tenure Bucket` (ramp). Table.
 - Slicers: YearMonth · Team · Role.
 
-**Patient Ops & Drill-Down** *(net-new)*
+**Patient Ops & Drill-Down**
 - 5 KPI — Calls Last 7 Days · Calls WoW Change · Open (Active) Cases · Open High-Risk Cases · Avg Time to Therapy.
   *("Last 7 days" is anchored to the latest data date, not today.)*
 - **Decomposition Tree** — Meaningful Rate → AIFollowed → Channel → Role → Specialty. *Drill the widest branch.*
@@ -180,7 +205,10 @@ Audience: Epikast delivery teams. Rep-level, *not* client-facing.
 - Bar — Active Cases by `Open Case Age Bucket` (<3d/3-7d/7-14d/14d+). *Long 14d+ bar = aging backlog.*
 - **R box-and-whisker** — AHT distribution by `Team`. *Compare medians and spread.*
 
-### 3. AI & Experimentation  (`epikast_ai_dashb`) — magenta — 5 pages
+---
+
+### 3. AI & Experimentation  (`epikast_ai_dashb`) — 5 pages
+Audience: AI/MSL product team. Full A/B experiment tracking included.
 
 **AI Call Targeting**
 - 4 KPI — AI Acceptance · AI Connect · Non-AI Connect · AI Lift on Connect.
@@ -211,7 +239,32 @@ Audience: Epikast delivery teams. Rep-level, *not* client-facing.
 - **Matrix** — `Specialty` × the 4 A/B rate measures. *Find specialties where the winner flips.*
 - Slicers: YearMonth · TherapyArea · Region.
 
-### 4. Insights Engine  (`epikast_insights_dashb`) — amber — 5 pages
+---
+
+### 4. AI Impact (condensed)  (`epikast_ai_dashb`) — 3 pages
+Alternate, lighter version of dashboard 3 — AI targeting and MSL only (no experiment registry).
+Write to the same folder as dashboard 3 to replace pages 1–3.
+
+**AI Call Targeting**
+- 4 KPI — AI Connect Rate · Non-AI Connect Rate · AI Acceptance Rate · AI Lift on Connect Rate.
+- Bar (left) — AI Connect Rate by `TherapyArea`. Bar (right) — AI Lift by `TherapyArea`.
+- Line — AI Acceptance Rate over `YearMonth`.
+- Slicers: Quarter · Tier · TherapyArea.
+
+**MSL Partner Performance**
+- 4 KPI — Total MSL Queries · Fully Answered Rate · Avg Time to Answer Sec · Total Time Saved Hours.
+- Bar — Queries by `Topic`. Donut — by `QueryType`. Line — Queries/MSL/Day + Fully Answered Rate.
+- Slicers: RepName · Quarter · TherapyArea.
+
+**MSL Partner ROI**
+- 3 KPI — MSL Queries Per MSL Per Day · Used in HCP Interaction Rate · Avg MSL Satisfaction.
+- **Stacked bar** — `RepName` × `AnswerQuality` — quality mix per MSL.
+- Table — MSL scorecard (RepName × Queries, Answered Rate, Time, Time Saved, Interaction Rate, Satisfaction).
+- Slicer: Quarter.
+
+---
+
+### 5. Insights Engine  (`epikast_insights_dashb`) — 5 pages
 Driver analysis & recommendations. Leans on AI visuals + offline model outputs.
 
 **What Drives Engagement**
@@ -228,7 +281,7 @@ Driver analysis & recommendations. Leans on AI visuals + offline model outputs.
 - Slicers: DrugName · TherapyArea.
 
 **Winning Plays (Uplift by Tactic)**
-- Bar(gradient) — Avg Uplift by `tactic` (from offline uplift model). 
+- Bar(gradient) — Avg Uplift by `tactic` (from offline uplift model).
 - Table — tactic/segment × uplift, CI low/high, significant, n_treated. *Trust only `significant=TRUE`
   rows whose CI doesn't span 0.*
 - Slicers: outcome · segment_type.
@@ -243,7 +296,9 @@ Driver analysis & recommendations. Leans on AI visuals + offline model outputs.
 - Donut — by `SentimentBand`. Line — sentiment over time. Bars — sentiment by Specialty, Channel, Script.
 - Slicers: TherapyArea · Channel.
 
-### 5. Advanced Analytics  (`epikast_advanced_dashb`) — 5 pages
+---
+
+### 6. Advanced Analytics  (`epikast_advanced_dashb`) — 5 pages
 Native + embedded R + Python. Full spec in `ADVANCED_STORYBOARD.md`.
 
 **What Works Best** — 2 **heatmaps** (Channel×InteractionType → Meaningful Rate; Specialty×Tactic →
@@ -263,22 +318,112 @@ feature value). *Bar = which features matter; beeswarm = direction & spread of t
 
 ---
 
-### Plot-type tally
-| Type | Count of placements |
-|---|---|
-| KPI / multi-card | ~50 |
-| Bar (incl. gradient/multi) | ~35 |
+### 7. A/B Test Tracker  (`epikast_ab_dashb`) — 2 pages
+Audience: experiment owners. Registry overview + script-level deep dive.
+
+**Experiment Overview**
+- 4 KPI — Total Experiments · Concluded Experiments · Win Rate · Running Experiments.
+- Table — full experiment registry: ExperimentName, Status, PrimaryKPI, StartDate, EndDate,
+  SampleSizeActual, SampleSizeTarget, ObservedLift, Winner.
+  *Compare SampleSizeActual vs SampleSizeTarget — underpowered experiments are unreliable.*
+- Bar — Avg Observed Lift by `ExperimentName`. *Do not act on lifts from experiments with SampleSizeActual << SampleSizeTarget.*
+- Slicers: Status · TherapyArea.
+
+**Script A/B Deep Dive**
+- 2 KPI cards — Script A Connect Rate · Script B Connect Rate — headline winner at a glance.
+- Bar (left) — Connect Rate by `Script` (A vs B). Bar (right) — Avg Call Duration by `Script`.
+- Table — `Specialty` × Script A/B rates (Connect, Meaningful, Avg Duration). *Find specialties where the winner flips.*
+- Slicers: YearMonth · TherapyArea · Region.
+
+---
+
+### 8. Smart Ops Overview  (`epikast_ops_dashb`) — 4 pages
+Audience: ops managers. Surfaces anomalies and insights, not just numbers.
+
+**Command Center**
+- 5 KPI — Total Calls · Connect Rate · Meaningful Interaction Rate · Avg AHT · Schedule Adherence Rate.
+- *Anomaly Alerts panel* — Connect Rate WoW Flag (accent red) · Worst Performing Specialty This Week
+  (amber) · Connect Rate WoW Change · Worst Specialty Connect Rate.
+- *Cross-Dashboard Alerts panel* — Funnel Alert Abandonment Rate · Funnel Alert Worst Stage (purple) ·
+  Funnel Alert Worst Stage Cases · AI Lift on Connect Rate.
+- *Top/Bottom Movers panel* — Top Rep Connect Rate Improvement (green) · Top Rep Improvement Value ·
+  Bottom Rep Connect Rate Decline (red) · Bottom Rep Decline Value.
+- *Experiments row* — Running Experiment Progress · Running Experiments count · Win Rate.
+- Line — Total Calls + Connect Rate over `YearMonth`. Bar — Total Calls by `Team`.
+- Slicers: Quarter · Team · TherapyArea.
+
+**Call Outcomes**
+- Donut — Call Outcome distribution by `CallOutcome`.
+- Bar — Connect Rate by `Specialty`.
+- **Matrix** — `DayOfWeek` × Total Calls, Connect Rate, Meaningful Interaction Rate.
+  *Use to find best/worst day for each metric.*
+- Slicers: YearMonth · Team.
+
+**Rep Performance**
+- 2 KPI — Calls Per Rep Per Day · Notes Compliance Rate.
+- *Schedule Insight panel* — Best Day (green) · Worst Day (red) · Best Time Slot Connect Rate ·
+  Worst Day Connect Rate.
+- **Scatter** — reps: X=Total Calls, Y=Connect Rate, size=Meaningful Interactions.
+  *Top-right = high-volume high-quality; bottom-right = busy-but-ineffective.*
+- Table — rep scorecard: RepName, Team, Total Calls, Connected, Connect Rate, Meaningful Rate, AHT,
+  Schedule Adherence, Notes Compliance.
+- Slicers: YearMonth · Team.
+
+**Trends & Optimization**
+- Line — Connect Rate + Connect Rate L4W (4-week moving average) over `YearMonth`.
+- Line — Avg AHT trend. Line — Schedule Adherence Rate trend.
+- 2 KPI — Calls MoM Change · Connect Rate MoM Change.
+- Table — monthly summary: YearMonth, Total Calls, Connect Rate.
+- Slicers: Team · TherapyArea.
+
+---
+
+### 9. Patient Access Funnel  (`epikast_patient_dashb`) — 3 pages
+Audience: patient services teams. Funnel throughput, PA/insurance barriers, adherence decay.
+
+**Funnel Overview**
+- 5 KPI — Total Cases · Abandonment Rate · Avg Time to Therapy · PA Approval Rate ·
+  Contacted Within 48h Rate.
+- **Funnel** — Cases by `PAStatus` (PA status stages). *Widest-to-narrowest = healthy; a flat section = stuck.*
+- Bar — Abandoned Cases by `AbandonmentStage` — where patients drop off.
+- Table — PAStatus × Total Cases, Abandonment Rate, Avg Time to Therapy, PA Approval Rate.
+- Slicers: Quarter · InsuranceType · TherapyArea · DrugName.
+
+**PA and Insurance**
+- Bar (left) — PA Approval Rate by `InsuranceType`. *Which plans approve fastest.*
+- Bar (right) — Avg PA Decision Delay by `InsuranceType`. *Which plans take longest.*
+- Line — PA Approval Rate + PA Denial Rate over `YearMonth`. *Watch for policy-driven shifts.*
+- Table — InsuranceType × Cases, PA Approval Rate, PA Denial Rate, Avg PA Decision Delay,
+  Abandonment Rate, Avg Time to Therapy.
+- Slicers: Quarter · DrugName.
+
+**Adherence**
+- 3 KPI — Adherence 30 Day · Adherence 60 Day · Adherence 90 Day. *Expect drop-off; 90-day < 60-day < 30-day.*
+- **Matrix** — `TherapyArea` × Adherence 30/60/90 Day. *Find TAs with the steepest decay.*
+- Line — Adherence 30 Day + Adherence 90 Day over `YearMonth`. *Trend convergence = worsening adherence.*
+- Slicers: InsuranceType · DrugName.
+
+---
+
+### Plot-type tally (across all 9 dashboards)
+
+| Type | Approx. placements |
+|------|-------------------|
+| KPI / multi-card | ~90 |
+| Bar (incl. gradient/stacked) | ~55 |
+| Slicer | ~70 |
+| Table / matrix | ~30 |
 | Column (incl. multi/measure) | ~20 |
-| Table / matrix | ~16 |
-| Slicer | ~50 |
-| Line / combo | ~15 |
-| Donut | ~8 |
-| Heatmap | 4 |
-| Key Influencers | 2 |
-| Decomposition Tree | 3 |
-| Scatter / filled map / stacked / funnel | 1 each |
+| Line / combo | ~25 |
+| Donut | ~10 |
+| Heatmap / conditional matrix | ~6 |
+| Scatter | ~3 |
+| Funnel | ~3 |
+| Decomposition Tree (AI) | 3 |
+| Key Influencers (AI) | 2 |
+| Filled map | 1 |
 | R visual | 5 |
 | Python visual | 1 |
 
-> Counts are placements across pages; totals differ slightly from raw `make_*` calls because
-> title bars/buttons (chrome) are excluded here.
+> Counts are placements across pages; title bars, section labels and buttons (chrome) are excluded.
+> Totals differ slightly from raw `make_*` calls for that reason.
