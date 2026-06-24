@@ -306,6 +306,63 @@ def uid(seed):
     return hashlib.md5(seed.encode()).hexdigest()[:20]
 
 
+# ---------------------------------------------------------------------------
+# Layout helpers — auto-scale cards / slicers to canvas width
+# ---------------------------------------------------------------------------
+CANVAS_W = 1280
+CANVAS_H = 720
+MARGIN = 20   # left/right page margin
+GAP = 8       # gap between items
+
+
+def card_row(prefix, y, h, measures, table="_Measures"):
+    """Return a list of evenly-spaced cards across the canvas width.
+
+    Args:
+        prefix:   visual name prefix, e.g. "s1"
+        y:        top y position
+        h:        card height
+        measures: list of measure name strings
+        table:    DAX table name (default "_Measures")
+
+    Example:
+        card_row("s1", 60, 110, ["Total Calls", "Connect Rate", "Avg AHT"])
+    """
+    n = len(measures)
+    total_gaps = GAP * (n - 1)
+    w = (CANVAS_W - 2 * MARGIN - total_gaps) // n
+    visuals = []
+    for i, m in enumerate(measures):
+        x = MARGIN + i * (w + GAP)
+        name = f"{prefix}_card{i}"
+        visuals.append(make_card(name, x, y, w, h, table, m))
+    return visuals
+
+
+def slicer_row(prefix, y, h, slicers, dropdown=True):
+    """Return a list of evenly-spaced slicers across the canvas width.
+
+    Args:
+        prefix:   visual name prefix
+        y:        top y position
+        h:        slicer height
+        slicers:  list of (table, column) tuples
+        dropdown: if True (default) render as compact dropdown, else list
+
+    Example:
+        slicer_row("s1", 295, 32, [("DimCalendar","Quarter"), ("DimRep","Team")])
+    """
+    n = len(slicers)
+    total_gaps = GAP * (n - 1)
+    w = (CANVAS_W - 2 * MARGIN - total_gaps) // n
+    visuals = []
+    for i, (tbl, col) in enumerate(slicers):
+        x = MARGIN + i * (w + GAP)
+        name = f"{prefix}_slicer{i}"
+        visuals.append(make_slicer(name, x, y, w, h, tbl, col, dropdown=dropdown))
+    return visuals
+
+
 def measure_field(table, measure):
     """PBIR field projection for a DAX measure."""
     return {
@@ -773,9 +830,15 @@ def make_decomposition_tree(name, x, y, w, h, analyze, explain_fields):
 
 
 # ── Slicer / UI elements ──────────────────────────────────────────────────────
-def make_slicer(name, x, y, w, h, table, column):
+def make_slicer(name, x, y, w, h, table, column, dropdown=False):
+    objects = None
+    if dropdown:
+        objects = {
+            "data": [{"properties": {"mode": _lit("'Dropdown'")}}],
+        }
     return make_visual(name, x, y, w, h, "slicer",
-        {"Values": {"projections": [column_field(table, column)]}})
+        {"Values": {"projections": [column_field(table, column)]}},
+        objects=objects)
 
 
 def make_title_bar(name, x, y, w, h, text, bg_color="#1E293B"):

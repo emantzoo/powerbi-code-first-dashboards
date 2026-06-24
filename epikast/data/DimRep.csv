@@ -1,26 +1,26 @@
-RepID,RepName,Role,Team,TherapyArea,HireDate,TenureMonths,IsActive
-REP-001,Maria Papadopoulos,MSL,Team Alpha,Neurology,2025-08-02,9,1
-REP-002,Eleni Nikolaou,MSL,Team Alpha,Oncology,2023-05-17,35,1
-REP-003,Katerina Georgiou,HCP Engagement Rep,Team Gamma,Oncology,2025-10-17,6,1
-REP-004,Nikos Dimitriou,Patient Support Specialist,Team Alpha,Oncology,2025-04-24,12,1
-REP-005,Giorgos Konstantinou,MSL,Team Alpha,Rare Disease,2022-07-11,46,1
-REP-006,Anna Ioannou,MSL,Team Gamma,Cardiology,2025-05-17,11,1
-REP-007,Dimitris Vasileiou,HCP Engagement Rep,Team Gamma,Rare Disease,2026-01-06,3,1
-REP-008,Sofia Alexiou,MSL,Team Beta,Rare Disease,2024-05-09,24,1
-REP-009,Panagiotis Christodoulou,MSL,Team Alpha,Immunology,2023-07-24,33,1
-REP-010,Christina Athanasiadis,Patient Support Specialist,Team Alpha,Cardiology,2023-11-28,29,1
-REP-011,Alexandros Karagiannis,MSL,Team Alpha,Immunology,2023-11-21,29,1
-REP-012,Ioanna Makris,Patient Support Specialist,Team Beta,Rare Disease,2022-07-18,46,1
-REP-013,Vasilis Papageorgiou,MSL,Team Gamma,Immunology,2023-06-26,34,1
-REP-014,Eirini Theodorou,MSL,Team Beta,Oncology,2025-01-03,16,1
-REP-015,Kostas Stavridis,Patient Support Specialist,Team Gamma,Rare Disease,2025-02-04,15,1
-REP-016,Despoina Economou,HCP Engagement Rep,Team Alpha,Oncology,2024-01-11,28,1
-REP-017,Thanasis Angelopoulos,HCP Engagement Rep,Team Alpha,Neurology,2022-04-04,49,1
-REP-018,Antigoni Fotiadis,MSL,Team Alpha,Immunology,2022-06-13,47,1
-REP-019,Stavros Kalogeropoulos,Patient Support Specialist,Team Gamma,Neurology,2023-07-24,33,1
-REP-020,Foteini Tsakiris,Patient Support Specialist,Team Beta,Cardiology,2022-11-30,41,1
-REP-021,Michalis Panagiotidis,Patient Support Specialist,Team Gamma,Oncology,2025-10-04,6,1
-REP-022,Chrysa Giannopoulos,HCP Engagement Rep,Team Alpha,Rare Disease,2025-06-01,11,1
-REP-023,Yannis Liakopoulos,MSL,Team Alpha,Immunology,2026-02-02,2,1
-REP-024,Panagiota Deligiannis,Patient Support Specialist,Team Gamma,Rare Disease,2024-02-17,26,1
-REP-025,Andreas Manolopoulos,HCP Engagement Rep,Team Beta,Oncology,2023-03-26,37,1
+RepID,RepName,Role,Team,Client,TherapyArea,HireDate,TenureMonths,IsActive
+REP-001,Maria Papadopoulos,HCP Engagement Rep,Team Alpha,PharmaClient A,Neurology,2022-08-17,45,1
+REP-002,Eleni Nikolaou,MSL,Team Alpha,PharmaClient A,Oncology,2023-05-17,35,1
+REP-003,Katerina Georgiou,HCP Engagement Rep,Team Alpha,PharmaClient A,Immunology,2025-01-21,15,1
+REP-004,Nikos Dimitriou,MSL,Team Alpha,PharmaClient A,Cardiology,2022-03-07,50,1
+REP-005,Giorgos Konstantinou,HCP Engagement Rep,Team Gamma,PharmaClient C,Oncology,2023-04-22,36,1
+REP-006,Anna Ioannou,HCP Engagement Rep,Team Alpha,PharmaClient A,Rare Disease,2025-02-23,14,1
+REP-007,Dimitris Vasileiou,Patient Support Specialist,Team Alpha,PharmaClient A,Rare Disease,2024-05-09,24,1
+REP-008,Sofia Alexiou,MSL,Team Alpha,PharmaClient A,Immunology,2023-07-24,33,1
+REP-009,Panagiotis Christodoulou,MSL,Team Beta,PharmaClient B,Cardiology,2023-11-28,29,1
+REP-010,Christina Athanasiadis,MSL,Team Alpha,PharmaClient A,Immunology,2023-11-21,29,1
+REP-011,Alexandros Karagiannis,Patient Support Specialist,Team Beta,PharmaClient B,Rare Disease,2022-07-18,46,1
+REP-012,Ioanna Makris,HCP Engagement Rep,Team Alpha,PharmaClient A,Immunology,2023-06-26,34,1
+REP-013,Vasilis Papageorgiou,Patient Support Specialist,Team Alpha,PharmaClient A,Oncology,2025-01-03,16,1
+REP-014,Eirini Theodorou,HCP Engagement Rep,Team Beta,PharmaClient B,Rare Disease,2025-02-04,15,1
+REP-015,Kostas Stavridis,MSL,Team Gamma,PharmaClient C,Oncology,2024-01-11,28,1
+REP-016,Despoina Economou,MSL,Team Gamma,PharmaClient C,Neurology,2022-04-04,49,1
+REP-017,Thanasis Angelopoulos,MSL,Team Alpha,PharmaClient A,Immunology,2022-06-13,47,1
+REP-018,Antigoni Fotiadis,HCP Engagement Rep,Team Beta,PharmaClient B,Neurology,2023-07-24,33,1
+REP-019,Stavros Kalogeropoulos,Patient Support Specialist,Team Beta,PharmaClient B,Cardiology,2022-11-30,41,1
+REP-020,Foteini Tsakiris,HCP Engagement Rep,Team Gamma,PharmaClient C,Oncology,2023-07-01,34,1
+REP-021,Michalis Panagiotidis,MSL,Team Gamma,PharmaClient C,Rare Disease,2025-06-01,11,1
+REP-022,Chrysa Giannopoulos,Patient Support Specialist,Team Alpha,PharmaClient A,Immunology,2023-05-17,35,1
+REP-023,Yannis Liakopoulos,HCP Engagement Rep,Team Gamma,PharmaClient C,Rare Disease,2023-07-07,34,1
+REP-024,Panagiota Deligiannis,Patient Support Specialist,Team Gamma,PharmaClient C,Oncology,2023-03-26,37,1
+REP-025,Andreas Manolopoulos,Patient Support Specialist,Team Alpha,PharmaClient A,Immunology,2023-04-15,37,1

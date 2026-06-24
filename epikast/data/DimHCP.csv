@@ -1,501 +1,501 @@
 HCPID,HCPName,Specialty,TherapyArea,State,Region,Tier,PrePeriodRxVolume,IsTarget
-HCP-0001,Dr. Lisa Rodriguez,Pulmonologist,Oncology,GA,South,Tier 3 - Low Value,2,1
-HCP-0002,Dr. Betty Thomas,Internist,Neurology,MD,Northeast,Tier 2 - Medium Value,20,1
-HCP-0003,Dr. Sandra Rodriguez,Cardiologist,Cardiology,NC,South,Tier 3 - Low Value,18,1
-HCP-0004,Dr. David Lee,Immunologist,Neurology,MD,Northeast,Tier 2 - Medium Value,15,1
-HCP-0005,Dr. Richard Moore,Pulmonologist,Oncology,TX,South,Tier 2 - Medium Value,19,1
-HCP-0006,Dr. Sandra Smith,General Practitioner,Immunology,WA,West,Tier 3 - Low Value,3,1
-HCP-0007,Dr. Sarah Brown,Pulmonologist,Neurology,MO,Midwest,Tier 3 - Low Value,9,1
-HCP-0008,Dr. Richard Lee,Oncologist,Neurology,MA,Northeast,Tier 3 - Low Value,3,0
-HCP-0009,Dr. David Taylor,Pulmonologist,Rare Disease,MI,Midwest,Tier 3 - Low Value,5,1
-HCP-0010,Dr. James Brown,Oncologist,Rare Disease,IN,Midwest,Tier 2 - Medium Value,11,0
-HCP-0011,Dr. Ashley Williams,Cardiologist,Oncology,MI,Midwest,Tier 2 - Medium Value,2,0
-HCP-0012,Dr. David Martin,Pulmonologist,Rare Disease,NY,Northeast,Tier 3 - Low Value,17,1
-HCP-0013,Dr. Joseph Perez,Pulmonologist,Rare Disease,IN,Midwest,Tier 2 - Medium Value,6,0
-HCP-0014,Dr. Margaret Jackson,Internist,Neurology,WA,West,Tier 2 - Medium Value,3,1
-HCP-0015,Dr. Thomas Thompson,Neurologist,Oncology,NY,Northeast,Tier 3 - Low Value,7,1
-HCP-0016,Dr. Sarah Williams,Cardiologist,Oncology,TX,South,Tier 3 - Low Value,16,1
-HCP-0017,Dr. Ashley Thompson,Cardiologist,Rare Disease,TN,South,Tier 1 - High Value,30,1
-HCP-0018,Dr. William Moore,Pulmonologist,Immunology,TN,South,Tier 2 - Medium Value,11,1
-HCP-0019,Dr. William Johnson,Pulmonologist,Oncology,MA,Northeast,Tier 3 - Low Value,12,0
-HCP-0020,Dr. Nancy Jones,Cardiologist,Cardiology,FL,South,Tier 2 - Medium Value,13,1
-HCP-0021,Dr. Sandra Brown,Cardiologist,Oncology,MA,Northeast,Tier 2 - Medium Value,1,1
-HCP-0022,Dr. Thomas Garcia,Pulmonologist,Oncology,MO,Midwest,Tier 3 - Low Value,13,1
-HCP-0023,Dr. Richard Thomas,Pulmonologist,Immunology,OH,Midwest,Tier 3 - Low Value,0,0
-HCP-0024,Dr. Sandra Martin,Pulmonologist,Immunology,NC,South,Tier 2 - Medium Value,4,1
-HCP-0025,Dr. Robert Anderson,Oncologist,Rare Disease,OH,Midwest,Tier 3 - Low Value,1,1
-HCP-0026,Dr. Margaret Williams,General Practitioner,Rare Disease,TN,South,Tier 2 - Medium Value,5,1
-HCP-0027,Dr. Ashley Davis,Internist,Cardiology,NY,Northeast,Tier 2 - Medium Value,18,1
-HCP-0028,Dr. Ashley Lee,Oncologist,Immunology,WI,Midwest,Tier 3 - Low Value,10,0
-HCP-0029,Dr. Lisa Jones,Internist,Neurology,OH,Midwest,Tier 2 - Medium Value,20,1
-HCP-0030,Dr. Dorothy Thompson,Pulmonologist,Oncology,NJ,Northeast,Tier 1 - High Value,6,1
-HCP-0031,Dr. Jennifer Williams,General Practitioner,Neurology,OH,Midwest,Tier 1 - High Value,15,1
-HCP-0032,Dr. Dorothy Lee,Immunologist,Rare Disease,PA,Northeast,Tier 3 - Low Value,0,1
-HCP-0033,Dr. David Rodriguez,Neurologist,Oncology,MO,Midwest,Tier 3 - Low Value,3,0
-HCP-0034,Dr. Joseph Anderson,Cardiologist,Neurology,MO,Midwest,Tier 2 - Medium Value,6,1
-HCP-0035,Dr. Robert Williams,General Practitioner,Immunology,NC,South,Tier 2 - Medium Value,20,1
-HCP-0036,Dr. David Rodriguez,Oncologist,Oncology,NC,South,Tier 2 - Medium Value,5,0
-HCP-0037,Dr. William Williams,Internist,Immunology,MO,Midwest,Tier 3 - Low Value,4,1
-HCP-0038,Dr. David Johnson,General Practitioner,Rare Disease,VA,South,Tier 1 - High Value,19,1
-HCP-0039,Dr. William Taylor,Neurologist,Cardiology,TX,South,Tier 3 - Low Value,17,0
-HCP-0040,Dr. Thomas Garcia,General Practitioner,Cardiology,AZ,West,Tier 3 - Low Value,5,0
-HCP-0041,Dr. Karen Davis,Cardiologist,Neurology,CA,West,Tier 3 - Low Value,8,1
-HCP-0042,Dr. Thomas Miller,Immunologist,Oncology,FL,South,Tier 3 - Low Value,14,1
-HCP-0043,Dr. Lisa Anderson,Cardiologist,Oncology,GA,South,Tier 3 - Low Value,8,0
-HCP-0044,Dr. Sandra Anderson,Neurologist,Rare Disease,NC,South,Tier 2 - Medium Value,0,1
-HCP-0045,Dr. Charles Johnson,Cardiologist,Rare Disease,NC,South,Tier 3 - Low Value,3,1
-HCP-0046,Dr. Margaret Brown,Internist,Neurology,VA,South,Tier 2 - Medium Value,12,0
-HCP-0047,Dr. James Lee,Neurologist,Oncology,OH,Midwest,Tier 3 - Low Value,17,1
-HCP-0048,Dr. Sarah White,Neurologist,Immunology,OH,Midwest,Tier 1 - High Value,20,1
-HCP-0049,Dr. Karen Anderson,Internist,Neurology,FL,South,Tier 3 - Low Value,12,1
-HCP-0050,Dr. Lisa Garcia,Cardiologist,Cardiology,MO,Midwest,Tier 2 - Medium Value,19,1
-HCP-0051,Dr. Joseph Moore,General Practitioner,Oncology,WA,West,Tier 2 - Medium Value,18,1
-HCP-0052,Dr. Joseph Lee,Immunologist,Immunology,NJ,Northeast,Tier 2 - Medium Value,15,0
-HCP-0053,Dr. Dorothy Anderson,Internist,Oncology,PA,Northeast,Tier 2 - Medium Value,2,0
-HCP-0054,Dr. Joseph Jones,Internist,Neurology,GA,South,Tier 2 - Medium Value,0,1
-HCP-0055,Dr. Ashley Miller,General Practitioner,Oncology,TN,South,Tier 2 - Medium Value,12,1
-HCP-0056,Dr. William Moore,Cardiologist,Oncology,GA,South,Tier 3 - Low Value,7,1
-HCP-0057,Dr. William Jackson,Immunologist,Oncology,IN,Midwest,Tier 3 - Low Value,4,0
-HCP-0058,Dr. Nancy White,General Practitioner,Rare Disease,IN,Midwest,Tier 2 - Medium Value,16,1
-HCP-0059,Dr. Betty Jackson,Immunologist,Cardiology,MO,Midwest,Tier 3 - Low Value,8,0
-HCP-0060,Dr. Thomas Rodriguez,Pulmonologist,Rare Disease,NC,South,Tier 2 - Medium Value,14,1
-HCP-0061,Dr. Sandra Williams,Cardiologist,Neurology,MI,Midwest,Tier 2 - Medium Value,4,1
-HCP-0062,Dr. Michael Moore,Internist,Cardiology,WA,West,Tier 3 - Low Value,13,1
-HCP-0063,Dr. Karen Thomas,Immunologist,Oncology,MA,Northeast,Tier 2 - Medium Value,18,0
-HCP-0064,Dr. James Taylor,Pulmonologist,Rare Disease,CA,West,Tier 2 - Medium Value,9,0
-HCP-0065,Dr. Thomas Martin,General Practitioner,Rare Disease,AZ,West,Tier 3 - Low Value,7,1
-HCP-0066,Dr. Lisa Garcia,Oncologist,Immunology,TN,South,Tier 2 - Medium Value,14,0
-HCP-0067,Dr. Ashley Thompson,General Practitioner,Oncology,WI,Midwest,Tier 3 - Low Value,0,1
-HCP-0068,Dr. Charles Thomas,Cardiologist,Immunology,AZ,West,Tier 2 - Medium Value,10,1
-HCP-0069,Dr. Karen Rodriguez,Neurologist,Immunology,NJ,Northeast,Tier 2 - Medium Value,2,1
-HCP-0070,Dr. Michael Johnson,Oncologist,Neurology,MO,Midwest,Tier 2 - Medium Value,0,0
-HCP-0071,Dr. Thomas Jones,Pulmonologist,Oncology,OH,Midwest,Tier 3 - Low Value,15,1
-HCP-0072,Dr. Jennifer Garcia,Cardiologist,Immunology,MD,Northeast,Tier 3 - Low Value,19,1
-HCP-0073,Dr. William Thompson,Pulmonologist,Cardiology,FL,South,Tier 3 - Low Value,0,0
-HCP-0074,Dr. Joseph Williams,Internist,Immunology,MD,Northeast,Tier 2 - Medium Value,18,1
-HCP-0075,Dr. Dorothy Brown,Oncologist,Neurology,GA,South,Tier 3 - Low Value,18,0
-HCP-0076,Dr. Michael Lee,General Practitioner,Immunology,VA,South,Tier 3 - Low Value,20,1
-HCP-0077,Dr. Jennifer Jackson,Pulmonologist,Immunology,AZ,West,Tier 1 - High Value,45,1
-HCP-0078,Dr. Charles White,Internist,Rare Disease,PA,Northeast,Tier 3 - Low Value,17,0
-HCP-0079,Dr. Thomas Williams,Immunologist,Rare Disease,MA,Northeast,Tier 2 - Medium Value,8,0
-HCP-0080,Dr. Lisa Anderson,Pulmonologist,Immunology,GA,South,Tier 3 - Low Value,0,1
-HCP-0081,Dr. Charles Anderson,Cardiologist,Immunology,NJ,Northeast,Tier 2 - Medium Value,8,0
-HCP-0082,Dr. Joseph Williams,General Practitioner,Oncology,NC,South,Tier 3 - Low Value,7,0
-HCP-0083,Dr. Betty Jackson,General Practitioner,Cardiology,TN,South,Tier 3 - Low Value,0,1
-HCP-0084,Dr. Ashley Taylor,Immunologist,Cardiology,GA,South,Tier 2 - Medium Value,15,1
-HCP-0085,Dr. Nancy Rodriguez,Immunologist,Rare Disease,VA,South,Tier 2 - Medium Value,9,1
-HCP-0086,Dr. Sandra Garcia,Internist,Cardiology,FL,South,Tier 2 - Medium Value,6,1
-HCP-0087,Dr. Margaret White,Neurologist,Rare Disease,TN,South,Tier 3 - Low Value,9,0
-HCP-0088,Dr. Christopher Smith,Neurologist,Cardiology,OH,Midwest,Tier 2 - Medium Value,17,1
-HCP-0089,Dr. David Martin,Oncologist,Rare Disease,TX,South,Tier 2 - Medium Value,3,0
-HCP-0090,Dr. Sarah Garcia,Neurologist,Immunology,MD,Northeast,Tier 2 - Medium Value,1,1
-HCP-0091,Dr. Michael Thompson,Oncologist,Oncology,TN,South,Tier 2 - Medium Value,20,1
-HCP-0092,Dr. Michael Davis,Cardiologist,Rare Disease,IL,Midwest,Tier 3 - Low Value,3,1
-HCP-0093,Dr. Thomas Lee,General Practitioner,Rare Disease,AZ,West,Tier 3 - Low Value,12,1
-HCP-0094,Dr. Christopher Thompson,Neurologist,Rare Disease,MA,Northeast,Tier 3 - Low Value,19,1
-HCP-0095,Dr. Charles Williams,Pulmonologist,Cardiology,FL,South,Tier 3 - Low Value,5,1
-HCP-0096,Dr. Nancy White,Oncologist,Cardiology,MO,Midwest,Tier 1 - High Value,30,1
-HCP-0097,Dr. Nancy Williams,Neurologist,Neurology,GA,South,Tier 3 - Low Value,7,0
-HCP-0098,Dr. Sandra Davis,Internist,Cardiology,MD,Northeast,Tier 2 - Medium Value,20,1
-HCP-0099,Dr. Richard Martinez,Pulmonologist,Cardiology,NC,South,Tier 1 - High Value,38,0
-HCP-0100,Dr. Christopher Thomas,Neurologist,Immunology,MD,Northeast,Tier 1 - High Value,17,1
-HCP-0101,Dr. Karen Anderson,Immunologist,Oncology,TN,South,Tier 3 - Low Value,19,1
-HCP-0102,Dr. James Rodriguez,Cardiologist,Rare Disease,NY,Northeast,Tier 3 - Low Value,18,1
-HCP-0103,Dr. Charles Garcia,Immunologist,Rare Disease,PA,Northeast,Tier 3 - Low Value,18,1
-HCP-0104,Dr. Sarah Anderson,Oncologist,Immunology,TN,South,Tier 2 - Medium Value,3,0
-HCP-0105,Dr. Lisa Perez,Immunologist,Immunology,NJ,Northeast,Tier 2 - Medium Value,1,1
-HCP-0106,Dr. Lisa Lee,Neurologist,Neurology,NJ,Northeast,Tier 1 - High Value,0,1
-HCP-0107,Dr. Margaret Taylor,Immunologist,Immunology,MO,Midwest,Tier 1 - High Value,39,0
-HCP-0108,Dr. Sandra Jones,Pulmonologist,Oncology,MA,Northeast,Tier 2 - Medium Value,9,1
-HCP-0109,Dr. Dorothy Davis,Oncologist,Oncology,TN,South,Tier 3 - Low Value,5,1
-HCP-0110,Dr. William Jackson,General Practitioner,Immunology,CA,West,Tier 1 - High Value,7,1
-HCP-0111,Dr. Charles Moore,Immunologist,Neurology,IL,Midwest,Tier 3 - Low Value,15,0
-HCP-0112,Dr. Joseph White,Immunologist,Rare Disease,GA,South,Tier 1 - High Value,32,0
-HCP-0113,Dr. Karen Anderson,Pulmonologist,Oncology,IL,Midwest,Tier 2 - Medium Value,16,1
-HCP-0114,Dr. Ashley Martin,Neurologist,Neurology,CA,West,Tier 3 - Low Value,4,1
-HCP-0115,Dr. Sandra Thomas,Neurologist,Neurology,TN,South,Tier 3 - Low Value,14,0
-HCP-0116,Dr. Thomas Moore,Internist,Cardiology,OH,Midwest,Tier 3 - Low Value,1,1
-HCP-0117,Dr. David Martin,Internist,Immunology,TN,South,Tier 2 - Medium Value,1,1
-HCP-0118,Dr. Nancy Brown,Neurologist,Oncology,MD,Northeast,Tier 3 - Low Value,16,0
-HCP-0119,Dr. David Williams,Internist,Cardiology,CA,West,Tier 2 - Medium Value,15,0
-HCP-0120,Dr. Michael Anderson,Neurologist,Rare Disease,NC,South,Tier 3 - Low Value,17,1
-HCP-0121,Dr. Robert White,Internist,Immunology,NJ,Northeast,Tier 3 - Low Value,2,1
-HCP-0122,Dr. William Brown,Cardiologist,Oncology,MI,Midwest,Tier 2 - Medium Value,14,1
-HCP-0123,Dr. Robert Martinez,Oncologist,Oncology,MI,Midwest,Tier 2 - Medium Value,11,1
-HCP-0124,Dr. Richard Garcia,Cardiologist,Rare Disease,IL,Midwest,Tier 2 - Medium Value,5,1
-HCP-0125,Dr. Ashley Jones,General Practitioner,Cardiology,WA,West,Tier 2 - Medium Value,7,1
-HCP-0126,Dr. Nancy Martinez,Immunologist,Neurology,NC,South,Tier 3 - Low Value,17,1
-HCP-0127,Dr. Karen Rodriguez,Neurologist,Rare Disease,MA,Northeast,Tier 2 - Medium Value,14,0
-HCP-0128,Dr. Lisa Thompson,Immunologist,Immunology,OH,Midwest,Tier 1 - High Value,22,1
-HCP-0129,Dr. Ashley Johnson,Oncologist,Immunology,MI,Midwest,Tier 2 - Medium Value,19,0
-HCP-0130,Dr. Jennifer Davis,Pulmonologist,Cardiology,MI,Midwest,Tier 3 - Low Value,20,1
-HCP-0131,Dr. Robert Martinez,Internist,Cardiology,NC,South,Tier 3 - Low Value,14,1
-HCP-0132,Dr. Christopher Anderson,Internist,Cardiology,VA,South,Tier 1 - High Value,47,1
-HCP-0133,Dr. Jennifer Lee,Cardiologist,Rare Disease,OH,Midwest,Tier 3 - Low Value,16,0
-HCP-0134,Dr. Christopher Anderson,Neurologist,Immunology,PA,Northeast,Tier 3 - Low Value,3,1
-HCP-0135,Dr. Lisa Perez,Cardiologist,Cardiology,NY,Northeast,Tier 3 - Low Value,11,1
-HCP-0136,Dr. Nancy Taylor,Oncologist,Neurology,WA,West,Tier 3 - Low Value,8,1
-HCP-0137,Dr. Dorothy Perez,Oncologist,Cardiology,VA,South,Tier 2 - Medium Value,10,0
-HCP-0138,Dr. Nancy Martinez,Internist,Oncology,GA,South,Tier 3 - Low Value,20,1
-HCP-0139,Dr. Betty Brown,Oncologist,Oncology,IL,Midwest,Tier 2 - Medium Value,3,1
-HCP-0140,Dr. Sandra Moore,Cardiologist,Immunology,MO,Midwest,Tier 2 - Medium Value,18,0
-HCP-0141,Dr. Dorothy Moore,Immunologist,Oncology,IL,Midwest,Tier 3 - Low Value,8,1
-HCP-0142,Dr. Thomas Taylor,Cardiologist,Immunology,VA,South,Tier 2 - Medium Value,3,0
-HCP-0143,Dr. Charles Miller,General Practitioner,Neurology,VA,South,Tier 1 - High Value,7,0
-HCP-0144,Dr. Dorothy Smith,Oncologist,Cardiology,MA,Northeast,Tier 3 - Low Value,1,0
-HCP-0145,Dr. Sandra Miller,Cardiologist,Rare Disease,GA,South,Tier 2 - Medium Value,18,1
-HCP-0146,Dr. Dorothy Smith,Neurologist,Cardiology,GA,South,Tier 3 - Low Value,8,0
-HCP-0147,Dr. Richard Brown,Cardiologist,Rare Disease,IL,Midwest,Tier 2 - Medium Value,0,1
-HCP-0148,Dr. James Garcia,Pulmonologist,Cardiology,VA,South,Tier 3 - Low Value,8,1
-HCP-0149,Dr. Betty Jackson,General Practitioner,Oncology,AZ,West,Tier 3 - Low Value,11,1
-HCP-0150,Dr. Dorothy Johnson,Immunologist,Rare Disease,FL,South,Tier 2 - Medium Value,16,1
-HCP-0151,Dr. Karen Brown,Oncologist,Immunology,CA,West,Tier 3 - Low Value,15,0
-HCP-0152,Dr. David Williams,Oncologist,Oncology,MA,Northeast,Tier 2 - Medium Value,4,1
-HCP-0153,Dr. Dorothy Lee,General Practitioner,Neurology,MD,Northeast,Tier 2 - Medium Value,9,1
-HCP-0154,Dr. William Perez,Immunologist,Oncology,WI,Midwest,Tier 3 - Low Value,6,1
-HCP-0155,Dr. Lisa Moore,Immunologist,Neurology,GA,South,Tier 3 - Low Value,3,1
-HCP-0156,Dr. David Martin,Internist,Neurology,NJ,Northeast,Tier 2 - Medium Value,2,1
-HCP-0157,Dr. Jennifer Jones,Oncologist,Immunology,NY,Northeast,Tier 1 - High Value,35,1
-HCP-0158,Dr. Karen Taylor,General Practitioner,Neurology,MO,Midwest,Tier 3 - Low Value,13,0
-HCP-0159,Dr. William Thompson,Neurologist,Rare Disease,TX,South,Tier 2 - Medium Value,16,1
-HCP-0160,Dr. Sandra Taylor,Cardiologist,Oncology,TN,South,Tier 2 - Medium Value,3,0
-HCP-0161,Dr. Dorothy White,Cardiologist,Immunology,MD,Northeast,Tier 3 - Low Value,20,1
-HCP-0162,Dr. Charles Martinez,Internist,Neurology,WI,Midwest,Tier 1 - High Value,21,1
-HCP-0163,Dr. Lisa Williams,Pulmonologist,Cardiology,PA,Northeast,Tier 3 - Low Value,4,0
-HCP-0164,Dr. Karen Jackson,Oncologist,Rare Disease,CA,West,Tier 2 - Medium Value,10,1
-HCP-0165,Dr. Ashley White,Internist,Neurology,MI,Midwest,Tier 3 - Low Value,2,0
-HCP-0166,Dr. Michael Rodriguez,Cardiologist,Rare Disease,IL,Midwest,Tier 1 - High Value,28,1
-HCP-0167,Dr. Joseph Lee,General Practitioner,Immunology,TN,South,Tier 2 - Medium Value,3,1
-HCP-0168,Dr. Christopher Johnson,Neurologist,Rare Disease,FL,South,Tier 2 - Medium Value,7,1
-HCP-0169,Dr. Joseph Jones,Oncologist,Oncology,WI,Midwest,Tier 2 - Medium Value,8,1
-HCP-0170,Dr. Richard Jones,Oncologist,Immunology,FL,South,Tier 3 - Low Value,12,1
-HCP-0171,Dr. Jennifer Williams,General Practitioner,Rare Disease,GA,South,Tier 3 - Low Value,12,0
-HCP-0172,Dr. Michael Anderson,Immunologist,Oncology,TX,South,Tier 2 - Medium Value,18,1
-HCP-0173,Dr. Lisa Smith,Internist,Immunology,WA,West,Tier 2 - Medium Value,10,1
-HCP-0174,Dr. William Davis,Immunologist,Neurology,WI,Midwest,Tier 1 - High Value,27,1
-HCP-0175,Dr. Sarah Davis,Oncologist,Immunology,IN,Midwest,Tier 3 - Low Value,10,0
-HCP-0176,Dr. Joseph Taylor,General Practitioner,Oncology,NY,Northeast,Tier 3 - Low Value,11,0
-HCP-0177,Dr. Joseph Garcia,Cardiologist,Oncology,IL,Midwest,Tier 1 - High Value,38,1
-HCP-0178,Dr. Ashley Thompson,Cardiologist,Immunology,NY,Northeast,Tier 2 - Medium Value,14,1
-HCP-0179,Dr. Sarah Jones,Internist,Rare Disease,MD,Northeast,Tier 2 - Medium Value,14,1
-HCP-0180,Dr. Ashley Johnson,Internist,Neurology,MA,Northeast,Tier 3 - Low Value,11,1
-HCP-0181,Dr. Jennifer Martinez,Immunologist,Immunology,MI,Midwest,Tier 1 - High Value,4,1
-HCP-0182,Dr. Nancy Thompson,General Practitioner,Rare Disease,NY,Northeast,Tier 3 - Low Value,17,0
-HCP-0183,Dr. Sarah White,Immunologist,Rare Disease,TX,South,Tier 3 - Low Value,15,1
-HCP-0184,Dr. Sarah Williams,Immunologist,Oncology,TX,South,Tier 3 - Low Value,16,1
-HCP-0185,Dr. Margaret Lee,Cardiologist,Immunology,TX,South,Tier 3 - Low Value,19,1
-HCP-0186,Dr. Sarah White,Neurologist,Immunology,VA,South,Tier 2 - Medium Value,1,0
-HCP-0187,Dr. Lisa Martinez,Oncologist,Neurology,NJ,Northeast,Tier 1 - High Value,16,0
-HCP-0188,Dr. Ashley Jones,Pulmonologist,Cardiology,WI,Midwest,Tier 2 - Medium Value,11,1
-HCP-0189,Dr. Michael Martinez,Cardiologist,Rare Disease,WA,West,Tier 3 - Low Value,17,1
-HCP-0190,Dr. Margaret Williams,Pulmonologist,Cardiology,NJ,Northeast,Tier 3 - Low Value,20,1
-HCP-0191,Dr. Richard Miller,Neurologist,Oncology,IN,Midwest,Tier 2 - Medium Value,10,0
-HCP-0192,Dr. David Williams,Cardiologist,Cardiology,TN,South,Tier 3 - Low Value,9,0
-HCP-0193,Dr. Margaret Johnson,General Practitioner,Rare Disease,FL,South,Tier 3 - Low Value,10,0
-HCP-0194,Dr. Richard Garcia,Cardiologist,Rare Disease,WI,Midwest,Tier 2 - Medium Value,19,0
-HCP-0195,Dr. Jennifer Davis,Internist,Immunology,PA,Northeast,Tier 1 - High Value,28,1
-HCP-0196,Dr. Betty Miller,Cardiologist,Rare Disease,MA,Northeast,Tier 2 - Medium Value,11,1
-HCP-0197,Dr. Lisa Lee,Immunologist,Immunology,MD,Northeast,Tier 3 - Low Value,16,1
-HCP-0198,Dr. David Rodriguez,Pulmonologist,Cardiology,PA,Northeast,Tier 3 - Low Value,1,1
-HCP-0199,Dr. Margaret Brown,General Practitioner,Oncology,VA,South,Tier 3 - Low Value,9,1
-HCP-0200,Dr. David Moore,Neurologist,Immunology,PA,Northeast,Tier 3 - Low Value,2,0
-HCP-0201,Dr. James Moore,Pulmonologist,Immunology,GA,South,Tier 3 - Low Value,1,1
-HCP-0202,Dr. Jennifer Davis,Cardiologist,Immunology,VA,South,Tier 3 - Low Value,0,1
-HCP-0203,Dr. David Johnson,Pulmonologist,Neurology,FL,South,Tier 3 - Low Value,9,0
-HCP-0204,Dr. Betty Jackson,Internist,Cardiology,TN,South,Tier 3 - Low Value,19,1
-HCP-0205,Dr. David Perez,Oncologist,Neurology,NY,Northeast,Tier 2 - Medium Value,19,1
-HCP-0206,Dr. William Johnson,Pulmonologist,Neurology,FL,South,Tier 2 - Medium Value,7,1
-HCP-0207,Dr. Betty White,Immunologist,Oncology,WI,Midwest,Tier 1 - High Value,34,1
-HCP-0208,Dr. Christopher Moore,General Practitioner,Cardiology,IN,Midwest,Tier 3 - Low Value,0,1
-HCP-0209,Dr. Michael Lee,General Practitioner,Immunology,GA,South,Tier 2 - Medium Value,11,1
-HCP-0210,Dr. Margaret Perez,General Practitioner,Rare Disease,IN,Midwest,Tier 3 - Low Value,0,1
-HCP-0211,Dr. Charles Smith,Oncologist,Immunology,TN,South,Tier 3 - Low Value,11,0
-HCP-0212,Dr. Sarah Jones,Cardiologist,Oncology,VA,South,Tier 3 - Low Value,1,1
-HCP-0213,Dr. Nancy Martin,Pulmonologist,Cardiology,NJ,Northeast,Tier 3 - Low Value,20,1
-HCP-0214,Dr. Joseph Johnson,Oncologist,Immunology,IL,Midwest,Tier 1 - High Value,50,1
-HCP-0215,Dr. Sandra Martin,Neurologist,Neurology,TX,South,Tier 3 - Low Value,8,1
-HCP-0216,Dr. Robert Anderson,Neurologist,Neurology,OH,Midwest,Tier 3 - Low Value,8,1
-HCP-0217,Dr. Lisa Anderson,Immunologist,Immunology,VA,South,Tier 3 - Low Value,5,1
-HCP-0218,Dr. Michael Moore,Neurologist,Rare Disease,TN,South,Tier 2 - Medium Value,2,1
-HCP-0219,Dr. Michael Anderson,General Practitioner,Neurology,PA,Northeast,Tier 2 - Medium Value,9,1
-HCP-0220,Dr. Nancy Taylor,Internist,Immunology,WI,Midwest,Tier 2 - Medium Value,14,1
-HCP-0221,Dr. Robert Williams,General Practitioner,Immunology,VA,South,Tier 2 - Medium Value,20,1
-HCP-0222,Dr. David White,Pulmonologist,Cardiology,IN,Midwest,Tier 3 - Low Value,14,1
-HCP-0223,Dr. Ashley Johnson,Cardiologist,Neurology,NY,Northeast,Tier 2 - Medium Value,19,1
-HCP-0224,Dr. Michael Thompson,Neurologist,Neurology,MA,Northeast,Tier 2 - Medium Value,4,1
-HCP-0225,Dr. William Smith,Neurologist,Neurology,WA,West,Tier 2 - Medium Value,5,1
-HCP-0226,Dr. Charles Jackson,General Practitioner,Oncology,WA,West,Tier 2 - Medium Value,6,0
-HCP-0227,Dr. David Williams,Internist,Immunology,MI,Midwest,Tier 2 - Medium Value,14,1
-HCP-0228,Dr. Michael Perez,Oncologist,Neurology,MA,Northeast,Tier 3 - Low Value,17,1
-HCP-0229,Dr. Richard Taylor,Pulmonologist,Cardiology,MI,Midwest,Tier 3 - Low Value,16,1
-HCP-0230,Dr. Betty Smith,Pulmonologist,Cardiology,OH,Midwest,Tier 2 - Medium Value,11,1
-HCP-0231,Dr. Michael Williams,Immunologist,Rare Disease,VA,South,Tier 1 - High Value,19,1
-HCP-0232,Dr. Ashley Williams,General Practitioner,Immunology,TN,South,Tier 3 - Low Value,4,0
-HCP-0233,Dr. Jennifer Jones,Immunologist,Immunology,NY,Northeast,Tier 3 - Low Value,17,1
-HCP-0234,Dr. Robert Brown,Pulmonologist,Cardiology,PA,Northeast,Tier 2 - Medium Value,16,1
-HCP-0235,Dr. Thomas Taylor,Cardiologist,Neurology,PA,Northeast,Tier 3 - Low Value,16,0
-HCP-0236,Dr. Sandra Rodriguez,Neurologist,Cardiology,NY,Northeast,Tier 3 - Low Value,4,1
-HCP-0237,Dr. Richard Thompson,General Practitioner,Oncology,WI,Midwest,Tier 3 - Low Value,18,1
-HCP-0238,Dr. Ashley Johnson,Internist,Rare Disease,WI,Midwest,Tier 2 - Medium Value,0,1
-HCP-0239,Dr. Karen White,Neurologist,Cardiology,MD,Northeast,Tier 3 - Low Value,20,1
-HCP-0240,Dr. Lisa Martinez,Neurologist,Neurology,MO,Midwest,Tier 2 - Medium Value,14,1
-HCP-0241,Dr. Nancy Miller,Cardiologist,Immunology,TX,South,Tier 2 - Medium Value,10,1
-HCP-0242,Dr. Jennifer Thomas,Pulmonologist,Neurology,NJ,Northeast,Tier 3 - Low Value,4,0
-HCP-0243,Dr. Nancy Brown,General Practitioner,Oncology,IN,Midwest,Tier 2 - Medium Value,8,1
-HCP-0244,Dr. Lisa White,Oncologist,Oncology,IL,Midwest,Tier 2 - Medium Value,13,1
-HCP-0245,Dr. Sarah Miller,Pulmonologist,Neurology,PA,Northeast,Tier 3 - Low Value,5,1
-HCP-0246,Dr. Betty Smith,Immunologist,Immunology,IN,Midwest,Tier 3 - Low Value,2,0
-HCP-0247,Dr. Jennifer Johnson,Immunologist,Cardiology,IN,Midwest,Tier 2 - Medium Value,1,1
-HCP-0248,Dr. James Brown,Pulmonologist,Immunology,WI,Midwest,Tier 2 - Medium Value,13,1
-HCP-0249,Dr. Jennifer Johnson,Internist,Neurology,NC,South,Tier 3 - Low Value,12,1
-HCP-0250,Dr. Michael Thomas,Cardiologist,Neurology,MO,Midwest,Tier 3 - Low Value,16,1
-HCP-0251,Dr. William Jones,Neurologist,Rare Disease,MO,Midwest,Tier 3 - Low Value,3,1
-HCP-0252,Dr. Joseph White,General Practitioner,Neurology,NJ,Northeast,Tier 3 - Low Value,16,1
-HCP-0253,Dr. Sarah Martin,Oncologist,Oncology,TX,South,Tier 1 - High Value,33,1
-HCP-0254,Dr. Dorothy Anderson,General Practitioner,Cardiology,WI,Midwest,Tier 2 - Medium Value,5,1
-HCP-0255,Dr. Margaret Lee,Internist,Neurology,WI,Midwest,Tier 3 - Low Value,17,1
-HCP-0256,Dr. Jennifer Anderson,Neurologist,Immunology,MD,Northeast,Tier 3 - Low Value,3,0
-HCP-0257,Dr. Charles Thompson,Neurologist,Oncology,MD,Northeast,Tier 3 - Low Value,18,1
-HCP-0258,Dr. Dorothy Thomas,General Practitioner,Immunology,TX,South,Tier 2 - Medium Value,4,0
-HCP-0259,Dr. William Miller,Oncologist,Rare Disease,GA,South,Tier 3 - Low Value,0,1
-HCP-0260,Dr. Karen Lee,Cardiologist,Immunology,AZ,West,Tier 3 - Low Value,19,0
-HCP-0261,Dr. Sandra Anderson,Internist,Cardiology,TX,South,Tier 3 - Low Value,15,1
-HCP-0262,Dr. Sarah Perez,Cardiologist,Immunology,NJ,Northeast,Tier 3 - Low Value,11,1
-HCP-0263,Dr. Thomas Rodriguez,General Practitioner,Immunology,NC,South,Tier 2 - Medium Value,17,1
-HCP-0264,Dr. Betty Anderson,Pulmonologist,Neurology,MI,Midwest,Tier 3 - Low Value,15,1
-HCP-0265,Dr. Sandra Thomas,Neurologist,Oncology,NC,South,Tier 3 - Low Value,12,0
-HCP-0266,Dr. Michael Taylor,Neurologist,Oncology,IL,Midwest,Tier 2 - Medium Value,14,1
-HCP-0267,Dr. Charles Perez,Cardiologist,Cardiology,TN,South,Tier 3 - Low Value,8,1
-HCP-0268,Dr. Robert Lee,Internist,Rare Disease,WI,Midwest,Tier 2 - Medium Value,7,1
-HCP-0269,Dr. Betty Brown,Oncologist,Immunology,TX,South,Tier 2 - Medium Value,4,1
-HCP-0270,Dr. Betty Martin,Cardiologist,Immunology,MO,Midwest,Tier 3 - Low Value,20,1
-HCP-0271,Dr. Michael Thompson,Neurologist,Neurology,MI,Midwest,Tier 3 - Low Value,7,1
-HCP-0272,Dr. Richard Johnson,Cardiologist,Immunology,TX,South,Tier 3 - Low Value,12,0
-HCP-0273,Dr. James Martinez,Internist,Neurology,PA,Northeast,Tier 3 - Low Value,18,1
-HCP-0274,Dr. Sandra Lee,Neurologist,Immunology,NJ,Northeast,Tier 3 - Low Value,15,0
-HCP-0275,Dr. Joseph Brown,Pulmonologist,Rare Disease,IL,Midwest,Tier 2 - Medium Value,10,1
-HCP-0276,Dr. James Anderson,Internist,Neurology,MA,Northeast,Tier 3 - Low Value,9,1
-HCP-0277,Dr. Lisa Moore,Cardiologist,Rare Disease,OH,Midwest,Tier 3 - Low Value,16,1
-HCP-0278,Dr. David Martin,Internist,Oncology,WA,West,Tier 2 - Medium Value,10,0
-HCP-0279,Dr. Charles Anderson,Neurologist,Immunology,CA,West,Tier 2 - Medium Value,9,1
-HCP-0280,Dr. Thomas Johnson,Oncologist,Neurology,MD,Northeast,Tier 3 - Low Value,3,1
-HCP-0281,Dr. Christopher Brown,Immunologist,Rare Disease,PA,Northeast,Tier 3 - Low Value,20,0
-HCP-0282,Dr. David Martin,Neurologist,Rare Disease,MI,Midwest,Tier 2 - Medium Value,4,1
-HCP-0283,Dr. Betty Perez,Neurologist,Immunology,WI,Midwest,Tier 3 - Low Value,6,0
-HCP-0284,Dr. Margaret Taylor,Pulmonologist,Oncology,WI,Midwest,Tier 3 - Low Value,2,0
-HCP-0285,Dr. Joseph Thompson,Oncologist,Rare Disease,FL,South,Tier 3 - Low Value,17,1
-HCP-0286,Dr. Joseph Thompson,Pulmonologist,Rare Disease,NJ,Northeast,Tier 2 - Medium Value,15,1
-HCP-0287,Dr. Margaret Moore,Immunologist,Oncology,IN,Midwest,Tier 2 - Medium Value,14,1
-HCP-0288,Dr. Lisa Rodriguez,Immunologist,Neurology,MO,Midwest,Tier 3 - Low Value,0,0
-HCP-0289,Dr. Michael Perez,Oncologist,Oncology,MD,Northeast,Tier 2 - Medium Value,1,0
-HCP-0290,Dr. Richard Jones,Immunologist,Oncology,NY,Northeast,Tier 2 - Medium Value,20,0
-HCP-0291,Dr. Lisa Thomas,Neurologist,Immunology,AZ,West,Tier 2 - Medium Value,2,1
-HCP-0292,Dr. Sandra Thomas,Cardiologist,Neurology,MO,Midwest,Tier 1 - High Value,33,1
-HCP-0293,Dr. Christopher Jackson,Pulmonologist,Oncology,GA,South,Tier 3 - Low Value,17,1
-HCP-0294,Dr. Jennifer Jones,Pulmonologist,Cardiology,WA,West,Tier 2 - Medium Value,8,1
-HCP-0295,Dr. James Davis,Oncologist,Immunology,FL,South,Tier 3 - Low Value,6,1
-HCP-0296,Dr. Robert Davis,Oncologist,Immunology,WI,Midwest,Tier 3 - Low Value,1,1
-HCP-0297,Dr. Robert Jones,General Practitioner,Cardiology,GA,South,Tier 3 - Low Value,16,0
-HCP-0298,Dr. Dorothy Anderson,Pulmonologist,Rare Disease,GA,South,Tier 2 - Medium Value,7,1
-HCP-0299,Dr. Christopher Rodriguez,Internist,Rare Disease,IL,Midwest,Tier 2 - Medium Value,1,1
-HCP-0300,Dr. Karen Perez,Internist,Cardiology,MD,Northeast,Tier 3 - Low Value,15,1
-HCP-0301,Dr. Sarah Moore,Internist,Immunology,VA,South,Tier 3 - Low Value,13,1
-HCP-0302,Dr. Thomas Martinez,Cardiologist,Rare Disease,WA,West,Tier 2 - Medium Value,4,0
-HCP-0303,Dr. Sandra Lee,General Practitioner,Immunology,TX,South,Tier 3 - Low Value,4,1
-HCP-0304,Dr. Nancy Taylor,Cardiologist,Neurology,NC,South,Tier 3 - Low Value,2,1
-HCP-0305,Dr. Dorothy White,Oncologist,Neurology,OH,Midwest,Tier 2 - Medium Value,1,0
-HCP-0306,Dr. Sandra Miller,Pulmonologist,Rare Disease,OH,Midwest,Tier 3 - Low Value,15,1
-HCP-0307,Dr. Joseph Brown,Neurologist,Oncology,NJ,Northeast,Tier 2 - Medium Value,15,0
-HCP-0308,Dr. Thomas Perez,Internist,Cardiology,WI,Midwest,Tier 2 - Medium Value,10,0
-HCP-0309,Dr. Christopher Rodriguez,Immunologist,Rare Disease,WA,West,Tier 3 - Low Value,11,1
-HCP-0310,Dr. Betty Anderson,Immunologist,Oncology,TN,South,Tier 3 - Low Value,6,1
-HCP-0311,Dr. David Smith,Oncologist,Rare Disease,AZ,West,Tier 3 - Low Value,8,1
-HCP-0312,Dr. Joseph Anderson,General Practitioner,Immunology,MD,Northeast,Tier 2 - Medium Value,7,1
-HCP-0313,Dr. Sarah Rodriguez,Immunologist,Rare Disease,GA,South,Tier 3 - Low Value,15,0
-HCP-0314,Dr. Jennifer Garcia,Immunologist,Cardiology,TN,South,Tier 3 - Low Value,4,0
-HCP-0315,Dr. Robert Lee,Cardiologist,Rare Disease,TN,South,Tier 3 - Low Value,1,0
-HCP-0316,Dr. Karen Jones,Pulmonologist,Oncology,NY,Northeast,Tier 3 - Low Value,20,1
-HCP-0317,Dr. Jennifer Johnson,Oncologist,Cardiology,IL,Midwest,Tier 3 - Low Value,19,1
-HCP-0318,Dr. Sandra Perez,Immunologist,Immunology,WI,Midwest,Tier 1 - High Value,26,1
-HCP-0319,Dr. Christopher Smith,Internist,Neurology,IN,Midwest,Tier 3 - Low Value,16,0
-HCP-0320,Dr. William Lee,Pulmonologist,Cardiology,AZ,West,Tier 1 - High Value,9,1
-HCP-0321,Dr. Charles Thomas,General Practitioner,Neurology,WI,Midwest,Tier 3 - Low Value,2,1
-HCP-0322,Dr. Thomas Martinez,Immunologist,Rare Disease,WA,West,Tier 2 - Medium Value,2,1
-HCP-0323,Dr. Sandra Martin,Oncologist,Immunology,TX,South,Tier 2 - Medium Value,1,1
-HCP-0324,Dr. Sarah Thompson,Oncologist,Immunology,PA,Northeast,Tier 3 - Low Value,3,0
-HCP-0325,Dr. Ashley Martin,Cardiologist,Cardiology,TX,South,Tier 3 - Low Value,8,1
-HCP-0326,Dr. Ashley Johnson,Internist,Neurology,NY,Northeast,Tier 3 - Low Value,5,0
-HCP-0327,Dr. Lisa Williams,Oncologist,Cardiology,NJ,Northeast,Tier 3 - Low Value,9,1
-HCP-0328,Dr. Sandra Anderson,General Practitioner,Immunology,GA,South,Tier 3 - Low Value,12,0
-HCP-0329,Dr. Jennifer Johnson,Pulmonologist,Oncology,IL,Midwest,Tier 3 - Low Value,3,1
-HCP-0330,Dr. Dorothy Thomas,Neurologist,Rare Disease,NY,Northeast,Tier 3 - Low Value,10,1
-HCP-0331,Dr. Jennifer Perez,Pulmonologist,Immunology,NC,South,Tier 2 - Medium Value,12,1
-HCP-0332,Dr. Dorothy Martinez,Internist,Immunology,MD,Northeast,Tier 1 - High Value,15,0
-HCP-0333,Dr. David Thomas,Neurologist,Cardiology,NY,Northeast,Tier 2 - Medium Value,10,1
-HCP-0334,Dr. Charles Brown,Oncologist,Neurology,NY,Northeast,Tier 2 - Medium Value,4,1
-HCP-0335,Dr. Karen Brown,Immunologist,Rare Disease,AZ,West,Tier 3 - Low Value,0,1
-HCP-0336,Dr. Sarah Thomas,Oncologist,Rare Disease,MO,Midwest,Tier 3 - Low Value,0,1
-HCP-0337,Dr. Sandra Davis,Pulmonologist,Oncology,WA,West,Tier 3 - Low Value,18,1
-HCP-0338,Dr. Charles Martin,Cardiologist,Cardiology,WA,West,Tier 2 - Medium Value,4,1
-HCP-0339,Dr. Michael Taylor,Neurologist,Immunology,AZ,West,Tier 2 - Medium Value,8,0
-HCP-0340,Dr. William Jones,General Practitioner,Rare Disease,TN,South,Tier 2 - Medium Value,9,1
-HCP-0341,Dr. Sarah Jackson,Neurologist,Rare Disease,WA,West,Tier 2 - Medium Value,10,1
-HCP-0342,Dr. Joseph Martin,Cardiologist,Neurology,WI,Midwest,Tier 2 - Medium Value,10,1
-HCP-0343,Dr. Betty Thompson,Neurologist,Neurology,WA,West,Tier 3 - Low Value,7,1
-HCP-0344,Dr. Ashley Miller,Pulmonologist,Immunology,NC,South,Tier 2 - Medium Value,18,0
-HCP-0345,Dr. Nancy Miller,Internist,Rare Disease,PA,Northeast,Tier 1 - High Value,28,0
-HCP-0346,Dr. David Martinez,Pulmonologist,Immunology,NY,Northeast,Tier 3 - Low Value,7,1
-HCP-0347,Dr. Michael Jackson,Internist,Immunology,IL,Midwest,Tier 3 - Low Value,19,1
-HCP-0348,Dr. Karen Perez,General Practitioner,Rare Disease,WA,West,Tier 3 - Low Value,1,0
-HCP-0349,Dr. Michael Brown,Internist,Rare Disease,VA,South,Tier 3 - Low Value,7,1
-HCP-0350,Dr. Lisa Anderson,Cardiologist,Rare Disease,VA,South,Tier 1 - High Value,50,1
-HCP-0351,Dr. Margaret Perez,Oncologist,Neurology,CA,West,Tier 2 - Medium Value,18,1
-HCP-0352,Dr. Ashley Lee,Immunologist,Neurology,GA,South,Tier 2 - Medium Value,4,1
-HCP-0353,Dr. Michael Brown,Immunologist,Oncology,CA,West,Tier 2 - Medium Value,4,1
-HCP-0354,Dr. Jennifer Martin,Immunologist,Cardiology,NJ,Northeast,Tier 3 - Low Value,3,1
-HCP-0355,Dr. William Smith,Neurologist,Oncology,MA,Northeast,Tier 2 - Medium Value,10,1
-HCP-0356,Dr. Sandra Garcia,Internist,Cardiology,PA,Northeast,Tier 3 - Low Value,10,1
-HCP-0357,Dr. Richard Moore,Cardiologist,Immunology,MA,Northeast,Tier 3 - Low Value,12,1
-HCP-0358,Dr. Lisa Smith,Cardiologist,Immunology,WI,Midwest,Tier 3 - Low Value,6,1
-HCP-0359,Dr. Sandra Garcia,General Practitioner,Oncology,NY,Northeast,Tier 3 - Low Value,11,1
-HCP-0360,Dr. Betty Lee,Oncologist,Neurology,MA,Northeast,Tier 3 - Low Value,20,1
-HCP-0361,Dr. Jennifer Taylor,General Practitioner,Immunology,WA,West,Tier 3 - Low Value,14,1
-HCP-0362,Dr. David Anderson,General Practitioner,Rare Disease,MI,Midwest,Tier 1 - High Value,7,1
-HCP-0363,Dr. Margaret Thomas,Cardiologist,Neurology,FL,South,Tier 3 - Low Value,13,1
-HCP-0364,Dr. Sandra Garcia,Immunologist,Immunology,MD,Northeast,Tier 2 - Medium Value,17,1
-HCP-0365,Dr. Nancy White,Cardiologist,Cardiology,MI,Midwest,Tier 2 - Medium Value,1,0
-HCP-0366,Dr. Lisa Perez,Immunologist,Cardiology,CA,West,Tier 2 - Medium Value,16,1
-HCP-0367,Dr. Nancy Martin,Internist,Immunology,AZ,West,Tier 2 - Medium Value,5,1
-HCP-0368,Dr. Charles Davis,Pulmonologist,Cardiology,CA,West,Tier 2 - Medium Value,17,1
-HCP-0369,Dr. William Thompson,General Practitioner,Immunology,MA,Northeast,Tier 3 - Low Value,3,1
-HCP-0370,Dr. Robert Jackson,Pulmonologist,Neurology,MO,Midwest,Tier 3 - Low Value,17,1
-HCP-0371,Dr. Robert Jackson,Oncologist,Cardiology,AZ,West,Tier 2 - Medium Value,8,1
-HCP-0372,Dr. Thomas Miller,Immunologist,Oncology,NY,Northeast,Tier 3 - Low Value,18,1
-HCP-0373,Dr. David Miller,Internist,Immunology,WI,Midwest,Tier 2 - Medium Value,6,0
-HCP-0374,Dr. Sandra Garcia,Neurologist,Rare Disease,MD,Northeast,Tier 2 - Medium Value,10,0
-HCP-0375,Dr. Margaret Brown,Neurologist,Rare Disease,MI,Midwest,Tier 2 - Medium Value,4,0
-HCP-0376,Dr. David Jones,Oncologist,Neurology,AZ,West,Tier 3 - Low Value,7,1
-HCP-0377,Dr. Lisa Martin,Pulmonologist,Cardiology,NJ,Northeast,Tier 3 - Low Value,4,1
-HCP-0378,Dr. Michael Williams,Internist,Immunology,NC,South,Tier 2 - Medium Value,12,1
-HCP-0379,Dr. Betty Anderson,Internist,Neurology,NC,South,Tier 2 - Medium Value,18,1
-HCP-0380,Dr. Jennifer Williams,Internist,Immunology,NY,Northeast,Tier 3 - Low Value,17,1
-HCP-0381,Dr. Sarah Martinez,Pulmonologist,Cardiology,AZ,West,Tier 2 - Medium Value,10,1
-HCP-0382,Dr. Robert Johnson,General Practitioner,Immunology,IL,Midwest,Tier 3 - Low Value,3,1
-HCP-0383,Dr. Richard Jackson,Oncologist,Oncology,MA,Northeast,Tier 3 - Low Value,14,1
-HCP-0384,Dr. Christopher Garcia,Cardiologist,Cardiology,AZ,West,Tier 3 - Low Value,8,1
-HCP-0385,Dr. Richard Johnson,Neurologist,Oncology,VA,South,Tier 2 - Medium Value,12,1
-HCP-0386,Dr. James Miller,Immunologist,Oncology,GA,South,Tier 3 - Low Value,15,1
-HCP-0387,Dr. James Smith,Cardiologist,Rare Disease,MD,Northeast,Tier 3 - Low Value,10,0
-HCP-0388,Dr. Thomas Thomas,Internist,Cardiology,AZ,West,Tier 2 - Medium Value,2,0
-HCP-0389,Dr. Christopher Jones,Oncologist,Neurology,FL,South,Tier 2 - Medium Value,12,0
-HCP-0390,Dr. Ashley Smith,Internist,Cardiology,IL,Midwest,Tier 1 - High Value,39,1
-HCP-0391,Dr. David Moore,Neurologist,Cardiology,MA,Northeast,Tier 3 - Low Value,19,1
-HCP-0392,Dr. William Thompson,Oncologist,Oncology,OH,Midwest,Tier 1 - High Value,46,1
-HCP-0393,Dr. Michael Davis,Neurologist,Cardiology,AZ,West,Tier 2 - Medium Value,17,1
-HCP-0394,Dr. Christopher Miller,Neurologist,Oncology,WI,Midwest,Tier 3 - Low Value,16,1
-HCP-0395,Dr. Robert Davis,Internist,Immunology,OH,Midwest,Tier 2 - Medium Value,15,1
-HCP-0396,Dr. James Taylor,Immunologist,Rare Disease,GA,South,Tier 1 - High Value,20,1
-HCP-0397,Dr. Richard Martin,Immunologist,Neurology,MD,Northeast,Tier 3 - Low Value,2,1
-HCP-0398,Dr. Robert Thomas,Oncologist,Neurology,NY,Northeast,Tier 2 - Medium Value,16,1
-HCP-0399,Dr. Lisa Williams,Pulmonologist,Immunology,IN,Midwest,Tier 2 - Medium Value,20,1
-HCP-0400,Dr. Michael Lee,Cardiologist,Neurology,WI,Midwest,Tier 1 - High Value,13,0
-HCP-0401,Dr. Michael Martinez,General Practitioner,Neurology,IL,Midwest,Tier 2 - Medium Value,13,0
-HCP-0402,Dr. Karen Brown,Oncologist,Cardiology,GA,South,Tier 1 - High Value,29,1
-HCP-0403,Dr. David Smith,Neurologist,Cardiology,TX,South,Tier 1 - High Value,10,1
-HCP-0404,Dr. Charles Garcia,General Practitioner,Rare Disease,VA,South,Tier 3 - Low Value,11,1
-HCP-0405,Dr. James Anderson,Internist,Oncology,NC,South,Tier 3 - Low Value,13,1
-HCP-0406,Dr. Betty Jackson,Neurologist,Rare Disease,NY,Northeast,Tier 3 - Low Value,16,1
-HCP-0407,Dr. Richard Rodriguez,Pulmonologist,Rare Disease,TN,South,Tier 2 - Medium Value,3,0
-HCP-0408,Dr. James Davis,Cardiologist,Rare Disease,FL,South,Tier 1 - High Value,2,1
-HCP-0409,Dr. Robert Perez,Cardiologist,Cardiology,WA,West,Tier 3 - Low Value,20,1
-HCP-0410,Dr. Sarah Rodriguez,Cardiologist,Immunology,NJ,Northeast,Tier 3 - Low Value,2,1
-HCP-0411,Dr. Margaret Johnson,General Practitioner,Oncology,FL,South,Tier 2 - Medium Value,12,1
-HCP-0412,Dr. Christopher Anderson,Pulmonologist,Neurology,MA,Northeast,Tier 3 - Low Value,2,1
-HCP-0413,Dr. Christopher White,Neurologist,Cardiology,CA,West,Tier 2 - Medium Value,7,1
-HCP-0414,Dr. Sandra Davis,Immunologist,Cardiology,MD,Northeast,Tier 3 - Low Value,4,1
-HCP-0415,Dr. James Anderson,Oncologist,Cardiology,AZ,West,Tier 3 - Low Value,0,0
-HCP-0416,Dr. Margaret Davis,Pulmonologist,Neurology,WA,West,Tier 1 - High Value,26,1
-HCP-0417,Dr. Thomas Lee,Cardiologist,Neurology,TX,South,Tier 1 - High Value,26,0
-HCP-0418,Dr. Margaret Jones,Immunologist,Oncology,VA,South,Tier 3 - Low Value,20,0
-HCP-0419,Dr. David Davis,General Practitioner,Rare Disease,NY,Northeast,Tier 1 - High Value,18,1
-HCP-0420,Dr. Sarah Anderson,Pulmonologist,Immunology,NJ,Northeast,Tier 3 - Low Value,14,1
-HCP-0421,Dr. Ashley Brown,Cardiologist,Cardiology,NY,Northeast,Tier 3 - Low Value,4,1
-HCP-0422,Dr. Sandra Taylor,Immunologist,Neurology,MA,Northeast,Tier 2 - Medium Value,6,1
-HCP-0423,Dr. Christopher White,Neurologist,Oncology,MA,Northeast,Tier 1 - High Value,2,1
-HCP-0424,Dr. Jennifer Thomas,Cardiologist,Oncology,NJ,Northeast,Tier 3 - Low Value,16,1
-HCP-0425,Dr. Lisa Jackson,Neurologist,Cardiology,MI,Midwest,Tier 1 - High Value,35,0
-HCP-0426,Dr. David Brown,Oncologist,Immunology,GA,South,Tier 1 - High Value,0,1
-HCP-0427,Dr. Jennifer Williams,Cardiologist,Cardiology,GA,South,Tier 3 - Low Value,18,1
-HCP-0428,Dr. Nancy Jones,Oncologist,Oncology,NY,Northeast,Tier 2 - Medium Value,2,0
-HCP-0429,Dr. Robert Garcia,Oncologist,Oncology,NJ,Northeast,Tier 3 - Low Value,18,1
-HCP-0430,Dr. Karen Garcia,Immunologist,Oncology,WA,West,Tier 2 - Medium Value,11,1
-HCP-0431,Dr. David Johnson,Neurologist,Neurology,PA,Northeast,Tier 2 - Medium Value,19,1
-HCP-0432,Dr. Sandra Martin,Internist,Neurology,GA,South,Tier 2 - Medium Value,1,1
-HCP-0433,Dr. Margaret Davis,Cardiologist,Immunology,WA,West,Tier 2 - Medium Value,20,0
-HCP-0434,Dr. Jennifer Martin,Pulmonologist,Oncology,MO,Midwest,Tier 3 - Low Value,17,0
-HCP-0435,Dr. Charles Garcia,General Practitioner,Rare Disease,VA,South,Tier 2 - Medium Value,0,1
-HCP-0436,Dr. Betty Lee,Oncologist,Neurology,GA,South,Tier 1 - High Value,22,0
-HCP-0437,Dr. Thomas Rodriguez,Cardiologist,Oncology,GA,South,Tier 2 - Medium Value,17,0
-HCP-0438,Dr. Lisa Taylor,Pulmonologist,Cardiology,TX,South,Tier 3 - Low Value,5,1
-HCP-0439,Dr. James Taylor,Neurologist,Neurology,MD,Northeast,Tier 3 - Low Value,18,1
-HCP-0440,Dr. Richard Martin,Cardiologist,Immunology,MD,Northeast,Tier 3 - Low Value,1,1
-HCP-0441,Dr. Betty Smith,General Practitioner,Cardiology,GA,South,Tier 1 - High Value,21,0
-HCP-0442,Dr. Richard Anderson,Pulmonologist,Cardiology,OH,Midwest,Tier 2 - Medium Value,1,1
-HCP-0443,Dr. Margaret Taylor,Internist,Cardiology,MD,Northeast,Tier 3 - Low Value,2,1
-HCP-0444,Dr. Sarah Jones,General Practitioner,Oncology,WA,West,Tier 2 - Medium Value,5,0
-HCP-0445,Dr. Richard Perez,Pulmonologist,Immunology,AZ,West,Tier 3 - Low Value,19,0
-HCP-0446,Dr. Lisa Martinez,Internist,Rare Disease,GA,South,Tier 3 - Low Value,9,1
-HCP-0447,Dr. Ashley Johnson,Internist,Rare Disease,CA,West,Tier 2 - Medium Value,5,1
-HCP-0448,Dr. Betty Jones,Cardiologist,Rare Disease,WI,Midwest,Tier 1 - High Value,21,0
-HCP-0449,Dr. Michael Anderson,Neurologist,Neurology,GA,South,Tier 2 - Medium Value,14,1
-HCP-0450,Dr. William Smith,Cardiologist,Oncology,OH,Midwest,Tier 2 - Medium Value,1,1
-HCP-0451,Dr. Lisa Taylor,Cardiologist,Immunology,AZ,West,Tier 2 - Medium Value,17,1
-HCP-0452,Dr. Thomas Garcia,Pulmonologist,Rare Disease,TN,South,Tier 3 - Low Value,14,1
-HCP-0453,Dr. William Williams,Neurologist,Oncology,TX,South,Tier 2 - Medium Value,10,1
-HCP-0454,Dr. Michael Anderson,Cardiologist,Oncology,WA,West,Tier 3 - Low Value,19,0
-HCP-0455,Dr. Richard White,Internist,Oncology,TN,South,Tier 2 - Medium Value,13,1
-HCP-0456,Dr. Karen Perez,Neurologist,Cardiology,FL,South,Tier 3 - Low Value,17,1
-HCP-0457,Dr. Lisa Thompson,Neurologist,Cardiology,MI,Midwest,Tier 1 - High Value,35,0
-HCP-0458,Dr. Michael Martinez,Oncologist,Neurology,IL,Midwest,Tier 1 - High Value,42,1
-HCP-0459,Dr. Richard Martinez,Cardiologist,Oncology,TN,South,Tier 1 - High Value,5,1
-HCP-0460,Dr. Charles Williams,Neurologist,Immunology,FL,South,Tier 2 - Medium Value,20,1
-HCP-0461,Dr. Nancy Johnson,Neurologist,Immunology,PA,Northeast,Tier 2 - Medium Value,8,1
-HCP-0462,Dr. David Brown,Cardiologist,Neurology,NC,South,Tier 3 - Low Value,2,1
-HCP-0463,Dr. Robert Thomas,Immunologist,Rare Disease,MO,Midwest,Tier 2 - Medium Value,16,1
-HCP-0464,Dr. Thomas Martin,Internist,Immunology,MO,Midwest,Tier 3 - Low Value,9,1
-HCP-0465,Dr. Ashley White,General Practitioner,Rare Disease,TX,South,Tier 3 - Low Value,4,1
-HCP-0466,Dr. Joseph Jones,Cardiologist,Cardiology,MA,Northeast,Tier 3 - Low Value,1,1
-HCP-0467,Dr. Charles Anderson,Cardiologist,Cardiology,AZ,West,Tier 3 - Low Value,2,1
-HCP-0468,Dr. Charles Lee,Immunologist,Rare Disease,MO,Midwest,Tier 2 - Medium Value,14,0
-HCP-0469,Dr. Karen Brown,Pulmonologist,Rare Disease,CA,West,Tier 3 - Low Value,13,1
-HCP-0470,Dr. William Brown,General Practitioner,Rare Disease,MD,Northeast,Tier 3 - Low Value,18,0
-HCP-0471,Dr. Karen Rodriguez,Pulmonologist,Rare Disease,MI,Midwest,Tier 3 - Low Value,12,1
-HCP-0472,Dr. Charles Thomas,General Practitioner,Immunology,MD,Northeast,Tier 1 - High Value,9,1
-HCP-0473,Dr. Sarah Davis,Oncologist,Immunology,WA,West,Tier 3 - Low Value,1,0
-HCP-0474,Dr. Christopher Martinez,Neurologist,Oncology,NC,South,Tier 2 - Medium Value,8,0
-HCP-0475,Dr. Nancy Anderson,Pulmonologist,Cardiology,FL,South,Tier 1 - High Value,17,0
-HCP-0476,Dr. Joseph Moore,Internist,Oncology,WI,Midwest,Tier 2 - Medium Value,15,0
-HCP-0477,Dr. Richard Williams,Pulmonologist,Oncology,VA,South,Tier 3 - Low Value,9,0
-HCP-0478,Dr. James Garcia,Cardiologist,Rare Disease,WA,West,Tier 3 - Low Value,6,0
-HCP-0479,Dr. Nancy Johnson,Pulmonologist,Oncology,OH,Midwest,Tier 2 - Medium Value,11,0
-HCP-0480,Dr. William Smith,Neurologist,Immunology,NC,South,Tier 3 - Low Value,7,1
-HCP-0481,Dr. Betty Thompson,Immunologist,Cardiology,WI,Midwest,Tier 3 - Low Value,17,1
-HCP-0482,Dr. Michael Martinez,Pulmonologist,Neurology,PA,Northeast,Tier 3 - Low Value,0,1
-HCP-0483,Dr. Joseph Davis,Pulmonologist,Rare Disease,PA,Northeast,Tier 3 - Low Value,20,1
-HCP-0484,Dr. James Martin,Neurologist,Immunology,OH,Midwest,Tier 3 - Low Value,4,1
-HCP-0485,Dr. Dorothy Martinez,Pulmonologist,Oncology,WI,Midwest,Tier 2 - Medium Value,20,1
-HCP-0486,Dr. Joseph Jackson,Pulmonologist,Neurology,WA,West,Tier 2 - Medium Value,9,1
-HCP-0487,Dr. Margaret Taylor,Immunologist,Rare Disease,WI,Midwest,Tier 1 - High Value,35,1
-HCP-0488,Dr. Betty Williams,Neurologist,Neurology,WI,Midwest,Tier 3 - Low Value,10,0
-HCP-0489,Dr. Christopher Miller,Pulmonologist,Neurology,NJ,Northeast,Tier 2 - Medium Value,4,1
-HCP-0490,Dr. Sarah Jones,Oncologist,Rare Disease,GA,South,Tier 2 - Medium Value,0,1
-HCP-0491,Dr. Robert Thompson,Neurologist,Immunology,MI,Midwest,Tier 2 - Medium Value,18,0
-HCP-0492,Dr. Betty Taylor,Internist,Cardiology,NJ,Northeast,Tier 3 - Low Value,16,1
-HCP-0493,Dr. William Martin,Pulmonologist,Rare Disease,PA,Northeast,Tier 2 - Medium Value,4,0
-HCP-0494,Dr. Sarah Williams,Pulmonologist,Cardiology,MO,Midwest,Tier 3 - Low Value,7,1
-HCP-0495,Dr. Ashley Martinez,Immunologist,Neurology,MI,Midwest,Tier 2 - Medium Value,14,0
-HCP-0496,Dr. Dorothy Williams,Oncologist,Rare Disease,TN,South,Tier 3 - Low Value,15,0
-HCP-0497,Dr. Karen Johnson,Oncologist,Immunology,IN,Midwest,Tier 3 - Low Value,4,1
-HCP-0498,Dr. Nancy Jones,Neurologist,Immunology,OH,Midwest,Tier 3 - Low Value,10,0
-HCP-0499,Dr. Richard Anderson,Pulmonologist,Oncology,PA,Northeast,Tier 2 - Medium Value,20,1
-HCP-0500,Dr. Richard Thompson,Neurologist,Cardiology,MA,Northeast,Tier 3 - Low Value,5,1
+HCP-0001,Dr. Ashley Anderson,Oncologist,Cardiology,NC,South,Tier 3 - Low Value,6,1
+HCP-0002,Dr. David Davis,Internist,Immunology,WA,West,Tier 1 - High Value,47,1
+HCP-0003,Dr. Ashley Thomas,Internist,Rare Disease,NC,South,Tier 2 - Medium Value,11,1
+HCP-0004,Dr. Robert Brown,General Practitioner,Immunology,IL,Midwest,Tier 1 - High Value,9,1
+HCP-0005,Dr. Dorothy Jackson,General Practitioner,Oncology,AZ,West,Tier 2 - Medium Value,16,1
+HCP-0006,Dr. William Perez,Pulmonologist,Oncology,MO,Midwest,Tier 3 - Low Value,8,0
+HCP-0007,Dr. Nancy Smith,Oncologist,Neurology,NJ,Northeast,Tier 2 - Medium Value,8,0
+HCP-0008,Dr. Christopher Lee,General Practitioner,Oncology,PA,Northeast,Tier 3 - Low Value,19,1
+HCP-0009,Dr. Margaret Smith,Pulmonologist,Cardiology,VA,South,Tier 3 - Low Value,19,1
+HCP-0010,Dr. Christopher Davis,Oncologist,Neurology,CA,West,Tier 3 - Low Value,1,1
+HCP-0011,Dr. Michael Perez,Oncologist,Oncology,MD,Northeast,Tier 3 - Low Value,4,1
+HCP-0012,Dr. Dorothy Moore,General Practitioner,Cardiology,TN,South,Tier 2 - Medium Value,6,0
+HCP-0013,Dr. Jennifer Jackson,Internist,Neurology,OH,Midwest,Tier 2 - Medium Value,16,1
+HCP-0014,Dr. Ashley Perez,Cardiologist,Oncology,GA,South,Tier 2 - Medium Value,7,1
+HCP-0015,Dr. Robert Anderson,Oncologist,Oncology,CA,West,Tier 2 - Medium Value,2,1
+HCP-0016,Dr. David Thompson,Internist,Immunology,NC,South,Tier 2 - Medium Value,18,1
+HCP-0017,Dr. William Moore,Pulmonologist,Immunology,TN,South,Tier 2 - Medium Value,11,1
+HCP-0018,Dr. William Johnson,Pulmonologist,Oncology,MA,Northeast,Tier 3 - Low Value,12,0
+HCP-0019,Dr. Nancy Jones,Cardiologist,Cardiology,FL,South,Tier 2 - Medium Value,13,1
+HCP-0020,Dr. Sandra Brown,Cardiologist,Oncology,MA,Northeast,Tier 2 - Medium Value,1,1
+HCP-0021,Dr. Thomas Garcia,Pulmonologist,Oncology,MO,Midwest,Tier 3 - Low Value,13,1
+HCP-0022,Dr. Richard Thomas,Pulmonologist,Immunology,OH,Midwest,Tier 3 - Low Value,0,0
+HCP-0023,Dr. Sandra Martin,Pulmonologist,Immunology,NC,South,Tier 2 - Medium Value,4,1
+HCP-0024,Dr. Robert Anderson,Oncologist,Rare Disease,OH,Midwest,Tier 3 - Low Value,1,1
+HCP-0025,Dr. Margaret Williams,General Practitioner,Rare Disease,TN,South,Tier 2 - Medium Value,5,1
+HCP-0026,Dr. Ashley Davis,Internist,Cardiology,NY,Northeast,Tier 2 - Medium Value,18,1
+HCP-0027,Dr. Ashley Lee,Oncologist,Immunology,WI,Midwest,Tier 3 - Low Value,10,0
+HCP-0028,Dr. Lisa Jones,Internist,Neurology,OH,Midwest,Tier 2 - Medium Value,20,1
+HCP-0029,Dr. Dorothy Thompson,Pulmonologist,Oncology,NJ,Northeast,Tier 1 - High Value,6,1
+HCP-0030,Dr. Jennifer Williams,General Practitioner,Neurology,OH,Midwest,Tier 1 - High Value,15,1
+HCP-0031,Dr. Dorothy Lee,Immunologist,Rare Disease,PA,Northeast,Tier 3 - Low Value,0,1
+HCP-0032,Dr. David Rodriguez,Neurologist,Oncology,MO,Midwest,Tier 3 - Low Value,3,0
+HCP-0033,Dr. Joseph Anderson,Cardiologist,Neurology,MO,Midwest,Tier 2 - Medium Value,6,1
+HCP-0034,Dr. Robert Williams,General Practitioner,Immunology,NC,South,Tier 2 - Medium Value,20,1
+HCP-0035,Dr. David Rodriguez,Oncologist,Oncology,NC,South,Tier 2 - Medium Value,5,0
+HCP-0036,Dr. William Williams,Internist,Immunology,MO,Midwest,Tier 3 - Low Value,4,1
+HCP-0037,Dr. David Johnson,General Practitioner,Rare Disease,VA,South,Tier 1 - High Value,19,1
+HCP-0038,Dr. William Taylor,Neurologist,Cardiology,TX,South,Tier 3 - Low Value,17,0
+HCP-0039,Dr. Thomas Garcia,General Practitioner,Cardiology,AZ,West,Tier 3 - Low Value,5,0
+HCP-0040,Dr. Karen Davis,Cardiologist,Neurology,CA,West,Tier 3 - Low Value,8,1
+HCP-0041,Dr. Thomas Miller,Immunologist,Oncology,FL,South,Tier 3 - Low Value,14,1
+HCP-0042,Dr. Lisa Anderson,Cardiologist,Oncology,GA,South,Tier 3 - Low Value,8,0
+HCP-0043,Dr. Sandra Anderson,Neurologist,Rare Disease,NC,South,Tier 2 - Medium Value,0,1
+HCP-0044,Dr. Charles Johnson,Cardiologist,Rare Disease,NC,South,Tier 3 - Low Value,3,1
+HCP-0045,Dr. Margaret Brown,Internist,Neurology,VA,South,Tier 2 - Medium Value,12,0
+HCP-0046,Dr. James Lee,Neurologist,Oncology,OH,Midwest,Tier 3 - Low Value,17,1
+HCP-0047,Dr. Sarah White,Neurologist,Immunology,OH,Midwest,Tier 1 - High Value,20,1
+HCP-0048,Dr. Karen Anderson,Internist,Neurology,FL,South,Tier 3 - Low Value,12,1
+HCP-0049,Dr. Lisa Garcia,Cardiologist,Cardiology,MO,Midwest,Tier 2 - Medium Value,19,1
+HCP-0050,Dr. Joseph Moore,General Practitioner,Oncology,WA,West,Tier 2 - Medium Value,18,1
+HCP-0051,Dr. Joseph Lee,Immunologist,Immunology,NJ,Northeast,Tier 2 - Medium Value,15,0
+HCP-0052,Dr. Dorothy Anderson,Internist,Oncology,PA,Northeast,Tier 2 - Medium Value,2,0
+HCP-0053,Dr. Joseph Jones,Internist,Neurology,GA,South,Tier 2 - Medium Value,0,1
+HCP-0054,Dr. Ashley Miller,General Practitioner,Oncology,TN,South,Tier 2 - Medium Value,12,1
+HCP-0055,Dr. William Moore,Cardiologist,Oncology,GA,South,Tier 3 - Low Value,7,1
+HCP-0056,Dr. William Jackson,Immunologist,Oncology,IN,Midwest,Tier 3 - Low Value,4,0
+HCP-0057,Dr. Nancy White,General Practitioner,Rare Disease,IN,Midwest,Tier 2 - Medium Value,16,1
+HCP-0058,Dr. Betty Jackson,Immunologist,Cardiology,MO,Midwest,Tier 3 - Low Value,8,0
+HCP-0059,Dr. Thomas Rodriguez,Pulmonologist,Rare Disease,NC,South,Tier 2 - Medium Value,14,1
+HCP-0060,Dr. Sandra Williams,Cardiologist,Neurology,MI,Midwest,Tier 2 - Medium Value,4,1
+HCP-0061,Dr. Michael Moore,Internist,Cardiology,WA,West,Tier 3 - Low Value,13,1
+HCP-0062,Dr. Karen Thomas,Immunologist,Oncology,MA,Northeast,Tier 2 - Medium Value,18,0
+HCP-0063,Dr. James Taylor,Pulmonologist,Rare Disease,CA,West,Tier 2 - Medium Value,9,0
+HCP-0064,Dr. Thomas Martin,General Practitioner,Rare Disease,AZ,West,Tier 3 - Low Value,7,1
+HCP-0065,Dr. Lisa Garcia,Oncologist,Immunology,TN,South,Tier 2 - Medium Value,14,0
+HCP-0066,Dr. Ashley Thompson,General Practitioner,Oncology,WI,Midwest,Tier 3 - Low Value,0,1
+HCP-0067,Dr. Charles Thomas,Cardiologist,Immunology,AZ,West,Tier 2 - Medium Value,10,1
+HCP-0068,Dr. Karen Rodriguez,Neurologist,Immunology,NJ,Northeast,Tier 2 - Medium Value,2,1
+HCP-0069,Dr. Michael Johnson,Oncologist,Neurology,MO,Midwest,Tier 2 - Medium Value,0,0
+HCP-0070,Dr. Thomas Jones,Pulmonologist,Oncology,OH,Midwest,Tier 3 - Low Value,15,1
+HCP-0071,Dr. Jennifer Garcia,Cardiologist,Immunology,MD,Northeast,Tier 3 - Low Value,19,1
+HCP-0072,Dr. William Thompson,Pulmonologist,Cardiology,FL,South,Tier 3 - Low Value,0,0
+HCP-0073,Dr. Joseph Williams,Internist,Immunology,MD,Northeast,Tier 2 - Medium Value,18,1
+HCP-0074,Dr. Dorothy Brown,Oncologist,Neurology,GA,South,Tier 3 - Low Value,18,0
+HCP-0075,Dr. Michael Lee,General Practitioner,Immunology,VA,South,Tier 3 - Low Value,20,1
+HCP-0076,Dr. Jennifer Jackson,Pulmonologist,Immunology,AZ,West,Tier 1 - High Value,45,1
+HCP-0077,Dr. Charles White,Internist,Rare Disease,PA,Northeast,Tier 3 - Low Value,17,0
+HCP-0078,Dr. Thomas Williams,Immunologist,Rare Disease,MA,Northeast,Tier 2 - Medium Value,8,0
+HCP-0079,Dr. Lisa Anderson,Pulmonologist,Immunology,GA,South,Tier 3 - Low Value,0,1
+HCP-0080,Dr. Charles Anderson,Cardiologist,Immunology,NJ,Northeast,Tier 2 - Medium Value,8,0
+HCP-0081,Dr. Joseph Williams,General Practitioner,Oncology,NC,South,Tier 3 - Low Value,7,0
+HCP-0082,Dr. Betty Jackson,General Practitioner,Cardiology,TN,South,Tier 3 - Low Value,0,1
+HCP-0083,Dr. Ashley Taylor,Immunologist,Cardiology,GA,South,Tier 2 - Medium Value,15,1
+HCP-0084,Dr. Nancy Rodriguez,Immunologist,Rare Disease,VA,South,Tier 2 - Medium Value,9,1
+HCP-0085,Dr. Sandra Garcia,Internist,Cardiology,FL,South,Tier 2 - Medium Value,6,1
+HCP-0086,Dr. Margaret White,Neurologist,Rare Disease,TN,South,Tier 3 - Low Value,9,0
+HCP-0087,Dr. Christopher Smith,Neurologist,Cardiology,OH,Midwest,Tier 2 - Medium Value,17,1
+HCP-0088,Dr. David Martin,Oncologist,Rare Disease,TX,South,Tier 2 - Medium Value,3,0
+HCP-0089,Dr. Sarah Garcia,Neurologist,Immunology,MD,Northeast,Tier 2 - Medium Value,1,1
+HCP-0090,Dr. Michael Thompson,Oncologist,Oncology,TN,South,Tier 2 - Medium Value,20,1
+HCP-0091,Dr. Michael Davis,Cardiologist,Rare Disease,IL,Midwest,Tier 3 - Low Value,3,1
+HCP-0092,Dr. Thomas Lee,General Practitioner,Rare Disease,AZ,West,Tier 3 - Low Value,12,1
+HCP-0093,Dr. Christopher Thompson,Neurologist,Rare Disease,MA,Northeast,Tier 3 - Low Value,19,1
+HCP-0094,Dr. Charles Williams,Pulmonologist,Cardiology,FL,South,Tier 3 - Low Value,5,1
+HCP-0095,Dr. Nancy White,Oncologist,Cardiology,MO,Midwest,Tier 1 - High Value,30,1
+HCP-0096,Dr. Nancy Williams,Neurologist,Neurology,GA,South,Tier 3 - Low Value,7,0
+HCP-0097,Dr. Sandra Davis,Internist,Cardiology,MD,Northeast,Tier 2 - Medium Value,20,1
+HCP-0098,Dr. Richard Martinez,Pulmonologist,Cardiology,NC,South,Tier 1 - High Value,38,0
+HCP-0099,Dr. Christopher Thomas,Neurologist,Immunology,MD,Northeast,Tier 1 - High Value,17,1
+HCP-0100,Dr. Karen Anderson,Immunologist,Oncology,TN,South,Tier 3 - Low Value,19,1
+HCP-0101,Dr. James Rodriguez,Cardiologist,Rare Disease,NY,Northeast,Tier 3 - Low Value,18,1
+HCP-0102,Dr. Charles Garcia,Immunologist,Rare Disease,PA,Northeast,Tier 3 - Low Value,18,1
+HCP-0103,Dr. Sarah Anderson,Oncologist,Immunology,TN,South,Tier 2 - Medium Value,3,0
+HCP-0104,Dr. Lisa Perez,Immunologist,Immunology,NJ,Northeast,Tier 2 - Medium Value,1,1
+HCP-0105,Dr. Lisa Lee,Neurologist,Neurology,NJ,Northeast,Tier 1 - High Value,0,1
+HCP-0106,Dr. Margaret Taylor,Immunologist,Immunology,MO,Midwest,Tier 1 - High Value,39,0
+HCP-0107,Dr. Sandra Jones,Pulmonologist,Oncology,MA,Northeast,Tier 2 - Medium Value,9,1
+HCP-0108,Dr. Dorothy Davis,Oncologist,Oncology,TN,South,Tier 3 - Low Value,5,1
+HCP-0109,Dr. William Jackson,General Practitioner,Immunology,CA,West,Tier 1 - High Value,7,1
+HCP-0110,Dr. Charles Moore,Immunologist,Neurology,IL,Midwest,Tier 3 - Low Value,15,0
+HCP-0111,Dr. Joseph White,Immunologist,Rare Disease,GA,South,Tier 1 - High Value,32,0
+HCP-0112,Dr. Karen Anderson,Pulmonologist,Oncology,IL,Midwest,Tier 2 - Medium Value,16,1
+HCP-0113,Dr. Ashley Martin,Neurologist,Neurology,CA,West,Tier 3 - Low Value,4,1
+HCP-0114,Dr. Sandra Thomas,Neurologist,Neurology,TN,South,Tier 3 - Low Value,14,0
+HCP-0115,Dr. Thomas Moore,Internist,Cardiology,OH,Midwest,Tier 3 - Low Value,1,1
+HCP-0116,Dr. David Martin,Internist,Immunology,TN,South,Tier 2 - Medium Value,1,1
+HCP-0117,Dr. Nancy Brown,Neurologist,Oncology,MD,Northeast,Tier 3 - Low Value,16,0
+HCP-0118,Dr. David Williams,Internist,Cardiology,CA,West,Tier 2 - Medium Value,15,0
+HCP-0119,Dr. Michael Anderson,Neurologist,Rare Disease,NC,South,Tier 3 - Low Value,17,1
+HCP-0120,Dr. Robert White,Internist,Immunology,NJ,Northeast,Tier 3 - Low Value,2,1
+HCP-0121,Dr. William Brown,Cardiologist,Oncology,MI,Midwest,Tier 2 - Medium Value,14,1
+HCP-0122,Dr. Robert Martinez,Oncologist,Oncology,MI,Midwest,Tier 2 - Medium Value,11,1
+HCP-0123,Dr. Richard Garcia,Cardiologist,Rare Disease,IL,Midwest,Tier 2 - Medium Value,5,1
+HCP-0124,Dr. Ashley Jones,General Practitioner,Cardiology,WA,West,Tier 2 - Medium Value,7,1
+HCP-0125,Dr. Nancy Martinez,Immunologist,Neurology,NC,South,Tier 3 - Low Value,17,1
+HCP-0126,Dr. Karen Rodriguez,Neurologist,Rare Disease,MA,Northeast,Tier 2 - Medium Value,14,0
+HCP-0127,Dr. Lisa Thompson,Immunologist,Immunology,OH,Midwest,Tier 1 - High Value,22,1
+HCP-0128,Dr. Ashley Johnson,Oncologist,Immunology,MI,Midwest,Tier 2 - Medium Value,19,0
+HCP-0129,Dr. Jennifer Davis,Pulmonologist,Cardiology,MI,Midwest,Tier 3 - Low Value,20,1
+HCP-0130,Dr. Robert Martinez,Internist,Cardiology,NC,South,Tier 3 - Low Value,14,1
+HCP-0131,Dr. Christopher Anderson,Internist,Cardiology,VA,South,Tier 1 - High Value,47,1
+HCP-0132,Dr. Jennifer Lee,Cardiologist,Rare Disease,OH,Midwest,Tier 3 - Low Value,16,0
+HCP-0133,Dr. Christopher Anderson,Neurologist,Immunology,PA,Northeast,Tier 3 - Low Value,3,1
+HCP-0134,Dr. Lisa Perez,Cardiologist,Cardiology,NY,Northeast,Tier 3 - Low Value,11,1
+HCP-0135,Dr. Nancy Taylor,Oncologist,Neurology,WA,West,Tier 3 - Low Value,8,1
+HCP-0136,Dr. Dorothy Perez,Oncologist,Cardiology,VA,South,Tier 2 - Medium Value,10,0
+HCP-0137,Dr. Nancy Martinez,Internist,Oncology,GA,South,Tier 3 - Low Value,20,1
+HCP-0138,Dr. Betty Brown,Oncologist,Oncology,IL,Midwest,Tier 2 - Medium Value,3,1
+HCP-0139,Dr. Sandra Moore,Cardiologist,Immunology,MO,Midwest,Tier 2 - Medium Value,18,0
+HCP-0140,Dr. Dorothy Moore,Immunologist,Oncology,IL,Midwest,Tier 3 - Low Value,8,1
+HCP-0141,Dr. Thomas Taylor,Cardiologist,Immunology,VA,South,Tier 2 - Medium Value,3,0
+HCP-0142,Dr. Charles Miller,General Practitioner,Neurology,VA,South,Tier 1 - High Value,7,0
+HCP-0143,Dr. Dorothy Smith,Oncologist,Cardiology,MA,Northeast,Tier 3 - Low Value,1,0
+HCP-0144,Dr. Sandra Miller,Cardiologist,Rare Disease,GA,South,Tier 2 - Medium Value,18,1
+HCP-0145,Dr. Dorothy Smith,Neurologist,Cardiology,GA,South,Tier 3 - Low Value,8,0
+HCP-0146,Dr. Richard Brown,Cardiologist,Rare Disease,IL,Midwest,Tier 2 - Medium Value,0,1
+HCP-0147,Dr. James Garcia,Pulmonologist,Cardiology,VA,South,Tier 3 - Low Value,8,1
+HCP-0148,Dr. Betty Jackson,General Practitioner,Oncology,AZ,West,Tier 3 - Low Value,11,1
+HCP-0149,Dr. Dorothy Johnson,Immunologist,Rare Disease,FL,South,Tier 2 - Medium Value,16,1
+HCP-0150,Dr. Karen Brown,Oncologist,Immunology,CA,West,Tier 3 - Low Value,15,0
+HCP-0151,Dr. David Williams,Oncologist,Oncology,MA,Northeast,Tier 2 - Medium Value,4,1
+HCP-0152,Dr. Dorothy Lee,General Practitioner,Neurology,MD,Northeast,Tier 2 - Medium Value,9,1
+HCP-0153,Dr. William Perez,Immunologist,Oncology,WI,Midwest,Tier 3 - Low Value,6,1
+HCP-0154,Dr. Lisa Moore,Immunologist,Neurology,GA,South,Tier 3 - Low Value,3,1
+HCP-0155,Dr. David Martin,Internist,Neurology,NJ,Northeast,Tier 2 - Medium Value,2,1
+HCP-0156,Dr. Jennifer Jones,Oncologist,Immunology,NY,Northeast,Tier 1 - High Value,35,1
+HCP-0157,Dr. Karen Taylor,General Practitioner,Neurology,MO,Midwest,Tier 3 - Low Value,13,0
+HCP-0158,Dr. William Thompson,Neurologist,Rare Disease,TX,South,Tier 2 - Medium Value,16,1
+HCP-0159,Dr. Sandra Taylor,Cardiologist,Oncology,TN,South,Tier 2 - Medium Value,3,0
+HCP-0160,Dr. Dorothy White,Cardiologist,Immunology,MD,Northeast,Tier 3 - Low Value,20,1
+HCP-0161,Dr. Charles Martinez,Internist,Neurology,WI,Midwest,Tier 1 - High Value,21,1
+HCP-0162,Dr. Lisa Williams,Pulmonologist,Cardiology,PA,Northeast,Tier 3 - Low Value,4,0
+HCP-0163,Dr. Karen Jackson,Oncologist,Rare Disease,CA,West,Tier 2 - Medium Value,10,1
+HCP-0164,Dr. Ashley White,Internist,Neurology,MI,Midwest,Tier 3 - Low Value,2,0
+HCP-0165,Dr. Michael Rodriguez,Cardiologist,Rare Disease,IL,Midwest,Tier 1 - High Value,28,1
+HCP-0166,Dr. Joseph Lee,General Practitioner,Immunology,TN,South,Tier 2 - Medium Value,3,1
+HCP-0167,Dr. Christopher Johnson,Neurologist,Rare Disease,FL,South,Tier 2 - Medium Value,7,1
+HCP-0168,Dr. Joseph Jones,Oncologist,Oncology,WI,Midwest,Tier 2 - Medium Value,8,1
+HCP-0169,Dr. Richard Jones,Oncologist,Immunology,FL,South,Tier 3 - Low Value,12,1
+HCP-0170,Dr. Jennifer Williams,General Practitioner,Rare Disease,GA,South,Tier 3 - Low Value,12,0
+HCP-0171,Dr. Michael Anderson,Immunologist,Oncology,TX,South,Tier 2 - Medium Value,18,1
+HCP-0172,Dr. Lisa Smith,Internist,Immunology,WA,West,Tier 2 - Medium Value,10,1
+HCP-0173,Dr. William Davis,Immunologist,Neurology,WI,Midwest,Tier 1 - High Value,27,1
+HCP-0174,Dr. Sarah Davis,Oncologist,Immunology,IN,Midwest,Tier 3 - Low Value,10,0
+HCP-0175,Dr. Joseph Taylor,General Practitioner,Oncology,NY,Northeast,Tier 3 - Low Value,11,0
+HCP-0176,Dr. Joseph Garcia,Cardiologist,Oncology,IL,Midwest,Tier 1 - High Value,38,1
+HCP-0177,Dr. Ashley Thompson,Cardiologist,Immunology,NY,Northeast,Tier 2 - Medium Value,14,1
+HCP-0178,Dr. Sarah Jones,Internist,Rare Disease,MD,Northeast,Tier 2 - Medium Value,14,1
+HCP-0179,Dr. Ashley Johnson,Internist,Neurology,MA,Northeast,Tier 3 - Low Value,11,1
+HCP-0180,Dr. Jennifer Martinez,Immunologist,Immunology,MI,Midwest,Tier 1 - High Value,4,1
+HCP-0181,Dr. Nancy Thompson,General Practitioner,Rare Disease,NY,Northeast,Tier 3 - Low Value,17,0
+HCP-0182,Dr. Sarah White,Immunologist,Rare Disease,TX,South,Tier 3 - Low Value,15,1
+HCP-0183,Dr. Sarah Williams,Immunologist,Oncology,TX,South,Tier 3 - Low Value,16,1
+HCP-0184,Dr. Margaret Lee,Cardiologist,Immunology,TX,South,Tier 3 - Low Value,19,1
+HCP-0185,Dr. Sarah White,Neurologist,Immunology,VA,South,Tier 2 - Medium Value,1,0
+HCP-0186,Dr. Lisa Martinez,Oncologist,Neurology,NJ,Northeast,Tier 1 - High Value,16,0
+HCP-0187,Dr. Ashley Jones,Pulmonologist,Cardiology,WI,Midwest,Tier 2 - Medium Value,11,1
+HCP-0188,Dr. Michael Martinez,Cardiologist,Rare Disease,WA,West,Tier 3 - Low Value,17,1
+HCP-0189,Dr. Margaret Williams,Pulmonologist,Cardiology,NJ,Northeast,Tier 3 - Low Value,20,1
+HCP-0190,Dr. Richard Miller,Neurologist,Oncology,IN,Midwest,Tier 2 - Medium Value,10,0
+HCP-0191,Dr. David Williams,Cardiologist,Cardiology,TN,South,Tier 3 - Low Value,9,0
+HCP-0192,Dr. Margaret Johnson,General Practitioner,Rare Disease,FL,South,Tier 3 - Low Value,10,0
+HCP-0193,Dr. Richard Garcia,Cardiologist,Rare Disease,WI,Midwest,Tier 2 - Medium Value,19,0
+HCP-0194,Dr. Jennifer Davis,Internist,Immunology,PA,Northeast,Tier 1 - High Value,28,1
+HCP-0195,Dr. Betty Miller,Cardiologist,Rare Disease,MA,Northeast,Tier 2 - Medium Value,11,1
+HCP-0196,Dr. Lisa Lee,Immunologist,Immunology,MD,Northeast,Tier 3 - Low Value,16,1
+HCP-0197,Dr. David Rodriguez,Pulmonologist,Cardiology,PA,Northeast,Tier 3 - Low Value,1,1
+HCP-0198,Dr. Margaret Brown,General Practitioner,Oncology,VA,South,Tier 3 - Low Value,9,1
+HCP-0199,Dr. David Moore,Neurologist,Immunology,PA,Northeast,Tier 3 - Low Value,2,0
+HCP-0200,Dr. James Moore,Pulmonologist,Immunology,GA,South,Tier 3 - Low Value,1,1
+HCP-0201,Dr. Jennifer Davis,Cardiologist,Immunology,VA,South,Tier 3 - Low Value,0,1
+HCP-0202,Dr. David Johnson,Pulmonologist,Neurology,FL,South,Tier 3 - Low Value,9,0
+HCP-0203,Dr. Betty Jackson,Internist,Cardiology,TN,South,Tier 3 - Low Value,19,1
+HCP-0204,Dr. David Perez,Oncologist,Neurology,NY,Northeast,Tier 2 - Medium Value,19,1
+HCP-0205,Dr. William Johnson,Pulmonologist,Neurology,FL,South,Tier 2 - Medium Value,7,1
+HCP-0206,Dr. Betty White,Immunologist,Oncology,WI,Midwest,Tier 1 - High Value,34,1
+HCP-0207,Dr. Christopher Moore,General Practitioner,Cardiology,IN,Midwest,Tier 3 - Low Value,0,1
+HCP-0208,Dr. Michael Lee,General Practitioner,Immunology,GA,South,Tier 2 - Medium Value,11,1
+HCP-0209,Dr. Margaret Perez,General Practitioner,Rare Disease,IN,Midwest,Tier 3 - Low Value,0,1
+HCP-0210,Dr. Charles Smith,Oncologist,Immunology,TN,South,Tier 3 - Low Value,11,0
+HCP-0211,Dr. Sarah Jones,Cardiologist,Oncology,VA,South,Tier 3 - Low Value,1,1
+HCP-0212,Dr. Nancy Martin,Pulmonologist,Cardiology,NJ,Northeast,Tier 3 - Low Value,20,1
+HCP-0213,Dr. Joseph Johnson,Oncologist,Immunology,IL,Midwest,Tier 1 - High Value,50,1
+HCP-0214,Dr. Sandra Martin,Neurologist,Neurology,TX,South,Tier 3 - Low Value,8,1
+HCP-0215,Dr. Robert Anderson,Neurologist,Neurology,OH,Midwest,Tier 3 - Low Value,8,1
+HCP-0216,Dr. Lisa Anderson,Immunologist,Immunology,VA,South,Tier 3 - Low Value,5,1
+HCP-0217,Dr. Michael Moore,Neurologist,Rare Disease,TN,South,Tier 2 - Medium Value,2,1
+HCP-0218,Dr. Michael Anderson,General Practitioner,Neurology,PA,Northeast,Tier 2 - Medium Value,9,1
+HCP-0219,Dr. Nancy Taylor,Internist,Immunology,WI,Midwest,Tier 2 - Medium Value,14,1
+HCP-0220,Dr. Robert Williams,General Practitioner,Immunology,VA,South,Tier 2 - Medium Value,20,1
+HCP-0221,Dr. David White,Pulmonologist,Cardiology,IN,Midwest,Tier 3 - Low Value,14,1
+HCP-0222,Dr. Ashley Johnson,Cardiologist,Neurology,NY,Northeast,Tier 2 - Medium Value,19,1
+HCP-0223,Dr. Michael Thompson,Neurologist,Neurology,MA,Northeast,Tier 2 - Medium Value,4,1
+HCP-0224,Dr. William Smith,Neurologist,Neurology,WA,West,Tier 2 - Medium Value,5,1
+HCP-0225,Dr. Charles Jackson,General Practitioner,Oncology,WA,West,Tier 2 - Medium Value,6,0
+HCP-0226,Dr. David Williams,Internist,Immunology,MI,Midwest,Tier 2 - Medium Value,14,1
+HCP-0227,Dr. Michael Perez,Oncologist,Neurology,MA,Northeast,Tier 3 - Low Value,17,1
+HCP-0228,Dr. Richard Taylor,Pulmonologist,Cardiology,MI,Midwest,Tier 3 - Low Value,16,1
+HCP-0229,Dr. Betty Smith,Pulmonologist,Cardiology,OH,Midwest,Tier 2 - Medium Value,11,1
+HCP-0230,Dr. Michael Williams,Immunologist,Rare Disease,VA,South,Tier 1 - High Value,19,1
+HCP-0231,Dr. Ashley Williams,General Practitioner,Immunology,TN,South,Tier 3 - Low Value,4,0
+HCP-0232,Dr. Jennifer Jones,Immunologist,Immunology,NY,Northeast,Tier 3 - Low Value,17,1
+HCP-0233,Dr. Robert Brown,Pulmonologist,Cardiology,PA,Northeast,Tier 2 - Medium Value,16,1
+HCP-0234,Dr. Thomas Taylor,Cardiologist,Neurology,PA,Northeast,Tier 3 - Low Value,16,0
+HCP-0235,Dr. Sandra Rodriguez,Neurologist,Cardiology,NY,Northeast,Tier 3 - Low Value,4,1
+HCP-0236,Dr. Richard Thompson,General Practitioner,Oncology,WI,Midwest,Tier 3 - Low Value,18,1
+HCP-0237,Dr. Ashley Johnson,Internist,Rare Disease,WI,Midwest,Tier 2 - Medium Value,0,1
+HCP-0238,Dr. Karen White,Neurologist,Cardiology,MD,Northeast,Tier 3 - Low Value,20,1
+HCP-0239,Dr. Lisa Martinez,Neurologist,Neurology,MO,Midwest,Tier 2 - Medium Value,14,1
+HCP-0240,Dr. Nancy Miller,Cardiologist,Immunology,TX,South,Tier 2 - Medium Value,10,1
+HCP-0241,Dr. Jennifer Thomas,Pulmonologist,Neurology,NJ,Northeast,Tier 3 - Low Value,4,0
+HCP-0242,Dr. Nancy Brown,General Practitioner,Oncology,IN,Midwest,Tier 2 - Medium Value,8,1
+HCP-0243,Dr. Lisa White,Oncologist,Oncology,IL,Midwest,Tier 2 - Medium Value,13,1
+HCP-0244,Dr. Sarah Miller,Pulmonologist,Neurology,PA,Northeast,Tier 3 - Low Value,5,1
+HCP-0245,Dr. Betty Smith,Immunologist,Immunology,IN,Midwest,Tier 3 - Low Value,2,0
+HCP-0246,Dr. Jennifer Johnson,Immunologist,Cardiology,IN,Midwest,Tier 2 - Medium Value,1,1
+HCP-0247,Dr. James Brown,Pulmonologist,Immunology,WI,Midwest,Tier 2 - Medium Value,13,1
+HCP-0248,Dr. Jennifer Johnson,Internist,Neurology,NC,South,Tier 3 - Low Value,12,1
+HCP-0249,Dr. Michael Thomas,Cardiologist,Neurology,MO,Midwest,Tier 3 - Low Value,16,1
+HCP-0250,Dr. William Jones,Neurologist,Rare Disease,MO,Midwest,Tier 3 - Low Value,3,1
+HCP-0251,Dr. Joseph White,General Practitioner,Neurology,NJ,Northeast,Tier 3 - Low Value,16,1
+HCP-0252,Dr. Sarah Martin,Oncologist,Oncology,TX,South,Tier 1 - High Value,33,1
+HCP-0253,Dr. Dorothy Anderson,General Practitioner,Cardiology,WI,Midwest,Tier 2 - Medium Value,5,1
+HCP-0254,Dr. Margaret Lee,Internist,Neurology,WI,Midwest,Tier 3 - Low Value,17,1
+HCP-0255,Dr. Jennifer Anderson,Neurologist,Immunology,MD,Northeast,Tier 3 - Low Value,3,0
+HCP-0256,Dr. Charles Thompson,Neurologist,Oncology,MD,Northeast,Tier 3 - Low Value,18,1
+HCP-0257,Dr. Dorothy Thomas,General Practitioner,Immunology,TX,South,Tier 2 - Medium Value,4,0
+HCP-0258,Dr. William Miller,Oncologist,Rare Disease,GA,South,Tier 3 - Low Value,0,1
+HCP-0259,Dr. Karen Lee,Cardiologist,Immunology,AZ,West,Tier 3 - Low Value,19,0
+HCP-0260,Dr. Sandra Anderson,Internist,Cardiology,TX,South,Tier 3 - Low Value,15,1
+HCP-0261,Dr. Sarah Perez,Cardiologist,Immunology,NJ,Northeast,Tier 3 - Low Value,11,1
+HCP-0262,Dr. Thomas Rodriguez,General Practitioner,Immunology,NC,South,Tier 2 - Medium Value,17,1
+HCP-0263,Dr. Betty Anderson,Pulmonologist,Neurology,MI,Midwest,Tier 3 - Low Value,15,1
+HCP-0264,Dr. Sandra Thomas,Neurologist,Oncology,NC,South,Tier 3 - Low Value,12,0
+HCP-0265,Dr. Michael Taylor,Neurologist,Oncology,IL,Midwest,Tier 2 - Medium Value,14,1
+HCP-0266,Dr. Charles Perez,Cardiologist,Cardiology,TN,South,Tier 3 - Low Value,8,1
+HCP-0267,Dr. Robert Lee,Internist,Rare Disease,WI,Midwest,Tier 2 - Medium Value,7,1
+HCP-0268,Dr. Betty Brown,Oncologist,Immunology,TX,South,Tier 2 - Medium Value,4,1
+HCP-0269,Dr. Betty Martin,Cardiologist,Immunology,MO,Midwest,Tier 3 - Low Value,20,1
+HCP-0270,Dr. Michael Thompson,Neurologist,Neurology,MI,Midwest,Tier 3 - Low Value,7,1
+HCP-0271,Dr. Richard Johnson,Cardiologist,Immunology,TX,South,Tier 3 - Low Value,12,0
+HCP-0272,Dr. James Martinez,Internist,Neurology,PA,Northeast,Tier 3 - Low Value,18,1
+HCP-0273,Dr. Sandra Lee,Neurologist,Immunology,NJ,Northeast,Tier 3 - Low Value,15,0
+HCP-0274,Dr. Joseph Brown,Pulmonologist,Rare Disease,IL,Midwest,Tier 2 - Medium Value,10,1
+HCP-0275,Dr. James Anderson,Internist,Neurology,MA,Northeast,Tier 3 - Low Value,9,1
+HCP-0276,Dr. Lisa Moore,Cardiologist,Rare Disease,OH,Midwest,Tier 3 - Low Value,16,1
+HCP-0277,Dr. David Martin,Internist,Oncology,WA,West,Tier 2 - Medium Value,10,0
+HCP-0278,Dr. Charles Anderson,Neurologist,Immunology,CA,West,Tier 2 - Medium Value,9,1
+HCP-0279,Dr. Thomas Johnson,Oncologist,Neurology,MD,Northeast,Tier 3 - Low Value,3,1
+HCP-0280,Dr. Christopher Brown,Immunologist,Rare Disease,PA,Northeast,Tier 3 - Low Value,20,0
+HCP-0281,Dr. David Martin,Neurologist,Rare Disease,MI,Midwest,Tier 2 - Medium Value,4,1
+HCP-0282,Dr. Betty Perez,Neurologist,Immunology,WI,Midwest,Tier 3 - Low Value,6,0
+HCP-0283,Dr. Margaret Taylor,Pulmonologist,Oncology,WI,Midwest,Tier 3 - Low Value,2,0
+HCP-0284,Dr. Joseph Thompson,Oncologist,Rare Disease,FL,South,Tier 3 - Low Value,17,1
+HCP-0285,Dr. Joseph Thompson,Pulmonologist,Rare Disease,NJ,Northeast,Tier 2 - Medium Value,15,1
+HCP-0286,Dr. Margaret Moore,Immunologist,Oncology,IN,Midwest,Tier 2 - Medium Value,14,1
+HCP-0287,Dr. Lisa Rodriguez,Immunologist,Neurology,MO,Midwest,Tier 3 - Low Value,0,0
+HCP-0288,Dr. Michael Perez,Oncologist,Oncology,MD,Northeast,Tier 2 - Medium Value,1,0
+HCP-0289,Dr. Richard Jones,Immunologist,Oncology,NY,Northeast,Tier 2 - Medium Value,20,0
+HCP-0290,Dr. Lisa Thomas,Neurologist,Immunology,AZ,West,Tier 2 - Medium Value,2,1
+HCP-0291,Dr. Sandra Thomas,Cardiologist,Neurology,MO,Midwest,Tier 1 - High Value,33,1
+HCP-0292,Dr. Christopher Jackson,Pulmonologist,Oncology,GA,South,Tier 3 - Low Value,17,1
+HCP-0293,Dr. Jennifer Jones,Pulmonologist,Cardiology,WA,West,Tier 2 - Medium Value,8,1
+HCP-0294,Dr. James Davis,Oncologist,Immunology,FL,South,Tier 3 - Low Value,6,1
+HCP-0295,Dr. Robert Davis,Oncologist,Immunology,WI,Midwest,Tier 3 - Low Value,1,1
+HCP-0296,Dr. Robert Jones,General Practitioner,Cardiology,GA,South,Tier 3 - Low Value,16,0
+HCP-0297,Dr. Dorothy Anderson,Pulmonologist,Rare Disease,GA,South,Tier 2 - Medium Value,7,1
+HCP-0298,Dr. Christopher Rodriguez,Internist,Rare Disease,IL,Midwest,Tier 2 - Medium Value,1,1
+HCP-0299,Dr. Karen Perez,Internist,Cardiology,MD,Northeast,Tier 3 - Low Value,15,1
+HCP-0300,Dr. Sarah Moore,Internist,Immunology,VA,South,Tier 3 - Low Value,13,1
+HCP-0301,Dr. Thomas Martinez,Cardiologist,Rare Disease,WA,West,Tier 2 - Medium Value,4,0
+HCP-0302,Dr. Sandra Lee,General Practitioner,Immunology,TX,South,Tier 3 - Low Value,4,1
+HCP-0303,Dr. Nancy Taylor,Cardiologist,Neurology,NC,South,Tier 3 - Low Value,2,1
+HCP-0304,Dr. Dorothy White,Oncologist,Neurology,OH,Midwest,Tier 2 - Medium Value,1,0
+HCP-0305,Dr. Sandra Miller,Pulmonologist,Rare Disease,OH,Midwest,Tier 3 - Low Value,15,1
+HCP-0306,Dr. Joseph Brown,Neurologist,Oncology,NJ,Northeast,Tier 2 - Medium Value,15,0
+HCP-0307,Dr. Thomas Perez,Internist,Cardiology,WI,Midwest,Tier 2 - Medium Value,10,0
+HCP-0308,Dr. Christopher Rodriguez,Immunologist,Rare Disease,WA,West,Tier 3 - Low Value,11,1
+HCP-0309,Dr. Betty Anderson,Immunologist,Oncology,TN,South,Tier 3 - Low Value,6,1
+HCP-0310,Dr. David Smith,Oncologist,Rare Disease,AZ,West,Tier 3 - Low Value,8,1
+HCP-0311,Dr. Joseph Anderson,General Practitioner,Immunology,MD,Northeast,Tier 2 - Medium Value,7,1
+HCP-0312,Dr. Sarah Rodriguez,Immunologist,Rare Disease,GA,South,Tier 3 - Low Value,15,0
+HCP-0313,Dr. Jennifer Garcia,Immunologist,Cardiology,TN,South,Tier 3 - Low Value,4,0
+HCP-0314,Dr. Robert Lee,Cardiologist,Rare Disease,TN,South,Tier 3 - Low Value,1,0
+HCP-0315,Dr. Karen Jones,Pulmonologist,Oncology,NY,Northeast,Tier 3 - Low Value,20,1
+HCP-0316,Dr. Jennifer Johnson,Oncologist,Cardiology,IL,Midwest,Tier 3 - Low Value,19,1
+HCP-0317,Dr. Sandra Perez,Immunologist,Immunology,WI,Midwest,Tier 1 - High Value,26,1
+HCP-0318,Dr. Christopher Smith,Internist,Neurology,IN,Midwest,Tier 3 - Low Value,16,0
+HCP-0319,Dr. William Lee,Pulmonologist,Cardiology,AZ,West,Tier 1 - High Value,9,1
+HCP-0320,Dr. Charles Thomas,General Practitioner,Neurology,WI,Midwest,Tier 3 - Low Value,2,1
+HCP-0321,Dr. Thomas Martinez,Immunologist,Rare Disease,WA,West,Tier 2 - Medium Value,2,1
+HCP-0322,Dr. Sandra Martin,Oncologist,Immunology,TX,South,Tier 2 - Medium Value,1,1
+HCP-0323,Dr. Sarah Thompson,Oncologist,Immunology,PA,Northeast,Tier 3 - Low Value,3,0
+HCP-0324,Dr. Ashley Martin,Cardiologist,Cardiology,TX,South,Tier 3 - Low Value,8,1
+HCP-0325,Dr. Ashley Johnson,Internist,Neurology,NY,Northeast,Tier 3 - Low Value,5,0
+HCP-0326,Dr. Lisa Williams,Oncologist,Cardiology,NJ,Northeast,Tier 3 - Low Value,9,1
+HCP-0327,Dr. Sandra Anderson,General Practitioner,Immunology,GA,South,Tier 3 - Low Value,12,0
+HCP-0328,Dr. Jennifer Johnson,Pulmonologist,Oncology,IL,Midwest,Tier 3 - Low Value,3,1
+HCP-0329,Dr. Dorothy Thomas,Neurologist,Rare Disease,NY,Northeast,Tier 3 - Low Value,10,1
+HCP-0330,Dr. Jennifer Perez,Pulmonologist,Immunology,NC,South,Tier 2 - Medium Value,12,1
+HCP-0331,Dr. Dorothy Martinez,Internist,Immunology,MD,Northeast,Tier 1 - High Value,15,0
+HCP-0332,Dr. David Thomas,Neurologist,Cardiology,NY,Northeast,Tier 2 - Medium Value,10,1
+HCP-0333,Dr. Charles Brown,Oncologist,Neurology,NY,Northeast,Tier 2 - Medium Value,4,1
+HCP-0334,Dr. Karen Brown,Immunologist,Rare Disease,AZ,West,Tier 3 - Low Value,0,1
+HCP-0335,Dr. Sarah Thomas,Oncologist,Rare Disease,MO,Midwest,Tier 3 - Low Value,0,1
+HCP-0336,Dr. Sandra Davis,Pulmonologist,Oncology,WA,West,Tier 3 - Low Value,18,1
+HCP-0337,Dr. Charles Martin,Cardiologist,Cardiology,WA,West,Tier 2 - Medium Value,4,1
+HCP-0338,Dr. Michael Taylor,Neurologist,Immunology,AZ,West,Tier 2 - Medium Value,8,0
+HCP-0339,Dr. William Jones,General Practitioner,Rare Disease,TN,South,Tier 2 - Medium Value,9,1
+HCP-0340,Dr. Sarah Jackson,Neurologist,Rare Disease,WA,West,Tier 2 - Medium Value,10,1
+HCP-0341,Dr. Joseph Martin,Cardiologist,Neurology,WI,Midwest,Tier 2 - Medium Value,10,1
+HCP-0342,Dr. Betty Thompson,Neurologist,Neurology,WA,West,Tier 3 - Low Value,7,1
+HCP-0343,Dr. Ashley Miller,Pulmonologist,Immunology,NC,South,Tier 2 - Medium Value,18,0
+HCP-0344,Dr. Nancy Miller,Internist,Rare Disease,PA,Northeast,Tier 1 - High Value,28,0
+HCP-0345,Dr. David Martinez,Pulmonologist,Immunology,NY,Northeast,Tier 3 - Low Value,7,1
+HCP-0346,Dr. Michael Jackson,Internist,Immunology,IL,Midwest,Tier 3 - Low Value,19,1
+HCP-0347,Dr. Karen Perez,General Practitioner,Rare Disease,WA,West,Tier 3 - Low Value,1,0
+HCP-0348,Dr. Michael Brown,Internist,Rare Disease,VA,South,Tier 3 - Low Value,7,1
+HCP-0349,Dr. Lisa Anderson,Cardiologist,Rare Disease,VA,South,Tier 1 - High Value,50,1
+HCP-0350,Dr. Margaret Perez,Oncologist,Neurology,CA,West,Tier 2 - Medium Value,18,1
+HCP-0351,Dr. Ashley Lee,Immunologist,Neurology,GA,South,Tier 2 - Medium Value,4,1
+HCP-0352,Dr. Michael Brown,Immunologist,Oncology,CA,West,Tier 2 - Medium Value,4,1
+HCP-0353,Dr. Jennifer Martin,Immunologist,Cardiology,NJ,Northeast,Tier 3 - Low Value,3,1
+HCP-0354,Dr. William Smith,Neurologist,Oncology,MA,Northeast,Tier 2 - Medium Value,10,1
+HCP-0355,Dr. Sandra Garcia,Internist,Cardiology,PA,Northeast,Tier 3 - Low Value,10,1
+HCP-0356,Dr. Richard Moore,Cardiologist,Immunology,MA,Northeast,Tier 3 - Low Value,12,1
+HCP-0357,Dr. Lisa Smith,Cardiologist,Immunology,WI,Midwest,Tier 3 - Low Value,6,1
+HCP-0358,Dr. Sandra Garcia,General Practitioner,Oncology,NY,Northeast,Tier 3 - Low Value,11,1
+HCP-0359,Dr. Betty Lee,Oncologist,Neurology,MA,Northeast,Tier 3 - Low Value,20,1
+HCP-0360,Dr. Jennifer Taylor,General Practitioner,Immunology,WA,West,Tier 3 - Low Value,14,1
+HCP-0361,Dr. David Anderson,General Practitioner,Rare Disease,MI,Midwest,Tier 1 - High Value,7,1
+HCP-0362,Dr. Margaret Thomas,Cardiologist,Neurology,FL,South,Tier 3 - Low Value,13,1
+HCP-0363,Dr. Sandra Garcia,Immunologist,Immunology,MD,Northeast,Tier 2 - Medium Value,17,1
+HCP-0364,Dr. Nancy White,Cardiologist,Cardiology,MI,Midwest,Tier 2 - Medium Value,1,0
+HCP-0365,Dr. Lisa Perez,Immunologist,Cardiology,CA,West,Tier 2 - Medium Value,16,1
+HCP-0366,Dr. Nancy Martin,Internist,Immunology,AZ,West,Tier 2 - Medium Value,5,1
+HCP-0367,Dr. Charles Davis,Pulmonologist,Cardiology,CA,West,Tier 2 - Medium Value,17,1
+HCP-0368,Dr. William Thompson,General Practitioner,Immunology,MA,Northeast,Tier 3 - Low Value,3,1
+HCP-0369,Dr. Robert Jackson,Pulmonologist,Neurology,MO,Midwest,Tier 3 - Low Value,17,1
+HCP-0370,Dr. Robert Jackson,Oncologist,Cardiology,AZ,West,Tier 2 - Medium Value,8,1
+HCP-0371,Dr. Thomas Miller,Immunologist,Oncology,NY,Northeast,Tier 3 - Low Value,18,1
+HCP-0372,Dr. David Miller,Internist,Immunology,WI,Midwest,Tier 2 - Medium Value,6,0
+HCP-0373,Dr. Sandra Garcia,Neurologist,Rare Disease,MD,Northeast,Tier 2 - Medium Value,10,0
+HCP-0374,Dr. Margaret Brown,Neurologist,Rare Disease,MI,Midwest,Tier 2 - Medium Value,4,0
+HCP-0375,Dr. David Jones,Oncologist,Neurology,AZ,West,Tier 3 - Low Value,7,1
+HCP-0376,Dr. Lisa Martin,Pulmonologist,Cardiology,NJ,Northeast,Tier 3 - Low Value,4,1
+HCP-0377,Dr. Michael Williams,Internist,Immunology,NC,South,Tier 2 - Medium Value,12,1
+HCP-0378,Dr. Betty Anderson,Internist,Neurology,NC,South,Tier 2 - Medium Value,18,1
+HCP-0379,Dr. Jennifer Williams,Internist,Immunology,NY,Northeast,Tier 3 - Low Value,17,1
+HCP-0380,Dr. Sarah Martinez,Pulmonologist,Cardiology,AZ,West,Tier 2 - Medium Value,10,1
+HCP-0381,Dr. Robert Johnson,General Practitioner,Immunology,IL,Midwest,Tier 3 - Low Value,3,1
+HCP-0382,Dr. Richard Jackson,Oncologist,Oncology,MA,Northeast,Tier 3 - Low Value,14,1
+HCP-0383,Dr. Christopher Garcia,Cardiologist,Cardiology,AZ,West,Tier 3 - Low Value,8,1
+HCP-0384,Dr. Richard Johnson,Neurologist,Oncology,VA,South,Tier 2 - Medium Value,12,1
+HCP-0385,Dr. James Miller,Immunologist,Oncology,GA,South,Tier 3 - Low Value,15,1
+HCP-0386,Dr. James Smith,Cardiologist,Rare Disease,MD,Northeast,Tier 3 - Low Value,10,0
+HCP-0387,Dr. Thomas Thomas,Internist,Cardiology,AZ,West,Tier 2 - Medium Value,2,0
+HCP-0388,Dr. Christopher Jones,Oncologist,Neurology,FL,South,Tier 2 - Medium Value,12,0
+HCP-0389,Dr. Ashley Smith,Internist,Cardiology,IL,Midwest,Tier 1 - High Value,39,1
+HCP-0390,Dr. David Moore,Neurologist,Cardiology,MA,Northeast,Tier 3 - Low Value,19,1
+HCP-0391,Dr. William Thompson,Oncologist,Oncology,OH,Midwest,Tier 1 - High Value,46,1
+HCP-0392,Dr. Michael Davis,Neurologist,Cardiology,AZ,West,Tier 2 - Medium Value,17,1
+HCP-0393,Dr. Christopher Miller,Neurologist,Oncology,WI,Midwest,Tier 3 - Low Value,16,1
+HCP-0394,Dr. Robert Davis,Internist,Immunology,OH,Midwest,Tier 2 - Medium Value,15,1
+HCP-0395,Dr. James Taylor,Immunologist,Rare Disease,GA,South,Tier 1 - High Value,20,1
+HCP-0396,Dr. Richard Martin,Immunologist,Neurology,MD,Northeast,Tier 3 - Low Value,2,1
+HCP-0397,Dr. Robert Thomas,Oncologist,Neurology,NY,Northeast,Tier 2 - Medium Value,16,1
+HCP-0398,Dr. Lisa Williams,Pulmonologist,Immunology,IN,Midwest,Tier 2 - Medium Value,20,1
+HCP-0399,Dr. Michael Lee,Cardiologist,Neurology,WI,Midwest,Tier 1 - High Value,13,0
+HCP-0400,Dr. Michael Martinez,General Practitioner,Neurology,IL,Midwest,Tier 2 - Medium Value,13,0
+HCP-0401,Dr. Karen Brown,Oncologist,Cardiology,GA,South,Tier 1 - High Value,29,1
+HCP-0402,Dr. David Smith,Neurologist,Cardiology,TX,South,Tier 1 - High Value,10,1
+HCP-0403,Dr. Charles Garcia,General Practitioner,Rare Disease,VA,South,Tier 3 - Low Value,11,1
+HCP-0404,Dr. James Anderson,Internist,Oncology,NC,South,Tier 3 - Low Value,13,1
+HCP-0405,Dr. Betty Jackson,Neurologist,Rare Disease,NY,Northeast,Tier 3 - Low Value,16,1
+HCP-0406,Dr. Richard Rodriguez,Pulmonologist,Rare Disease,TN,South,Tier 2 - Medium Value,3,0
+HCP-0407,Dr. James Davis,Cardiologist,Rare Disease,FL,South,Tier 1 - High Value,2,1
+HCP-0408,Dr. Robert Perez,Cardiologist,Cardiology,WA,West,Tier 3 - Low Value,20,1
+HCP-0409,Dr. Sarah Rodriguez,Cardiologist,Immunology,NJ,Northeast,Tier 3 - Low Value,2,1
+HCP-0410,Dr. Margaret Johnson,General Practitioner,Oncology,FL,South,Tier 2 - Medium Value,12,1
+HCP-0411,Dr. Christopher Anderson,Pulmonologist,Neurology,MA,Northeast,Tier 3 - Low Value,2,1
+HCP-0412,Dr. Christopher White,Neurologist,Cardiology,CA,West,Tier 2 - Medium Value,7,1
+HCP-0413,Dr. Sandra Davis,Immunologist,Cardiology,MD,Northeast,Tier 3 - Low Value,4,1
+HCP-0414,Dr. James Anderson,Oncologist,Cardiology,AZ,West,Tier 3 - Low Value,0,0
+HCP-0415,Dr. Margaret Davis,Pulmonologist,Neurology,WA,West,Tier 1 - High Value,26,1
+HCP-0416,Dr. Thomas Lee,Cardiologist,Neurology,TX,South,Tier 1 - High Value,26,0
+HCP-0417,Dr. Margaret Jones,Immunologist,Oncology,VA,South,Tier 3 - Low Value,20,0
+HCP-0418,Dr. David Davis,General Practitioner,Rare Disease,NY,Northeast,Tier 1 - High Value,18,1
+HCP-0419,Dr. Sarah Anderson,Pulmonologist,Immunology,NJ,Northeast,Tier 3 - Low Value,14,1
+HCP-0420,Dr. Ashley Brown,Cardiologist,Cardiology,NY,Northeast,Tier 3 - Low Value,4,1
+HCP-0421,Dr. Sandra Taylor,Immunologist,Neurology,MA,Northeast,Tier 2 - Medium Value,6,1
+HCP-0422,Dr. Christopher White,Neurologist,Oncology,MA,Northeast,Tier 1 - High Value,2,1
+HCP-0423,Dr. Jennifer Thomas,Cardiologist,Oncology,NJ,Northeast,Tier 3 - Low Value,16,1
+HCP-0424,Dr. Lisa Jackson,Neurologist,Cardiology,MI,Midwest,Tier 1 - High Value,35,0
+HCP-0425,Dr. David Brown,Oncologist,Immunology,GA,South,Tier 1 - High Value,0,1
+HCP-0426,Dr. Jennifer Williams,Cardiologist,Cardiology,GA,South,Tier 3 - Low Value,18,1
+HCP-0427,Dr. Nancy Jones,Oncologist,Oncology,NY,Northeast,Tier 2 - Medium Value,2,0
+HCP-0428,Dr. Robert Garcia,Oncologist,Oncology,NJ,Northeast,Tier 3 - Low Value,18,1
+HCP-0429,Dr. Karen Garcia,Immunologist,Oncology,WA,West,Tier 2 - Medium Value,11,1
+HCP-0430,Dr. David Johnson,Neurologist,Neurology,PA,Northeast,Tier 2 - Medium Value,19,1
+HCP-0431,Dr. Sandra Martin,Internist,Neurology,GA,South,Tier 2 - Medium Value,1,1
+HCP-0432,Dr. Margaret Davis,Cardiologist,Immunology,WA,West,Tier 2 - Medium Value,20,0
+HCP-0433,Dr. Jennifer Martin,Pulmonologist,Oncology,MO,Midwest,Tier 3 - Low Value,17,0
+HCP-0434,Dr. Charles Garcia,General Practitioner,Rare Disease,VA,South,Tier 2 - Medium Value,0,1
+HCP-0435,Dr. Betty Lee,Oncologist,Neurology,GA,South,Tier 1 - High Value,22,0
+HCP-0436,Dr. Thomas Rodriguez,Cardiologist,Oncology,GA,South,Tier 2 - Medium Value,17,0
+HCP-0437,Dr. Lisa Taylor,Pulmonologist,Cardiology,TX,South,Tier 3 - Low Value,5,1
+HCP-0438,Dr. James Taylor,Neurologist,Neurology,MD,Northeast,Tier 3 - Low Value,18,1
+HCP-0439,Dr. Richard Martin,Cardiologist,Immunology,MD,Northeast,Tier 3 - Low Value,1,1
+HCP-0440,Dr. Betty Smith,General Practitioner,Cardiology,GA,South,Tier 1 - High Value,21,0
+HCP-0441,Dr. Richard Anderson,Pulmonologist,Cardiology,OH,Midwest,Tier 2 - Medium Value,1,1
+HCP-0442,Dr. Margaret Taylor,Internist,Cardiology,MD,Northeast,Tier 3 - Low Value,2,1
+HCP-0443,Dr. Sarah Jones,General Practitioner,Oncology,WA,West,Tier 2 - Medium Value,5,0
+HCP-0444,Dr. Richard Perez,Pulmonologist,Immunology,AZ,West,Tier 3 - Low Value,19,0
+HCP-0445,Dr. Lisa Martinez,Internist,Rare Disease,GA,South,Tier 3 - Low Value,9,1
+HCP-0446,Dr. Ashley Johnson,Internist,Rare Disease,CA,West,Tier 2 - Medium Value,5,1
+HCP-0447,Dr. Betty Jones,Cardiologist,Rare Disease,WI,Midwest,Tier 1 - High Value,21,0
+HCP-0448,Dr. Michael Anderson,Neurologist,Neurology,GA,South,Tier 2 - Medium Value,14,1
+HCP-0449,Dr. William Smith,Cardiologist,Oncology,OH,Midwest,Tier 2 - Medium Value,1,1
+HCP-0450,Dr. Lisa Taylor,Cardiologist,Immunology,AZ,West,Tier 2 - Medium Value,17,1
+HCP-0451,Dr. Thomas Garcia,Pulmonologist,Rare Disease,TN,South,Tier 3 - Low Value,14,1
+HCP-0452,Dr. William Williams,Neurologist,Oncology,TX,South,Tier 2 - Medium Value,10,1
+HCP-0453,Dr. Michael Anderson,Cardiologist,Oncology,WA,West,Tier 3 - Low Value,19,0
+HCP-0454,Dr. Richard White,Internist,Oncology,TN,South,Tier 2 - Medium Value,13,1
+HCP-0455,Dr. Karen Perez,Neurologist,Cardiology,FL,South,Tier 3 - Low Value,17,1
+HCP-0456,Dr. Lisa Thompson,Neurologist,Cardiology,MI,Midwest,Tier 1 - High Value,35,0
+HCP-0457,Dr. Michael Martinez,Oncologist,Neurology,IL,Midwest,Tier 1 - High Value,42,1
+HCP-0458,Dr. Richard Martinez,Cardiologist,Oncology,TN,South,Tier 1 - High Value,5,1
+HCP-0459,Dr. Charles Williams,Neurologist,Immunology,FL,South,Tier 2 - Medium Value,20,1
+HCP-0460,Dr. Nancy Johnson,Neurologist,Immunology,PA,Northeast,Tier 2 - Medium Value,8,1
+HCP-0461,Dr. David Brown,Cardiologist,Neurology,NC,South,Tier 3 - Low Value,2,1
+HCP-0462,Dr. Robert Thomas,Immunologist,Rare Disease,MO,Midwest,Tier 2 - Medium Value,16,1
+HCP-0463,Dr. Thomas Martin,Internist,Immunology,MO,Midwest,Tier 3 - Low Value,9,1
+HCP-0464,Dr. Ashley White,General Practitioner,Rare Disease,TX,South,Tier 3 - Low Value,4,1
+HCP-0465,Dr. Joseph Jones,Cardiologist,Cardiology,MA,Northeast,Tier 3 - Low Value,1,1
+HCP-0466,Dr. Charles Anderson,Cardiologist,Cardiology,AZ,West,Tier 3 - Low Value,2,1
+HCP-0467,Dr. Charles Lee,Immunologist,Rare Disease,MO,Midwest,Tier 2 - Medium Value,14,0
+HCP-0468,Dr. Karen Brown,Pulmonologist,Rare Disease,CA,West,Tier 3 - Low Value,13,1
+HCP-0469,Dr. William Brown,General Practitioner,Rare Disease,MD,Northeast,Tier 3 - Low Value,18,0
+HCP-0470,Dr. Karen Rodriguez,Pulmonologist,Rare Disease,MI,Midwest,Tier 3 - Low Value,12,1
+HCP-0471,Dr. Charles Thomas,General Practitioner,Immunology,MD,Northeast,Tier 1 - High Value,9,1
+HCP-0472,Dr. Sarah Davis,Oncologist,Immunology,WA,West,Tier 3 - Low Value,1,0
+HCP-0473,Dr. Christopher Martinez,Neurologist,Oncology,NC,South,Tier 2 - Medium Value,8,0
+HCP-0474,Dr. Nancy Anderson,Pulmonologist,Cardiology,FL,South,Tier 1 - High Value,17,0
+HCP-0475,Dr. Joseph Moore,Internist,Oncology,WI,Midwest,Tier 2 - Medium Value,15,0
+HCP-0476,Dr. Richard Williams,Pulmonologist,Oncology,VA,South,Tier 3 - Low Value,9,0
+HCP-0477,Dr. James Garcia,Cardiologist,Rare Disease,WA,West,Tier 3 - Low Value,6,0
+HCP-0478,Dr. Nancy Johnson,Pulmonologist,Oncology,OH,Midwest,Tier 2 - Medium Value,11,0
+HCP-0479,Dr. William Smith,Neurologist,Immunology,NC,South,Tier 3 - Low Value,7,1
+HCP-0480,Dr. Betty Thompson,Immunologist,Cardiology,WI,Midwest,Tier 3 - Low Value,17,1
+HCP-0481,Dr. Michael Martinez,Pulmonologist,Neurology,PA,Northeast,Tier 3 - Low Value,0,1
+HCP-0482,Dr. Joseph Davis,Pulmonologist,Rare Disease,PA,Northeast,Tier 3 - Low Value,20,1
+HCP-0483,Dr. James Martin,Neurologist,Immunology,OH,Midwest,Tier 3 - Low Value,4,1
+HCP-0484,Dr. Dorothy Martinez,Pulmonologist,Oncology,WI,Midwest,Tier 2 - Medium Value,20,1
+HCP-0485,Dr. Joseph Jackson,Pulmonologist,Neurology,WA,West,Tier 2 - Medium Value,9,1
+HCP-0486,Dr. Margaret Taylor,Immunologist,Rare Disease,WI,Midwest,Tier 1 - High Value,35,1
+HCP-0487,Dr. Betty Williams,Neurologist,Neurology,WI,Midwest,Tier 3 - Low Value,10,0
+HCP-0488,Dr. Christopher Miller,Pulmonologist,Neurology,NJ,Northeast,Tier 2 - Medium Value,4,1
+HCP-0489,Dr. Sarah Jones,Oncologist,Rare Disease,GA,South,Tier 2 - Medium Value,0,1
+HCP-0490,Dr. Robert Thompson,Neurologist,Immunology,MI,Midwest,Tier 2 - Medium Value,18,0
+HCP-0491,Dr. Betty Taylor,Internist,Cardiology,NJ,Northeast,Tier 3 - Low Value,16,1
+HCP-0492,Dr. William Martin,Pulmonologist,Rare Disease,PA,Northeast,Tier 2 - Medium Value,4,0
+HCP-0493,Dr. Sarah Williams,Pulmonologist,Cardiology,MO,Midwest,Tier 3 - Low Value,7,1
+HCP-0494,Dr. Ashley Martinez,Immunologist,Neurology,MI,Midwest,Tier 2 - Medium Value,14,0
+HCP-0495,Dr. Dorothy Williams,Oncologist,Rare Disease,TN,South,Tier 3 - Low Value,15,0
+HCP-0496,Dr. Karen Johnson,Oncologist,Immunology,IN,Midwest,Tier 3 - Low Value,4,1
+HCP-0497,Dr. Nancy Jones,Neurologist,Immunology,OH,Midwest,Tier 3 - Low Value,10,0
+HCP-0498,Dr. Richard Anderson,Pulmonologist,Oncology,PA,Northeast,Tier 2 - Medium Value,20,1
+HCP-0499,Dr. Richard Thompson,Neurologist,Cardiology,MA,Northeast,Tier 3 - Low Value,5,1
+HCP-0500,Dr. Karen Thomas,Cardiologist,Rare Disease,NY,Northeast,Tier 2 - Medium Value,13,0
