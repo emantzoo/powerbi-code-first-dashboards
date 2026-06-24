@@ -49,9 +49,19 @@ All 5 reports run on **one** model (`Epikast_Dashboard_Prompts.md`).
 2. **Model view → relationships** per *Phase 1A* in `Epikast_Dashboard_Prompts.md`
    (Date is **active** only on `FactHCPCalls`; the patient/Rx/financial date links are
    **inactive** and activated per-measure via `USERELATIONSHIP`).
-3. Create a **`_Measures`** table and paste the **139 measures**, then add the
-   **calculated columns** (Performance Tier, Tenure Bucket, CallTimeBucket, SentimentBand,
-   AI Adoption Band, Open Case Age Bucket) — all in `Epikast_Dashboard_Prompts.md`.
+3. Create a **`_Measures`** table and add the **139 measures** + the **6 calculated columns**.
+   **Fast path (recommended):** don't hand-type them — use the auto-generated Tabular Editor
+   script:
+   ```bash
+   python epikast/scripts/generate_tabular_script.py   # → epikast/build_model.csx
+   ```
+   Install **Tabular Editor 2** (free), open it *connected to your model* (Power BI Desktop →
+   External Tools → Tabular Editor, or open the .pbip's model), go to the **Advanced Scripting**
+   tab, open `build_model.csx`, press **Run (F5)**, then **Save**. This creates all 139 measures
+   (foldered by theme), the 6 calc columns, and the 15 relationships in one shot. Reopen in
+   Power BI Desktop. (`build_model.csx` is regenerated from `Epikast_Dashboard_Prompts.md`, so
+   edit the measures there and re-run the generator — never hand-edit the .csx.)
+   **Manual path:** paste the measures/columns from `Epikast_Dashboard_Prompts.md` by hand.
 4. **Save As → Power BI project (.pbip)** for the first report, e.g. name it
    `epikast_internal_dashb`. This creates the folder structure the generators write into:
    ```
