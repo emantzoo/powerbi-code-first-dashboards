@@ -25,10 +25,20 @@ From a project's generate_pages.py:
     pb.write_page(uid("p1_overview"), "Overview", p1)
     pb.write_pages_json([uid("p1_overview")])
 
-CANVAS
-------
+CANVAS & LAYOUT CONSTANTS
+--------------------------
 All pages: 1280 × 720 px
-Standard layout: cards y=10 h=110, charts y=140 h=280, tables y=440 h=260
+  CANVAS_W=1280  CANVAS_H=720  MARGIN=20  GAP=10
+  TITLE_H=50     CARD_H=120    SLICER_H=38
+
+  std_layout(n_card_rows=1, n_slicer_rows=1)
+    → dict with card_y / slicer_y / body_y / body_h
+
+  card_row(prefix, y, h, measures, table="_Measures")
+    → list of evenly-spaced KPI cards across the canvas
+
+  slicer_row(prefix, y, h, slicers, dropdown=True)
+    → list of evenly-spaced dropdown slicers across the canvas
 
 FUNCTION REFERENCE
 ------------------
@@ -307,12 +317,53 @@ def uid(seed):
 
 
 # ---------------------------------------------------------------------------
-# Layout helpers — auto-scale cards / slicers to canvas width
+# Layout constants — shared across all dashboard scripts
 # ---------------------------------------------------------------------------
 CANVAS_W = 1280
 CANVAS_H = 720
-MARGIN = 20   # left/right page margin
-GAP = 8       # gap between items
+MARGIN   = 20    # left/right page margin
+GAP      = 10    # vertical + horizontal gap between items
+
+# Standard element heights
+TITLE_H   = 50    # title bar
+CARD_H    = 120   # KPI card  (tall enough for value + label)
+SLICER_H  = 38    # dropdown slicer row
+TITLE_BOT = TITLE_H + GAP   # y immediately below title bar (= 60)
+
+
+def std_layout(n_card_rows=1, n_slicer_rows=1):
+    """Return a dict of standard y-positions and heights.
+
+    Positions are computed from the top of the canvas:
+      title bar → card rows → slicer rows → body content area
+
+    Args:
+        n_card_rows:   number of card rows (0 or 1; more uncommon)
+        n_slicer_rows: number of slicer rows (0 or 1)
+
+    Returns a dict with keys:
+        title_bot  — y immediately below title (= TITLE_H + GAP)
+        card_y     — y of first card row  (= title_bot)
+        slicer_y   — y of first slicer row
+        body_y     — y where main content starts
+        body_h     — height available for main content (fills to canvas bottom - 10px)
+
+    Example (1 card row + 1 slicer row, the most common pattern):
+        L = std_layout()
+        # L["card_y"] = 60, L["slicer_y"] = 190, L["body_y"] = 238, L["body_h"] = 472
+    """
+    title_bot = TITLE_H + GAP
+    card_y    = title_bot
+    slicer_y  = card_y + n_card_rows * (CARD_H + GAP)
+    body_y    = slicer_y + n_slicer_rows * (SLICER_H + GAP)
+    body_h    = CANVAS_H - body_y - 10
+    return {
+        "title_bot": title_bot,
+        "card_y":    card_y,
+        "slicer_y":  slicer_y,
+        "body_y":    body_y,
+        "body_h":    body_h,
+    }
 
 
 def card_row(prefix, y, h, measures, table="_Measures"):

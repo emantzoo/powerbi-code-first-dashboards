@@ -18,6 +18,7 @@ from pbir_lib import (
     make_clustered_bar, make_line_chart, make_donut,
     make_matrix, make_scatter, make_table,
     card_row, slicer_row,
+    CARD_H, SLICER_H, GAP, TITLE_BOT,
     write_page, write_pages_json,
 )
 
@@ -25,13 +26,6 @@ pb.BASE = pb.resolve_pages_base("epikast_ops_dashb")
 
 NAVY = "#1B3A5C"
 M = "_Measures"
-
-# ── Layout constants ──────────────────────────────────────────────────────────
-TITLE_H   = 50    # title bar height
-CARD_H    = 120   # card height — tall enough for value + label
-SLICER_H  = 38    # slicer height
-GAP       = 10    # vertical gap between rows
-TITLE_BOT = TITLE_H + GAP                          # 60  — first row starts here
 
 
 # Standard 4-slicer row: Client / Team / Quarter / TherapyArea

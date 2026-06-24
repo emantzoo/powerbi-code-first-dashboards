@@ -1,6 +1,8 @@
 CLAUDE.md
 **/.pbi/localSettings.json
 **/.pbi/cache.abf
+**/__pycache__/
+**/*.pyc
 
 # Power BI project files (reproducible from prompts + scripts)
 *.pbip

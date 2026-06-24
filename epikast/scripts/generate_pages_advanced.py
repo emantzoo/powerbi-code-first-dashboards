@@ -19,57 +19,95 @@ Run with Power BI closed:  python scripts/generate_pages_advanced.py
 
 import pbir_lib as pb
 from pbir_lib import (
-    uid, make_title_bar, make_slicer, make_matrix_heatmap, make_clustered_bar,
+    uid, make_title_bar, make_matrix_heatmap, make_clustered_bar,
     make_clustered_column_multi, make_line_chart, make_table, make_r_visual, make_py_visual,
+    slicer_row,
+    TITLE_H, SLICER_H, GAP, TITLE_BOT, std_layout,
     write_page, write_pages_json,
 )
 
-pb.BASE = pb.resolve_pages_base("epikast_advanced_dashb")  # portable: --pages=, --root=, $EPIKAST_PBI_ROOT, or epikast/build/
+pb.BASE = pb.resolve_pages_base("epikast_advanced_dashb")
 
 PURPLE = "#5B21B6"
-M = "_Measures"
+M      = "_Measures"
+
+# Derived positions — slicer-only pages
+_LS    = std_layout(n_card_rows=0, n_slicer_rows=1)
+SL_Y   = _LS["slicer_y"]  # 60
+BODY_Y = _LS["body_y"]    # 108
+BODY_H = _LS["body_h"]    # 602
+
 
 # ===== PAGE 1: What Works Best (Multivariate) — native =====
 p1 = uid("epi_adv_p1_works")
+
+TOP1_H   = (BODY_H - GAP) // 2   # ~296 top row
+BOT1_H   = BODY_H - TOP1_H - GAP  # ~296 bottom row
+BOT1_Y   = BODY_Y + TOP1_H + GAP
+
 P1 = [
     make_title_bar("v1_t", 0, 0, 1280, 50, "Epikast Advanced — What Works Best (Multivariate)", PURPLE),
-    make_slicer("v1_out", 760, 55, 240, 42, "FactUplift", "outcome"),
-    make_slicer("v1_seg", 1010, 55, 250, 42, "FactUplift", "segment_type"),
-    make_matrix_heatmap("v1_inter", 20, 105, 610, 290,
-                        [("FactHCPCalls", "Channel")], [("FactHCPCalls", "InteractionType")],
-                        M, "Meaningful Interaction Rate"),
-    make_matrix_heatmap("v1_uplift", 650, 105, 610, 290,
-                        [("FactUplift", "segment_value")], [("FactUplift", "tactic")],
-                        M, "Avg Uplift"),
-    make_clustered_column_multi("v1_aiband", 20, 410, 610, 290, "DimRep", "AI Adoption Band",
-                                [(M, "Connect Rate"), (M, "Meaningful Interaction Rate")]),
-    make_table("v1_tbl", 650, 410, 610, 290, [
-        ("FactUplift", "tactic", False), ("FactUplift", "segment_value", False),
-        ("FactUplift", "uplift", False), ("FactUplift", "ci_low", False),
-        ("FactUplift", "ci_high", False), ("FactUplift", "significant", False),
+
+    *slicer_row("v1sl", SL_Y, SLICER_H, [
+        ("FactUplift", "outcome"),
+        ("FactUplift", "segment_type"),
+    ]),
+
+    make_matrix_heatmap("v1_inter", 20, BODY_Y, 610, TOP1_H,
+        [("FactHCPCalls", "Channel")], [("FactHCPCalls", "InteractionType")],
+        M, "Meaningful Interaction Rate"),
+    make_matrix_heatmap("v1_uplift", 650, BODY_Y, 610, TOP1_H,
+        [("FactUplift", "segment_value")], [("FactUplift", "tactic")],
+        M, "Avg Uplift"),
+
+    make_clustered_column_multi("v1_aiband", 20, BOT1_Y, 610, BOT1_H,
+        "DimRep", "AI Adoption Band",
+        [(M, "Connect Rate"), (M, "Meaningful Interaction Rate")]),
+    make_table("v1_tbl", 650, BOT1_Y, 610, BOT1_H, [
+        ("FactUplift", "tactic",        False),
+        ("FactUplift", "segment_value", False),
+        ("FactUplift", "uplift",        False),
+        ("FactUplift", "ci_low",        False),
+        ("FactUplift", "ci_high",       False),
+        ("FactUplift", "significant",   False),
     ]),
 ]
 
+
 # ===== PAGE 2: Progress & Cohorts — native =====
 p2 = uid("epi_adv_p2_progress")
+
+TOP2_H  = (BODY_H - GAP) // 2
+BOT2_H  = BODY_H - TOP2_H - GAP
+BOT2_Y  = BODY_Y + TOP2_H + GAP
+
 P2 = [
     make_title_bar("v2_t", 0, 0, 1280, 50, "Epikast Advanced — Progress & Cohorts", PURPLE),
-    make_matrix_heatmap("v2_cohort", 20, 60, 800, 300,
-                        [("DimRep", "Tenure Bucket")], [("DimCalendar", "YearMonth")],
-                        M, "Meaningful Interaction Rate"),
-    make_line_chart("v2_slope", 830, 60, 430, 300, "DimCalendar", "YearMonth",
-                    M, "Meaningful Interaction Rate", M, "Connect Rate"),
-    make_table("v2_power", 20, 380, 620, 320, [
-        ("DimExperiment", "ExperimentName", False), ("DimExperiment", "PrimaryKPI", False),
-        ("DimExperiment", "SampleSizeTarget", False), ("DimExperiment", "SampleSizeActual", False),
-        ("DimExperiment", "ConfidenceLevel", False), ("DimExperiment", "Status", False),
+
+    make_matrix_heatmap("v2_cohort", 20, BODY_Y, 800, TOP2_H,
+        [("DimRep", "Tenure Bucket")], [("DimCalendar", "YearMonth")],
+        M, "Meaningful Interaction Rate"),
+    make_line_chart("v2_slope", 840, BODY_Y, 420, TOP2_H,
+        "DimCalendar", "YearMonth",
+        M, "Meaningful Interaction Rate", M, "Connect Rate"),
+
+    make_table("v2_power", 20, BOT2_Y, 620, BOT2_H, [
+        ("DimExperiment", "ExperimentName",     False),
+        ("DimExperiment", "PrimaryKPI",         False),
+        ("DimExperiment", "SampleSizeTarget",   False),
+        ("DimExperiment", "SampleSizeActual",   False),
+        ("DimExperiment", "ConfidenceLevel",    False),
+        ("DimExperiment", "Status",             False),
     ]),
-    make_table("v2_winner", 660, 380, 600, 320, [
-        ("DimExperiment", "ExperimentName", False), ("DimExperiment", "Winner", False),
-        ("DimExperiment", "EndDate", False), ("DimExperiment", "ObservedLift", False),
-        ("DimExperiment", "Status", False),
+    make_table("v2_winner", 660, BOT2_Y, 600, BOT2_H, [
+        ("DimExperiment", "ExperimentName", False),
+        ("DimExperiment", "Winner",         False),
+        ("DimExperiment", "EndDate",        False),
+        ("DimExperiment", "ObservedLift",   False),
+        ("DimExperiment", "Status",         False),
     ]),
 ]
+
 
 # ===== PAGE 3: Forest Plot & Parallel Coordinates — R =====
 FOREST_R = """
@@ -98,24 +136,38 @@ ggparcoord(df, columns=which(names(df) %in% cols), groupColumn='Meaningful',
   scale_color_manual(values=c('Meaningful'='#2E8B57','Not'='#CD3333')) +
   labs(title='Anatomy of a winning call', x=NULL, y=NULL) + theme_minimal(base_size=12)
 """
+
 p3 = uid("epi_adv_p3_forest")
+
 P3 = [
     make_title_bar("v3_t", 0, 0, 1280, 50, "Epikast Advanced — Forest Plot & Parallel Coordinates", PURPLE),
-    make_slicer("v3_out", 760, 55, 240, 42, "FactUplift", "outcome"),
-    make_slicer("v3_seg", 1010, 55, 250, 42, "FactUplift", "segment_type"),
-    make_r_visual("v3_forest", 20, 105, 620, 595, [
-        ("FactUplift", "outcome", False), ("FactUplift", "segment_type", False),
-        ("FactUplift", "segment_value", False), ("FactUplift", "tactic", False),
-        ("FactUplift", "uplift", False), ("FactUplift", "ci_low", False),
-        ("FactUplift", "ci_high", False), ("FactUplift", "significant", False),
+
+    *slicer_row("v3sl", SL_Y, SLICER_H, [
+        ("FactUplift", "outcome"),
+        ("FactUplift", "segment_type"),
+    ]),
+
+    make_r_visual("v3_forest", 20, BODY_Y, 620, BODY_H, [
+        ("FactUplift", "outcome",       False),
+        ("FactUplift", "segment_type",  False),
+        ("FactUplift", "segment_value", False),
+        ("FactUplift", "tactic",        False),
+        ("FactUplift", "uplift",        False),
+        ("FactUplift", "ci_low",        False),
+        ("FactUplift", "ci_high",       False),
+        ("FactUplift", "significant",   False),
     ], FOREST_R),
-    make_r_visual("v3_parcoord", 660, 105, 600, 595, [
-        ("FactHCPCalls", "CallID", False), ("FactHCPCalls", "DurationMinutes", False),
-        ("FactHCPCalls", "CallQualityScore", False), ("FactHCPCalls", "HCPSentimentScore", False),
-        ("FactHCPCalls", "AIFollowed", False), ("FactHCPCalls", "ScriptDeviation", False),
-        ("FactHCPCalls", "IsMeaningfulInteraction", False),
+    make_r_visual("v3_parcoord", 660, BODY_Y, 600, BODY_H, [
+        ("FactHCPCalls", "CallID",                  False),
+        ("FactHCPCalls", "DurationMinutes",          False),
+        ("FactHCPCalls", "CallQualityScore",         False),
+        ("FactHCPCalls", "HCPSentimentScore",        False),
+        ("FactHCPCalls", "AIFollowed",               False),
+        ("FactHCPCalls", "ScriptDeviation",          False),
+        ("FactHCPCalls", "IsMeaningfulInteraction",  False),
     ], PARCOORD_R),
 ]
+
 
 # ===== PAGE 4: Patient Journey & Survival — R =====
 ALLUVIAL_R = """
@@ -139,19 +191,29 @@ ggsurvplot(fit, data=df, conf.int=TRUE, legend.title='Insurance',
            xlab='Days since Rx', ylab='Share not yet on therapy',
            title='Time to therapy by insurance')$plot
 """
+
 p4 = uid("epi_adv_p4_journey")
+
 P4 = [
     make_title_bar("v4_t", 0, 0, 1280, 50, "Epikast Advanced — Patient Journey & Survival", PURPLE),
-    make_slicer("v4_drug", 1010, 55, 250, 42, "DimDrug", "DrugName"),
-    make_r_visual("v4_alluvial", 20, 105, 620, 595, [
-        ("FactPatientCases", "CaseID", False), ("FactPatientCases", "PAStatus", False),
+
+    *slicer_row("v4sl", SL_Y, SLICER_H, [
+        ("DimDrug", "DrugName"),
+    ]),
+
+    make_r_visual("v4_alluvial", 20, BODY_Y, 620, BODY_H, [
+        ("FactPatientCases", "CaseID",    False),
+        ("FactPatientCases", "PAStatus",  False),
         ("FactPatientCases", "CaseStatus", False),
     ], ALLUVIAL_R),
-    make_r_visual("v4_survival", 660, 105, 600, 595, [
-        ("FactPatientCases", "CaseID", False), ("FactPatientCases", "TimeToTherapyDays", False),
-        ("FactPatientCases", "IsAbandoned", False), ("FactPatientCases", "InsuranceType", False),
+    make_r_visual("v4_survival", 660, BODY_Y, 600, BODY_H, [
+        ("FactPatientCases", "CaseID",             False),
+        ("FactPatientCases", "TimeToTherapyDays",  False),
+        ("FactPatientCases", "IsAbandoned",        False),
+        ("FactPatientCases", "InsuranceType",      False),
     ], SURVIVAL_R),
 ]
+
 
 # ===== PAGE 5: SHAP Explainability — native + Python =====
 BEESWARM_PY = """
@@ -172,21 +234,30 @@ if sc is not None: plt.colorbar(sc, label='feature value')
 plt.title('SHAP beeswarm — drivers of meaningful interaction')
 plt.tight_layout(); plt.show()
 """
+
 p5 = uid("epi_adv_p5_shap")
+
+# No slicer needed on SHAP page — full canvas for charts
+SHAP_Y = TITLE_BOT
+SHAP_H = 720 - SHAP_Y - 10
+
 P5 = [
     make_title_bar("v5_t", 0, 0, 1280, 50, "Epikast Advanced — SHAP Explainability", PURPLE),
-    make_clustered_bar("v5_imp", 20, 60, 500, 640, "ShapImportance", "feature", M, "Avg Shap Importance"),
-    make_py_visual("v5_beeswarm", 540, 60, 720, 640, [
-        ("ShapBeeswarm", "feature", False), ("ShapBeeswarm", "shap_value", False),
+    make_clustered_bar("v5_imp", 20, SHAP_Y, 500, SHAP_H,
+        "ShapImportance", "feature", M, "Avg Shap Importance"),
+    make_py_visual("v5_beeswarm", 540, SHAP_Y, 720, SHAP_H, [
+        ("ShapBeeswarm", "feature",            False),
+        ("ShapBeeswarm", "shap_value",         False),
         ("ShapBeeswarm", "feature_value_norm", False),
     ], BEESWARM_PY),
 ]
 
-write_page(p1, "What Works Best", P1)
-write_page(p2, "Progress & Cohorts", P2)
-write_page(p3, "Forest Plot & Parallel Coords", P3)
-write_page(p4, "Patient Journey & Survival", P4)
-write_page(p5, "SHAP Explainability", P5)
+
+write_page(p1, "What Works Best",                P1)
+write_page(p2, "Progress & Cohorts",             P2)
+write_page(p3, "Forest Plot & Parallel Coords",  P3)
+write_page(p4, "Patient Journey & Survival",     P4)
+write_page(p5, "SHAP Explainability",            P5)
 write_pages_json([p1, p2, p3, p4, p5])
 
 print("ADVANCED ANALYTICS report — 5 pages")
