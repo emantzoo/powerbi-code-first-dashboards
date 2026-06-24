@@ -29,10 +29,17 @@ CANVAS & LAYOUT CONSTANTS
 --------------------------
 All pages: 1280 × 720 px
   CANVAS_W=1280  CANVAS_H=720  MARGIN=20  GAP=10
-  TITLE_H=50     CARD_H=120    SLICER_H=38
+  TITLE_H=50     CARD_H=120    SLICER_H=38   TITLE_BOT=60
+
+  Pre-computed positions (import and use directly):
+    Layout A — 1 card row + 1 slicer row:
+      CARD1_Y=60  SL1_Y=190  BODY1_Y=238  BODY1_H=472
+    Layout B — slicer row only:
+      SL_Y=60  BODY_Y=108  BODY_H=602
 
   std_layout(n_card_rows=1, n_slicer_rows=1)
     → dict with card_y / slicer_y / body_y / body_h
+    (use only for non-standard stacks)
 
   card_row(prefix, y, h, measures, table="_Measures")
     → list of evenly-spaced KPI cards across the canvas
@@ -330,40 +337,39 @@ CARD_H    = 120   # KPI card  (tall enough for value + label)
 SLICER_H  = 38    # dropdown slicer row
 TITLE_BOT = TITLE_H + GAP   # y immediately below title bar (= 60)
 
+# Pre-computed y-positions for the two most common page layouts:
+#
+#   Layout A — 1 card row + 1 slicer row (most pages):
+#     title(50) gap(10) cards(120) gap(10) slicers(38) gap(10) body
+CARD1_Y = TITLE_BOT                          # 60
+SL1_Y   = CARD1_Y + CARD_H + GAP            # 190
+BODY1_Y = SL1_Y   + SLICER_H + GAP          # 238
+BODY1_H = CANVAS_H - BODY1_Y - 10           # 472
+
+#   Layout B — slicer row only (no cards):
+#     title(50) gap(10) slicers(38) gap(10) body
+SL_Y   = TITLE_BOT                          # 60
+BODY_Y = SL_Y + SLICER_H + GAP             # 108
+BODY_H = CANVAS_H - BODY_Y - 10            # 602
+
 
 def std_layout(n_card_rows=1, n_slicer_rows=1):
-    """Return a dict of standard y-positions and heights.
+    """Compute y-positions and heights for arbitrary card/slicer stacks.
 
-    Positions are computed from the top of the canvas:
-      title bar → card rows → slicer rows → body content area
+    For the standard 1-card + 1-slicer layout, prefer the pre-computed
+    module constants instead (CARD1_Y, SL1_Y, BODY1_Y, BODY1_H).
 
     Args:
-        n_card_rows:   number of card rows (0 or 1; more uncommon)
-        n_slicer_rows: number of slicer rows (0 or 1)
+        n_card_rows:   number of card rows before the slicer row
+        n_slicer_rows: number of slicer rows before the body
 
-    Returns a dict with keys:
-        title_bot  — y immediately below title (= TITLE_H + GAP)
-        card_y     — y of first card row  (= title_bot)
-        slicer_y   — y of first slicer row
-        body_y     — y where main content starts
-        body_h     — height available for main content (fills to canvas bottom - 10px)
-
-    Example (1 card row + 1 slicer row, the most common pattern):
-        L = std_layout()
-        # L["card_y"] = 60, L["slicer_y"] = 190, L["body_y"] = 238, L["body_h"] = 472
+    Returns a dict: {card_y, slicer_y, body_y, body_h}
     """
-    title_bot = TITLE_H + GAP
-    card_y    = title_bot
-    slicer_y  = card_y + n_card_rows * (CARD_H + GAP)
-    body_y    = slicer_y + n_slicer_rows * (SLICER_H + GAP)
-    body_h    = CANVAS_H - body_y - 10
-    return {
-        "title_bot": title_bot,
-        "card_y":    card_y,
-        "slicer_y":  slicer_y,
-        "body_y":    body_y,
-        "body_h":    body_h,
-    }
+    card_y   = TITLE_BOT
+    slicer_y = card_y   + n_card_rows   * (CARD_H   + GAP)
+    body_y   = slicer_y + n_slicer_rows * (SLICER_H + GAP)
+    body_h   = CANVAS_H - body_y - 10
+    return {"card_y": card_y, "slicer_y": slicer_y, "body_y": body_y, "body_h": body_h}
 
 
 def card_row(prefix, y, h, measures, table="_Measures"):

@@ -15,7 +15,9 @@ from pbir_lib import (
     uid, make_title_bar, make_clustered_bar, make_clustered_column_multi,
     make_combo_chart, make_line_chart, make_donut, make_filled_map, make_measure_column,
     make_table, card_row, slicer_row,
-    TITLE_H, CARD_H, SLICER_H, GAP, CANVAS_H, TITLE_BOT, std_layout,
+    CARD_H, SLICER_H, GAP, TITLE_BOT,
+    CARD1_Y, SL1_Y, BODY1_Y, BODY1_H,
+    SL_Y, BODY_Y, BODY_H,
     write_page, write_pages_json,
 )
 
@@ -23,19 +25,6 @@ pb.BASE = pb.resolve_pages_base("epikast_client_dashb")
 
 TEAL = "#2E86AB"
 M    = "_Measures"
-
-# Derived positions — 1 card row + 1 slicer row
-_L      = std_layout(n_card_rows=1, n_slicer_rows=1)
-CARD1_Y = _L["card_y"]    # 60
-SL1_Y   = _L["slicer_y"]  # 190
-BODY1_Y = _L["body_y"]    # 238
-BODY1_H = _L["body_h"]    # 472
-
-# Slicers-only pages
-_LS  = std_layout(n_card_rows=0, n_slicer_rows=1)
-SL_Y = _LS["slicer_y"]   # 60
-BODY_Y = _LS["body_y"]   # 108
-BODY_H = _LS["body_h"]   # 602
 
 
 # Standard 3-slicer row: Quarter / TherapyArea / DrugName

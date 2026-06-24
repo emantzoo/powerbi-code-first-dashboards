@@ -22,7 +22,8 @@ from pbir_lib import (
     uid, make_title_bar, make_matrix_heatmap, make_clustered_bar,
     make_clustered_column_multi, make_line_chart, make_table, make_r_visual, make_py_visual,
     slicer_row,
-    TITLE_H, SLICER_H, GAP, TITLE_BOT, std_layout,
+    SLICER_H, GAP, TITLE_BOT,
+    SL_Y, BODY_Y, BODY_H,
     write_page, write_pages_json,
 )
 
@@ -30,12 +31,6 @@ pb.BASE = pb.resolve_pages_base("epikast_advanced_dashb")
 
 PURPLE = "#5B21B6"
 M      = "_Measures"
-
-# Derived positions — slicer-only pages
-_LS    = std_layout(n_card_rows=0, n_slicer_rows=1)
-SL_Y   = _LS["slicer_y"]  # 60
-BODY_Y = _LS["body_y"]    # 108
-BODY_H = _LS["body_h"]    # 602
 
 
 # ===== PAGE 1: What Works Best (Multivariate) — native =====

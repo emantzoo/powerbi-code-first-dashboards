@@ -18,7 +18,9 @@ from pbir_lib import (
     make_combo_chart, make_line_chart, make_donut, make_scatter, make_matrix_heatmap,
     make_decomposition_tree, make_measure_column,
     make_table, card_row, slicer_row,
-    TITLE_H, CARD_H, SLICER_H, GAP, TITLE_BOT, std_layout,
+    CARD_H, SLICER_H, GAP, TITLE_BOT,
+    CARD1_Y, SL1_Y, BODY1_Y, BODY1_H,
+    SL_Y, BODY_Y, BODY_H,
     make_r_visual,
     write_page, write_pages_json,
 )
@@ -27,18 +29,6 @@ pb.BASE = pb.resolve_pages_base("epikast_internal_dashb")
 
 NAVY = "#1B3A5C"
 M    = "_Measures"
-
-# Derived positions
-_L      = std_layout(n_card_rows=1, n_slicer_rows=1)
-CARD1_Y = _L["card_y"]    # 60
-SL1_Y   = _L["slicer_y"]  # 190
-BODY1_Y = _L["body_y"]    # 238
-BODY1_H = _L["body_h"]    # 472
-
-_LS    = std_layout(n_card_rows=0, n_slicer_rows=1)
-SL_Y   = _LS["slicer_y"]  # 60
-BODY_Y = _LS["body_y"]    # 108
-BODY_H = _LS["body_h"]    # 602
 
 # Standard internal slicers: Client / Team / Quarter / TherapyArea
 def int_slicers(prefix, y):

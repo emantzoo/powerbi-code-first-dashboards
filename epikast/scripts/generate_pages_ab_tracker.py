@@ -13,7 +13,9 @@ from pbir_lib import (
     uid, make_title_bar,
     make_clustered_bar, make_table,
     card_row, slicer_row,
-    TITLE_H, CARD_H, SLICER_H, GAP, TITLE_BOT, std_layout,
+    CARD_H, SLICER_H, GAP, TITLE_BOT,
+    CARD1_Y, SL1_Y, BODY1_Y, BODY1_H,
+    SL_Y, BODY_Y, BODY_H,
     write_page, write_pages_json,
 )
 
@@ -21,13 +23,6 @@ pb.BASE = pb.resolve_pages_base("epikast_ab_dashb")
 
 NAVY = "#1B3A5C"
 M    = "_Measures"
-
-# Derived positions
-_L      = std_layout(n_card_rows=1, n_slicer_rows=1)
-CARD1_Y = _L["card_y"]    # 60
-SL1_Y   = _L["slicer_y"]  # 190
-BODY1_Y = _L["body_y"]    # 238
-BODY1_H = _L["body_h"]    # 472
 
 
 # ===== PAGE 1: Experiment Overview =====

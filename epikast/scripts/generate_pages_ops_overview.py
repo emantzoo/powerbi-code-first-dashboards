@@ -19,6 +19,8 @@ from pbir_lib import (
     make_matrix, make_scatter, make_table,
     card_row, slicer_row,
     CARD_H, SLICER_H, GAP, TITLE_BOT,
+    CARD1_Y, SL1_Y, BODY1_Y, BODY1_H,
+    SL_Y, BODY_Y, BODY_H,
     write_page, write_pages_json,
 )
 
@@ -26,6 +28,10 @@ pb.BASE = pb.resolve_pages_base("epikast_ops_dashb")
 
 NAVY = "#1B3A5C"
 M = "_Measures"
+
+# Aliases used in this script
+CONTENT_Y = BODY_Y   # 108
+CONTENT_H = BODY_H   # 602
 
 
 # Standard 4-slicer row: Client / Team / Quarter / TherapyArea
@@ -36,21 +42,6 @@ def std_slicers(prefix, y):
         ("DimCalendar", "Quarter"),
         ("DimRep",      "TherapyArea"),
     ])
-
-
-# ── Helpers for common y positions ───────────────────────────────────────────
-# Page with slicers only:
-#   title(50) + gap(10) = 60 → slicers → gap(10) → content
-SL_Y      = TITLE_BOT                              # 60
-CONTENT_Y = SL_Y + SLICER_H + GAP                 # 108  content after 1 slicer row
-CONTENT_H = 720 - CONTENT_Y - 10                  # 602  fill to bottom with 10px margin
-
-# Page with 1 card row + slicers:
-#   title → cards → slicers → content
-CARD1_Y   = TITLE_BOT                             # 60
-SL1_Y     = CARD1_Y + CARD_H + GAP               # 190
-BODY1_Y   = SL1_Y + SLICER_H + GAP               # 238
-BODY1_H   = 720 - BODY1_Y - 10                   # 472
 
 
 # ===== PAGE 1: Command Center =====
