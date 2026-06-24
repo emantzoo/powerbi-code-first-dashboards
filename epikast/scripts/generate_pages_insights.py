@@ -24,7 +24,7 @@ from pbir_lib import (
     write_page, write_pages_json,
 )
 
-pb.BASE = r"C:\Users\emant\Documents\powerbi-code-first-dashboards\epikast\epikast_insights_dashb.Report\definition\pages"
+pb.BASE = pb.resolve_pages_base("epikast_insights_dashb")  # portable: --pages=, --root=, $EPIKAST_PBI_ROOT, or epikast/build/
 
 AMBER = "#B45309"
 M = "_Measures"

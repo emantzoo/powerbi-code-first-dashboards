@@ -15,7 +15,7 @@ from pbir_lib import (
     make_stacked_bar, make_matrix, make_table, write_page, write_pages_json,
 )
 
-pb.BASE = r"C:\Users\emant\Documents\powerbi-code-first-dashboards\epikast\epikast_ai_dashb.Report\definition\pages"
+pb.BASE = pb.resolve_pages_base("epikast_ai_dashb")  # portable: --pages=, --root=, $EPIKAST_PBI_ROOT, or epikast/build/
 
 MAGENTA = "#A23B72"
 M = "_Measures"

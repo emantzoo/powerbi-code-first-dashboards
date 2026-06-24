@@ -17,7 +17,7 @@ from pbir_lib import (
     make_table, write_page, write_pages_json,
 )
 
-pb.BASE = r"C:\Users\emant\Documents\powerbi-code-first-dashboards\epikast\epikast_client_dashb.Report\definition\pages"
+pb.BASE = pb.resolve_pages_base("epikast_client_dashb")  # portable: --pages=, --root=, $EPIKAST_PBI_ROOT, or epikast/build/
 
 TEAL = "#2E86AB"
 M = "_Measures"

@@ -26,9 +26,38 @@ visuals — eyeball them on first open and tweak if Power BI renders oddly.
 Pure stdlib. Run the layout scripts with Power BI closed.
 """
 
-import json, os, hashlib, shutil
+import json, os, hashlib, shutil, sys
 
 BASE = None  # set by the importing layout script before any write_page()
+
+
+def resolve_pages_base(report_name):
+    """Return the .Report/definition/pages folder a generator should write into,
+    WITHOUT hard-coding a machine path. Resolution order (first hit wins):
+
+      1. CLI arg   --pages=<full pages path>   (exact folder, used as-is)
+      2. CLI arg   --root=<dir>  /  env EPIKAST_PBI_ROOT=<dir>
+                   → <dir>/<report_name>.Report/definition/pages
+      3. default   → <repo>/epikast/build/<report_name>.Report/definition/pages
+                   (a dry-run sandbox: validates JSON generation; NOT an openable
+                   .pbip on its own — point 1/2 at a real Power-BI-created project
+                   to inject pages into actual reports)
+
+    `report_name` e.g. "epikast_internal_dashb".
+    """
+    for a in sys.argv[1:]:
+        if a.startswith("--pages="):
+            return a.split("=", 1)[1]
+    root = None
+    for a in sys.argv[1:]:
+        if a.startswith("--root="):
+            root = a.split("=", 1)[1]
+    root = root or os.environ.get("EPIKAST_PBI_ROOT")
+    if not root:
+        here = os.path.dirname(os.path.abspath(__file__))
+        root = os.path.normpath(os.path.join(here, "..", "build"))
+    return os.path.join(root, f"{report_name}.Report", "definition", "pages")
+
 
 SCHEMA_VISUAL = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json"
 SCHEMA_PAGE   = "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json"
