@@ -21,7 +21,7 @@ from pbir_lib import (
     CARD_H, SLICER_H, GAP, TITLE_BOT,
     CARD1_Y, SL1_Y, BODY1_Y, BODY1_H,
     SL_Y, BODY_Y, BODY_H,
-    make_r_visual,
+    make_r_visual, make_py_visual,
     write_page, write_pages_json,
 )
 
@@ -304,19 +304,241 @@ P7 = [
 ]
 
 
-write_page(p1, "Executive Summary",       P1)
-write_page(p2, "Call Outcomes",           P2)
-write_page(p3, "Rep Productivity",        P3)
-write_page(p4, "Trends",                  P4)
-write_page(p5, "Compliance & Quality",    P5)
-write_page(p6, "Channel Mix & Workforce", P6)
-write_page(p7, "Patient Ops & Drill-Down", P7)
-write_pages_json([p1, p2, p3, p4, p5, p6, p7])
+# ===== PAGE 8: What Works Best (Multivariate) — from Advanced =====
+p8 = uid("epi_int_p8_works")
 
-print("INTERNAL OPS report — 7 pages")
-for n, pg in [("Executive Summary", P1), ("Call Outcomes", P2), ("Rep Productivity", P3),
-              ("Trends", P4), ("Compliance & Quality", P5), ("Channel Mix & Workforce", P6),
-              ("Patient Ops & Drill-Down", P7)]:
+WWB_TOP_H = (BODY_H - GAP) // 2   # ~296
+WWB_BOT_Y = BODY_Y + WWB_TOP_H + GAP
+WWB_BOT_H = BODY_H - WWB_TOP_H - GAP
+
+P8 = [
+    make_title_bar("i8_t", 0, 0, 1280, 50, "Epikast Ops — What Works Best (Multivariate)", NAVY),
+
+    *slicer_row("i8sl", SL_Y, SLICER_H, [
+        ("FactUplift", "outcome"),
+        ("FactUplift", "segment_type"),
+    ]),
+
+    make_matrix_heatmap("i8_inter", 20, BODY_Y, 610, WWB_TOP_H,
+        [("FactHCPCalls", "Channel")], [("FactHCPCalls", "InteractionType")],
+        M, "Meaningful Interaction Rate"),
+    make_matrix_heatmap("i8_uplift", 650, BODY_Y, 610, WWB_TOP_H,
+        [("FactUplift", "segment_value")], [("FactUplift", "tactic")],
+        M, "Avg Uplift"),
+
+    make_clustered_column_multi("i8_aiband", 20, WWB_BOT_Y, 610, WWB_BOT_H,
+        "DimRep", "AI Adoption Band",
+        [(M, "Connect Rate"), (M, "Meaningful Interaction Rate")]),
+    make_table("i8_tbl", 650, WWB_BOT_Y, 610, WWB_BOT_H, [
+        ("FactUplift", "tactic",        False),
+        ("FactUplift", "segment_value", False),
+        ("FactUplift", "uplift",        False),
+        ("FactUplift", "ci_low",        False),
+        ("FactUplift", "ci_high",       False),
+        ("FactUplift", "significant",   False),
+    ]),
+]
+
+
+# ===== PAGE 9: Progress & Cohorts — from Advanced =====
+p9 = uid("epi_int_p9_cohorts")
+
+COH_TOP_H = (BODY_H - GAP) // 2
+COH_BOT_Y = BODY_Y + COH_TOP_H + GAP
+COH_BOT_H = BODY_H - COH_TOP_H - GAP
+
+P9 = [
+    make_title_bar("i9_t", 0, 0, 1280, 50, "Epikast Ops — Progress & Cohorts", NAVY),
+
+    make_matrix_heatmap("i9_cohort", 20, BODY_Y, 800, COH_TOP_H,
+        [("DimRep", "Tenure Bucket")], [("DimCalendar", "YearMonth")],
+        M, "Meaningful Interaction Rate"),
+    make_line_chart("i9_slope", 840, BODY_Y, 420, COH_TOP_H,
+        "DimCalendar", "YearMonth",
+        M, "Meaningful Interaction Rate", M, "Connect Rate"),
+
+    make_table("i9_power", 20, COH_BOT_Y, 620, COH_BOT_H, [
+        ("DimExperiment", "ExperimentName",   False),
+        ("DimExperiment", "PrimaryKPI",       False),
+        ("DimExperiment", "SampleSizeTarget", False),
+        ("DimExperiment", "SampleSizeActual", False),
+        ("DimExperiment", "ConfidenceLevel",  False),
+        ("DimExperiment", "Status",           False),
+    ]),
+    make_table("i9_winner", 660, COH_BOT_Y, 600, COH_BOT_H, [
+        ("DimExperiment", "ExperimentName", False),
+        ("DimExperiment", "Winner",         False),
+        ("DimExperiment", "EndDate",        False),
+        ("DimExperiment", "ObservedLift",   False),
+        ("DimExperiment", "Status",         False),
+    ]),
+]
+
+
+# ===== PAGE 10: Forest Plot & Parallel Coordinates (R) — from Advanced =====
+FOREST_R = """
+library(ggplot2)
+df <- dataset
+df <- df[order(df$uplift),]
+df$tactic <- factor(df$tactic, levels=unique(df$tactic))
+df$Significant <- ifelse(df$significant==1,'Significant','Not significant')
+ggplot(df, aes(x=uplift, y=tactic, color=Significant)) +
+  geom_vline(xintercept=0, linetype='dashed', color='grey50') +
+  geom_errorbarh(aes(xmin=ci_low, xmax=ci_high), height=0.25) +
+  geom_point(size=3.5) +
+  scale_color_manual(values=c('Significant'='#2E8B57','Not significant'='grey60')) +
+  labs(title='Uplift by tactic (95% CI)', x='Uplift', y=NULL) +
+  theme_minimal(base_size=13)
+"""
+PARCOORD_R = """
+library(GGally); library(ggplot2)
+df <- dataset
+df <- df[!is.na(df$CallQualityScore) & !is.na(df$HCPSentimentScore),]
+set.seed(1); if(nrow(df)>600) df <- df[sample(nrow(df),600),]
+df$Meaningful <- factor(ifelse(df$IsMeaningfulInteraction==1,'Meaningful','Not'))
+cols <- c('DurationMinutes','CallQualityScore','HCPSentimentScore','AIFollowed','ScriptDeviation')
+ggparcoord(df, columns=which(names(df) %in% cols), groupColumn='Meaningful',
+           scale='uniminmax', alphaLines=0.25) +
+  scale_color_manual(values=c('Meaningful'='#2E8B57','Not'='#CD3333')) +
+  labs(title='Anatomy of a winning call', x=NULL, y=NULL) + theme_minimal(base_size=12)
+"""
+
+p10 = uid("epi_int_p10_forest")
+
+P10 = [
+    make_title_bar("i10_t", 0, 0, 1280, 50, "Epikast Ops — Forest Plot & Parallel Coordinates (R)", NAVY),
+
+    *slicer_row("i10sl", SL_Y, SLICER_H, [
+        ("FactUplift", "outcome"),
+        ("FactUplift", "segment_type"),
+    ]),
+
+    make_r_visual("i10_forest", 20, BODY_Y, 620, BODY_H, [
+        ("FactUplift", "outcome",       False),
+        ("FactUplift", "segment_type",  False),
+        ("FactUplift", "segment_value", False),
+        ("FactUplift", "tactic",        False),
+        ("FactUplift", "uplift",        False),
+        ("FactUplift", "ci_low",        False),
+        ("FactUplift", "ci_high",       False),
+        ("FactUplift", "significant",   False),
+    ], FOREST_R),
+    make_r_visual("i10_parcoord", 660, BODY_Y, 600, BODY_H, [
+        ("FactHCPCalls", "CallID",                 False),
+        ("FactHCPCalls", "DurationMinutes",         False),
+        ("FactHCPCalls", "CallQualityScore",        False),
+        ("FactHCPCalls", "HCPSentimentScore",       False),
+        ("FactHCPCalls", "AIFollowed",              False),
+        ("FactHCPCalls", "ScriptDeviation",         False),
+        ("FactHCPCalls", "IsMeaningfulInteraction", False),
+    ], PARCOORD_R),
+]
+
+
+# ===== PAGE 11: Patient Journey & Survival (R) — from Advanced =====
+ALLUVIAL_R = """
+library(ggalluvial); library(ggplot2); library(dplyr)
+df <- dataset %>% count(PAStatus, CaseStatus)
+ggplot(df, aes(axis1=PAStatus, axis2=CaseStatus, y=n)) +
+  geom_alluvium(aes(fill=PAStatus), alpha=0.7) +
+  geom_stratum(width=0.3) +
+  geom_text(stat='stratum', aes(label=after_stat(stratum)), size=3) +
+  scale_x_discrete(limits=c('PA Status','Case Outcome'), expand=c(.05,.05)) +
+  labs(title='Patient access flow: PA decision -> outcome', y='Patients', x=NULL) +
+  theme_minimal(base_size=12)
+"""
+SURVIVAL_R = """
+library(survival); library(survminer)
+df <- dataset
+df$time <- ifelse(is.na(df$TimeToTherapyDays) | df$TimeToTherapyDays<=0, 60, df$TimeToTherapyDays)
+df$event <- ifelse(df$IsAbandoned==1, 0, 1)
+fit <- survfit(Surv(time, event) ~ InsuranceType, data=df)
+ggsurvplot(fit, data=df, conf.int=TRUE, legend.title='Insurance',
+           xlab='Days since Rx', ylab='Share not yet on therapy',
+           title='Time to therapy by insurance')$plot
+"""
+
+p11 = uid("epi_int_p11_journey")
+
+P11 = [
+    make_title_bar("i11_t", 0, 0, 1280, 50, "Epikast Ops — Patient Journey & Survival (R)", NAVY),
+
+    *slicer_row("i11sl", SL_Y, SLICER_H, [
+        ("DimDrug", "DrugName"),
+    ]),
+
+    make_r_visual("i11_alluvial", 20, BODY_Y, 620, BODY_H, [
+        ("FactPatientCases", "CaseID",     False),
+        ("FactPatientCases", "PAStatus",   False),
+        ("FactPatientCases", "CaseStatus", False),
+    ], ALLUVIAL_R),
+    make_r_visual("i11_survival", 660, BODY_Y, 600, BODY_H, [
+        ("FactPatientCases", "CaseID",            False),
+        ("FactPatientCases", "TimeToTherapyDays", False),
+        ("FactPatientCases", "IsAbandoned",       False),
+        ("FactPatientCases", "InsuranceType",     False),
+    ], SURVIVAL_R),
+]
+
+
+# ===== PAGE 12: SHAP Explainability (Python) — from Advanced =====
+BEESWARM_PY = """
+import matplotlib.pyplot as plt
+import numpy as np
+df = dataset
+feats = list(dict.fromkeys(df['feature']))
+fig, ax = plt.subplots(figsize=(8,5))
+sc = None
+for i, f in enumerate(feats):
+    sub = df[df['feature'] == f]
+    y = i + (np.random.rand(len(sub)) - 0.5) * 0.6
+    sc = ax.scatter(sub['shap_value'], y, c=sub['feature_value_norm'], cmap='coolwarm', s=10, alpha=0.6)
+ax.set_yticks(range(len(feats))); ax.set_yticklabels(feats)
+ax.axvline(0, color='grey', lw=0.8)
+ax.set_xlabel('SHAP value (impact on meaningful interaction)')
+if sc is not None: plt.colorbar(sc, label='feature value')
+plt.title('SHAP beeswarm — drivers of meaningful interaction')
+plt.tight_layout(); plt.show()
+"""
+
+p12 = uid("epi_int_p12_shap")
+
+SHAP_Y = TITLE_BOT
+SHAP_H = 720 - SHAP_Y - 10
+
+P12 = [
+    make_title_bar("i12_t", 0, 0, 1280, 50, "Epikast Ops — SHAP Explainability (Python)", NAVY),
+    make_clustered_bar("i12_imp", 20, SHAP_Y, 500, SHAP_H,
+        "ShapImportance", "feature", M, "Avg Shap Importance"),
+    make_py_visual("i12_beeswarm", 540, SHAP_Y, 720, SHAP_H, [
+        ("ShapBeeswarm", "feature",            False),
+        ("ShapBeeswarm", "shap_value",         False),
+        ("ShapBeeswarm", "feature_value_norm", False),
+    ], BEESWARM_PY),
+]
+
+
+write_page(p1,  "Executive Summary",                   P1)
+write_page(p2,  "Call Outcomes",                       P2)
+write_page(p3,  "Rep Productivity",                    P3)
+write_page(p4,  "Trends",                              P4)
+write_page(p5,  "Compliance & Quality",                P5)
+write_page(p6,  "Channel Mix & Workforce",             P6)
+write_page(p7,  "Patient Ops & Drill-Down",            P7)
+write_page(p8,  "What Works Best",                     P8)
+write_page(p9,  "Progress & Cohorts",                  P9)
+write_page(p10, "Forest Plot & Parallel Coords (R)",   P10)
+write_page(p11, "Patient Journey & Survival (R)",      P11)
+write_page(p12, "SHAP Explainability (Python)",        P12)
+write_pages_json([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12])
+
+print("INTERNAL OPS report — 12 pages")
+ALL_PAGES = [("Executive Summary", P1), ("Call Outcomes", P2), ("Rep Productivity", P3),
+             ("Trends", P4), ("Compliance & Quality", P5), ("Channel Mix & Workforce", P6),
+             ("Patient Ops & Drill-Down", P7), ("What Works Best", P8),
+             ("Progress & Cohorts", P9), ("Forest Plot & Parallel Coords", P10),
+             ("Patient Journey & Survival", P11), ("SHAP Explainability", P12)]
+for n, pg in ALL_PAGES:
     print(f"  {n}: {len(pg)} visuals")
-print(f"Total: {sum(len(p) for p in [P1,P2,P3,P4,P5,P6,P7])} visuals")
+print(f"Total: {sum(len(p) for _, p in ALL_PAGES)} visuals")
 print("Done!")
