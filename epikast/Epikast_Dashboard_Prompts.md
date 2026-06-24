@@ -381,7 +381,45 @@ Avg Importance = AVERAGE(FeatureImportance[importance])
 Avg Shap Importance = AVERAGE(ShapImportance[mean_abs_shap])
 ```
 
-**Total: 128 measures** across 17 groups.
+### 18. Recent Activity — as-of latest data date (5)  ⭐ added
+
+> The demo dataset is **static history** (CallDate 2025-07-01 → 2026-04-30), so `TODAY()`
+> returns blank. These anchor "recent" to `MAX(FactHCPCalls[CallDate])` instead, giving a
+> live-looking "last 7 days vs prior 7 days" pulse that still works on frozen data.
+
+```
+Last Data Date = CALCULATE(MAX(FactHCPCalls[CallDate]), ALL(FactHCPCalls), ALL(DimCalendar))
+Calls Last 7 Days = CALCULATE([Total Calls], DATESINPERIOD(DimCalendar[Date], [Last Data Date], -7, DAY))
+Calls Prior 7 Days = CALCULATE([Total Calls], DATESINPERIOD(DimCalendar[Date], [Last Data Date] - 7, -7, DAY))
+Calls WoW Change = DIVIDE([Calls Last 7 Days] - [Calls Prior 7 Days], [Calls Prior 7 Days], 0)
+Connect Rate Last 7 Days = CALCULATE([Connect Rate], DATESINPERIOD(DimCalendar[Date], [Last Data Date], -7, DAY))
+```
+
+### 19. Patient Funnel Stage Counts (5)  ⭐ added
+
+> Case-count at each access stage (vs group 15 which is days-per-stage). Feeds the
+> Enrollment → First Contact → PA Approved → Fulfilled → On Therapy funnel. Each wraps
+> `USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])` (fix #2). Stage 1 reuses
+> `[Total Cases]`.
+
+```
+Cases First Contacted = CALCULATE(COUNTROWS(FactPatientCases), NOT(ISBLANK(FactPatientCases[FirstContactDate])), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Cases PA Submitted = CALCULATE(COUNTROWS(FactPatientCases), NOT(ISBLANK(FactPatientCases[PASubmitDate])), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Cases PA Approved = CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[PAStatus] = "Approved", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Cases Fulfilled = CALCULATE(COUNTROWS(FactPatientCases), NOT(ISBLANK(FactPatientCases[FulfillmentDate])), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+Cases On Therapy = CALCULATE(COUNTROWS(FactPatientCases), NOT(ISBLANK(FactPatientCases[FirstDoseDate])), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+```
+
+### 20. Open-Case Aging (1)  ⭐ added
+
+> "Open Cases" = `[Active Cases]` (group 4). High-risk proxy = an open case sitting 14+ days
+> from RxDate as of the latest data date (uses the `Open Case Age Bucket` column below).
+
+```
+Open High Risk Cases = CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[Open Case Age Bucket] = "14d+", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))
+```
+
+**Total: 139 measures** across 20 groups.
 
 > The Advanced Analytics report also loads two SHAP output tables from
 > `scripts/train_shap.py` (run it where `lightgbm`/`shap` are installed):
@@ -415,6 +453,15 @@ SentimentBand = SWITCH(TRUE(),
     FactHCPCalls[HCPSentimentScore] >= 4, "Positive",
     FactHCPCalls[HCPSentimentScore] >= 2.5, "Neutral",
     "Negative")
+
+# FactPatientCases — days-open band for the Open-Cases Aging bar (Internal Ops, Page 7).
+# Anchored to the latest call date (data is static, so TODAY() would be wrong); only open /
+# in-progress cases get a bucket, everything else is blank and drops out of the visual.
+Open Case Age Bucket =
+VAR AsOf = CALCULATE(MAX(FactHCPCalls[CallDate]), ALL(FactHCPCalls))
+VAR d = DATEDIFF(FactPatientCases[RxDate], AsOf, DAY)
+RETURN IF(NOT(FactPatientCases[CaseStatus] IN {"Open", "In Progress"}), BLANK(),
+    SWITCH(TRUE(), d < 3, "<3d", d < 7, "3-7d", d < 14, "7-14d", "14d+"))
 
 # DimRep — AI adoption band for the "lift by AI-adoption level" view (Advanced report)
 AI Adoption Band =

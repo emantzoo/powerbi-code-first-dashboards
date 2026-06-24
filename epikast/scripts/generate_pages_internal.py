@@ -15,7 +15,8 @@ from pbir_lib import (
     uid, make_title_bar, make_card, make_slicer, make_clustered_bar,
     make_clustered_bar_gradient, make_clustered_column, make_clustered_column_multi,
     make_combo_chart, make_line_chart, make_donut, make_scatter, make_matrix,
-    make_matrix_heatmap, make_table, write_page, write_pages_json,
+    make_matrix_heatmap, make_table, make_decomposition_tree, make_measure_column,
+    make_r_visual, write_page, write_pages_json,
 )
 
 pb.BASE = r"C:\Users\emant\Documents\powerbi-code-first-dashboards\epikast\epikast_internal_dashb.Report\definition\pages"
@@ -146,17 +147,55 @@ P6 = [
     ]),
 ]
 
+# ===== PAGE 7: Patient Ops & Drill-Down (net-new) =====
+# Daily-pulse KPIs (anchored to latest data date, not TODAY()), a Decomposition Tree to
+# explain Meaningful Rate, the patient-access funnel, open-case aging, and an R box-and-
+# whisker of AHT spread by team. Needs measures groups 18-20 + the Open Case Age Bucket
+# column from Epikast_Dashboard_Prompts.md; the box-plot needs R set up in PBI Desktop.
+p7 = uid("epi_int_p7_patientops")
+P7 = [
+    make_title_bar("i7_t", 0, 0, 1280, 50, "Epikast Ops — Patient Ops & Drill-Down", NAVY),
+    make_card("i7_l7",   20, 60, 220, 110, M, "Calls Last 7 Days"),
+    make_card("i7_wow",  255, 60, 220, 110, M, "Calls WoW Change"),
+    make_card("i7_open", 490, 60, 220, 110, M, "Active Cases"),
+    make_card("i7_risk", 725, 60, 220, 110, M, "Open High Risk Cases"),
+    make_card("i7_ttt",  960, 60, 220, 110, M, "Avg Time to Therapy"),
+    # Decomposition Tree — break down Meaningful Rate by the levers Ops can pull
+    make_decomposition_tree("i7_decomp", 20, 185, 620, 290,
+                            (M, "Meaningful Interaction Rate"),
+                            [("FactHCPCalls", "AIFollowed"), ("FactHCPCalls", "Channel"),
+                             ("DimRep", "Role"), ("DimHCP", "Specialty")]),
+    # Patient-access funnel as descending stage columns (no stage dimension needed)
+    make_measure_column("i7_funnel", 660, 185, 600, 140, [
+        (M, "Total Cases"), (M, "Cases First Contacted"), (M, "Cases PA Approved"),
+        (M, "Cases Fulfilled"), (M, "Cases On Therapy")]),
+    # Open-case aging — counts of open cases by days-open band
+    make_clustered_bar("i7_aging", 660, 335, 600, 140, "FactPatientCases",
+                       "Open Case Age Bucket", M, "Active Cases"),
+    # R box-and-whisker: AHT spread by team (CallID keeps rows un-deduplicated)
+    make_r_visual("i7_box", 20, 490, 1240, 205,
+                  [("FactHCPCalls", "CallID", False), ("DimRep", "Team", False),
+                   ("FactHCPCalls", "AHT_Minutes", False)],
+                  "library(ggplot2)\n"
+                  "ggplot(dataset, aes(x=Team, y=AHT_Minutes, fill=Team)) +\n"
+                  "  geom_boxplot(outlier.alpha=0.25) +\n"
+                  "  labs(title='AHT distribution by team', x=NULL, y='AHT (min)') +\n"
+                  "  theme_minimal(base_size=12) + theme(legend.position='none')"),
+]
+
 write_page(p1, "Executive Summary", P1)
 write_page(p2, "Call Outcomes", P2)
 write_page(p3, "Rep Productivity", P3)
 write_page(p4, "Trends", P4)
 write_page(p5, "Compliance & Quality", P5)
 write_page(p6, "Channel Mix & Workforce", P6)
-write_pages_json([p1, p2, p3, p4, p5, p6])
+write_page(p7, "Patient Ops & Drill-Down", P7)
+write_pages_json([p1, p2, p3, p4, p5, p6, p7])
 
-print("INTERNAL OPS report — 6 pages")
+print("INTERNAL OPS report — 7 pages")
 for n, pg in [("Executive Summary", P1), ("Call Outcomes", P2), ("Rep Productivity", P3),
-              ("Trends", P4), ("Compliance & Quality", P5), ("Channel Mix & Workforce", P6)]:
+              ("Trends", P4), ("Compliance & Quality", P5), ("Channel Mix & Workforce", P6),
+              ("Patient Ops & Drill-Down", P7)]:
     print(f"  {n}: {len(pg)} visuals")
-print(f"Total: {sum(len(p) for p in [P1,P2,P3,P4,P5,P6])} visuals")
+print(f"Total: {sum(len(p) for p in [P1,P2,P3,P4,P5,P6,P7])} visuals")
 print("Done!")
