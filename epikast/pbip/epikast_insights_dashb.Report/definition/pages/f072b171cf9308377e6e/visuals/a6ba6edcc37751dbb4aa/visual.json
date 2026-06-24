@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "a6ba6edcc37751dbb4aa",
+  "position": {
+    "x": 20,
+    "y": 60,
+    "z": 1000,
+    "height": 48,
+    "width": 400,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "slicer",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimNBA"
+                    }
+                  },
+                  "Property": "outcome"
+                }
+              },
+              "queryRef": "DimNBA.outcome",
+              "nativeQueryRef": "outcome"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

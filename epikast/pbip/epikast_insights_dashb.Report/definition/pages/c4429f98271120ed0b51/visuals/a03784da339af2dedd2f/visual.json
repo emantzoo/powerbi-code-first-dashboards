@@ -1,0 +1,112 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "a03784da339af2dedd2f",
+  "position": {
+    "x": 800,
+    "y": 105,
+    "z": 1000,
+    "height": 405,
+    "width": 460,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "decompositionTreeVisual",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Analyze": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Meaningful Interaction Rate"
+                }
+              },
+              "queryRef": "_Measures.Meaningful Interaction Rate",
+              "nativeQueryRef": "Meaningful Interaction Rate"
+            }
+          ]
+        },
+        "Explain": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "Channel"
+                }
+              },
+              "queryRef": "FactHCPCalls.Channel",
+              "nativeQueryRef": "Channel"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "Script"
+                }
+              },
+              "queryRef": "FactHCPCalls.Script",
+              "nativeQueryRef": "Script"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "AIFollowed"
+                }
+              },
+              "queryRef": "FactHCPCalls.AIFollowed",
+              "nativeQueryRef": "AIFollowed"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimHCP"
+                    }
+                  },
+                  "Property": "Specialty"
+                }
+              },
+              "queryRef": "DimHCP.Specialty",
+              "nativeQueryRef": "Specialty"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimHCP"
+                    }
+                  },
+                  "Property": "Tier"
+                }
+              },
+              "queryRef": "DimHCP.Tier",
+              "nativeQueryRef": "Tier"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

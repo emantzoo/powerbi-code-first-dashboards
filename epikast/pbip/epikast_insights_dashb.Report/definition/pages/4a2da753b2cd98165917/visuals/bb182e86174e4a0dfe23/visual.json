@@ -1,0 +1,98 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "bb182e86174e4a0dfe23",
+  "position": {
+    "x": 800,
+    "y": 105,
+    "z": 1000,
+    "height": 405,
+    "width": 460,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "decompositionTreeVisual",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Analyze": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Abandonment Rate"
+                }
+              },
+              "queryRef": "_Measures.Abandonment Rate",
+              "nativeQueryRef": "Abandonment Rate"
+            }
+          ]
+        },
+        "Explain": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "PAStatus"
+                }
+              },
+              "queryRef": "FactPatientCases.PAStatus",
+              "nativeQueryRef": "PAStatus"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "InsuranceType"
+                }
+              },
+              "queryRef": "FactPatientCases.InsuranceType",
+              "nativeQueryRef": "InsuranceType"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimPatient"
+                    }
+                  },
+                  "Property": "TherapyArea"
+                }
+              },
+              "queryRef": "DimPatient.TherapyArea",
+              "nativeQueryRef": "TherapyArea"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "Drug"
+                }
+              },
+              "queryRef": "FactPatientCases.Drug",
+              "nativeQueryRef": "Drug"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

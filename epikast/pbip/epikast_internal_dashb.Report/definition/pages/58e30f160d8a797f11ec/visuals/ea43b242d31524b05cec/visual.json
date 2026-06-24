@@ -1,0 +1,110 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "ea43b242d31524b05cec",
+  "position": {
+    "x": 20,
+    "y": 200,
+    "z": 1000,
+    "height": 290,
+    "width": 620,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimRep"
+                    }
+                  },
+                  "Property": "RepName"
+                }
+              },
+              "queryRef": "DimRep.RepName",
+              "nativeQueryRef": "RepName"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Calls"
+                }
+              },
+              "queryRef": "_Measures.Total Calls",
+              "nativeQueryRef": "Total Calls"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Connect Rate"
+                }
+              },
+              "queryRef": "_Measures.Connect Rate",
+              "nativeQueryRef": "Connect Rate"
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Meaningful Interactions"
+                }
+              },
+              "queryRef": "_Measures.Meaningful Interactions",
+              "nativeQueryRef": "Meaningful Interactions"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimRep"
+                    }
+                  },
+                  "Property": "Team"
+                }
+              },
+              "queryRef": "DimRep.Team",
+              "nativeQueryRef": "Team"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

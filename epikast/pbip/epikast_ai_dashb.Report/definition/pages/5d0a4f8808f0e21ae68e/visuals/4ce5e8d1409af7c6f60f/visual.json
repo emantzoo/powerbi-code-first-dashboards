@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "4ce5e8d1409af7c6f60f",
+  "position": {
+    "x": 20,
+    "y": 60,
+    "z": 1000,
+    "height": 160,
+    "width": 300,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "multiRowCard",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Script A Connect Rate"
+                }
+              },
+              "queryRef": "_Measures.Script A Connect Rate",
+              "nativeQueryRef": "Script A Connect Rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Script B Connect Rate"
+                }
+              },
+              "queryRef": "_Measures.Script B Connect Rate",
+              "nativeQueryRef": "Script B Connect Rate"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

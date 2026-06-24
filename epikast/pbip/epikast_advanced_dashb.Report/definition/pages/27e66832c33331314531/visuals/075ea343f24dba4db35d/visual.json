@@ -1,0 +1,144 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "075ea343f24dba4db35d",
+  "position": {
+    "x": 660,
+    "y": 105,
+    "z": 1000,
+    "height": 595,
+    "width": 600,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "scriptVisual",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "CallID"
+                }
+              },
+              "queryRef": "FactHCPCalls.CallID",
+              "nativeQueryRef": "CallID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "DurationMinutes"
+                }
+              },
+              "queryRef": "FactHCPCalls.DurationMinutes",
+              "nativeQueryRef": "DurationMinutes"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "CallQualityScore"
+                }
+              },
+              "queryRef": "FactHCPCalls.CallQualityScore",
+              "nativeQueryRef": "CallQualityScore"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "HCPSentimentScore"
+                }
+              },
+              "queryRef": "FactHCPCalls.HCPSentimentScore",
+              "nativeQueryRef": "HCPSentimentScore"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "AIFollowed"
+                }
+              },
+              "queryRef": "FactHCPCalls.AIFollowed",
+              "nativeQueryRef": "AIFollowed"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "ScriptDeviation"
+                }
+              },
+              "queryRef": "FactHCPCalls.ScriptDeviation",
+              "nativeQueryRef": "ScriptDeviation"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "IsMeaningfulInteraction"
+                }
+              },
+              "queryRef": "FactHCPCalls.IsMeaningfulInteraction",
+              "nativeQueryRef": "IsMeaningfulInteraction"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "script": [
+        {
+          "properties": {
+            "source": {
+              "expr": {
+                "Literal": {
+                  "Value": "'\nlibrary(GGally); library(ggplot2)\ndf <- dataset\ndf <- df[!is.na(df$CallQualityScore) & !is.na(df$HCPSentimentScore),]\nset.seed(1); if(nrow(df)>600) df <- df[sample(nrow(df),600),]\ndf$Meaningful <- factor(ifelse(df$IsMeaningfulInteraction==1,\\'Meaningful\\',\\'Not\\'))\ncols <- c(\\'DurationMinutes\\',\\'CallQualityScore\\',\\'HCPSentimentScore\\',\\'AIFollowed\\',\\'ScriptDeviation\\')\nggparcoord(df, columns=which(names(df) %in% cols), groupColumn=\\'Meaningful\\',\n           scale=\\'uniminmax\\', alphaLines=0.25) +\n  scale_color_manual(values=c(\\'Meaningful\\'=\\'#2E8B57\\',\\'Not\\'=\\'#CD3333\\')) +\n  labs(title=\\'Anatomy of a winning call\\', x=NULL, y=NULL) + theme_minimal(base_size=12)\n'"
+                }
+              }
+            },
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'R'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "epikast_internal_dashb"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "fa9a645b-cdbd-5f0c-91ef-97fb922bb738"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "de12cb69aa6ded5d25df",
+  "position": {
+    "x": 1010,
+    "y": 55,
+    "z": 1000,
+    "height": 42,
+    "width": 250,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "slicer",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactUplift"
+                    }
+                  },
+                  "Property": "segment_type"
+                }
+              },
+              "queryRef": "FactUplift.segment_type",
+              "nativeQueryRef": "segment_type"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

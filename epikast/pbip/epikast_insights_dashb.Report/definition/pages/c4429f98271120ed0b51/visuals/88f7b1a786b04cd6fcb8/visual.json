@@ -1,0 +1,154 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "88f7b1a786b04cd6fcb8",
+  "position": {
+    "x": 20,
+    "y": 105,
+    "z": 1000,
+    "height": 405,
+    "width": 760,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "keyDriversVisual",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Analyze": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "IsMeaningfulInteraction"
+                }
+              },
+              "queryRef": "FactHCPCalls.IsMeaningfulInteraction",
+              "nativeQueryRef": "IsMeaningfulInteraction"
+            }
+          ]
+        },
+        "ExplainBy": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "Channel"
+                }
+              },
+              "queryRef": "FactHCPCalls.Channel",
+              "nativeQueryRef": "Channel"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "Script"
+                }
+              },
+              "queryRef": "FactHCPCalls.Script",
+              "nativeQueryRef": "Script"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "AIFollowed"
+                }
+              },
+              "queryRef": "FactHCPCalls.AIFollowed",
+              "nativeQueryRef": "AIFollowed"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "CallTimeBucket"
+                }
+              },
+              "queryRef": "FactHCPCalls.CallTimeBucket",
+              "nativeQueryRef": "CallTimeBucket"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimHCP"
+                    }
+                  },
+                  "Property": "Specialty"
+                }
+              },
+              "queryRef": "DimHCP.Specialty",
+              "nativeQueryRef": "Specialty"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimHCP"
+                    }
+                  },
+                  "Property": "Tier"
+                }
+              },
+              "queryRef": "DimHCP.Tier",
+              "nativeQueryRef": "Tier"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimRep"
+                    }
+                  },
+                  "Property": "Team"
+                }
+              },
+              "queryRef": "DimRep.Team",
+              "nativeQueryRef": "Team"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimRep"
+                    }
+                  },
+                  "Property": "Tenure Bucket"
+                }
+              },
+              "queryRef": "DimRep.Tenure Bucket",
+              "nativeQueryRef": "Tenure Bucket"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

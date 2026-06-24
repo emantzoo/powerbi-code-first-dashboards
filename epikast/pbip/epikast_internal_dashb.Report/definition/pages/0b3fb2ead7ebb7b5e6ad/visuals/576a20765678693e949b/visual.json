@@ -1,0 +1,88 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "576a20765678693e949b",
+  "position": {
+    "x": 20,
+    "y": 490,
+    "z": 1000,
+    "height": 205,
+    "width": 1240,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "scriptVisual",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "CallID"
+                }
+              },
+              "queryRef": "FactHCPCalls.CallID",
+              "nativeQueryRef": "CallID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimRep"
+                    }
+                  },
+                  "Property": "Team"
+                }
+              },
+              "queryRef": "DimRep.Team",
+              "nativeQueryRef": "Team"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "AHT_Minutes"
+                }
+              },
+              "queryRef": "FactHCPCalls.AHT_Minutes",
+              "nativeQueryRef": "AHT_Minutes"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "script": [
+        {
+          "properties": {
+            "source": {
+              "expr": {
+                "Literal": {
+                  "Value": "'library(ggplot2)\nggplot(dataset, aes(x=Team, y=AHT_Minutes, fill=Team)) +\n  geom_boxplot(outlier.alpha=0.25) +\n  labs(title=\\'AHT distribution by team\\', x=NULL, y=\\'AHT (min)\\') +\n  theme_minimal(base_size=12) + theme(legend.position=\\'none\\')'"
+                }
+              }
+            },
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'R'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "b334a3c013dbab6ef70d",
+  "position": {
+    "x": 540,
+    "y": 60,
+    "z": 1000,
+    "height": 640,
+    "width": 720,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "scriptVisual",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ShapBeeswarm"
+                    }
+                  },
+                  "Property": "feature"
+                }
+              },
+              "queryRef": "ShapBeeswarm.feature",
+              "nativeQueryRef": "feature"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ShapBeeswarm"
+                    }
+                  },
+                  "Property": "shap_value"
+                }
+              },
+              "queryRef": "ShapBeeswarm.shap_value",
+              "nativeQueryRef": "shap_value"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ShapBeeswarm"
+                    }
+                  },
+                  "Property": "feature_value_norm"
+                }
+              },
+              "queryRef": "ShapBeeswarm.feature_value_norm",
+              "nativeQueryRef": "feature_value_norm"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "script": [
+        {
+          "properties": {
+            "source": {
+              "expr": {
+                "Literal": {
+                  "Value": "'\nimport matplotlib.pyplot as plt\nimport numpy as np\ndf = dataset\nfeats = list(dict.fromkeys(df[\\'feature\\']))\nfig, ax = plt.subplots(figsize=(8,5))\nsc = None\nfor i, f in enumerate(feats):\n    sub = df[df[\\'feature\\'] == f]\n    y = i + (np.random.rand(len(sub)) - 0.5) * 0.6\n    sc = ax.scatter(sub[\\'shap_value\\'], y, c=sub[\\'feature_value_norm\\'], cmap=\\'coolwarm\\', s=10, alpha=0.6)\nax.set_yticks(range(len(feats))); ax.set_yticklabels(feats)\nax.axvline(0, color=\\'grey\\', lw=0.8)\nax.set_xlabel(\\'SHAP value (impact on meaningful interaction)\\')\nif sc is not None: plt.colorbar(sc, label=\\'feature value\\')\nplt.title(\\'SHAP beeswarm — drivers of meaningful interaction\\')\nplt.tight_layout(); plt.show()\n'"
+                }
+              }
+            },
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Python'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

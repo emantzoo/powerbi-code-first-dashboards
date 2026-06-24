@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "91c4d02f61528428f41e",
+  "displayName": "HCP Engagement",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

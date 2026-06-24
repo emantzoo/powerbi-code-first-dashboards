@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "b1e23f6955ede5c42d20",
+  "displayName": "HCP Sentiment Analysis",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

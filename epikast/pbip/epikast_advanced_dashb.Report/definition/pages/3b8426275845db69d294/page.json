@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "3b8426275845db69d294",
+  "displayName": "SHAP Explainability",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

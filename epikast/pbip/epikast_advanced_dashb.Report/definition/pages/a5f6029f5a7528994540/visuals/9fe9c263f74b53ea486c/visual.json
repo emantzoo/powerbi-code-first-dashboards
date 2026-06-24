@@ -1,0 +1,88 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "9fe9c263f74b53ea486c",
+  "position": {
+    "x": 20,
+    "y": 105,
+    "z": 1000,
+    "height": 595,
+    "width": 620,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "scriptVisual",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "CaseID"
+                }
+              },
+              "queryRef": "FactPatientCases.CaseID",
+              "nativeQueryRef": "CaseID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "PAStatus"
+                }
+              },
+              "queryRef": "FactPatientCases.PAStatus",
+              "nativeQueryRef": "PAStatus"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "CaseStatus"
+                }
+              },
+              "queryRef": "FactPatientCases.CaseStatus",
+              "nativeQueryRef": "CaseStatus"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "script": [
+        {
+          "properties": {
+            "source": {
+              "expr": {
+                "Literal": {
+                  "Value": "'\nlibrary(ggalluvial); library(ggplot2); library(dplyr)\ndf <- dataset %>% count(PAStatus, CaseStatus)\nggplot(df, aes(axis1=PAStatus, axis2=CaseStatus, y=n)) +\n  geom_alluvium(aes(fill=PAStatus), alpha=0.7) +\n  geom_stratum(width=0.3) +\n  geom_text(stat=\\'stratum\\', aes(label=after_stat(stratum)), size=3) +\n  scale_x_discrete(limits=c(\\'PA Status\\',\\'Case Outcome\\'), expand=c(.05,.05)) +\n  labs(title=\\'Patient access flow: PA decision -> outcome\\', y=\\'Patients\\', x=NULL) +\n  theme_minimal(base_size=12)\n'"
+                }
+              }
+            },
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'R'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

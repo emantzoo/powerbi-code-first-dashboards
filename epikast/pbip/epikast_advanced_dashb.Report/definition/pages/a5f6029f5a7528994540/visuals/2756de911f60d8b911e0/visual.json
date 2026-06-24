@@ -1,0 +1,102 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "2756de911f60d8b911e0",
+  "position": {
+    "x": 660,
+    "y": 105,
+    "z": 1000,
+    "height": 595,
+    "width": 600,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "scriptVisual",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "CaseID"
+                }
+              },
+              "queryRef": "FactPatientCases.CaseID",
+              "nativeQueryRef": "CaseID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "TimeToTherapyDays"
+                }
+              },
+              "queryRef": "FactPatientCases.TimeToTherapyDays",
+              "nativeQueryRef": "TimeToTherapyDays"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "IsAbandoned"
+                }
+              },
+              "queryRef": "FactPatientCases.IsAbandoned",
+              "nativeQueryRef": "IsAbandoned"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "InsuranceType"
+                }
+              },
+              "queryRef": "FactPatientCases.InsuranceType",
+              "nativeQueryRef": "InsuranceType"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "script": [
+        {
+          "properties": {
+            "source": {
+              "expr": {
+                "Literal": {
+                  "Value": "'\nlibrary(survival); library(survminer)\ndf <- dataset\ndf$time <- ifelse(is.na(df$TimeToTherapyDays) | df$TimeToTherapyDays<=0, 60, df$TimeToTherapyDays)\ndf$event <- ifelse(df$IsAbandoned==1, 0, 1)\nfit <- survfit(Surv(time, event) ~ InsuranceType, data=df)\nggsurvplot(fit, data=df, conf.int=TRUE, legend.title=\\'Insurance\\',\n           xlab=\\'Days since Rx\\', ylab=\\'Share not yet on therapy\\',\n           title=\\'Time to therapy by insurance\\')$plot\n'"
+                }
+              }
+            },
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'R'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

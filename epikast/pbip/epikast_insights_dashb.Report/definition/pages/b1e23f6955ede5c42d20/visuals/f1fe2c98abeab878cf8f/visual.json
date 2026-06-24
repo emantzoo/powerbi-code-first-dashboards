@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "f1fe2c98abeab878cf8f",
+  "position": {
+    "x": 965,
+    "y": 60,
+    "z": 1000,
+    "height": 120,
+    "width": 295,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "slicer",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "Channel"
+                }
+              },
+              "queryRef": "FactHCPCalls.Channel",
+              "nativeQueryRef": "Channel"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

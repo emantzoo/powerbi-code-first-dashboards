@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "2620fd6fca8155c068f4",
+  "position": {
+    "x": 1080,
+    "y": 55,
+    "z": 1000,
+    "height": 42,
+    "width": 180,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "slicer",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimHCP"
+                    }
+                  },
+                  "Property": "TherapyArea"
+                }
+              },
+              "queryRef": "DimHCP.TherapyArea",
+              "nativeQueryRef": "TherapyArea"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

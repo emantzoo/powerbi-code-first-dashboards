@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "b006cdc6ed24ede4b93a",
+  "position": {
+    "x": 960,
+    "y": 60,
+    "z": 1000,
+    "height": 56,
+    "width": 300,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "slicer",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimExperiment"
+                    }
+                  },
+                  "Property": "Status"
+                }
+              },
+              "queryRef": "DimExperiment.Status",
+              "nativeQueryRef": "Status"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

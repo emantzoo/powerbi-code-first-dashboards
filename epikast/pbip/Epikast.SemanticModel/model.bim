@@ -1,0 +1,2649 @@
+{
+  "name": "Epikast",
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "en-US",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "discourageImplicitMeasures": true,
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "DimCalendar",
+        "lineageTag": "62d78bb3-cbbf-0c31-06b9-38556a3cd8d2",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Date",
+            "summarizeBy": "none",
+            "lineageTag": "e5c79c11-cd36-4e41-73f9-0095e5570853",
+            "formatString": "General Date"
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "sourceColumn": "Year",
+            "summarizeBy": "none",
+            "lineageTag": "f666828f-9391-f70f-5f28-103465cdd2e1",
+            "formatString": "0"
+          },
+          {
+            "name": "Quarter",
+            "dataType": "string",
+            "sourceColumn": "Quarter",
+            "summarizeBy": "none",
+            "lineageTag": "4784e274-8cc8-064e-af13-a03f4f846e0d"
+          },
+          {
+            "name": "Month",
+            "dataType": "string",
+            "sourceColumn": "Month",
+            "summarizeBy": "none",
+            "lineageTag": "ce5085be-8ccb-90b8-3c56-b2832e0b5580"
+          },
+          {
+            "name": "MonthNum",
+            "dataType": "int64",
+            "sourceColumn": "MonthNum",
+            "summarizeBy": "none",
+            "lineageTag": "7e778959-05d1-27ac-7c5c-d92c5b68dfc9",
+            "formatString": "0"
+          },
+          {
+            "name": "YearMonth",
+            "dataType": "string",
+            "sourceColumn": "YearMonth",
+            "summarizeBy": "none",
+            "lineageTag": "287f047c-dd31-c359-f77c-d73a934a6141"
+          },
+          {
+            "name": "WeekNum",
+            "dataType": "int64",
+            "sourceColumn": "WeekNum",
+            "summarizeBy": "none",
+            "lineageTag": "1fd52384-4416-d3d7-3010-95ff215651e2",
+            "formatString": "0"
+          },
+          {
+            "name": "DayOfWeek",
+            "dataType": "string",
+            "sourceColumn": "DayOfWeek",
+            "summarizeBy": "none",
+            "lineageTag": "a619202a-66d9-f07c-70da-7425074bd2fa"
+          },
+          {
+            "name": "DayOfWeekNum",
+            "dataType": "int64",
+            "sourceColumn": "DayOfWeekNum",
+            "summarizeBy": "none",
+            "lineageTag": "a31bbe55-bc91-f280-b885-873b6d0272f0",
+            "formatString": "0"
+          },
+          {
+            "name": "IsWeekend",
+            "dataType": "int64",
+            "sourceColumn": "IsWeekend",
+            "summarizeBy": "none",
+            "lineageTag": "1fdc37d5-8836-311c-d439-e46e1a21e081",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimCalendar",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(SourceFolder & \"DimCalendar.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"Date\", type datetime}, {\"Year\", Int64.Type}, {\"Quarter\", type text}, {\"Month\", type text}, {\"MonthNum\", Int64.Type}, {\"YearMonth\", type text}, {\"WeekNum\", Int64.Type}, {\"DayOfWeek\", type text}, {\"DayOfWeekNum\", Int64.Type}, {\"IsWeekend\", Int64.Type}})",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimDrug",
+        "lineageTag": "e79c8188-d7ed-6ebb-d924-586b237eff5f",
+        "columns": [
+          {
+            "name": "DrugID",
+            "dataType": "string",
+            "sourceColumn": "DrugID",
+            "summarizeBy": "none",
+            "lineageTag": "ba037b52-499a-17f3-2714-a20cc2ac5db3"
+          },
+          {
+            "name": "DrugName",
+            "dataType": "string",
+            "sourceColumn": "DrugName",
+            "summarizeBy": "none",
+            "lineageTag": "043f534f-6044-61d8-175a-32f5288772d1"
+          },
+          {
+            "name": "TherapyArea",
+            "dataType": "string",
+            "sourceColumn": "TherapyArea",
+            "summarizeBy": "none",
+            "lineageTag": "ed74fa61-5c47-2021-2ac5-6e4bd641b60e"
+          },
+          {
+            "name": "LaunchDate",
+            "dataType": "dateTime",
+            "sourceColumn": "LaunchDate",
+            "summarizeBy": "none",
+            "lineageTag": "c3479d7e-40dc-26c7-ca6d-a57f2709a5b1",
+            "formatString": "General Date"
+          },
+          {
+            "name": "IsSpecialty",
+            "dataType": "int64",
+            "sourceColumn": "IsSpecialty",
+            "summarizeBy": "none",
+            "lineageTag": "799b5b68-d67a-a7c3-e1fb-8b8d3689b899",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimDrug",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(SourceFolder & \"DimDrug.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"DrugID\", type text}, {\"DrugName\", type text}, {\"TherapyArea\", type text}, {\"LaunchDate\", type datetime}, {\"IsSpecialty\", Int64.Type}})",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimExperiment",
+        "lineageTag": "d734dd9f-73fa-7ba7-b8d3-bbe7299be60f",
+        "columns": [
+          {
+            "name": "ExperimentID",
+            "dataType": "string",
+            "sourceColumn": "ExperimentID",
+            "summarizeBy": "none",
+            "lineageTag": "674c8d1f-f4f9-1148-3557-3f933e3b2b41"
+          },
+          {
+            "name": "ExperimentName",
+            "dataType": "string",
+            "sourceColumn": "ExperimentName",
+            "summarizeBy": "none",
+            "lineageTag": "fb682b3e-0ff9-5cfd-0c08-483168b1d1c9"
+          },
+          {
+            "name": "Hypothesis",
+            "dataType": "string",
+            "sourceColumn": "Hypothesis",
+            "summarizeBy": "none",
+            "lineageTag": "a6cb6236-fc9a-25f8-c9be-bbaaa9f63d2e"
+          },
+          {
+            "name": "PrimaryKPI",
+            "dataType": "string",
+            "sourceColumn": "PrimaryKPI",
+            "summarizeBy": "none",
+            "lineageTag": "4d220c29-3edd-0a7b-5bd4-9885a13e0022"
+          },
+          {
+            "name": "GuardrailKPI",
+            "dataType": "string",
+            "sourceColumn": "GuardrailKPI",
+            "summarizeBy": "none",
+            "lineageTag": "f852c842-bf65-4805-812b-047b769d0525"
+          },
+          {
+            "name": "StartDate",
+            "dataType": "dateTime",
+            "sourceColumn": "StartDate",
+            "summarizeBy": "none",
+            "lineageTag": "e24bd51b-1eaf-2903-080a-ca72dc9cf3fd",
+            "formatString": "General Date"
+          },
+          {
+            "name": "EndDate",
+            "dataType": "dateTime",
+            "sourceColumn": "EndDate",
+            "summarizeBy": "none",
+            "lineageTag": "5f488721-4cb2-9ae5-ac47-0d80506e5630",
+            "formatString": "General Date"
+          },
+          {
+            "name": "Status",
+            "dataType": "string",
+            "sourceColumn": "Status",
+            "summarizeBy": "none",
+            "lineageTag": "a7a78b26-7250-598a-d82c-3e1c3bcf56da"
+          },
+          {
+            "name": "Winner",
+            "dataType": "string",
+            "sourceColumn": "Winner",
+            "summarizeBy": "none",
+            "lineageTag": "d1c6eb58-b11d-6deb-75ce-87a2603bb3ef"
+          },
+          {
+            "name": "SampleSizeTarget",
+            "dataType": "int64",
+            "sourceColumn": "SampleSizeTarget",
+            "summarizeBy": "none",
+            "lineageTag": "7af6c5a0-479e-4ebb-961e-5adca42a3fd2",
+            "formatString": "0"
+          },
+          {
+            "name": "SampleSizeActual",
+            "dataType": "int64",
+            "sourceColumn": "SampleSizeActual",
+            "summarizeBy": "none",
+            "lineageTag": "8c7b4a37-c0f3-b9d9-09c7-47881772bc5b",
+            "formatString": "0"
+          },
+          {
+            "name": "ConfidenceLevel",
+            "dataType": "double",
+            "sourceColumn": "ConfidenceLevel",
+            "summarizeBy": "none",
+            "lineageTag": "be276e1f-b687-cfc8-2c8f-eb966d62412b"
+          },
+          {
+            "name": "ObservedLift",
+            "dataType": "double",
+            "sourceColumn": "ObservedLift",
+            "summarizeBy": "none",
+            "lineageTag": "eb0c1dc0-a999-03a7-4a63-ac0215d7d6cd"
+          },
+          {
+            "name": "TherapyArea",
+            "dataType": "string",
+            "sourceColumn": "TherapyArea",
+            "summarizeBy": "none",
+            "lineageTag": "9506adcf-da01-455c-6ecb-dca33f08a6d6"
+          },
+          {
+            "name": "TargetPopulation",
+            "dataType": "string",
+            "sourceColumn": "TargetPopulation",
+            "summarizeBy": "none",
+            "lineageTag": "2ca97644-dcc3-507f-8ba4-8ff8c8826c6f"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimExperiment",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(SourceFolder & \"DimExperiment.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"ExperimentID\", type text}, {\"ExperimentName\", type text}, {\"Hypothesis\", type text}, {\"PrimaryKPI\", type text}, {\"GuardrailKPI\", type text}, {\"StartDate\", type datetime}, {\"EndDate\", type datetime}, {\"Status\", type text}, {\"Winner\", type text}, {\"SampleSizeTarget\", Int64.Type}, {\"SampleSizeActual\", Int64.Type}, {\"ConfidenceLevel\", type number}, {\"ObservedLift\", type number}, {\"TherapyArea\", type text}, {\"TargetPopulation\", type text}})",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimHCP",
+        "lineageTag": "cb3d7846-68e5-7b98-a9f7-a168fad4a876",
+        "columns": [
+          {
+            "name": "HCPID",
+            "dataType": "string",
+            "sourceColumn": "HCPID",
+            "summarizeBy": "none",
+            "lineageTag": "9a259477-17ca-d45a-79dc-8431d7364594"
+          },
+          {
+            "name": "HCPName",
+            "dataType": "string",
+            "sourceColumn": "HCPName",
+            "summarizeBy": "none",
+            "lineageTag": "6b19dd7e-f79a-874e-a831-d00a059ebada"
+          },
+          {
+            "name": "Specialty",
+            "dataType": "string",
+            "sourceColumn": "Specialty",
+            "summarizeBy": "none",
+            "lineageTag": "8b6079ff-6f04-48ca-f611-eae7034a745a"
+          },
+          {
+            "name": "TherapyArea",
+            "dataType": "string",
+            "sourceColumn": "TherapyArea",
+            "summarizeBy": "none",
+            "lineageTag": "4088922e-fec1-04a2-4716-e3477b16eeba"
+          },
+          {
+            "name": "State",
+            "dataType": "string",
+            "sourceColumn": "State",
+            "summarizeBy": "none",
+            "lineageTag": "dc191ec5-d833-274e-61c6-c1fb3e0882bc"
+          },
+          {
+            "name": "Region",
+            "dataType": "string",
+            "sourceColumn": "Region",
+            "summarizeBy": "none",
+            "lineageTag": "5ffe3c84-af78-0fd4-3cfb-b17b640ccedb"
+          },
+          {
+            "name": "Tier",
+            "dataType": "string",
+            "sourceColumn": "Tier",
+            "summarizeBy": "none",
+            "lineageTag": "cf894fce-f74c-100f-bc8f-0ca24a31df2b"
+          },
+          {
+            "name": "PrePeriodRxVolume",
+            "dataType": "int64",
+            "sourceColumn": "PrePeriodRxVolume",
+            "summarizeBy": "none",
+            "lineageTag": "403eaf60-928a-7993-6a5c-216a02309f79",
+            "formatString": "0"
+          },
+          {
+            "name": "IsTarget",
+            "dataType": "int64",
+            "sourceColumn": "IsTarget",
+            "summarizeBy": "none",
+            "lineageTag": "2ae72f7f-286b-402a-40be-bec9da01a1d1",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimHCP",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(SourceFolder & \"DimHCP.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"HCPID\", type text}, {\"HCPName\", type text}, {\"Specialty\", type text}, {\"TherapyArea\", type text}, {\"State\", type text}, {\"Region\", type text}, {\"Tier\", type text}, {\"PrePeriodRxVolume\", Int64.Type}, {\"IsTarget\", Int64.Type}})",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimNBA",
+        "lineageTag": "b51f78ba-bb3e-d4d2-233b-1412f48c159e",
+        "columns": [
+          {
+            "name": "segment_type",
+            "dataType": "string",
+            "sourceColumn": "segment_type",
+            "summarizeBy": "none",
+            "lineageTag": "b1abfe94-86f7-f72d-710b-5a60d970526d"
+          },
+          {
+            "name": "segment_value",
+            "dataType": "string",
+            "sourceColumn": "segment_value",
+            "summarizeBy": "none",
+            "lineageTag": "a0735a14-945e-be16-7815-8d4484a492b9"
+          },
+          {
+            "name": "outcome",
+            "dataType": "string",
+            "sourceColumn": "outcome",
+            "summarizeBy": "none",
+            "lineageTag": "3083fb10-beca-65f5-377b-a75f18ca018b"
+          },
+          {
+            "name": "recommended_tactic",
+            "dataType": "string",
+            "sourceColumn": "recommended_tactic",
+            "summarizeBy": "none",
+            "lineageTag": "bb746630-b664-05eb-de9a-26d02df5aa55"
+          },
+          {
+            "name": "est_uplift",
+            "dataType": "double",
+            "sourceColumn": "est_uplift",
+            "summarizeBy": "none",
+            "lineageTag": "88c02ada-8397-1adb-bee4-933ed847c5d5"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimNBA",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(SourceFolder & \"DimNBA.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"segment_type\", type text}, {\"segment_value\", type text}, {\"outcome\", type text}, {\"recommended_tactic\", type text}, {\"est_uplift\", type number}})",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimPatient",
+        "lineageTag": "06c53f92-aa16-0306-93fa-9368c7119635",
+        "columns": [
+          {
+            "name": "PatientID",
+            "dataType": "string",
+            "sourceColumn": "PatientID",
+            "summarizeBy": "none",
+            "lineageTag": "43c574fe-cc3e-f699-515d-e3acf25d6c04"
+          },
+          {
+            "name": "AgeGroup",
+            "dataType": "string",
+            "sourceColumn": "AgeGroup",
+            "summarizeBy": "none",
+            "lineageTag": "82f42d28-6d6f-55b2-f159-ea49eae510de"
+          },
+          {
+            "name": "Gender",
+            "dataType": "string",
+            "sourceColumn": "Gender",
+            "summarizeBy": "none",
+            "lineageTag": "f19699e1-de96-adf8-b854-88f441fc2b1a"
+          },
+          {
+            "name": "State",
+            "dataType": "string",
+            "sourceColumn": "State",
+            "summarizeBy": "none",
+            "lineageTag": "ff5015a8-9d4a-23ff-5391-78604d7b6b65"
+          },
+          {
+            "name": "Region",
+            "dataType": "string",
+            "sourceColumn": "Region",
+            "summarizeBy": "none",
+            "lineageTag": "3aa980a3-9bc3-f1bb-f3d4-f285e6f35330"
+          },
+          {
+            "name": "InsuranceType",
+            "dataType": "string",
+            "sourceColumn": "InsuranceType",
+            "summarizeBy": "none",
+            "lineageTag": "c6349db4-5b8a-3458-f15a-1f208ef7d317"
+          },
+          {
+            "name": "TherapyArea",
+            "dataType": "string",
+            "sourceColumn": "TherapyArea",
+            "summarizeBy": "none",
+            "lineageTag": "a8046253-3d05-ad3b-0fff-3f2c4359e719"
+          },
+          {
+            "name": "Drug",
+            "dataType": "string",
+            "sourceColumn": "Drug",
+            "summarizeBy": "none",
+            "lineageTag": "c3076900-0803-c8e7-e773-fa904ad86305"
+          },
+          {
+            "name": "EnrollmentDate",
+            "dataType": "dateTime",
+            "sourceColumn": "EnrollmentDate",
+            "summarizeBy": "none",
+            "lineageTag": "76c81703-45b8-9a03-26b4-6bf6b5fa49ca",
+            "formatString": "General Date"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimPatient",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(SourceFolder & \"DimPatient.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"PatientID\", type text}, {\"AgeGroup\", type text}, {\"Gender\", type text}, {\"State\", type text}, {\"Region\", type text}, {\"InsuranceType\", type text}, {\"TherapyArea\", type text}, {\"Drug\", type text}, {\"EnrollmentDate\", type datetime}})",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimRep",
+        "lineageTag": "2428756e-441d-b29c-7053-aac8513f82ea",
+        "columns": [
+          {
+            "name": "RepID",
+            "dataType": "string",
+            "sourceColumn": "RepID",
+            "summarizeBy": "none",
+            "lineageTag": "b83437e0-c160-381d-e4c3-d704f1d05a88"
+          },
+          {
+            "name": "RepName",
+            "dataType": "string",
+            "sourceColumn": "RepName",
+            "summarizeBy": "none",
+            "lineageTag": "2e6009e8-0125-cfea-73a2-26a30a23bb03"
+          },
+          {
+            "name": "Role",
+            "dataType": "string",
+            "sourceColumn": "Role",
+            "summarizeBy": "none",
+            "lineageTag": "bd21f6aa-989c-ed97-cac2-68c0916d8d3a"
+          },
+          {
+            "name": "Team",
+            "dataType": "string",
+            "sourceColumn": "Team",
+            "summarizeBy": "none",
+            "lineageTag": "10786e8b-4d8e-dc19-2e5d-26085141f3eb"
+          },
+          {
+            "name": "TherapyArea",
+            "dataType": "string",
+            "sourceColumn": "TherapyArea",
+            "summarizeBy": "none",
+            "lineageTag": "14761ab8-947d-8fc9-bc81-9a8a1fed0f7d"
+          },
+          {
+            "name": "HireDate",
+            "dataType": "dateTime",
+            "sourceColumn": "HireDate",
+            "summarizeBy": "none",
+            "lineageTag": "9e65da8e-8568-89aa-bde4-6da39cb44e65",
+            "formatString": "General Date"
+          },
+          {
+            "name": "TenureMonths",
+            "dataType": "int64",
+            "sourceColumn": "TenureMonths",
+            "summarizeBy": "none",
+            "lineageTag": "fd84c151-e8af-0416-e9b7-42cdac7430d4",
+            "formatString": "0"
+          },
+          {
+            "name": "IsActive",
+            "dataType": "int64",
+            "sourceColumn": "IsActive",
+            "summarizeBy": "none",
+            "lineageTag": "2d36bb93-843d-3adf-bbb1-c77c04b23abf",
+            "formatString": "0"
+          },
+          {
+            "name": "Performance Tier",
+            "dataType": "string",
+            "type": "calculated",
+            "expression": "VAR Total = COUNTROWS(ALL(DimRep))\nVAR Rnk = RANKX(ALL(DimRep), CALCULATE([Meaningful Interactions]), , DESC)\nRETURN IF(Rnk <= ROUNDUP(Total * 0.2, 0), \"Top 20%\", \"Rest\")",
+            "summarizeBy": "none",
+            "lineageTag": "c81b167b-1979-9d78-893e-8f13163ba3fb"
+          },
+          {
+            "name": "Tenure Bucket",
+            "dataType": "string",
+            "type": "calculated",
+            "expression": "SWITCH(TRUE(),\n    DimRep[TenureMonths] < 6, \"0-6mo\",\n    DimRep[TenureMonths] < 12, \"6-12mo\",\n    DimRep[TenureMonths] < 18, \"12-18mo\",\n    \"18+mo\")",
+            "summarizeBy": "none",
+            "lineageTag": "58c414dc-2e28-3a63-871d-3140654c9b12"
+          },
+          {
+            "name": "AI Adoption Band",
+            "dataType": "string",
+            "type": "calculated",
+            "expression": "VAR r = CALCULATE(DIVIDE(CALCULATE(COUNTROWS(FactHCPCalls), FactHCPCalls[AIFollowed] = 1), COUNTROWS(FactHCPCalls)))\nRETURN SWITCH(TRUE(), r >= 0.5, \"High\", r >= 0.3, \"Medium\", \"Low\")",
+            "summarizeBy": "none",
+            "lineageTag": "91a168b4-74af-8e4a-1a5e-39fb9224ff12"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimRep",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(SourceFolder & \"DimRep.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"RepID\", type text}, {\"RepName\", type text}, {\"Role\", type text}, {\"Team\", type text}, {\"TherapyArea\", type text}, {\"HireDate\", type datetime}, {\"TenureMonths\", Int64.Type}, {\"IsActive\", Int64.Type}})",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactFinancials",
+        "lineageTag": "a38f20e7-d000-3639-f60d-e1248afa8efb",
+        "columns": [
+          {
+            "name": "FinancialID",
+            "dataType": "string",
+            "sourceColumn": "FinancialID",
+            "summarizeBy": "none",
+            "lineageTag": "457e7fc3-21d3-a954-18d8-f51d6e7c0b07"
+          },
+          {
+            "name": "YearMonth",
+            "dataType": "string",
+            "sourceColumn": "YearMonth",
+            "summarizeBy": "none",
+            "lineageTag": "0b3f4a2c-a6ab-d98c-c9b9-e3a92b23f251"
+          },
+          {
+            "name": "MonthDate",
+            "dataType": "dateTime",
+            "sourceColumn": "MonthDate",
+            "summarizeBy": "none",
+            "lineageTag": "6db442ad-54c8-dbd3-bbe7-1cd240bd001a",
+            "formatString": "General Date"
+          },
+          {
+            "name": "RepHeadcount",
+            "dataType": "int64",
+            "sourceColumn": "RepHeadcount",
+            "summarizeBy": "none",
+            "lineageTag": "441cb272-2e6e-25b0-530b-c48244130a97",
+            "formatString": "0"
+          },
+          {
+            "name": "RepCost_EUR",
+            "dataType": "int64",
+            "sourceColumn": "RepCost_EUR",
+            "summarizeBy": "none",
+            "lineageTag": "3d59d0d6-4fac-242d-bcf0-a0e6a880e19f",
+            "formatString": "0"
+          },
+          {
+            "name": "TechCost_EUR",
+            "dataType": "int64",
+            "sourceColumn": "TechCost_EUR",
+            "summarizeBy": "none",
+            "lineageTag": "657b6f1c-f101-a1db-b5aa-5a794448ff38",
+            "formatString": "0"
+          },
+          {
+            "name": "MgmtCost_EUR",
+            "dataType": "int64",
+            "sourceColumn": "MgmtCost_EUR",
+            "summarizeBy": "none",
+            "lineageTag": "7b0ee50f-8ec2-f281-8246-af96c5b241fa",
+            "formatString": "0"
+          },
+          {
+            "name": "TotalCost_EUR",
+            "dataType": "int64",
+            "sourceColumn": "TotalCost_EUR",
+            "summarizeBy": "none",
+            "lineageTag": "5cd63be7-649f-c240-dfd4-2923483d0ab3",
+            "formatString": "0"
+          },
+          {
+            "name": "BaseRevenue_USD",
+            "dataType": "int64",
+            "sourceColumn": "BaseRevenue_USD",
+            "summarizeBy": "none",
+            "lineageTag": "33646c60-1576-da57-4815-9046860912b3",
+            "formatString": "0"
+          },
+          {
+            "name": "EngagementRevenue_USD",
+            "dataType": "int64",
+            "sourceColumn": "EngagementRevenue_USD",
+            "summarizeBy": "none",
+            "lineageTag": "ac54699d-68eb-85a2-c701-59935f1824a1",
+            "formatString": "0"
+          },
+          {
+            "name": "CaseRevenue_USD",
+            "dataType": "int64",
+            "sourceColumn": "CaseRevenue_USD",
+            "summarizeBy": "none",
+            "lineageTag": "fe3b28ea-a0c8-5e31-cb41-9d3cbeff71b9",
+            "formatString": "0"
+          },
+          {
+            "name": "TotalRevenue_USD",
+            "dataType": "int64",
+            "sourceColumn": "TotalRevenue_USD",
+            "summarizeBy": "none",
+            "lineageTag": "cc58af02-5f37-435f-69fe-9a22625358f8",
+            "formatString": "0"
+          },
+          {
+            "name": "TotalCalls",
+            "dataType": "int64",
+            "sourceColumn": "TotalCalls",
+            "summarizeBy": "none",
+            "lineageTag": "4f1e1dd1-1fd0-ce22-f455-67adf0dd2308",
+            "formatString": "0"
+          },
+          {
+            "name": "TotalCases",
+            "dataType": "int64",
+            "sourceColumn": "TotalCases",
+            "summarizeBy": "none",
+            "lineageTag": "d8f333b1-976a-f289-0a96-a74144e9c24e",
+            "formatString": "0"
+          },
+          {
+            "name": "CostPerCall_EUR",
+            "dataType": "double",
+            "sourceColumn": "CostPerCall_EUR",
+            "summarizeBy": "none",
+            "lineageTag": "41e7bdc3-20ca-9f5f-2b20-8d6b246dcdd0"
+          },
+          {
+            "name": "CostPerCase_EUR",
+            "dataType": "double",
+            "sourceColumn": "CostPerCase_EUR",
+            "summarizeBy": "none",
+            "lineageTag": "cf241b79-1590-f6d2-24cf-c9ead0aa26fd"
+          },
+          {
+            "name": "GrossMargin_USD",
+            "dataType": "int64",
+            "sourceColumn": "GrossMargin_USD",
+            "summarizeBy": "none",
+            "lineageTag": "1d8c50e0-0056-d236-95f2-32a65717cc72",
+            "formatString": "0"
+          },
+          {
+            "name": "GrossMarginPct",
+            "dataType": "double",
+            "sourceColumn": "GrossMarginPct",
+            "summarizeBy": "none",
+            "lineageTag": "badd365f-d27d-f9f4-eea4-ea504e72295b"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactFinancials",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(SourceFolder & \"FactFinancials.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"FinancialID\", type text}, {\"YearMonth\", type text}, {\"MonthDate\", type datetime}, {\"RepHeadcount\", Int64.Type}, {\"RepCost_EUR\", Int64.Type}, {\"TechCost_EUR\", Int64.Type}, {\"MgmtCost_EUR\", Int64.Type}, {\"TotalCost_EUR\", Int64.Type}, {\"BaseRevenue_USD\", Int64.Type}, {\"EngagementRevenue_USD\", Int64.Type}, {\"CaseRevenue_USD\", Int64.Type}, {\"TotalRevenue_USD\", Int64.Type}, {\"TotalCalls\", Int64.Type}, {\"TotalCases\", Int64.Type}, {\"CostPerCall_EUR\", type number}, {\"CostPerCase_EUR\", type number}, {\"GrossMargin_USD\", Int64.Type}, {\"GrossMarginPct\", type number}})",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactHCPCalls",
+        "lineageTag": "c6c5381a-6121-f876-e71f-07362f529865",
+        "columns": [
+          {
+            "name": "CallID",
+            "dataType": "string",
+            "sourceColumn": "CallID",
+            "summarizeBy": "none",
+            "lineageTag": "6da5190d-9532-aca8-a685-9670f0dd5e35"
+          },
+          {
+            "name": "CallDate",
+            "dataType": "dateTime",
+            "sourceColumn": "CallDate",
+            "summarizeBy": "none",
+            "lineageTag": "b831bdae-8d2a-9baa-f708-54d3ac7719d1",
+            "formatString": "General Date"
+          },
+          {
+            "name": "CallTime",
+            "dataType": "string",
+            "sourceColumn": "CallTime",
+            "summarizeBy": "none",
+            "lineageTag": "5cb32ab7-77f6-7fd4-a3c5-f3651b749ad3"
+          },
+          {
+            "name": "RepID",
+            "dataType": "string",
+            "sourceColumn": "RepID",
+            "summarizeBy": "none",
+            "lineageTag": "222b52b6-af42-3094-de41-94ca012db519"
+          },
+          {
+            "name": "HCPID",
+            "dataType": "string",
+            "sourceColumn": "HCPID",
+            "summarizeBy": "none",
+            "lineageTag": "62670cd1-94f9-e8e5-af14-8e0bf137ed1f"
+          },
+          {
+            "name": "CallOutcome",
+            "dataType": "string",
+            "sourceColumn": "CallOutcome",
+            "summarizeBy": "none",
+            "lineageTag": "0fbbac36-d1b9-d561-2be5-54fd00161328"
+          },
+          {
+            "name": "IsConnected",
+            "dataType": "int64",
+            "sourceColumn": "IsConnected",
+            "summarizeBy": "none",
+            "lineageTag": "a1cec281-076a-5987-6130-8bcd07263eb6",
+            "formatString": "0"
+          },
+          {
+            "name": "DurationMinutes",
+            "dataType": "double",
+            "sourceColumn": "DurationMinutes",
+            "summarizeBy": "none",
+            "lineageTag": "2b33f89a-7d33-eb9e-5ff5-066f4de30dc9"
+          },
+          {
+            "name": "AfterCallWorkMinutes",
+            "dataType": "double",
+            "sourceColumn": "AfterCallWorkMinutes",
+            "summarizeBy": "none",
+            "lineageTag": "8b0e1f8e-eb58-7cc3-8574-667904dd1b23"
+          },
+          {
+            "name": "AHT_Minutes",
+            "dataType": "double",
+            "sourceColumn": "AHT_Minutes",
+            "summarizeBy": "none",
+            "lineageTag": "7288237a-4c52-12fb-874e-1baa09945f5f"
+          },
+          {
+            "name": "IsMeaningfulInteraction",
+            "dataType": "int64",
+            "sourceColumn": "IsMeaningfulInteraction",
+            "summarizeBy": "none",
+            "lineageTag": "093f05fe-4de2-f72e-7dc5-4362139454c3",
+            "formatString": "0"
+          },
+          {
+            "name": "InteractionType",
+            "dataType": "string",
+            "sourceColumn": "InteractionType",
+            "summarizeBy": "none",
+            "lineageTag": "6e8e9cac-9645-05a2-b720-69bda1294791"
+          },
+          {
+            "name": "Script",
+            "dataType": "string",
+            "sourceColumn": "Script",
+            "summarizeBy": "none",
+            "lineageTag": "452c585d-781a-b00c-f3e4-79245ba41a5f"
+          },
+          {
+            "name": "AIRecommended",
+            "dataType": "int64",
+            "sourceColumn": "AIRecommended",
+            "summarizeBy": "none",
+            "lineageTag": "72d0ae2e-96b5-d99f-b67c-1ce1fb176bc1",
+            "formatString": "0"
+          },
+          {
+            "name": "AIFollowed",
+            "dataType": "int64",
+            "sourceColumn": "AIFollowed",
+            "summarizeBy": "none",
+            "lineageTag": "eb5679c5-ab44-4841-38f5-fb2c89b2a896",
+            "formatString": "0"
+          },
+          {
+            "name": "ScheduledTime",
+            "dataType": "string",
+            "sourceColumn": "ScheduledTime",
+            "summarizeBy": "none",
+            "lineageTag": "a8a71b67-10f6-5313-f08b-57fbcf793f3d"
+          },
+          {
+            "name": "IsScheduleAdherent",
+            "dataType": "int64",
+            "sourceColumn": "IsScheduleAdherent",
+            "summarizeBy": "none",
+            "lineageTag": "d0be6772-5158-b2ed-8d11-dc7f77863a23",
+            "formatString": "0"
+          },
+          {
+            "name": "Drug",
+            "dataType": "string",
+            "sourceColumn": "Drug",
+            "summarizeBy": "none",
+            "lineageTag": "cf2e6b3d-20e2-c973-819c-8ece4471e83b"
+          },
+          {
+            "name": "TherapyArea",
+            "dataType": "string",
+            "sourceColumn": "TherapyArea",
+            "summarizeBy": "none",
+            "lineageTag": "9606274e-3ea5-ea5e-dcca-c4d2c74d9699"
+          },
+          {
+            "name": "NotesTaken",
+            "dataType": "int64",
+            "sourceColumn": "NotesTaken",
+            "summarizeBy": "none",
+            "lineageTag": "e8b8aad2-fe6d-e3c2-dbfa-d53389ae936b",
+            "formatString": "0"
+          },
+          {
+            "name": "FollowUpScheduled",
+            "dataType": "int64",
+            "sourceColumn": "FollowUpScheduled",
+            "summarizeBy": "none",
+            "lineageTag": "12a32c11-ea52-d4ea-6ce4-59fd2cd66899",
+            "formatString": "0"
+          },
+          {
+            "name": "HCPSentimentScore",
+            "dataType": "double",
+            "sourceColumn": "HCPSentimentScore",
+            "summarizeBy": "none",
+            "lineageTag": "5ff67640-1373-3c3a-507a-f9269f9da5a7"
+          },
+          {
+            "name": "Channel",
+            "dataType": "string",
+            "sourceColumn": "Channel",
+            "summarizeBy": "none",
+            "lineageTag": "4ba67a8e-5db1-6a2d-1098-0b6048e284a0"
+          },
+          {
+            "name": "ScriptDeviation",
+            "dataType": "int64",
+            "sourceColumn": "ScriptDeviation",
+            "summarizeBy": "none",
+            "lineageTag": "e5e24647-8126-7886-ff54-de596136efbe",
+            "formatString": "0"
+          },
+          {
+            "name": "CallQualityScore",
+            "dataType": "double",
+            "sourceColumn": "CallQualityScore",
+            "summarizeBy": "none",
+            "lineageTag": "374a0fc9-b681-61c3-2071-4feffc4803bf"
+          },
+          {
+            "name": "AdverseEventFlagged",
+            "dataType": "int64",
+            "sourceColumn": "AdverseEventFlagged",
+            "summarizeBy": "none",
+            "lineageTag": "25219ac8-46da-1c2f-0bf5-161986dc8733",
+            "formatString": "0"
+          },
+          {
+            "name": "CallTimeBucket",
+            "dataType": "string",
+            "type": "calculated",
+            "expression": "VAR h = VALUE(LEFT(FactHCPCalls[CallTime], 2))\nRETURN SWITCH(TRUE(), h < 18, \"16-18\", h < 20, \"18-20\", h < 22, \"20-22\", \"22-00\")",
+            "summarizeBy": "none",
+            "lineageTag": "3e6e5bb8-477c-763f-3e28-2f4e50c479c0"
+          },
+          {
+            "name": "SentimentBand",
+            "dataType": "string",
+            "type": "calculated",
+            "expression": "SWITCH(TRUE(),\n    ISBLANK(FactHCPCalls[HCPSentimentScore]), BLANK(),\n    FactHCPCalls[HCPSentimentScore] >= 4, \"Positive\",\n    FactHCPCalls[HCPSentimentScore] >= 2.5, \"Neutral\",\n    \"Negative\")",
+            "summarizeBy": "none",
+            "lineageTag": "de70ba7d-bdf3-13cc-a073-7deaa83ec898"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactHCPCalls",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(SourceFolder & \"FactHCPCalls.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"CallID\", type text}, {\"CallDate\", type datetime}, {\"CallTime\", type text}, {\"RepID\", type text}, {\"HCPID\", type text}, {\"CallOutcome\", type text}, {\"IsConnected\", Int64.Type}, {\"DurationMinutes\", type number}, {\"AfterCallWorkMinutes\", type number}, {\"AHT_Minutes\", type number}, {\"IsMeaningfulInteraction\", Int64.Type}, {\"InteractionType\", type text}, {\"Script\", type text}, {\"AIRecommended\", Int64.Type}, {\"AIFollowed\", Int64.Type}, {\"ScheduledTime\", type text}, {\"IsScheduleAdherent\", Int64.Type}, {\"Drug\", type text}, {\"TherapyArea\", type text}, {\"NotesTaken\", Int64.Type}, {\"FollowUpScheduled\", Int64.Type}, {\"HCPSentimentScore\", type number}, {\"Channel\", type text}, {\"ScriptDeviation\", Int64.Type}, {\"CallQualityScore\", type number}, {\"AdverseEventFlagged\", Int64.Type}})",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactMSLPartnerUsage",
+        "lineageTag": "398b0c81-40c7-6e6e-fc5d-bd2aed5417cf",
+        "columns": [
+          {
+            "name": "UsageID",
+            "dataType": "string",
+            "sourceColumn": "UsageID",
+            "summarizeBy": "none",
+            "lineageTag": "82238daf-1919-f7b6-8c56-29cd7ce282b2"
+          },
+          {
+            "name": "UsageDate",
+            "dataType": "dateTime",
+            "sourceColumn": "UsageDate",
+            "summarizeBy": "none",
+            "lineageTag": "4e587d01-a9bc-a4d2-f5d1-b9fdc7cbcda1",
+            "formatString": "General Date"
+          },
+          {
+            "name": "RepID",
+            "dataType": "string",
+            "sourceColumn": "RepID",
+            "summarizeBy": "none",
+            "lineageTag": "b83ff08c-c221-dc2f-c3d5-727c95fea147"
+          },
+          {
+            "name": "Drug",
+            "dataType": "string",
+            "sourceColumn": "Drug",
+            "summarizeBy": "none",
+            "lineageTag": "a2fdca7b-3eb8-3690-0ee6-d64543ce6c6e"
+          },
+          {
+            "name": "TherapyArea",
+            "dataType": "string",
+            "sourceColumn": "TherapyArea",
+            "summarizeBy": "none",
+            "lineageTag": "3126ad5c-7acc-8d9c-05f2-c8112b18eb9e"
+          },
+          {
+            "name": "Topic",
+            "dataType": "string",
+            "sourceColumn": "Topic",
+            "summarizeBy": "none",
+            "lineageTag": "5ff306b8-c730-754e-b63c-19ef520b259d"
+          },
+          {
+            "name": "QueryType",
+            "dataType": "string",
+            "sourceColumn": "QueryType",
+            "summarizeBy": "none",
+            "lineageTag": "3690e7e3-9f2c-c747-55f2-fb44d57fd3c1"
+          },
+          {
+            "name": "AnswerQuality",
+            "dataType": "string",
+            "sourceColumn": "AnswerQuality",
+            "summarizeBy": "none",
+            "lineageTag": "fd6db12f-fdc9-9659-a58c-d1c065315019"
+          },
+          {
+            "name": "TimeToAnswerSec",
+            "dataType": "double",
+            "sourceColumn": "TimeToAnswerSec",
+            "summarizeBy": "none",
+            "lineageTag": "69fe9506-be21-099c-4b05-320a828c1b4c"
+          },
+          {
+            "name": "TimeSavedMinutes",
+            "dataType": "double",
+            "sourceColumn": "TimeSavedMinutes",
+            "summarizeBy": "none",
+            "lineageTag": "5630e47d-babf-e1b0-5e43-ff8352bb6fe1"
+          },
+          {
+            "name": "UsedInHCPInteraction",
+            "dataType": "int64",
+            "sourceColumn": "UsedInHCPInteraction",
+            "summarizeBy": "none",
+            "lineageTag": "d9f3f80a-7d35-35fa-38d8-a2b5206d88ee",
+            "formatString": "0"
+          },
+          {
+            "name": "UserSatisfaction",
+            "dataType": "int64",
+            "sourceColumn": "UserSatisfaction",
+            "summarizeBy": "none",
+            "lineageTag": "e0276c2b-0350-938b-c399-8bb9fa4fc28d",
+            "formatString": "0"
+          },
+          {
+            "name": "HCPID",
+            "dataType": "string",
+            "sourceColumn": "HCPID",
+            "summarizeBy": "none",
+            "lineageTag": "6dea51c8-a672-0ab8-481a-5e869b928b2f"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactMSLPartnerUsage",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(SourceFolder & \"FactMSLPartnerUsage.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"UsageID\", type text}, {\"UsageDate\", type datetime}, {\"RepID\", type text}, {\"Drug\", type text}, {\"TherapyArea\", type text}, {\"Topic\", type text}, {\"QueryType\", type text}, {\"AnswerQuality\", type text}, {\"TimeToAnswerSec\", type number}, {\"TimeSavedMinutes\", type number}, {\"UsedInHCPInteraction\", Int64.Type}, {\"UserSatisfaction\", Int64.Type}, {\"HCPID\", type text}})",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactPatientCases",
+        "lineageTag": "5d3aeb83-332c-114e-51dc-6de5e8c56407",
+        "columns": [
+          {
+            "name": "CaseID",
+            "dataType": "string",
+            "sourceColumn": "CaseID",
+            "summarizeBy": "none",
+            "lineageTag": "6ef75e89-3d27-8e4d-261f-23321d168740"
+          },
+          {
+            "name": "PatientID",
+            "dataType": "string",
+            "sourceColumn": "PatientID",
+            "summarizeBy": "none",
+            "lineageTag": "6d9c73c3-8f3e-a1f6-9666-db98ad45c465"
+          },
+          {
+            "name": "RepID",
+            "dataType": "string",
+            "sourceColumn": "RepID",
+            "summarizeBy": "none",
+            "lineageTag": "83708922-bce7-daee-1cd7-818b4cb74942"
+          },
+          {
+            "name": "Drug",
+            "dataType": "string",
+            "sourceColumn": "Drug",
+            "summarizeBy": "none",
+            "lineageTag": "4fdf0316-7aed-6c01-be2a-2320680be49d"
+          },
+          {
+            "name": "TherapyArea",
+            "dataType": "string",
+            "sourceColumn": "TherapyArea",
+            "summarizeBy": "none",
+            "lineageTag": "06a99bc2-36fb-ce2d-aae2-f1d0a534a6bf"
+          },
+          {
+            "name": "InsuranceType",
+            "dataType": "string",
+            "sourceColumn": "InsuranceType",
+            "summarizeBy": "none",
+            "lineageTag": "9e4d2118-b4fa-1208-cccd-0d656089739e"
+          },
+          {
+            "name": "RxDate",
+            "dataType": "dateTime",
+            "sourceColumn": "RxDate",
+            "summarizeBy": "none",
+            "lineageTag": "6f5c90cc-71f7-c7be-2bf4-fe2ced4dc631",
+            "formatString": "General Date"
+          },
+          {
+            "name": "FirstContactDate",
+            "dataType": "dateTime",
+            "sourceColumn": "FirstContactDate",
+            "summarizeBy": "none",
+            "lineageTag": "7b12ce27-3abb-4d15-0aaa-214111c1651e",
+            "formatString": "General Date"
+          },
+          {
+            "name": "FirstContactDelayDays",
+            "dataType": "int64",
+            "sourceColumn": "FirstContactDelayDays",
+            "summarizeBy": "none",
+            "lineageTag": "21fc38d6-a034-5fcd-c095-01ea67218d7d",
+            "formatString": "0"
+          },
+          {
+            "name": "PASubmitDate",
+            "dataType": "dateTime",
+            "sourceColumn": "PASubmitDate",
+            "summarizeBy": "none",
+            "lineageTag": "c1b559b3-79c9-2fd1-b588-cfca51adb304",
+            "formatString": "General Date"
+          },
+          {
+            "name": "PADecisionDate",
+            "dataType": "dateTime",
+            "sourceColumn": "PADecisionDate",
+            "summarizeBy": "none",
+            "lineageTag": "8c243327-f639-ba8b-5f07-3dc57a94b786",
+            "formatString": "General Date"
+          },
+          {
+            "name": "PAStatus",
+            "dataType": "string",
+            "sourceColumn": "PAStatus",
+            "summarizeBy": "none",
+            "lineageTag": "ba706a90-a7a7-35c3-5d32-8e17200995a2"
+          },
+          {
+            "name": "PADecisionDelayDays",
+            "dataType": "int64",
+            "sourceColumn": "PADecisionDelayDays",
+            "summarizeBy": "none",
+            "lineageTag": "750c8cca-af0c-f88f-a48b-dccb438fdb72",
+            "formatString": "0"
+          },
+          {
+            "name": "FulfillmentDate",
+            "dataType": "dateTime",
+            "sourceColumn": "FulfillmentDate",
+            "summarizeBy": "none",
+            "lineageTag": "940de42b-9fcd-9617-a1d5-b99cd8de94ce",
+            "formatString": "General Date"
+          },
+          {
+            "name": "FirstDoseDate",
+            "dataType": "dateTime",
+            "sourceColumn": "FirstDoseDate",
+            "summarizeBy": "none",
+            "lineageTag": "b454b157-7010-1db4-f19a-3ea246e771ec",
+            "formatString": "General Date"
+          },
+          {
+            "name": "TimeToTherapyDays",
+            "dataType": "int64",
+            "sourceColumn": "TimeToTherapyDays",
+            "summarizeBy": "none",
+            "lineageTag": "88e4cf59-f249-1d1f-9f77-d3dc4a2ffe5c",
+            "formatString": "0"
+          },
+          {
+            "name": "CaseStatus",
+            "dataType": "string",
+            "sourceColumn": "CaseStatus",
+            "summarizeBy": "none",
+            "lineageTag": "5c873dad-8d68-d61d-b8af-4aa5df12bec9"
+          },
+          {
+            "name": "IsAbandoned",
+            "dataType": "int64",
+            "sourceColumn": "IsAbandoned",
+            "summarizeBy": "none",
+            "lineageTag": "b0a49973-74bb-bc64-272b-7fa9e3288729",
+            "formatString": "0"
+          },
+          {
+            "name": "AbandonmentReason",
+            "dataType": "string",
+            "sourceColumn": "AbandonmentReason",
+            "summarizeBy": "none",
+            "lineageTag": "47fd3ada-5310-c709-5ee4-cb7362b4d771"
+          },
+          {
+            "name": "AbandonmentStage",
+            "dataType": "string",
+            "sourceColumn": "AbandonmentStage",
+            "summarizeBy": "none",
+            "lineageTag": "d940fd5e-159a-9c9d-2b33-1e3e74e3fe07"
+          },
+          {
+            "name": "NumberOfTouches",
+            "dataType": "int64",
+            "sourceColumn": "NumberOfTouches",
+            "summarizeBy": "none",
+            "lineageTag": "706e1691-2bda-45ce-fa41-317ea114937a",
+            "formatString": "0"
+          },
+          {
+            "name": "FirstCallResolved",
+            "dataType": "int64",
+            "sourceColumn": "FirstCallResolved",
+            "summarizeBy": "none",
+            "lineageTag": "86a619d2-93cc-3c11-d3d2-07335e79e572",
+            "formatString": "0"
+          },
+          {
+            "name": "Adherent30",
+            "dataType": "int64",
+            "sourceColumn": "Adherent30",
+            "summarizeBy": "none",
+            "lineageTag": "da28f5fc-0420-aeec-01bb-95afd102b4fc",
+            "formatString": "0"
+          },
+          {
+            "name": "Adherent60",
+            "dataType": "int64",
+            "sourceColumn": "Adherent60",
+            "summarizeBy": "none",
+            "lineageTag": "e713b6ed-5f9f-cf24-0a39-48d58bfa940d",
+            "formatString": "0"
+          },
+          {
+            "name": "Adherent90",
+            "dataType": "int64",
+            "sourceColumn": "Adherent90",
+            "summarizeBy": "none",
+            "lineageTag": "90d1c167-8ead-5b34-10f8-52cf2560d519",
+            "formatString": "0"
+          },
+          {
+            "name": "CaseResolutionDays",
+            "dataType": "int64",
+            "sourceColumn": "CaseResolutionDays",
+            "summarizeBy": "none",
+            "lineageTag": "fe566eea-e353-bc48-0f97-480f591fd836",
+            "formatString": "0"
+          },
+          {
+            "name": "Open Case Age Bucket",
+            "dataType": "string",
+            "type": "calculated",
+            "expression": "VAR AsOf = CALCULATE(MAX(FactHCPCalls[CallDate]), ALL(FactHCPCalls))\nVAR d = DATEDIFF(FactPatientCases[RxDate], AsOf, DAY)\nRETURN IF(NOT(FactPatientCases[CaseStatus] IN {\"Open\", \"In Progress\"}), BLANK(),\n    SWITCH(TRUE(), d < 3, \"<3d\", d < 7, \"3-7d\", d < 14, \"7-14d\", \"14d+\"))",
+            "summarizeBy": "none",
+            "lineageTag": "6f4e5eb4-c540-8caa-2d40-c37150dd920b"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactPatientCases",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(SourceFolder & \"FactPatientCases.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"CaseID\", type text}, {\"PatientID\", type text}, {\"RepID\", type text}, {\"Drug\", type text}, {\"TherapyArea\", type text}, {\"InsuranceType\", type text}, {\"RxDate\", type datetime}, {\"FirstContactDate\", type datetime}, {\"FirstContactDelayDays\", Int64.Type}, {\"PASubmitDate\", type datetime}, {\"PADecisionDate\", type datetime}, {\"PAStatus\", type text}, {\"PADecisionDelayDays\", Int64.Type}, {\"FulfillmentDate\", type datetime}, {\"FirstDoseDate\", type datetime}, {\"TimeToTherapyDays\", Int64.Type}, {\"CaseStatus\", type text}, {\"IsAbandoned\", Int64.Type}, {\"AbandonmentReason\", type text}, {\"AbandonmentStage\", type text}, {\"NumberOfTouches\", Int64.Type}, {\"FirstCallResolved\", Int64.Type}, {\"Adherent30\", Int64.Type}, {\"Adherent60\", Int64.Type}, {\"Adherent90\", Int64.Type}, {\"CaseResolutionDays\", Int64.Type}})",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactRx",
+        "lineageTag": "cd6b8aae-cd74-5c24-312c-d6274e71b638",
+        "columns": [
+          {
+            "name": "RxID",
+            "dataType": "string",
+            "sourceColumn": "RxID",
+            "summarizeBy": "none",
+            "lineageTag": "dc145ce3-f78c-f017-bd2c-f05032091805"
+          },
+          {
+            "name": "HCPID",
+            "dataType": "string",
+            "sourceColumn": "HCPID",
+            "summarizeBy": "none",
+            "lineageTag": "0a756393-b8b1-1480-193f-08014954ef1d"
+          },
+          {
+            "name": "RxDate",
+            "dataType": "dateTime",
+            "sourceColumn": "RxDate",
+            "summarizeBy": "none",
+            "lineageTag": "b0e33cde-d5c8-5dc4-73b0-286b2497c19e",
+            "formatString": "General Date"
+          },
+          {
+            "name": "Drug",
+            "dataType": "string",
+            "sourceColumn": "Drug",
+            "summarizeBy": "none",
+            "lineageTag": "2f414b34-b2b2-1a3d-0d37-9bfb7245b944"
+          },
+          {
+            "name": "TherapyArea",
+            "dataType": "string",
+            "sourceColumn": "TherapyArea",
+            "summarizeBy": "none",
+            "lineageTag": "d8b44ae1-5f7e-df5f-7f18-7ae5080f0aff"
+          },
+          {
+            "name": "IsNewToBrand",
+            "dataType": "int64",
+            "sourceColumn": "IsNewToBrand",
+            "summarizeBy": "none",
+            "lineageTag": "0f7f793a-5d84-1e41-8f3d-64d41f7fe089",
+            "formatString": "0"
+          },
+          {
+            "name": "Quantity",
+            "dataType": "int64",
+            "sourceColumn": "Quantity",
+            "summarizeBy": "none",
+            "lineageTag": "9f010f22-ea71-f25d-d3e1-39ddf81653c1",
+            "formatString": "0"
+          },
+          {
+            "name": "State",
+            "dataType": "string",
+            "sourceColumn": "State",
+            "summarizeBy": "none",
+            "lineageTag": "e6e8bca6-85f9-b32b-42bd-77bca2c435da"
+          },
+          {
+            "name": "Region",
+            "dataType": "string",
+            "sourceColumn": "Region",
+            "summarizeBy": "none",
+            "lineageTag": "ce870fae-9c71-e98a-d6bd-11a431f9b3c3"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactRx",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(SourceFolder & \"FactRx.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"RxID\", type text}, {\"HCPID\", type text}, {\"RxDate\", type datetime}, {\"Drug\", type text}, {\"TherapyArea\", type text}, {\"IsNewToBrand\", Int64.Type}, {\"Quantity\", Int64.Type}, {\"State\", type text}, {\"Region\", type text}})",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactUplift",
+        "lineageTag": "eb0878a0-3af3-f506-ffe3-d35291b6712c",
+        "columns": [
+          {
+            "name": "outcome",
+            "dataType": "string",
+            "sourceColumn": "outcome",
+            "summarizeBy": "none",
+            "lineageTag": "c978f2f5-8381-3de7-8517-c241288b9591"
+          },
+          {
+            "name": "tactic",
+            "dataType": "string",
+            "sourceColumn": "tactic",
+            "summarizeBy": "none",
+            "lineageTag": "9612f8cc-8549-09c9-3c37-cbab7c2aeb18"
+          },
+          {
+            "name": "segment_type",
+            "dataType": "string",
+            "sourceColumn": "segment_type",
+            "summarizeBy": "none",
+            "lineageTag": "49b01c4f-b3bc-0030-d8a2-94dc8ccff50b"
+          },
+          {
+            "name": "segment_value",
+            "dataType": "string",
+            "sourceColumn": "segment_value",
+            "summarizeBy": "none",
+            "lineageTag": "f7647d8b-2321-82e3-a948-20504cd84ec0"
+          },
+          {
+            "name": "treated_value",
+            "dataType": "double",
+            "sourceColumn": "treated_value",
+            "summarizeBy": "none",
+            "lineageTag": "a7ba7f56-0df8-1681-e137-29ec077ce49d"
+          },
+          {
+            "name": "control_value",
+            "dataType": "double",
+            "sourceColumn": "control_value",
+            "summarizeBy": "none",
+            "lineageTag": "c408e93f-1814-218b-4b04-46c9623cafdf"
+          },
+          {
+            "name": "uplift",
+            "dataType": "double",
+            "sourceColumn": "uplift",
+            "summarizeBy": "none",
+            "lineageTag": "55888bac-93ac-477f-de79-2602f76b1d58"
+          },
+          {
+            "name": "ci_low",
+            "dataType": "double",
+            "sourceColumn": "ci_low",
+            "summarizeBy": "none",
+            "lineageTag": "5bbeaffb-71d3-7b3b-d492-842a1cb94435"
+          },
+          {
+            "name": "ci_high",
+            "dataType": "double",
+            "sourceColumn": "ci_high",
+            "summarizeBy": "none",
+            "lineageTag": "977827d1-97fa-fe78-8ded-4dee0bad2957"
+          },
+          {
+            "name": "n_treated",
+            "dataType": "int64",
+            "sourceColumn": "n_treated",
+            "summarizeBy": "none",
+            "lineageTag": "77d45bb6-b370-8ac4-b3aa-d0a09153deda",
+            "formatString": "0"
+          },
+          {
+            "name": "n_control",
+            "dataType": "int64",
+            "sourceColumn": "n_control",
+            "summarizeBy": "none",
+            "lineageTag": "f0b094f3-66e2-eb28-6d17-61fea7921f92",
+            "formatString": "0"
+          },
+          {
+            "name": "significant",
+            "dataType": "int64",
+            "sourceColumn": "significant",
+            "summarizeBy": "none",
+            "lineageTag": "d8bf5440-1ac2-984e-dbc3-a0bcbfa1d510",
+            "formatString": "0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactUplift",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(SourceFolder & \"FactUplift.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"outcome\", type text}, {\"tactic\", type text}, {\"segment_type\", type text}, {\"segment_value\", type text}, {\"treated_value\", type number}, {\"control_value\", type number}, {\"uplift\", type number}, {\"ci_low\", type number}, {\"ci_high\", type number}, {\"n_treated\", Int64.Type}, {\"n_control\", Int64.Type}, {\"significant\", Int64.Type}})",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "FeatureImportance",
+        "lineageTag": "4d58d4e2-5dad-a533-1f4e-fd9838c9e02e",
+        "columns": [
+          {
+            "name": "outcome",
+            "dataType": "string",
+            "sourceColumn": "outcome",
+            "summarizeBy": "none",
+            "lineageTag": "34ccdb9c-58a4-df96-ce7a-63db35d840d6"
+          },
+          {
+            "name": "feature",
+            "dataType": "string",
+            "sourceColumn": "feature",
+            "summarizeBy": "none",
+            "lineageTag": "15db33a4-0049-9cea-e42a-7b1cea234f71"
+          },
+          {
+            "name": "importance",
+            "dataType": "double",
+            "sourceColumn": "importance",
+            "summarizeBy": "none",
+            "lineageTag": "6aaa7132-d457-25c6-35ee-8880d257d9dc"
+          },
+          {
+            "name": "uplift",
+            "dataType": "double",
+            "sourceColumn": "uplift",
+            "summarizeBy": "none",
+            "lineageTag": "85ebb580-204e-863f-c24a-f97939aa4c96"
+          },
+          {
+            "name": "direction",
+            "dataType": "string",
+            "sourceColumn": "direction",
+            "summarizeBy": "none",
+            "lineageTag": "a3c4207b-7708-3e10-e9c7-5b82b8023edd"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FeatureImportance",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(SourceFolder & \"FeatureImportance.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Promoted = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed = Table.TransformColumnTypes(Promoted, {{\"outcome\", type text}, {\"feature\", type text}, {\"importance\", type number}, {\"uplift\", type number}, {\"direction\", type text}})",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "_Measures",
+        "isHidden": true,
+        "lineageTag": "66032ea1-6fbc-19b4-4351-493c4c225760",
+        "columns": [
+          {
+            "name": "Value",
+            "dataType": "int64",
+            "type": "calculatedTableColumn",
+            "sourceColumn": "[Value]",
+            "isHidden": true,
+            "lineageTag": "4c2a464a-01bd-850a-1467-00c5563906b0"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_Measures",
+            "mode": "import",
+            "source": {
+              "type": "calculated",
+              "expression": "{BLANK()}"
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Total Calls",
+            "expression": "COUNTROWS(FactHCPCalls)",
+            "displayFolder": "HCP Engagement",
+            "lineageTag": "99a5b202-0734-7502-46f2-8755ed6b5bbe"
+          },
+          {
+            "name": "Connected Calls",
+            "expression": "CALCULATE([Total Calls], FactHCPCalls[IsConnected] = 1)",
+            "displayFolder": "HCP Engagement",
+            "lineageTag": "a873c5d0-99e5-e7fa-2622-d3791551ee76"
+          },
+          {
+            "name": "Connect Rate",
+            "expression": "DIVIDE([Connected Calls], [Total Calls], 0)",
+            "displayFolder": "HCP Engagement",
+            "lineageTag": "80c4f1df-cdf7-5eb6-a8fb-e0ad1bc659e9"
+          },
+          {
+            "name": "Meaningful Interactions",
+            "expression": "CALCULATE([Total Calls], FactHCPCalls[IsMeaningfulInteraction] = 1)",
+            "displayFolder": "HCP Engagement",
+            "lineageTag": "3bb590a5-ba12-e469-521a-d6abe8ae4a54"
+          },
+          {
+            "name": "Meaningful Interaction Rate",
+            "expression": "DIVIDE([Meaningful Interactions], [Connected Calls], 0)",
+            "displayFolder": "HCP Engagement",
+            "lineageTag": "eeb804d3-b270-25ef-f4f8-3e3072805781"
+          },
+          {
+            "name": "HCPs Contacted",
+            "expression": "DISTINCTCOUNT(FactHCPCalls[HCPID])",
+            "displayFolder": "HCP Engagement",
+            "lineageTag": "6564f271-46bb-312e-d822-0e18412e6c8c"
+          },
+          {
+            "name": "Target HCPs",
+            "expression": "CALCULATE(DISTINCTCOUNT(DimHCP[HCPID]), DimHCP[IsTarget] = 1)",
+            "displayFolder": "HCP Engagement",
+            "lineageTag": "ca5a676d-3a0d-79b2-de22-bb1c2e822779"
+          },
+          {
+            "name": "HCP Reach",
+            "expression": "DIVIDE(CALCULATE(DISTINCTCOUNT(FactHCPCalls[HCPID]), FactHCPCalls[IsConnected] = 1), [Target HCPs], 0)",
+            "displayFolder": "HCP Engagement",
+            "lineageTag": "684f3f1e-8df7-83d6-8b87-8072c9b71b56"
+          },
+          {
+            "name": "Avg Contact Frequency",
+            "expression": "DIVIDE([Connected Calls], [HCPs Contacted], 0)",
+            "displayFolder": "HCP Engagement",
+            "lineageTag": "e5236410-e10d-f4d3-0a48-3391ca0b2e97"
+          },
+          {
+            "name": "Avg Call Duration",
+            "expression": "CALCULATE(AVERAGE(FactHCPCalls[DurationMinutes]), FactHCPCalls[IsConnected] = 1)",
+            "displayFolder": "HCP Engagement",
+            "lineageTag": "6babb049-4c31-6bad-e0b2-bfd71186740b"
+          },
+          {
+            "name": "Avg Meaningful Duration",
+            "expression": "CALCULATE(AVERAGE(FactHCPCalls[DurationMinutes]), FactHCPCalls[IsMeaningfulInteraction] = 1)",
+            "displayFolder": "HCP Engagement",
+            "lineageTag": "0fb8788c-6ace-07f2-8417-f65685a8c6ae"
+          },
+          {
+            "name": "Follow Up Rate",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[FollowUpScheduled] = 1), [Connected Calls], 0)",
+            "displayFolder": "HCP Engagement",
+            "lineageTag": "dd6c05cd-1aa7-4b7c-3499-43a6621709ab"
+          },
+          {
+            "name": "Avg HCP Sentiment",
+            "expression": "CALCULATE(AVERAGE(FactHCPCalls[HCPSentimentScore]), NOT(ISBLANK(FactHCPCalls[HCPSentimentScore])))",
+            "displayFolder": "HCP Engagement",
+            "lineageTag": "cdf390a1-c4b9-21cc-125f-dcd823d1f4cf"
+          },
+          {
+            "name": "AI Recommended Calls",
+            "expression": "CALCULATE([Total Calls], FactHCPCalls[AIRecommended] = 1)",
+            "displayFolder": "AI / Next-Best-Action",
+            "lineageTag": "8c33ab04-142e-ab59-85bd-ed5d5ae3e019"
+          },
+          {
+            "name": "AI Followed Calls",
+            "expression": "CALCULATE([Total Calls], FactHCPCalls[AIFollowed] = 1)",
+            "displayFolder": "AI / Next-Best-Action",
+            "lineageTag": "24e43a90-97e1-dfab-1b2a-a05f2fe71eb1"
+          },
+          {
+            "name": "AI Acceptance Rate",
+            "expression": "DIVIDE([AI Followed Calls], [AI Recommended Calls], 0)",
+            "displayFolder": "AI / Next-Best-Action",
+            "lineageTag": "0de8a975-f07d-296a-f96a-1ec69ea34d77"
+          },
+          {
+            "name": "AI Connect Rate",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[AIFollowed] = 1, FactHCPCalls[IsConnected] = 1), [AI Followed Calls], 0)",
+            "displayFolder": "AI / Next-Best-Action",
+            "lineageTag": "b43b7907-a263-aec2-6f94-fbb8c01cd867"
+          },
+          {
+            "name": "Non-AI Connect Rate",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[AIRecommended] = 0, FactHCPCalls[IsConnected] = 1), CALCULATE([Total Calls], FactHCPCalls[AIRecommended] = 0), 0)",
+            "displayFolder": "AI / Next-Best-Action",
+            "lineageTag": "95d586a5-8807-a31b-3906-5e19e4e68ba0"
+          },
+          {
+            "name": "AI Lift on Connect Rate",
+            "expression": "[AI Connect Rate] - [Non-AI Connect Rate]",
+            "displayFolder": "AI / Next-Best-Action",
+            "lineageTag": "17344745-05ab-cef1-2dc6-9866316eda15"
+          },
+          {
+            "name": "AI Meaningful Rate",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[AIFollowed] = 1, FactHCPCalls[IsMeaningfulInteraction] = 1), CALCULATE([Total Calls], FactHCPCalls[AIFollowed] = 1, FactHCPCalls[IsConnected] = 1), 0)",
+            "displayFolder": "AI / Next-Best-Action",
+            "lineageTag": "2f5e35bf-8e74-9ba9-7882-4263a184bdb7"
+          },
+          {
+            "name": "Non-AI Meaningful Rate",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[AIRecommended] = 0, FactHCPCalls[IsMeaningfulInteraction] = 1), CALCULATE([Total Calls], FactHCPCalls[AIRecommended] = 0, FactHCPCalls[IsConnected] = 1), 0)",
+            "displayFolder": "AI / Next-Best-Action",
+            "lineageTag": "b3bd9753-5fd4-2b44-6ef0-dda00fa630dd"
+          },
+          {
+            "name": "AI Lift on Meaningful Rate",
+            "expression": "[AI Meaningful Rate] - [Non-AI Meaningful Rate]",
+            "displayFolder": "AI / Next-Best-Action",
+            "lineageTag": "f864f6d0-f1d9-d587-e715-111940ed2384"
+          },
+          {
+            "name": "Script A Calls",
+            "expression": "CALCULATE([Total Calls], FactHCPCalls[Script] = \"Script A - Empathetic\")",
+            "displayFolder": "Script A/B Testing",
+            "lineageTag": "4fdd926d-df01-60a4-9589-c9defe3ebd51"
+          },
+          {
+            "name": "Script B Calls",
+            "expression": "CALCULATE([Total Calls], FactHCPCalls[Script] = \"Script B - Direct\")",
+            "displayFolder": "Script A/B Testing",
+            "lineageTag": "6f039bbf-6719-bc33-8bc9-1be927e161db"
+          },
+          {
+            "name": "Script A Connect Rate",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Script] = \"Script A - Empathetic\", FactHCPCalls[IsConnected] = 1), [Script A Calls], 0)",
+            "displayFolder": "Script A/B Testing",
+            "lineageTag": "a76d3d96-10b9-42a4-075c-80aa259af930"
+          },
+          {
+            "name": "Script B Connect Rate",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Script] = \"Script B - Direct\", FactHCPCalls[IsConnected] = 1), [Script B Calls], 0)",
+            "displayFolder": "Script A/B Testing",
+            "lineageTag": "d8997c43-2d11-33fe-d94c-29dc2a0ba182"
+          },
+          {
+            "name": "Script A Meaningful Rate",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Script] = \"Script A - Empathetic\", FactHCPCalls[IsMeaningfulInteraction] = 1), CALCULATE([Total Calls], FactHCPCalls[Script] = \"Script A - Empathetic\", FactHCPCalls[IsConnected] = 1), 0)",
+            "displayFolder": "Script A/B Testing",
+            "lineageTag": "95f11d99-e8eb-12b7-c43b-2e437deee2a1"
+          },
+          {
+            "name": "Script B Meaningful Rate",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Script] = \"Script B - Direct\", FactHCPCalls[IsMeaningfulInteraction] = 1), CALCULATE([Total Calls], FactHCPCalls[Script] = \"Script B - Direct\", FactHCPCalls[IsConnected] = 1), 0)",
+            "displayFolder": "Script A/B Testing",
+            "lineageTag": "12b94158-885b-af00-b784-3e5a3d57791a"
+          },
+          {
+            "name": "Script A Avg Duration",
+            "expression": "CALCULATE(AVERAGE(FactHCPCalls[DurationMinutes]), FactHCPCalls[Script] = \"Script A - Empathetic\", FactHCPCalls[IsConnected] = 1)",
+            "displayFolder": "Script A/B Testing",
+            "lineageTag": "1b165220-1934-1ced-3e96-0145ff1c96dd"
+          },
+          {
+            "name": "Script B Avg Duration",
+            "expression": "CALCULATE(AVERAGE(FactHCPCalls[DurationMinutes]), FactHCPCalls[Script] = \"Script B - Direct\", FactHCPCalls[IsConnected] = 1)",
+            "displayFolder": "Script A/B Testing",
+            "lineageTag": "bf471ecc-f3a9-7443-339d-3860b0c6a2c5"
+          },
+          {
+            "name": "Total Cases",
+            "expression": "CALCULATE(COUNTROWS(FactPatientCases), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Support",
+            "lineageTag": "10fa2687-5475-d608-c43c-cce479640ef5"
+          },
+          {
+            "name": "Active Cases",
+            "expression": "CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[CaseStatus] IN {\"Open\", \"In Progress\"}, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Support",
+            "lineageTag": "2ae64ee0-133c-6241-20c6-adf6fa54eff8"
+          },
+          {
+            "name": "Resolved Cases",
+            "expression": "CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[CaseStatus] = \"Resolved\", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Support",
+            "lineageTag": "cef383c5-9eb7-c42b-fb73-4c999532d0d9"
+          },
+          {
+            "name": "Abandoned Cases",
+            "expression": "CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[IsAbandoned] = 1, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Support",
+            "lineageTag": "b2d032e0-64a6-5b6a-65b6-5e2d1c18e496"
+          },
+          {
+            "name": "Abandonment Rate",
+            "expression": "DIVIDE([Abandoned Cases], [Total Cases], 0)",
+            "displayFolder": "Patient Support",
+            "lineageTag": "49050b6f-3ba5-bf94-20fe-1cb6f763dc2b"
+          },
+          {
+            "name": "Avg Time to Therapy",
+            "expression": "CALCULATE(AVERAGE(FactPatientCases[TimeToTherapyDays]), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Support",
+            "lineageTag": "e2699565-2c45-52f8-0dd6-427e9c466a1e"
+          },
+          {
+            "name": "Median Time to Therapy",
+            "expression": "CALCULATE(MEDIAN(FactPatientCases[TimeToTherapyDays]), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Support",
+            "lineageTag": "154e9ece-5434-b184-ad82-934470e0e4ad"
+          },
+          {
+            "name": "PA Approval Rate",
+            "expression": "DIVIDE(\n    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[PAStatus] = \"Approved\", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])),\n    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[PAStatus] IN {\"Approved\", \"Denied\", \"Appeal\"}, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])), 0)",
+            "displayFolder": "Patient Support",
+            "lineageTag": "ca7bf889-4c63-1ec2-5183-1d5b5ee26ee1"
+          },
+          {
+            "name": "PA Denial Rate",
+            "expression": "DIVIDE(\n    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[PAStatus] = \"Denied\", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])),\n    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[PAStatus] IN {\"Approved\", \"Denied\", \"Appeal\"}, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])), 0)",
+            "displayFolder": "Patient Support",
+            "lineageTag": "6cfa093a-9ba4-f206-b3b9-8d55d4969102"
+          },
+          {
+            "name": "Avg PA Decision Delay",
+            "expression": "CALCULATE(AVERAGE(FactPatientCases[PADecisionDelayDays]), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Support",
+            "lineageTag": "c99f45a0-cd50-3577-f6ca-33faf2f62326"
+          },
+          {
+            "name": "First Call Resolution Rate",
+            "expression": "DIVIDE(\n    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[FirstCallResolved] = 1, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])),\n    [Resolved Cases], 0)",
+            "displayFolder": "Patient Support",
+            "lineageTag": "b997b1ea-830f-0ac2-d97e-8116b99aaa49"
+          },
+          {
+            "name": "Avg Case Resolution Days",
+            "expression": "CALCULATE(AVERAGE(FactPatientCases[CaseResolutionDays]), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Support",
+            "lineageTag": "03d9f1a6-a029-aa54-e088-ec2eb1b061b2"
+          },
+          {
+            "name": "Avg First Contact Delay",
+            "expression": "CALCULATE(AVERAGE(FactPatientCases[FirstContactDelayDays]), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Support",
+            "lineageTag": "8a0f7dfc-d8af-eba2-5896-62d067eca6d6"
+          },
+          {
+            "name": "Contacted Within 48h Rate",
+            "expression": "DIVIDE(\n    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[FirstContactDelayDays] <= 2, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])),\n    [Total Cases], 0)",
+            "displayFolder": "Patient Support",
+            "lineageTag": "cd330ee2-0eb6-04c0-4626-9c8a996017aa"
+          },
+          {
+            "name": "Adherence 30 Day",
+            "expression": "DIVIDE(\n    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[Adherent30] = 1, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])),\n    CALCULATE(COUNTROWS(FactPatientCases), NOT(ISBLANK(FactPatientCases[Adherent30])), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])), 0)",
+            "displayFolder": "Patient Support",
+            "lineageTag": "9d1a9eb1-0804-abdd-a165-901ae9ede855"
+          },
+          {
+            "name": "Adherence 60 Day",
+            "expression": "DIVIDE(\n    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[Adherent60] = 1, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])),\n    CALCULATE(COUNTROWS(FactPatientCases), NOT(ISBLANK(FactPatientCases[Adherent60])), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])), 0)",
+            "displayFolder": "Patient Support",
+            "lineageTag": "4c733db2-67ff-3d66-d5c4-b598bb65a469"
+          },
+          {
+            "name": "Adherence 90 Day",
+            "expression": "DIVIDE(\n    CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[Adherent90] = 1, USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])),\n    CALCULATE(COUNTROWS(FactPatientCases), NOT(ISBLANK(FactPatientCases[Adherent90])), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date])), 0)",
+            "displayFolder": "Patient Support",
+            "lineageTag": "de7ace23-bc3b-52e2-31b3-67abdab8328a"
+          },
+          {
+            "name": "Abandoned Pre PA",
+            "expression": "CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[IsAbandoned] = 1, FactPatientCases[AbandonmentStage] = \"Pre-PA\", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Support",
+            "lineageTag": "220ef8a5-ce43-554c-a0d2-cba888cb31ed"
+          },
+          {
+            "name": "Abandoned During PA",
+            "expression": "CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[IsAbandoned] = 1, FactPatientCases[AbandonmentStage] = \"During PA\", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Support",
+            "lineageTag": "3336c62d-9f89-5d10-acfe-b1c94805f6f0"
+          },
+          {
+            "name": "Abandoned Post PA",
+            "expression": "CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[IsAbandoned] = 1, FactPatientCases[AbandonmentStage] = \"Post-PA\", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Support",
+            "lineageTag": "bef6b0fe-f9f9-fb86-455a-078f3cee4cd8"
+          },
+          {
+            "name": "Abandoned Post Fulfillment",
+            "expression": "CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[IsAbandoned] = 1, FactPatientCases[AbandonmentStage] = \"Post-Fulfillment\", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Support",
+            "lineageTag": "8ea2a73f-1821-eddc-94b7-a2b9f5ae7cac"
+          },
+          {
+            "name": "Avg AHT",
+            "expression": "AVERAGE(FactHCPCalls[AHT_Minutes])",
+            "displayFolder": "Ops Efficiency",
+            "lineageTag": "f3385028-e73e-ffa3-1b7b-9ab97b6b3c98"
+          },
+          {
+            "name": "Avg After Call Work",
+            "expression": "AVERAGE(FactHCPCalls[AfterCallWorkMinutes])",
+            "displayFolder": "Ops Efficiency",
+            "lineageTag": "afa9bf42-6d47-e116-418a-0ddb0b0a67bf"
+          },
+          {
+            "name": "Schedule Adherence Rate",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[IsScheduleAdherent] = 1), [Total Calls], 0)",
+            "displayFolder": "Ops Efficiency",
+            "lineageTag": "8210e520-521a-cb73-8a51-d9ca23cddc65"
+          },
+          {
+            "name": "Calls Per Rep Per Day",
+            "expression": "DIVIDE([Total Calls], DISTINCTCOUNT(FactHCPCalls[RepID]) * DISTINCTCOUNT(FactHCPCalls[CallDate]), 0)",
+            "displayFolder": "Ops Efficiency",
+            "lineageTag": "0cba3eb6-211d-a39c-56fe-77593d476e6d"
+          },
+          {
+            "name": "Connected Calls Per Rep Per Day",
+            "expression": "DIVIDE([Connected Calls], DISTINCTCOUNT(FactHCPCalls[RepID]) * DISTINCTCOUNT(FactHCPCalls[CallDate]), 0)",
+            "displayFolder": "Ops Efficiency",
+            "lineageTag": "319112da-4582-42df-d467-59fcded98d66"
+          },
+          {
+            "name": "Meaningful Per Rep Per Day",
+            "expression": "DIVIDE([Meaningful Interactions], DISTINCTCOUNT(FactHCPCalls[RepID]) * DISTINCTCOUNT(FactHCPCalls[CallDate]), 0)",
+            "displayFolder": "Ops Efficiency",
+            "lineageTag": "97f1e588-404e-b8be-357a-d3d87ab50854"
+          },
+          {
+            "name": "Notes Compliance Rate",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[NotesTaken] = 1), [Connected Calls], 0)",
+            "displayFolder": "Ops Efficiency",
+            "lineageTag": "4ba3fcee-8743-4ff8-9180-dd3a572a01c0"
+          },
+          {
+            "name": "Total Rx",
+            "expression": "CALCULATE(COUNTROWS(FactRx), USERELATIONSHIP(FactRx[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Prescriptions",
+            "lineageTag": "a9b63c25-0cac-2997-6dbd-94c0f6d9faf8"
+          },
+          {
+            "name": "New to Brand Rx",
+            "expression": "CALCULATE(COUNTROWS(FactRx), FactRx[IsNewToBrand] = 1, USERELATIONSHIP(FactRx[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Prescriptions",
+            "lineageTag": "1da497ee-e549-036f-ab8a-98f6eed80a02"
+          },
+          {
+            "name": "NBRx Rate",
+            "expression": "DIVIDE([New to Brand Rx], [Total Rx], 0)",
+            "displayFolder": "Prescriptions",
+            "lineageTag": "0f77b4e7-5272-27ca-8717-39bda7dbba8c"
+          },
+          {
+            "name": "Rx Per HCP",
+            "expression": "DIVIDE([Total Rx], DISTINCTCOUNT(FactRx[HCPID]), 0)\nRx from Engaged HCPs =",
+            "displayFolder": "Prescriptions",
+            "lineageTag": "add13509-b8c0-0807-9d55-1927e0c2a27d"
+          },
+          {
+            "name": "VAR EngagedHCPs",
+            "expression": "CALCULATETABLE(VALUES(FactHCPCalls[HCPID]), FactHCPCalls[IsConnected] = 1)\nRETURN CALCULATE(COUNTROWS(FactRx), USERELATIONSHIP(FactRx[RxDate], DimCalendar[Date]), TREATAS(EngagedHCPs, FactRx[HCPID]))",
+            "displayFolder": "Prescriptions",
+            "lineageTag": "a8cd1695-70c4-e617-329d-f2b1b51b30a5"
+          },
+          {
+            "name": "Rx from Non-Engaged HCPs",
+            "expression": "[Total Rx] - [Rx from Engaged HCPs]\nNBRx from Engaged HCPs =",
+            "displayFolder": "Prescriptions",
+            "lineageTag": "a7f970da-f01a-fc8e-b58f-c20b13c8a837"
+          },
+          {
+            "name": "VAR EngagedHCPs",
+            "expression": "CALCULATETABLE(VALUES(FactHCPCalls[HCPID]), FactHCPCalls[IsConnected] = 1)\nRETURN CALCULATE(COUNTROWS(FactRx), FactRx[IsNewToBrand] = 1, USERELATIONSHIP(FactRx[RxDate], DimCalendar[Date]), TREATAS(EngagedHCPs, FactRx[HCPID]))",
+            "displayFolder": "Prescriptions",
+            "lineageTag": "a8cd1695-70c4-e617-329d-f2b1b51b30a5"
+          },
+          {
+            "name": "Total MSL Queries",
+            "expression": "CALCULATE(COUNTROWS(FactMSLPartnerUsage), USERELATIONSHIP(FactMSLPartnerUsage[UsageDate], DimCalendar[Date]))",
+            "displayFolder": "MSL Partner Usage",
+            "lineageTag": "f2630ed4-d728-8f02-7182-3606052fee66"
+          },
+          {
+            "name": "MSL Queries Per Day",
+            "expression": "DIVIDE([Total MSL Queries], DISTINCTCOUNT(FactMSLPartnerUsage[UsageDate]), 0)",
+            "displayFolder": "MSL Partner Usage",
+            "lineageTag": "50650654-08f9-f3fc-c371-6c8884ab54d0"
+          },
+          {
+            "name": "MSL Queries Per MSL Per Day",
+            "expression": "DIVIDE([Total MSL Queries], DISTINCTCOUNT(FactMSLPartnerUsage[RepID]) * DISTINCTCOUNT(FactMSLPartnerUsage[UsageDate]), 0)",
+            "displayFolder": "MSL Partner Usage",
+            "lineageTag": "b63118ab-0e95-b2ba-4eb9-9bce27881245"
+          },
+          {
+            "name": "Fully Answered Rate",
+            "expression": "DIVIDE(CALCULATE(COUNTROWS(FactMSLPartnerUsage), FactMSLPartnerUsage[AnswerQuality] = \"Fully Answered\"), [Total MSL Queries], 0)",
+            "displayFolder": "MSL Partner Usage",
+            "lineageTag": "174f6fc4-34cf-5f99-af8e-75913fb8a010"
+          },
+          {
+            "name": "Partially Answered Rate",
+            "expression": "DIVIDE(CALCULATE(COUNTROWS(FactMSLPartnerUsage), FactMSLPartnerUsage[AnswerQuality] = \"Partially Answered\"), [Total MSL Queries], 0)",
+            "displayFolder": "MSL Partner Usage",
+            "lineageTag": "ebb5d118-cfcf-2da2-0a95-e586efab0a69"
+          },
+          {
+            "name": "No Answer Rate",
+            "expression": "DIVIDE(CALCULATE(COUNTROWS(FactMSLPartnerUsage), FactMSLPartnerUsage[AnswerQuality] = \"No Answer Found\"), [Total MSL Queries], 0)",
+            "displayFolder": "MSL Partner Usage",
+            "lineageTag": "b622848b-1b7f-f53f-09af-b474e8835add"
+          },
+          {
+            "name": "Avg Time to Answer Sec",
+            "expression": "AVERAGE(FactMSLPartnerUsage[TimeToAnswerSec])",
+            "displayFolder": "MSL Partner Usage",
+            "lineageTag": "21df5686-ef8d-58ad-5e4b-dc73007ef5b5"
+          },
+          {
+            "name": "Total Time Saved Hours",
+            "expression": "DIVIDE(SUM(FactMSLPartnerUsage[TimeSavedMinutes]), 60, 0)",
+            "displayFolder": "MSL Partner Usage",
+            "lineageTag": "0ee2ed42-4e32-1cbb-7dc7-30b8deefae95"
+          },
+          {
+            "name": "Avg Time Saved Per Query Min",
+            "expression": "AVERAGE(FactMSLPartnerUsage[TimeSavedMinutes])",
+            "displayFolder": "MSL Partner Usage",
+            "lineageTag": "888aa741-6250-125b-e095-f5c05f1272c3"
+          },
+          {
+            "name": "Used in HCP Interaction Rate",
+            "expression": "DIVIDE(CALCULATE(COUNTROWS(FactMSLPartnerUsage), FactMSLPartnerUsage[UsedInHCPInteraction] = 1), [Total MSL Queries], 0)",
+            "displayFolder": "MSL Partner Usage",
+            "lineageTag": "90a06495-97e9-c62b-6186-8099f4e448ce"
+          },
+          {
+            "name": "Avg MSL Satisfaction",
+            "expression": "AVERAGE(FactMSLPartnerUsage[UserSatisfaction])",
+            "displayFolder": "MSL Partner Usage",
+            "lineageTag": "7e84f35c-7be7-61ae-3845-fad70f385fd2"
+          },
+          {
+            "name": "Total Experiments",
+            "expression": "COUNTROWS(DimExperiment)",
+            "displayFolder": "Experiment Tracking",
+            "lineageTag": "00b344f6-03ff-13a9-263d-ee413073e13a"
+          },
+          {
+            "name": "Concluded Experiments",
+            "expression": "CALCULATE(COUNTROWS(DimExperiment), LEFT(DimExperiment[Status], 9) = \"Concluded\")",
+            "displayFolder": "Experiment Tracking",
+            "lineageTag": "22c06d8f-9091-8372-a6eb-23fc8983547f"
+          },
+          {
+            "name": "Running Experiments",
+            "expression": "CALCULATE(COUNTROWS(DimExperiment), DimExperiment[Status] = \"Running\")",
+            "displayFolder": "Experiment Tracking",
+            "lineageTag": "884f0b6b-efb3-655a-c457-ccfa8980e8ad"
+          },
+          {
+            "name": "Win Rate",
+            "expression": "DIVIDE(CALCULATE(COUNTROWS(DimExperiment), DimExperiment[Status] = \"Concluded - Winner\"), [Concluded Experiments], 0)",
+            "displayFolder": "Experiment Tracking",
+            "lineageTag": "fb764385-00e1-67b7-7b9b-5749cf296034"
+          },
+          {
+            "name": "Avg Observed Lift",
+            "expression": "CALCULATE(AVERAGE(DimExperiment[ObservedLift]), DimExperiment[Status] = \"Concluded - Winner\")",
+            "displayFolder": "Experiment Tracking",
+            "lineageTag": "15f241ca-d4b1-e3c8-a45c-8a859d357f9e"
+          },
+          {
+            "name": "Experiment Lift",
+            "expression": "AVERAGE(DimExperiment[ObservedLift])",
+            "displayFolder": "Experiment Tracking",
+            "lineageTag": "eba952e9-ea59-cf54-8c0f-03375b772d63"
+          },
+          {
+            "name": "Total Revenue USD",
+            "expression": "SUM(FactFinancials[TotalRevenue_USD])",
+            "displayFolder": "Financials",
+            "lineageTag": "b644b806-afb7-4943-1c43-efb23a2240db"
+          },
+          {
+            "name": "Total Cost EUR",
+            "expression": "SUM(FactFinancials[TotalCost_EUR])",
+            "displayFolder": "Financials",
+            "lineageTag": "3f2b767d-3533-8e80-fe94-4c57d7e83d21"
+          },
+          {
+            "name": "Gross Margin USD",
+            "expression": "SUM(FactFinancials[GrossMargin_USD])",
+            "displayFolder": "Financials",
+            "lineageTag": "45c28f60-93e7-5973-6b69-bdee34408296"
+          },
+          {
+            "name": "Gross Margin Pct",
+            "expression": "DIVIDE([Gross Margin USD], [Total Revenue USD], 0)",
+            "displayFolder": "Financials",
+            "lineageTag": "c29a915e-73ec-8919-0981-92ae3a43cd22"
+          },
+          {
+            "name": "Avg Cost Per Call",
+            "expression": "AVERAGE(FactFinancials[CostPerCall_EUR])",
+            "displayFolder": "Financials",
+            "lineageTag": "b6d22a9b-ed9d-1196-01b8-a1e719e0f4e7"
+          },
+          {
+            "name": "Avg Cost Per Case",
+            "expression": "AVERAGE(FactFinancials[CostPerCase_EUR])",
+            "displayFolder": "Financials",
+            "lineageTag": "fff4c9b6-cd3e-2b10-7113-5e001c003423"
+          },
+          {
+            "name": "Cost Breakdown Rep Pct",
+            "expression": "DIVIDE(SUM(FactFinancials[RepCost_EUR]), [Total Cost EUR], 0)",
+            "displayFolder": "Financials",
+            "lineageTag": "5d6ca309-a572-e150-aca4-4ef1b4344ba6"
+          },
+          {
+            "name": "Calls L4W",
+            "expression": "CALCULATE([Total Calls], DATESINPERIOD(DimCalendar[Date], MAX(DimCalendar[Date]), -28, DAY))",
+            "displayFolder": "Time Intelligence",
+            "lineageTag": "cfdf3ec4-fff1-4077-47aa-aaa14dc1f670"
+          },
+          {
+            "name": "Connect Rate L4W",
+            "expression": "CALCULATE([Connect Rate], DATESINPERIOD(DimCalendar[Date], MAX(DimCalendar[Date]), -28, DAY))",
+            "displayFolder": "Time Intelligence",
+            "lineageTag": "f5788271-d5a3-fa5d-a862-c107bf287f8c"
+          },
+          {
+            "name": "Calls MoM Change",
+            "expression": "VAR Current = [Total Calls] VAR Prior = CALCULATE([Total Calls], DATEADD(DimCalendar[Date], -1, MONTH)) RETURN DIVIDE(Current - Prior, Prior, 0)",
+            "displayFolder": "Time Intelligence",
+            "lineageTag": "9e2eb483-db94-2f16-10bc-db96e2e16989"
+          },
+          {
+            "name": "Connect Rate MoM Change",
+            "expression": "[Connect Rate] - CALCULATE([Connect Rate], DATEADD(DimCalendar[Date], -1, MONTH))",
+            "displayFolder": "Time Intelligence",
+            "lineageTag": "db3ab6bd-8f88-c68f-fb7a-c578218e5c69"
+          },
+          {
+            "name": "Abandonment Rate MoM Change",
+            "expression": "[Abandonment Rate] - CALCULATE([Abandonment Rate], DATEADD(DimCalendar[Date], -1, MONTH))",
+            "displayFolder": "Time Intelligence",
+            "lineageTag": "170530eb-c7c8-7f4c-aab4-7b56498ccdc0"
+          },
+          {
+            "name": "Script Deviation Rate",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[ScriptDeviation] = 1), [Connected Calls], 0)",
+            "displayFolder": "Compliance & Quality",
+            "lineageTag": "2751c437-5af2-ff98-5fae-ba01df2dec0c"
+          },
+          {
+            "name": "Avg Call Quality Score",
+            "expression": "CALCULATE(AVERAGE(FactHCPCalls[CallQualityScore]), NOT(ISBLANK(FactHCPCalls[CallQualityScore])))",
+            "displayFolder": "Compliance & Quality",
+            "lineageTag": "a1fadf93-6358-3bd0-da1a-35a8641ec975"
+          },
+          {
+            "name": "AE Flag Rate",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[AdverseEventFlagged] = 1), [Connected Calls], 0)",
+            "displayFolder": "Compliance & Quality",
+            "lineageTag": "c52bc21f-f2f9-15d7-2e3b-9f4b38da701b"
+          },
+          {
+            "name": "High Quality Calls Pct",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[CallQualityScore] >= 7), CALCULATE([Total Calls], NOT(ISBLANK(FactHCPCalls[CallQualityScore]))), 0)",
+            "displayFolder": "Compliance & Quality",
+            "lineageTag": "899b94d9-55b2-13f8-353d-e309d444f98c"
+          },
+          {
+            "name": "Low Quality Calls Pct",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[CallQualityScore] <= 4), CALCULATE([Total Calls], NOT(ISBLANK(FactHCPCalls[CallQualityScore]))), 0)",
+            "displayFolder": "Compliance & Quality",
+            "lineageTag": "df3ffa41-df40-9002-8465-4559a2bd8a3e"
+          },
+          {
+            "name": "Quality Adjusted Productivity",
+            "expression": "[Meaningful Per Rep Per Day] * [Avg Call Quality Score] / 10",
+            "displayFolder": "Workforce Efficiency",
+            "lineageTag": "e67be570-4fdc-c646-83af-3dd7cdee8dfe"
+          },
+          {
+            "name": "Utilization Rate",
+            "expression": "DIVIDE([Total Calls] * [Avg AHT], DISTINCTCOUNT(FactHCPCalls[RepID]) * DISTINCTCOUNT(FactHCPCalls[CallDate]) * 480, 0)",
+            "displayFolder": "Workforce Efficiency",
+            "lineageTag": "3785253b-79dc-0d86-0b5e-fa508eb7a10d"
+          },
+          {
+            "name": "Calls Per Productive Hour",
+            "expression": "DIVIDE([Total Calls], [Total Calls] * [Avg AHT] / 60, 0)",
+            "displayFolder": "Workforce Efficiency",
+            "lineageTag": "a215ce8d-d336-958a-7d76-d57f5d3f2867"
+          },
+          {
+            "name": "Deviation Rate by Tenure",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[ScriptDeviation] = 1), [Total Calls], 0)",
+            "displayFolder": "Workforce Efficiency",
+            "lineageTag": "78ed7da0-2bac-5970-a6f4-326ffd554d30"
+          },
+          {
+            "name": "Phone Calls Pct",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Channel] = \"Phone\"), [Total Calls], 0)",
+            "displayFolder": "Channel Mix",
+            "lineageTag": "74cb4e7c-a981-3267-a7b9-a2c7d752cc62"
+          },
+          {
+            "name": "Email Pct",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Channel] = \"Email\"), [Total Calls], 0)",
+            "displayFolder": "Channel Mix",
+            "lineageTag": "54dacca4-1804-0d7f-c1fd-1a74b328d834"
+          },
+          {
+            "name": "Video Pct",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Channel] = \"Video\"), [Total Calls], 0)",
+            "displayFolder": "Channel Mix",
+            "lineageTag": "8f42dd0c-72e9-8d0a-4086-63d85a89ca4f"
+          },
+          {
+            "name": "Connect Rate by Channel Phone",
+            "expression": "DIVIDE(CALCULATE([Total Calls], FactHCPCalls[Channel] = \"Phone\", FactHCPCalls[IsConnected] = 1), CALCULATE([Total Calls], FactHCPCalls[Channel] = \"Phone\"), 0)",
+            "displayFolder": "Channel Mix",
+            "lineageTag": "4283925e-3ae7-bd94-e36e-fe36ba4c1495"
+          },
+          {
+            "name": "Connect Rate RAG",
+            "expression": "SWITCH(TRUE(), [Connect Rate] >= 0.35, \"Green\", [Connect Rate] >= 0.25, \"Amber\", \"Red\")",
+            "displayFolder": "RAG Indicators",
+            "lineageTag": "0b308148-ff02-3342-1970-9dc328896192"
+          },
+          {
+            "name": "Abandonment Rate RAG",
+            "expression": "SWITCH(TRUE(), [Abandonment Rate] <= 0.15, \"Green\", [Abandonment Rate] <= 0.25, \"Amber\", \"Red\")",
+            "displayFolder": "RAG Indicators",
+            "lineageTag": "91111af5-c354-2d0b-55b0-1deda221b4df"
+          },
+          {
+            "name": "Time to Therapy RAG",
+            "expression": "SWITCH(TRUE(), [Avg Time to Therapy] <= 20, \"Green\", [Avg Time to Therapy] <= 35, \"Amber\", \"Red\")",
+            "displayFolder": "RAG Indicators",
+            "lineageTag": "b2885eb0-9f9a-28df-0a90-bdcb0c81a7c9"
+          },
+          {
+            "name": "PA Approval Rate RAG",
+            "expression": "SWITCH(TRUE(), [PA Approval Rate] >= 0.70, \"Green\", [PA Approval Rate] >= 0.55, \"Amber\", \"Red\")",
+            "displayFolder": "RAG Indicators",
+            "lineageTag": "b71c91ed-f883-de84-7cf5-b409f5070791"
+          },
+          {
+            "name": "Schedule Adherence RAG",
+            "expression": "SWITCH(TRUE(), [Schedule Adherence Rate] >= 0.85, \"Green\", [Schedule Adherence Rate] >= 0.75, \"Amber\", \"Red\")",
+            "displayFolder": "RAG Indicators",
+            "lineageTag": "2f37816a-bf3c-feed-7e03-6918944195ff"
+          },
+          {
+            "name": "MSL Answer Quality RAG",
+            "expression": "SWITCH(TRUE(), [Fully Answered Rate] >= 0.70, \"Green\", [Fully Answered Rate] >= 0.55, \"Amber\", \"Red\")",
+            "displayFolder": "RAG Indicators",
+            "lineageTag": "3c8487b1-3494-e0a1-7d59-2a73671ad834"
+          },
+          {
+            "name": "Script Deviation RAG",
+            "expression": "SWITCH(TRUE(), [Script Deviation Rate] <= 0.05, \"Green\", [Script Deviation Rate] <= 0.15, \"Amber\", \"Red\")",
+            "displayFolder": "RAG Indicators",
+            "lineageTag": "be12ac3a-ca4e-2db2-3d29-e4e9711e0bfe"
+          },
+          {
+            "name": "Avg Days Rx to Contact",
+            "expression": "CALCULATE(AVERAGEX(FactPatientCases, DATEDIFF(FactPatientCases[RxDate], FactPatientCases[FirstContactDate], DAY)), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Access Bottleneck",
+            "lineageTag": "cc92789f-d313-304f-4dd6-52a502cc821d"
+          },
+          {
+            "name": "Avg Days Contact to PA Submit",
+            "expression": "CALCULATE(AVERAGEX(FactPatientCases, DATEDIFF(FactPatientCases[FirstContactDate], FactPatientCases[PASubmitDate], DAY)), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Access Bottleneck",
+            "lineageTag": "bdf2dbfd-b31b-23db-1848-e5f829a3ca02"
+          },
+          {
+            "name": "Avg Days PA Submit to Decision",
+            "expression": "CALCULATE(AVERAGEX(FILTER(FactPatientCases, NOT(ISBLANK(FactPatientCases[PADecisionDate]))), DATEDIFF(FactPatientCases[PASubmitDate], FactPatientCases[PADecisionDate], DAY)), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Access Bottleneck",
+            "lineageTag": "919b5f59-fd12-a342-0c1e-044f6f73990d"
+          },
+          {
+            "name": "Avg Days Decision to Fulfillment",
+            "expression": "CALCULATE(AVERAGEX(FILTER(FactPatientCases, NOT(ISBLANK(FactPatientCases[FulfillmentDate]))), DATEDIFF(FactPatientCases[PADecisionDate], FactPatientCases[FulfillmentDate], DAY)), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Access Bottleneck",
+            "lineageTag": "b683d536-06d0-5314-25ea-40bbca8e586f"
+          },
+          {
+            "name": "Avg Days Fulfillment to First Dose",
+            "expression": "CALCULATE(AVERAGEX(FILTER(FactPatientCases, NOT(ISBLANK(FactPatientCases[FirstDoseDate]))), DATEDIFF(FactPatientCases[FulfillmentDate], FactPatientCases[FirstDoseDate], DAY)), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Access Bottleneck",
+            "lineageTag": "08d43839-751e-ffcc-e135-e77ad1f424e0"
+          },
+          {
+            "name": "Total Handling Minutes",
+            "expression": "SUM(FactHCPCalls[AHT_Minutes])",
+            "displayFolder": "Selling Time vs Admin",
+            "lineageTag": "eb88c2db-a32f-4ba1-1f8b-d46ecbad759b"
+          },
+          {
+            "name": "Selling Minutes",
+            "expression": "CALCULATE(SUM(FactHCPCalls[DurationMinutes]), FactHCPCalls[IsConnected] = 1)",
+            "displayFolder": "Selling Time vs Admin",
+            "lineageTag": "b06b90e2-d588-6fea-df5a-07cc5483d56c"
+          },
+          {
+            "name": "Selling Time Pct",
+            "expression": "DIVIDE([Selling Minutes], [Total Handling Minutes], 0)",
+            "displayFolder": "Selling Time vs Admin",
+            "lineageTag": "4793f13d-fd8a-adb6-e515-81424d1e6ca0"
+          },
+          {
+            "name": "Admin Time Pct",
+            "expression": "DIVIDE(SUM(FactHCPCalls[AfterCallWorkMinutes]), [Total Handling Minutes], 0)",
+            "displayFolder": "Selling Time vs Admin",
+            "lineageTag": "bb44bd97-90d6-f942-e02f-7d60d739284a"
+          },
+          {
+            "name": "Positive Sentiment Pct",
+            "expression": "DIVIDE(\n    CALCULATE([Total Calls], FactHCPCalls[SentimentBand] = \"Positive\"),\n    CALCULATE([Total Calls], NOT(ISBLANK(FactHCPCalls[HCPSentimentScore]))), 0)",
+            "displayFolder": "Sentiment & Insight Engine",
+            "lineageTag": "e29ceb6f-7f16-bba1-371a-f1532e5d6d5b"
+          },
+          {
+            "name": "Negative Sentiment Pct",
+            "expression": "DIVIDE(\n    CALCULATE([Total Calls], FactHCPCalls[SentimentBand] = \"Negative\"),\n    CALCULATE([Total Calls], NOT(ISBLANK(FactHCPCalls[HCPSentimentScore]))), 0)",
+            "displayFolder": "Sentiment & Insight Engine",
+            "lineageTag": "0e434f09-2843-d691-3373-7b28054292d4"
+          },
+          {
+            "name": "Avg Uplift",
+            "expression": "AVERAGE(FactUplift[uplift])",
+            "displayFolder": "Sentiment & Insight Engine",
+            "lineageTag": "44834f23-0520-1c8c-56ef-d58b5f5554c0"
+          },
+          {
+            "name": "Avg Importance",
+            "expression": "AVERAGE(FeatureImportance[importance])",
+            "displayFolder": "Sentiment & Insight Engine",
+            "lineageTag": "9fecbae6-e370-24a3-d138-67261745c175"
+          },
+          {
+            "name": "Avg Shap Importance",
+            "expression": "AVERAGE(ShapImportance[mean_abs_shap])",
+            "displayFolder": "Sentiment & Insight Engine",
+            "lineageTag": "31cf3518-54e8-5257-7db2-ced07f38ac79"
+          },
+          {
+            "name": "Last Data Date",
+            "expression": "CALCULATE(MAX(FactHCPCalls[CallDate]), ALL(FactHCPCalls), ALL(DimCalendar))",
+            "displayFolder": "Recent Activity \u2014 as-of latest data date",
+            "lineageTag": "b68e9646-1f2f-879a-9bd0-e37c5c9687c5"
+          },
+          {
+            "name": "Calls Last 7 Days",
+            "expression": "CALCULATE([Total Calls], DATESINPERIOD(DimCalendar[Date], [Last Data Date], -7, DAY))",
+            "displayFolder": "Recent Activity \u2014 as-of latest data date",
+            "lineageTag": "970f4caa-013a-03ee-3f78-dbf9a369ed8e"
+          },
+          {
+            "name": "Calls Prior 7 Days",
+            "expression": "CALCULATE([Total Calls], DATESINPERIOD(DimCalendar[Date], [Last Data Date] - 7, -7, DAY))",
+            "displayFolder": "Recent Activity \u2014 as-of latest data date",
+            "lineageTag": "65b036a2-18e6-e583-f930-9b5963555b2e"
+          },
+          {
+            "name": "Calls WoW Change",
+            "expression": "DIVIDE([Calls Last 7 Days] - [Calls Prior 7 Days], [Calls Prior 7 Days], 0)",
+            "displayFolder": "Recent Activity \u2014 as-of latest data date",
+            "lineageTag": "6bdefb75-5a78-2072-9c59-57ff7f3874ec"
+          },
+          {
+            "name": "Connect Rate Last 7 Days",
+            "expression": "CALCULATE([Connect Rate], DATESINPERIOD(DimCalendar[Date], [Last Data Date], -7, DAY))",
+            "displayFolder": "Recent Activity \u2014 as-of latest data date",
+            "lineageTag": "95663c14-904e-20d7-20d8-071d328935dc"
+          },
+          {
+            "name": "Cases First Contacted",
+            "expression": "CALCULATE(COUNTROWS(FactPatientCases), NOT(ISBLANK(FactPatientCases[FirstContactDate])), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Funnel Stage Counts",
+            "lineageTag": "f6169434-5e9c-e174-2951-dcb1eb12cd3f"
+          },
+          {
+            "name": "Cases PA Submitted",
+            "expression": "CALCULATE(COUNTROWS(FactPatientCases), NOT(ISBLANK(FactPatientCases[PASubmitDate])), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Funnel Stage Counts",
+            "lineageTag": "8642f009-defc-a6ff-352e-f67131c7b659"
+          },
+          {
+            "name": "Cases PA Approved",
+            "expression": "CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[PAStatus] = \"Approved\", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Funnel Stage Counts",
+            "lineageTag": "a60ab2dc-75de-ffbf-4014-ca9bbb011c69"
+          },
+          {
+            "name": "Cases Fulfilled",
+            "expression": "CALCULATE(COUNTROWS(FactPatientCases), NOT(ISBLANK(FactPatientCases[FulfillmentDate])), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Funnel Stage Counts",
+            "lineageTag": "88865394-53dd-95d2-39aa-fc6693664593"
+          },
+          {
+            "name": "Cases On Therapy",
+            "expression": "CALCULATE(COUNTROWS(FactPatientCases), NOT(ISBLANK(FactPatientCases[FirstDoseDate])), USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Patient Funnel Stage Counts",
+            "lineageTag": "d78af7d7-ca61-bd18-d5d6-efb793024ccd"
+          },
+          {
+            "name": "Open High Risk Cases",
+            "expression": "CALCULATE(COUNTROWS(FactPatientCases), FactPatientCases[Open Case Age Bucket] = \"14d+\", USERELATIONSHIP(FactPatientCases[RxDate], DimCalendar[Date]))",
+            "displayFolder": "Open-Case Aging",
+            "lineageTag": "06e68b68-0bb4-3ef1-5fc3-45c6f93444e4"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "c286f559-82a4-f53e-4d75-d2f90ed36fab",
+        "fromTable": "FactHCPCalls",
+        "fromColumn": "CallDate",
+        "toTable": "DimCalendar",
+        "toColumn": "Date",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "e16cca27-9058-d0e7-30bd-983105bf1b1d",
+        "fromTable": "FactPatientCases",
+        "fromColumn": "RxDate",
+        "toTable": "DimCalendar",
+        "toColumn": "Date",
+        "isActive": false,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "20a2bb3e-97cd-c8f5-1d8d-f8e095298c87",
+        "fromTable": "FactRx",
+        "fromColumn": "RxDate",
+        "toTable": "DimCalendar",
+        "toColumn": "Date",
+        "isActive": false,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "00258def-8424-c6c4-e158-8bfa69e3dcf7",
+        "fromTable": "FactMSLPartnerUsage",
+        "fromColumn": "UsageDate",
+        "toTable": "DimCalendar",
+        "toColumn": "Date",
+        "isActive": false,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "b0bcde9e-db6f-43d7-0b19-41ea8ee1c8f6",
+        "fromTable": "FactFinancials",
+        "fromColumn": "MonthDate",
+        "toTable": "DimCalendar",
+        "toColumn": "Date",
+        "isActive": false,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "699b3047-b866-1d7c-5d5c-2e9fae187e4b",
+        "fromTable": "FactHCPCalls",
+        "fromColumn": "RepID",
+        "toTable": "DimRep",
+        "toColumn": "RepID",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "28c27aaa-5ff9-a98e-3270-d1aee60f49dd",
+        "fromTable": "FactHCPCalls",
+        "fromColumn": "HCPID",
+        "toTable": "DimHCP",
+        "toColumn": "HCPID",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "68e80417-b803-4d6d-d292-2fd28cf7f250",
+        "fromTable": "FactPatientCases",
+        "fromColumn": "PatientID",
+        "toTable": "DimPatient",
+        "toColumn": "PatientID",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "6a6aa9a7-5074-dc2c-f939-b82791cd98ad",
+        "fromTable": "FactPatientCases",
+        "fromColumn": "RepID",
+        "toTable": "DimRep",
+        "toColumn": "RepID",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "b05e652c-71a1-bc7b-6100-c0fae9d2ee09",
+        "fromTable": "FactRx",
+        "fromColumn": "HCPID",
+        "toTable": "DimHCP",
+        "toColumn": "HCPID",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "27761687-e991-addd-6764-c1f618f600f6",
+        "fromTable": "FactMSLPartnerUsage",
+        "fromColumn": "RepID",
+        "toTable": "DimRep",
+        "toColumn": "RepID",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "b7b3062e-f21c-3475-c2c2-d1336676d7fd",
+        "fromTable": "FactHCPCalls",
+        "fromColumn": "Drug",
+        "toTable": "DimDrug",
+        "toColumn": "DrugName",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "2419b1d1-d01a-9ef6-53f5-63daee2c14b4",
+        "fromTable": "FactPatientCases",
+        "fromColumn": "Drug",
+        "toTable": "DimDrug",
+        "toColumn": "DrugName",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "61f03744-ac5a-5747-9d5b-948b9242fdda",
+        "fromTable": "FactRx",
+        "fromColumn": "Drug",
+        "toTable": "DimDrug",
+        "toColumn": "DrugName",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      },
+      {
+        "name": "be6918f0-02a1-dbde-8c60-dbc92447922f",
+        "fromTable": "FactMSLPartnerUsage",
+        "fromColumn": "Drug",
+        "toTable": "DimDrug",
+        "toColumn": "DrugName",
+        "isActive": true,
+        "crossFilteringBehavior": "oneDirection"
+      }
+    ],
+    "expressions": [
+      {
+        "name": "SourceFolder",
+        "kind": "m",
+        "expression": "\"C:\\\\Users\\\\me\\\\Documents\\\\powerbi-code-first-dashboards\\\\epikast\\\\data\\\\\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"DimCalendar\", \"DimDrug\", \"DimExperiment\", \"DimHCP\", \"DimNBA\", \"DimPatient\", \"DimRep\", \"FactFinancials\", \"FactHCPCalls\", \"FactMSLPartnerUsage\", \"FactPatientCases\", \"FactRx\", \"FactUplift\", \"FeatureImportance\", \"_Measures\"]"
+      }
+    ]
+  }
+}

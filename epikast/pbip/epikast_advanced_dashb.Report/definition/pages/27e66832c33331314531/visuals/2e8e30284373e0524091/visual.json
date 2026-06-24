@@ -1,0 +1,158 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "2e8e30284373e0524091",
+  "position": {
+    "x": 20,
+    "y": 105,
+    "z": 1000,
+    "height": 595,
+    "width": 620,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "scriptVisual",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactUplift"
+                    }
+                  },
+                  "Property": "outcome"
+                }
+              },
+              "queryRef": "FactUplift.outcome",
+              "nativeQueryRef": "outcome"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactUplift"
+                    }
+                  },
+                  "Property": "segment_type"
+                }
+              },
+              "queryRef": "FactUplift.segment_type",
+              "nativeQueryRef": "segment_type"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactUplift"
+                    }
+                  },
+                  "Property": "segment_value"
+                }
+              },
+              "queryRef": "FactUplift.segment_value",
+              "nativeQueryRef": "segment_value"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactUplift"
+                    }
+                  },
+                  "Property": "tactic"
+                }
+              },
+              "queryRef": "FactUplift.tactic",
+              "nativeQueryRef": "tactic"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactUplift"
+                    }
+                  },
+                  "Property": "uplift"
+                }
+              },
+              "queryRef": "FactUplift.uplift",
+              "nativeQueryRef": "uplift"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactUplift"
+                    }
+                  },
+                  "Property": "ci_low"
+                }
+              },
+              "queryRef": "FactUplift.ci_low",
+              "nativeQueryRef": "ci_low"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactUplift"
+                    }
+                  },
+                  "Property": "ci_high"
+                }
+              },
+              "queryRef": "FactUplift.ci_high",
+              "nativeQueryRef": "ci_high"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactUplift"
+                    }
+                  },
+                  "Property": "significant"
+                }
+              },
+              "queryRef": "FactUplift.significant",
+              "nativeQueryRef": "significant"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "script": [
+        {
+          "properties": {
+            "source": {
+              "expr": {
+                "Literal": {
+                  "Value": "'\nlibrary(ggplot2)\ndf <- dataset\ndf <- df[order(df$uplift),]\ndf$tactic <- factor(df$tactic, levels=unique(df$tactic))\ndf$Significant <- ifelse(df$significant==1,\\'Significant\\',\\'Not significant\\')\nggplot(df, aes(x=uplift, y=tactic, color=Significant)) +\n  geom_vline(xintercept=0, linetype=\\'dashed\\', color=\\'grey50\\') +\n  geom_errorbarh(aes(xmin=ci_low, xmax=ci_high), height=0.25) +\n  geom_point(size=3.5) +\n  scale_color_manual(values=c(\\'Significant\\'=\\'#2E8B57\\',\\'Not significant\\'=\\'grey60\\')) +\n  labs(title=\\'Uplift by tactic (95% CI)\\', x=\\'Uplift\\', y=NULL) +\n  theme_minimal(base_size=13)\n'"
+                }
+              }
+            },
+            "provider": {
+              "expr": {
+                "Literal": {
+                  "Value": "'R'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

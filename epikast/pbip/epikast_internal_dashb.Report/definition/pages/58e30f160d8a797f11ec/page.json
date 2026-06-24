@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "58e30f160d8a797f11ec",
+  "displayName": "Rep Productivity",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280
+}

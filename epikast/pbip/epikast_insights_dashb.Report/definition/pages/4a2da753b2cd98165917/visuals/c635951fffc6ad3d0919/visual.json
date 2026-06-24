@@ -1,0 +1,126 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "c635951fffc6ad3d0919",
+  "position": {
+    "x": 20,
+    "y": 105,
+    "z": 1000,
+    "height": 405,
+    "width": 760,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "keyDriversVisual",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Analyze": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "IsAbandoned"
+                }
+              },
+              "queryRef": "FactPatientCases.IsAbandoned",
+              "nativeQueryRef": "IsAbandoned"
+            }
+          ]
+        },
+        "ExplainBy": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "InsuranceType"
+                }
+              },
+              "queryRef": "FactPatientCases.InsuranceType",
+              "nativeQueryRef": "InsuranceType"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "PAStatus"
+                }
+              },
+              "queryRef": "FactPatientCases.PAStatus",
+              "nativeQueryRef": "PAStatus"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "FirstContactDelayDays"
+                }
+              },
+              "queryRef": "FactPatientCases.FirstContactDelayDays",
+              "nativeQueryRef": "FirstContactDelayDays"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimPatient"
+                    }
+                  },
+                  "Property": "AgeGroup"
+                }
+              },
+              "queryRef": "DimPatient.AgeGroup",
+              "nativeQueryRef": "AgeGroup"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimPatient"
+                    }
+                  },
+                  "Property": "TherapyArea"
+                }
+              },
+              "queryRef": "DimPatient.TherapyArea",
+              "nativeQueryRef": "TherapyArea"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactPatientCases"
+                    }
+                  },
+                  "Property": "Drug"
+                }
+              },
+              "queryRef": "FactPatientCases.Drug",
+              "nativeQueryRef": "Drug"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
