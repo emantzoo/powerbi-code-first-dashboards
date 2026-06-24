@@ -4,36 +4,36 @@ How one command (`generate_pbip.py`) produces five openable Power BI reports.
 
 ```mermaid
 flowchart TD
-    MD([Epikast_Dashboard_Prompts.md\nTables · DAX · Visual layout spec])
+    MD([Epikast_Dashboard_Prompts.md])
 
     subgraph MODEL["① Semantic Model"]
-        TSP[generate_tabular_script.py\nParses DAX measures from .md]
-        GSM[generate_semantic_model.py\nBuilds model.bim]
-        BIM([Epikast.SemanticModel/model.bim\nTables · M partitions · Relationships\nDAX measures · SourceFolder param])
+        TSP[generate_tabular_script.py]
+        GSM[generate_semantic_model.py]
+        BIM([Epikast.SemanticModel / model.bim])
         MD --> TSP --> GSM --> BIM
     end
 
     subgraph ORCH["② Orchestrator"]
-        GPBIP[generate_pbip.py\npython epikast/scripts/generate_pbip.py]
+        GPBIP[generate_pbip.py]
     end
 
     MODEL --> ORCH
 
-    subgraph SCAFFOLD["③ Report Scaffold  ×5"]
-        PBB[workflow/pbip_builder.py\nscaffold_report\(\)]
-        FILES([".platform\ndefinition.pbir\ndefinition/report.json  ← schema 3.2.0 · CY26SU02\ndefinition/version.json\n&lt;report&gt;.pbip"])
+    subgraph SCAFFOLD["③ Report Scaffold x5"]
+        PBB[workflow/pbip_builder.py]
+        FILES([".platform · definition.pbir\nreport.json · version.json · .pbip"])
         PBB --> FILES
     end
 
-    subgraph PAGES["④ Page Generation  ×5"]
+    subgraph PAGES["④ Page Generation x5"]
         GP1[generate_pages_client.py]
         GP2[generate_pages_internal.py]
         GP3[generate_pages_ai.py]
         GP4[generate_pages_insights.py]
         GP5[generate_pages_advanced.py]
-        SHIM[epikast/scripts/pbir_lib.py\nthin shim]
-        LIB[workflow/pbir_lib.py\nmake_card · make_clustered_bar\nmake_line_chart · make_matrix\nwrite_page · write_pages_json\n... 40+ make_* functions]
-        JSON([pages/*/page.json\npages/*/visuals/*/visual.json\npages/pages.json])
+        SHIM[epikast/scripts/pbir_lib.py - shim]
+        LIB[workflow/pbir_lib.py\n40+ make_* visual builders]
+        JSON([pages JSON files])
 
         GP1 & GP2 & GP3 & GP4 & GP5 --> SHIM --> LIB --> JSON
     end
@@ -43,7 +43,7 @@ flowchart TD
 
     BIM & FILES & JSON --> PBIP
 
-    PBIP(["✅ epikast/pbip/\n  Epikast.SemanticModel/model.bim\n  epikast_client_dashb.pbip\n  epikast_internal_dashb.pbip\n  epikast_ai_dashb.pbip\n  epikast_insights_dashb.pbip\n  epikast_advanced_dashb.pbip\n\nDouble-click any .pbip in Power BI Desktop"])
+    PBIP(["epikast/pbip/ — 5 x .pbip\nOpen in Power BI Desktop"])
 ```
 
 ## File roles
