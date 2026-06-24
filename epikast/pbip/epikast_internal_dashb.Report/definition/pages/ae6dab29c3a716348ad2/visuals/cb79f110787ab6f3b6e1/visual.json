@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "cb79f110787ab6f3b6e1",
   "position": {
     "x": 20,
@@ -11,27 +11,9 @@
   },
   "visual": {
     "visualType": "pivotTable",
+    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
-        "Columns": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "FactHCPCalls"
-                    }
-                  },
-                  "Property": "CallTimeBucket"
-                }
-              },
-              "queryRef": "FactHCPCalls.CallTimeBucket",
-              "nativeQueryRef": "CallTimeBucket",
-              "active": true
-            }
-          ]
-        },
         "Rows": {
           "projections": [
             {
@@ -46,8 +28,25 @@
                 }
               },
               "queryRef": "DimCalendar.DayOfWeek",
-              "nativeQueryRef": "DayOfWeek",
-              "active": true
+              "nativeQueryRef": "DayOfWeek"
+            }
+          ]
+        },
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactHCPCalls"
+                    }
+                  },
+                  "Property": "CallTimeBucket"
+                }
+              },
+              "queryRef": "FactHCPCalls.CallTimeBucket",
+              "nativeQueryRef": "CallTimeBucket"
             }
           ]
         },
@@ -231,7 +230,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

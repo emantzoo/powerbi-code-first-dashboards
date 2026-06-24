@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "e41fd2904c5666172818",
   "position": {
     "x": 20,
@@ -11,6 +11,7 @@
   },
   "visual": {
     "visualType": "slicer",
+    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Values": {
@@ -27,13 +28,11 @@
                 }
               },
               "queryRef": "DimCalendar.YearMonth",
-              "nativeQueryRef": "YearMonth",
-              "active": true
+              "nativeQueryRef": "YearMonth"
             }
           ]
         }
       }
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

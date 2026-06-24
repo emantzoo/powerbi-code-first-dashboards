@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "909749c702ded08a4077",
   "position": {
     "x": 20,
@@ -11,6 +11,7 @@
   },
   "visual": {
     "visualType": "clusteredBarChart",
+    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Category": {
@@ -27,8 +28,7 @@
                 }
               },
               "queryRef": "DimRep.RepName",
-              "nativeQueryRef": "RepName",
-              "active": true
+              "nativeQueryRef": "RepName"
             }
           ]
         },
@@ -198,7 +198,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

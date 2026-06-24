@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "9a5ebe0fd9e207f28ece",
   "position": {
     "x": 650,
@@ -11,6 +11,7 @@
   },
   "visual": {
     "visualType": "slicer",
+    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Values": {
@@ -27,13 +28,11 @@
                 }
               },
               "queryRef": "DimHCP.TherapyArea",
-              "nativeQueryRef": "TherapyArea",
-              "active": true
+              "nativeQueryRef": "TherapyArea"
             }
           ]
         }
       }
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }

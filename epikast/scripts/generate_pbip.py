@@ -32,6 +32,11 @@ REPORTS = [
     ("epikast_ai_dashb",       "generate_pages_ai.py"),
     ("epikast_insights_dashb", "generate_pages_insights.py"),
     ("epikast_advanced_dashb", "generate_pages_advanced.py"),
+    ("epikast_ab_dashb",       "generate_pages_ab_tracker.py"),
+    ("epikast_ops_dashb",      "generate_pages_ops_overview.py"),
+    ("epikast_patient_dashb",  "generate_pages_patient_access.py"),
+    # ai_impact writes to the same folder as ai_dashb (condensed alt) — exclude from default build
+    # ("epikast_ai_dashb",    "generate_pages_ai_impact.py"),
 ]
 MODEL = "Epikast.SemanticModel"
 

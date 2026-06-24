@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "b0f5fe9c471703a6b79e",
   "position": {
     "x": 660,
@@ -11,6 +11,7 @@
   },
   "visual": {
     "visualType": "clusteredColumnChart",
+    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Category": {
@@ -27,8 +28,7 @@
                 }
               },
               "queryRef": "DimRep.Performance Tier",
-              "nativeQueryRef": "Performance Tier",
-              "active": true
+              "nativeQueryRef": "Performance Tier"
             }
           ]
         },
@@ -153,7 +153,6 @@
           }
         }
       ]
-    },
-    "drillFilterOtherVisuals": true
+    }
   }
 }
